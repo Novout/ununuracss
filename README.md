@@ -33,10 +33,11 @@ export default defineConfig({
 <template>
   <div>
     <div class="flex[col wrap] bg:gray text[white xl] p:20">
-      <p class="text[white xl bold]"></p>
+      <p class="text[white xl bold]">1</p>
+      <p class="text:#FF0000">2</p>
+      <p class="text:bold">3</p>
     </div>
   </div>
-  <div />
 </template>
 ```
 

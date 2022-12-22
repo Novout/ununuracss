@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node_version: [14, 16, 18]
+        node_version: [14, 16]
         include:
           - os: macos-latest
             node_version: 16
@@ -22,9 +22,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-
       - name: Set node ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
@@ -32,6 +29,9 @@ jobs:
           cache: pnpm
 
       - run: corepack enable
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
 
       - name: Install
         run: pnpm install
