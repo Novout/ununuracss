@@ -27,6 +27,19 @@ export default defineConfig({
 })
 ```
 
+## Example
+
+```vue
+<template>
+  <div>
+    <div class="flex[col wrap] bg:gray text[white xl] p:20">
+      <p class="text[white xl bold]"></p>
+    </div>
+  </div>
+  <div />
+</template>
+```
+
 ## Features
 
 - Zero dependencies
