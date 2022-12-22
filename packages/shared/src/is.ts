@@ -1,5 +1,6 @@
 import { NULLABLE } from './constants'
-import { UnunuraKeys } from './enums'
+import { UnunuraGlobals, UnunuraIdentifier, UnunuraKeys } from './enums'
+import { Option } from './types'
 
 export const isHex = (i: string): boolean => /^#[0-9a-fA-F]{6}/i.test(i)
 export const isNumber = (i: string): boolean => /[-]{0,1}[\d]*[.]{0,1}[\d]+/i.test(i)
@@ -155,8 +156,70 @@ export const isCSSColor = (i: string): boolean =>
     'Yellow',
     'YellowGreen',
   ].some((c) => c.toLowerCase() === i.toLowerCase())
-export const isRGBColor = (i: string): boolean => i.startsWith('rgb(')
-export const isHSLColor = (i: string): boolean => i.startsWith('hsl(')
+export const isDefaultFont = (i: string): boolean =>
+  [
+    'Arial',
+    'Arial Black',
+    'Bahnschrift',
+    'Calibri',
+    'Cambria',
+    'Cambria Math',
+    'Candara',
+    'Comic Sans MS',
+    'Consolas',
+    'Constantia',
+    'Corbel',
+    'Courier New',
+    'Ebrima',
+    'Franklin Gothic Medium',
+    'Gabriola',
+    'Gadugi',
+    'Georgia',
+    'HoloLens MDL2 Assets',
+    'Impact',
+    'Ink Free',
+    'Javanese Text',
+    'Leelawadee UI',
+    'Lucida Console',
+    'Lucida Sans Unicode',
+    'Malgun Gothic',
+    'Marlett',
+    'Microsoft Himalaya',
+    'Microsoft JhengHei',
+    'Microsoft New Tai Lue',
+    'Microsoft PhagsPa',
+    'Microsoft Sans Serif',
+    'Microsoft Tai Le',
+    'Microsoft YaHei',
+    'Microsoft Yi Baiti',
+    'MingLiU-ExtB',
+    'Mongolian Baiti',
+    'MS Gothic',
+    'MV Boli',
+    'Myanmar Text',
+    'Nirmala UI',
+    'Palatino Linotype',
+    'Segoe MDL2 Assets',
+    'Segoe Print',
+    'Segoe Script',
+    'Segoe UI',
+    'Segoe UI Historic',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    'SimSun',
+    'Sitka',
+    'Sylfaen',
+    'Symbol',
+    'Tahoma',
+    'Times New Roman',
+    'Trebuchet MS',
+    'Verdana',
+    'Webdings',
+    'Wingdings',
+    'Yu Gothic',
+  ].some((c) => c.toLowerCase() === i.toLowerCase())
+export const isRGBColor = (i: string): boolean => i.startsWith('rgb')
+export const isHSLColor = (i: string): boolean => i.startsWith('hsl')
 export const isHTTPSImage = (i: string): boolean => /(https?:\/\/.*\.(?:png|jpg|gif|jpe?g|tiff?|png|webp|bmp))/i.test(i)
 export const isImage = (i: string): boolean => /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(i)
 export const isBorderStyle = (i: string): boolean => ['solid', 'dotted', 'dashed'].some((c) => c === i)
@@ -167,3 +230,7 @@ export const isUniqueKey = (key: string) => key === UnunuraKeys.UniqueContext
 export const isOpenMultipleKey = (key: string) => key === UnunuraKeys.MultipleContextOpen
 export const isCloseMultipleKey = (key: string) => key === UnunuraKeys.MultipleContextClose
 export const isContextKey = (key: string) => isUniqueKey(key) || isOpenMultipleKey(key) || isCloseMultipleKey(key)
+
+export const isKey = (char: string): boolean => Object.values(UnunuraKeys).some((key) => key === char)
+export const isIdentifier = (str: string): boolean => Object.values(UnunuraIdentifier).some((key) => key === str)
+export const isGlobal = (str: string): Option<string> => Object.values(UnunuraGlobals).find((key) => str.startsWith(key))

@@ -1,4 +1,4 @@
-import { UnunuraIdentifier, NULLABLE, UnunuraKeys, UNUNURA_IDENTIFIERS } from 'ununura-shared'
+import { UnunuraIdentifier, NULLABLE, UnunuraKeys } from 'ununura-shared'
 import { lex } from './lexer'
 import {
   getResourceText,
@@ -6,7 +6,6 @@ import {
   getResourceBackgroundImage,
   getResourceBorder,
   getResourcePaddingOrMargin,
-  getResourceRadius,
 } from './resources'
 
 export const resolveFloatingToClassName = (t: string) =>
@@ -29,8 +28,6 @@ export const getIdentifierInCSS = (identifier: UnunuraIdentifier): string => {
       return 'text'
     case UnunuraIdentifier.Border:
       return 'border'
-    case UnunuraIdentifier.Radius:
-      return 'radius'
   }
 }
 
@@ -47,8 +44,6 @@ export const getCSS = (identifier: UnunuraIdentifier, contents: string[]): strin
       return getResourceText(identifier, contents)
     case UnunuraIdentifier.Border:
       return getResourceBorder(identifier, contents)
-    case UnunuraIdentifier.Radius:
-      return getResourceRadius(identifier, contents)
     default:
       return NULLABLE
   }
@@ -76,7 +71,7 @@ export const resolveUnunuraCssName = (raw: string): string => {
     .join('')
     .replaceAll(/[:[\s]/gi, '-')
     .replaceAll(UnunuraKeys.MultipleContextClose, '')
-    .split(/(m|p|r|border|text|bg|bgi)+/gi)
+    .split(/(m|p|border|text|bg|bgi)+/gi)
     .join()
     .replaceAll(/[,\s]/gi, ' ')
     .replaceAll(/ -/gi, '-')

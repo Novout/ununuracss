@@ -1,12 +1,4 @@
-import { Option, UnunuraIdentifier, UnunuraKeys } from 'ununura-shared'
-
-export const isKey = (char: string): boolean => {
-  return Object.values(UnunuraKeys).some((key) => key === char)
-}
-
-export const isIdentifier = (str: string): boolean => {
-  return Object.values(UnunuraIdentifier).some((key) => key === str)
-}
+import { isIdentifier, isKey, Option, UnunuraKeys } from 'ununura-shared'
 
 export const lex = (raw: string): string[] => {
   const transformers: string[] = []
@@ -18,9 +10,9 @@ export const lex = (raw: string): string[] => {
   let is_unique_key = false
 
   for (const char of characters) {
-    const isAKey = isKey(char)
+    const valid = isKey(char)
 
-    if ((isAKey || (char === ' ' && !actually_key)) && char !== '') {
+    if ((valid || (char === ' ' && !actually_key)) && char !== '') {
       const normalized = identifier.toLowerCase().trim()
 
       if (isIdentifier(normalized)) ignorable = false
@@ -38,7 +30,7 @@ export const lex = (raw: string): string[] => {
       actually_key = undefined
     }
 
-    if (isAKey) {
+    if (valid) {
       switch (char) {
         case UnunuraKeys.MultipleContextOpen:
           actually_key = UnunuraKeys.MultipleContextOpen

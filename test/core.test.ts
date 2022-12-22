@@ -1,6 +1,6 @@
 import { getSupportedSizer } from "packages/core/src/css";
-import { isKey, lex, classesFromRawHtml, resolveUnunuraCssName, resolveTitleCssClass, getCSS, generateUniqueClass, generateMultipleClass, generateCSSResources, scan, UnunuraGenerate } from "ununura-core";
-import { NULLABLE, UnunuraIdentifier } from "ununura-shared";
+import { lex, classesFromRawHtml, resolveUnunuraCssName, resolveTitleCssClass, getCSS, generateUniqueClass, generateMultipleClass, generateCSSResources, scan, UnunuraGenerate } from "ununura-core";
+import { isKey, NULLABLE, UnunuraIdentifier } from "ununura-shared";
 import { describe, expect, it } from "vitest";
 
 describe('lexer', () => {
@@ -225,7 +225,7 @@ describe('transform', () => {
         getCSS(UnunuraIdentifier.Border, ['2']),
         `.border-2 {
   border: solid;
-  border-color: white;
+  border-color: black;
   border-width: 2px;
 }`
       ],
@@ -238,22 +238,37 @@ describe('transform', () => {
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Radius, ['20']),
-        `.r-20 {
-  border-radius: 20px;
-}`
-      ],
-      [
-        getCSS(UnunuraIdentifier.Radius, ['50%', '25', '50%', '25']),
-        `.r-50-25-50-25 {
-  border-radius: 50% 25px 50% 25px;
-}`
-      ],
-      [
         getCSS(UnunuraIdentifier.Text, ['lg', 'black']),
         `.text-lg-black {
   color: black;
   font-size: 1.125rem;
+}`
+      ],
+      [
+        getCSS(UnunuraIdentifier.Text, ['l-spacing-20']),
+        `.text-l-spacing-20 {
+  color: black;
+  font-size: 1rem;
+  letter-spacing: 20px;
+}`
+      ],
+      [
+        getCSS(UnunuraIdentifier.Text, ['lg', 'indent-5', 'l-spacing-10', 'w-spacing-5']),
+        `.text-lg-indent-5-l-spacing-10-w-spacing-5 {
+  color: black;
+  font-size: 1.125rem;
+  letter-indent: 5px;
+  letter-spacing: 10px;
+  word-spacing: 5px;
+}`
+      ],
+      [
+        getCSS(UnunuraIdentifier.Text, ['arial', 'indent-5']),
+        `.text-arial-indent-5 {
+  color: black;
+  font-size: 1rem;
+  font-family: 'Arial', sans-serif;
+  letter-indent: 5px;
 }`
       ],
       [

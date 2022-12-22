@@ -1,6 +1,7 @@
 import {
   CSSResourceSizer,
   isCSSColor,
+  isDefaultFont,
   isHex,
   isHSLColor,
   isHTTPSImage,
@@ -12,7 +13,7 @@ import {
   Option,
 } from 'ununura-shared'
 
-export const getSupportedColor = (contents: string[], def: string = 'white') => {
+export const getSupportedColor = (contents: string[], def: string = 'black'): string => {
   const HEXColor = contents.find((c) => isHex(c))
   const CSSColor = contents.find((c) => isCSSColor(c))
   const RGBColor = contents.find((c) => isRGBColor(c))
@@ -26,6 +27,12 @@ export const getSupportedImage = (contents: string[]): Nullable<string> => {
   const GenericImage = contents.find((c) => isImage(c))
 
   return HTTPSImage ?? GenericImage ?? NULLABLE
+}
+
+export const getSupportedFont = (contents: string[]): Nullable<string> => {
+  const GenericFont = contents.find((c) => isDefaultFont(c))
+
+  return GenericFont ? GenericFont?.charAt(0).toUpperCase() + GenericFont?.slice(1) : NULLABLE
 }
 
 export const getSupportedSizer = (contents: string[]): `${string}rem` => {

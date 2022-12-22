@@ -1,8 +1,7 @@
 import { Content } from 'hast'
 import { fromHtml } from 'hast-util-from-html'
 import { Root } from 'hast-util-from-html/lib'
-import { isUniqueKey, isCloseMultipleKey, isOpenMultipleKey, Option } from 'ununura-shared'
-import { isIdentifier as isIdentifierKey } from './lexer'
+import { isIdentifier as isIdentifierKey, isUniqueKey, isCloseMultipleKey, isOpenMultipleKey, Option } from 'ununura-shared'
 import { generateMultipleClass, generateUniqueClass } from './resources'
 
 export const classesFromRawHtml = (html: string): string[] => {

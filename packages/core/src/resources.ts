@@ -1,6 +1,7 @@
-import { UnunuraIdentifier, UnunuraKeys, NULLABLE, isNumber, isBorderStyle } from 'ununura-shared'
+import { UnunuraIdentifier, UnunuraKeys, NULLABLE, isNumber, isBorderStyle, isNullable } from 'ununura-shared'
 import { classesFromRawHtml, generateCss } from './ast'
-import { getSupportedColor, getSupportedImage, getSupportedSizer } from './css'
+import { getSupportedColor, getSupportedFont, getSupportedImage, getSupportedSizer } from './css'
+import { appendGlobals } from './globals'
 import { lex } from './lexer'
 import { getCSS, resolveCssClass, getIdentifierInCSS } from './resolvers'
 
@@ -53,27 +54,6 @@ export const getResourceBorder = (identifier: UnunuraIdentifier, contents: strin
   return resolveCssClass(identifier, contents, setter)
 }
 
-export const getResourceRadius = (identifier: UnunuraIdentifier, contents: string[]): string => {
-  const isValidArgument = contents.length === 1 || contents.length === 2 || contents.length === 4
-
-  if (!isValidArgument) return NULLABLE
-
-  const asPercentage = (key: string) => key.endsWith('%')
-
-  const setter = `
-  ${
-    isValidArgument
-      ? `border-${getIdentifierInCSS(identifier)}:${contents.reduce(
-          (sum, key) => (sum += ` ${key}${asPercentage(key) ? '' : 'px'}`),
-          ''
-        )};`
-      : ''
-  }
-`
-
-  return resolveCssClass(identifier, contents, setter)
-}
-
 export const getResourceBackgroundColor = (identifier: UnunuraIdentifier, contents: string[]): string => {
   const color = getSupportedColor(contents)
 
@@ -100,11 +80,15 @@ export const getResourceBackgroundImage = (identifier: UnunuraIdentifier, conten
 export const getResourceText = (identifier: UnunuraIdentifier, contents: string[]): string => {
   const color = getSupportedColor(contents)
   const fontSize = getSupportedSizer(contents)
+  const fontFamily = getSupportedFont(contents)
 
-  const setter = `
+  let setter = `
   color: ${color};
   font-size: ${fontSize};
 `
+
+  setter += !isNullable(fontFamily) ? `  font-family: '${fontFamily}', sans-serif;\n` : ''
+  setter += appendGlobals(identifier, contents)
 
   return resolveCssClass(identifier, contents, setter)
 }
