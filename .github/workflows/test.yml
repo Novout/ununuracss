@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: [windows-latest, ubuntu-latest]
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [14.x, 16.x]
