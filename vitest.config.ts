@@ -1,0 +1,21 @@
+import { defineConfig } from 'vitest/config'
+import { resolve } from 'path'
+
+export default defineConfig({
+  test: {
+    coverage: {
+      exclude: ['**/shared/*', 'test/*'],
+    },
+  },
+  optimizeDeps: {
+    entries: [],
+  },
+  resolve: {
+    alias: {
+      'ununura-core': resolve(__dirname, './packages/core/src/'),
+      'ununura-vite': resolve(__dirname, './packages/vite/src/'),
+      'ununura-nuxt': resolve(__dirname, './packages/nuxt/src/'),
+      'ununura-shared': resolve(__dirname, './packages/shared/src/'),
+    },
+  },
+})

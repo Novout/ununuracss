@@ -1,0 +1,38 @@
+{
+  "name": "ununura-core",
+  "version": "0.0.0",
+  "description": "Atomic CSS Engine.",
+  "author": "Novout",
+  "license": "MIT",
+  "homepage": "https://github.com/Novout/ununura",
+  "keywords": [
+    "ununura",
+    "ununura-css",
+    "atomic-css",
+    "css",
+    "vue",
+    "vite",
+    "nuxt"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup"
+  },
+  "dependencies": {
+    "ununura-shared": "workspace:*"
+  }
+}

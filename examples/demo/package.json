@@ -1,0 +1,13 @@
+{
+  "name": "vite-vue-demo",
+  "private": true,
+  "sideEffects": false,
+  "scripts": {
+    "demo:vue": "vite --port 3000",
+    "preview:vue": "vite build && vite preview --port 5000"
+  },
+  "dependencies": {
+    "ununura-core": "workspace:^0.0.0",
+    "ununura-vite": "workspace:^0.0.0"
+  }
+}

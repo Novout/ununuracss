@@ -1,0 +1,7 @@
+lockfileVersion: 5.4
+
+specifiers:
+  ununura-shared: workspace:*
+
+dependencies:
+  ununura-shared: link:../shared

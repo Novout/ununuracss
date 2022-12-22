@@ -1,0 +1,9 @@
+lockfileVersion: 5.4
+
+specifiers:
+  ununura-core: workspace:^0.0.0
+  ununura-vite: workspace:^0.0.0
+
+dependencies:
+  ununura-core: link:../../packages/core
+  ununura-vite: link:../../packages/vite
