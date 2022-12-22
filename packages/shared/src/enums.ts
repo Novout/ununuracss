@@ -5,6 +5,7 @@ export enum UnunuraIdentifier {
   Text = 'text',
   BackgroundColor = 'bg',
   BackgroundImage = 'bgi',
+  Radius = 'r',
 }
 
 export enum UnunuraKeys {

@@ -1,4 +1,4 @@
-import { UnunuraIdentifier, NULLABLE, UnunuraKeys } from 'ununura-shared'
+import { UnunuraIdentifier, NULLABLE, UnunuraKeys, UNUNURA_IDENTIFIERS } from 'ununura-shared'
 import { lex } from './lexer'
 import {
   getResourceText,
@@ -6,6 +6,7 @@ import {
   getResourceBackgroundImage,
   getResourceBorder,
   getResourcePaddingOrMargin,
+  getResourceRadius,
 } from './resources'
 
 export const resolveFloatingToClassName = (t: string) =>
@@ -13,6 +14,7 @@ export const resolveFloatingToClassName = (t: string) =>
     .replace(/[.\s]/gi, '')
     .replace(/[,\s]/gi, '-')
     .replace(/[()\s]/gi, '')
+    .replaceAll('%', '')
 
 export const getIdentifierInCSS = (identifier: UnunuraIdentifier): string => {
   switch (identifier) {
@@ -27,6 +29,8 @@ export const getIdentifierInCSS = (identifier: UnunuraIdentifier): string => {
       return 'text'
     case UnunuraIdentifier.Border:
       return 'border'
+    case UnunuraIdentifier.Radius:
+      return 'radius'
   }
 }
 
@@ -43,6 +47,8 @@ export const getCSS = (identifier: UnunuraIdentifier, contents: string[]): strin
       return getResourceText(identifier, contents)
     case UnunuraIdentifier.Border:
       return getResourceBorder(identifier, contents)
+    case UnunuraIdentifier.Radius:
+      return getResourceRadius(identifier, contents)
     default:
       return NULLABLE
   }
@@ -70,8 +76,13 @@ export const resolveUnunuraCssName = (raw: string): string => {
     .join('')
     .replaceAll(/[:[\s]/gi, '-')
     .replaceAll(UnunuraKeys.MultipleContextClose, '')
+    .split(/(m|p|r|border|text|bg|bgi)+/gi)
+    .join()
+    .replaceAll(/[,\s]/gi, ' ')
+    .replaceAll(/ -/gi, '-')
+    .trim()
 
-  // TODO: rewrite this shit
+  /*
   const setIdentifierSpace = (str: string) => {
     return str
       .replaceAll(UnunuraIdentifier.BackgroundColor, ` ${UnunuraIdentifier.BackgroundColor}`)
@@ -80,8 +91,10 @@ export const resolveUnunuraCssName = (raw: string): string => {
       .replaceAll(UnunuraIdentifier.Margin, ` ${UnunuraIdentifier.Margin}`)
       .replaceAll(UnunuraIdentifier.Padding, ` ${UnunuraIdentifier.Padding}`)
       .replaceAll(UnunuraIdentifier.Text, ` ${UnunuraIdentifier.Text}`)
+      .replaceAll(UnunuraIdentifier.Radius, ` ${UnunuraIdentifier.Radius}`)
       .trim()
   }
+  */
 
-  return setIdentifierSpace(normalize)
+  return normalize
 }

@@ -48,8 +48,9 @@ describe('resolvers', () => {
     <p>m[0 10 0 0]</p>
   </div>
   <div />
-</template>`]
-  ]
+</template>`,
+UnunuraVueSFCFile(`<template><div class="r:lg border[2]" /></template>`), `<template><div class="r-lg border-2" /></template>`
+  ]]
 
   for (const [sfc, result] of targets) {
     expect(sfc).toStrictEqual(result)

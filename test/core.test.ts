@@ -22,6 +22,15 @@ describe('lexer', () => {
         ]
       ],
       [
+        lex('border[5 yellow]'),
+        [
+          "border",
+          "[",
+          "5 yellow",
+          "]"
+        ]
+      ],
+      [
         lex('text[white lg bold] m[0 0 10 0] p:10'), 
         [
           "text",
@@ -193,6 +202,18 @@ describe('transform', () => {
   border: dashed;
   border-color: black;
   border-width: 1px;
+}`
+      ],
+      [
+        getCSS(UnunuraIdentifier.Radius, ['20']),
+        `.r-20 {
+  border-radius: 20px;
+}`
+      ],
+      [
+        getCSS(UnunuraIdentifier.Radius, ['50%', '25', '50%', '25']),
+        `.r-50-25-50-25 {
+  border-radius: 50% 25px 50% 25px;
 }`
       ],
       [

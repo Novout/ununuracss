@@ -53,6 +53,27 @@ export const getResourceBorder = (identifier: UnunuraIdentifier, contents: strin
   return resolveCssClass(identifier, contents, setter)
 }
 
+export const getResourceRadius = (identifier: UnunuraIdentifier, contents: string[]): string => {
+  const isValidArgument = contents.length === 1 || contents.length === 2 || contents.length === 4
+
+  if (!isValidArgument) return NULLABLE
+
+  const asPercentage = (key: string) => key.endsWith('%')
+
+  const setter = `
+  ${
+    isValidArgument
+      ? `border-${getIdentifierInCSS(identifier)}:${contents.reduce(
+          (sum, key) => (sum += ` ${key}${asPercentage(key) ? '' : 'px'}`),
+          ''
+        )};`
+      : ''
+  }
+`
+
+  return resolveCssClass(identifier, contents, setter)
+}
+
 export const getResourceBackgroundColor = (identifier: UnunuraIdentifier, contents: string[]): string => {
   const color = getSupportedColor(contents)
 
