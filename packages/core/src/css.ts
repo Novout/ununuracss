@@ -13,13 +13,13 @@ import {
   Option,
 } from 'ununura-shared'
 
-export const getSupportedColor = (contents: string[], def: string = 'black'): string => {
+export const getSupportedColor = (contents: string[]): Nullable<string> => {
   const HEXColor = contents.find((c) => isHex(c))
   const CSSColor = contents.find((c) => isCSSColor(c))
   const RGBColor = contents.find((c) => isRGBColor(c))
   const HSLColor = contents.find((c) => isHSLColor(c))
 
-  return HEXColor ?? CSSColor ?? RGBColor ?? HSLColor ?? def
+  return HEXColor ?? CSSColor ?? RGBColor ?? HSLColor ?? NULLABLE
 }
 
 export const getSupportedImage = (contents: string[]): Nullable<string> => {
@@ -35,7 +35,7 @@ export const getSupportedFont = (contents: string[]): Nullable<string> => {
   return GenericFont ? GenericFont?.charAt(0).toUpperCase() + GenericFont?.slice(1) : NULLABLE
 }
 
-export const getSupportedSizer = (contents: string[]): `${string}rem` => {
+export const getSupportedSizer = (contents: string[]): Nullable<`${string}rem`> => {
   const getSizer = (key?: CSSResourceSizer): Option<`${string}rem`> => {
     switch (key) {
       case 'xs':
@@ -55,5 +55,5 @@ export const getSupportedSizer = (contents: string[]): `${string}rem` => {
 
   const target = contents.find((c) => isSizer(c))
 
-  return getSizer(target as CSSResourceSizer) ?? '1rem'
+  return getSizer(target as CSSResourceSizer) ?? NULLABLE
 }

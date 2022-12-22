@@ -39,17 +39,16 @@ export const getResourcePaddingOrMargin = (identifier: UnunuraIdentifier, conten
 }
 
 export const getResourceBorder = (identifier: UnunuraIdentifier, contents: string[]): string => {
-  const size = contents.find((c) => isNumber(c)) ?? '1'
-  const style = contents.find((c) => isBorderStyle(c)) ?? 'solid'
+  const size = contents.find((c) => isNumber(c)) ?? NULLABLE
+  const style = contents.find((c) => isBorderStyle(c)) ?? NULLABLE
   const color = getSupportedColor(contents)
 
   const inCss = getIdentifierInCSS(identifier)
 
-  const setter = `
-  ${inCss}: ${style};
-  ${inCss}-color: ${color};
-  ${inCss}-width: ${size}px;
-`
+  let setter = '\n'
+  setter += !isNullable(style) ? `  ${inCss}: ${style};\n` : ''
+  setter += !isNullable(color) ? `  ${inCss}-color: ${color};\n` : ''
+  setter += !isNullable(size) ? `  ${inCss}-width: ${size}px;\n` : ''
 
   return resolveCssClass(identifier, contents, setter)
 }
@@ -82,11 +81,9 @@ export const getResourceText = (identifier: UnunuraIdentifier, contents: string[
   const fontSize = getSupportedSizer(contents)
   const fontFamily = getSupportedFont(contents)
 
-  let setter = `
-  color: ${color};
-  font-size: ${fontSize};
-`
-
+  let setter = '\n'
+  setter += !isNullable(color) ? `  color: ${color};\n` : ''
+  setter += !isNullable(fontSize) ? `  font-size: ${fontSize};\n` : ''
   setter += !isNullable(fontFamily) ? `  font-family: '${fontFamily}', sans-serif;\n` : ''
   setter += appendGlobals(identifier, contents)
 

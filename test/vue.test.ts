@@ -19,9 +19,7 @@ describe('resolvers', () => {
 }.bg-black {
   background-color: black;
 }.border-white {
-  border: solid;
   border-color: white;
-  border-width: 1px;
 }`],
     ]
 

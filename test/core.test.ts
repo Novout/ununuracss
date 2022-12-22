@@ -224,8 +224,6 @@ describe('transform', () => {
       [
         getCSS(UnunuraIdentifier.Border, ['2']),
         `.border-2 {
-  border: solid;
-  border-color: black;
   border-width: 2px;
 }`
       ],
@@ -234,7 +232,6 @@ describe('transform', () => {
         `.border-dashed-black {
   border: dashed;
   border-color: black;
-  border-width: 1px;
 }`
       ],
       [
@@ -247,15 +244,12 @@ describe('transform', () => {
       [
         getCSS(UnunuraIdentifier.Text, ['l-spacing-20']),
         `.text-l-spacing-20 {
-  color: black;
-  font-size: 1rem;
   letter-spacing: 20px;
 }`
       ],
       [
         getCSS(UnunuraIdentifier.Text, ['lg', 'indent-5', 'l-spacing-10', 'w-spacing-5']),
         `.text-lg-indent-5-l-spacing-10-w-spacing-5 {
-  color: black;
   font-size: 1.125rem;
   letter-indent: 5px;
   letter-spacing: 10px;
@@ -265,8 +259,6 @@ describe('transform', () => {
       [
         getCSS(UnunuraIdentifier.Text, ['arial', 'indent-5']),
         `.text-arial-indent-5 {
-  color: black;
-  font-size: 1rem;
   font-family: 'Arial', sans-serif;
   letter-indent: 5px;
 }`
@@ -335,9 +327,7 @@ describe('css', () => {
 }.bg-black {
   background-color: black;
 }.border-white {
-  border: solid;
   border-color: white;
-  border-width: 1px;
 }`],
   [resolveTitleCssClass(UnunuraIdentifier.Margin, ['15', '0', '10', '0']), '.m-15-0-10-0'],
   [resolveTitleCssClass(UnunuraIdentifier.Text, ['lg']), '.text-lg'],
