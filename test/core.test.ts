@@ -7,7 +7,7 @@ describe('lexer', () => {
   it('should lex a css class', () => {
     const targets = [
       [
-        lex('bg:#909090 m[0 0 10 0] p:10'), 
+        lex('bg:#909090 m[0 0 10 0] border:10 text:lg'), 
         [
           "bg",
           ":",
@@ -16,9 +16,12 @@ describe('lexer', () => {
           "[",
           "0 0 10 0",
           "]",
-          "p",
+          "border",
           ":",
-          "10"
+          "10",
+          "text",
+          ":",
+          "lg"
         ]
       ],
       [
@@ -77,7 +80,37 @@ describe('lexer', () => {
           "2 #050505 dashed rounded",
           "]"
         ]
-      ]
+      ],
+      [
+        lex('external-class foo bar baz border[5 yellow] foo bar baz'),
+        [
+          "border",
+          "[",
+          "5 yellow",
+          "]"
+        ]
+      ],
+      [
+        lex('external-class foo p:10 bar baz border[5 yellow] foo bar baz'),
+        [
+          "p",
+          ":",
+          "10",
+          "border",
+          "[",
+          "5 yellow",
+          "]"
+        ]
+      ],
+      [
+        lex('bar baz border[5 yellow] external-class foo'),
+        [
+          "border",
+          "[",
+          "5 yellow",
+          "]"
+        ]
+      ],
     ]
   
     for (const [lex, result] of targets) {

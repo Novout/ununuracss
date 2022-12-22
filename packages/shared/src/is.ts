@@ -163,7 +163,6 @@ export const isBorderStyle = (i: string): boolean => ['solid', 'dotted', 'dashed
 export const isSizer = (i: string): boolean => ['xs', 'sm', 'base', 'lg', 'xl'].some((c) => c === i)
 
 export const isNullable = (i: string): boolean => i === NULLABLE
-export const isIdentifierKey = (key: string) => ['p', 'm', 'border', 'text', 'bg', 'bgi'].some((v) => v === key)
 export const isUniqueKey = (key: string) => key === UnunuraKeys.UniqueContext
 export const isOpenMultipleKey = (key: string) => key === UnunuraKeys.MultipleContextOpen
 export const isCloseMultipleKey = (key: string) => key === UnunuraKeys.MultipleContextClose

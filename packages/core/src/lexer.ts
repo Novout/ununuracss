@@ -1,7 +1,11 @@
-import { Option, UnunuraKeys } from 'ununura-shared'
+import { Option, UnunuraIdentifier, UnunuraKeys } from 'ununura-shared'
 
 export const isKey = (char: string): boolean => {
   return Object.values(UnunuraKeys).some((key) => key === char)
+}
+
+export const isIdentifier = (str: string): boolean => {
+  return Object.values(UnunuraIdentifier).some((key) => key === str)
 }
 
 export const lex = (raw: string): string[] => {
@@ -10,14 +14,25 @@ export const lex = (raw: string): string[] => {
 
   let identifier: string = ''
   let actually_key: Option<UnunuraKeys> = undefined
+  let ignorable: boolean = true
+  let is_unique_key = false
 
   for (const char of characters) {
     const isAKey = isKey(char)
 
-    if ((isAKey || (char === ' ' && !actually_key)) && identifier && char) {
+    if ((isAKey || (char === ' ' && !actually_key)) && char !== '') {
       const normalized = identifier.toLowerCase().trim()
 
-      if (normalized) transformers.push(normalized)
+      if (isIdentifier(normalized)) ignorable = false
+
+      if (normalized && !ignorable) {
+        transformers.push(normalized)
+
+        if (is_unique_key) {
+          ignorable = true
+          is_unique_key = false
+        }
+      }
 
       identifier = ''
       actually_key = undefined
@@ -32,9 +47,11 @@ export const lex = (raw: string): string[] => {
         case UnunuraKeys.MultipleContextClose:
           actually_key = UnunuraKeys.MultipleContextClose
           transformers.push(UnunuraKeys.MultipleContextClose)
+          ignorable = true
           break
         case UnunuraKeys.UniqueContext:
           transformers.push(UnunuraKeys.UniqueContext)
+          is_unique_key = true
           actually_key = undefined
           break
         case UnunuraKeys.Important:
@@ -49,7 +66,9 @@ export const lex = (raw: string): string[] => {
 
   const normalized = identifier.toLowerCase().trim()
 
-  if (normalized) transformers.push(normalized)
+  if (isIdentifier(normalized)) ignorable = false
+
+  if (normalized && !ignorable) transformers.push(normalized)
 
   return transformers
 }
