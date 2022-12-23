@@ -1,5 +1,5 @@
 import { getSupportedSizer } from "packages/core/src/support";
-import { lex, classesFromRawHtml, resolveUnunuraCssName, resolveTitleCssClass, getCSS, generateUniqueClass, generateMultipleClass, generateCSSResources, scan, UnunuraGenerate } from "ununura-core";
+import { lex, classesFromRawHtml, resolveTitleCssClass, getCSS, generateUniqueClass, generateMultipleClass, generateCSSResources, scan, UnunuraGenerate, resolveOnlyCssClassTitle } from "ununura-core";
 import { isKey, NULLABLE, UnunuraIdentifier } from "ununura-shared";
 import { describe, expect, it } from "vitest";
 
@@ -301,6 +301,13 @@ describe('transform', () => {
 }`
       ],
       [
+        getCSS(UnunuraIdentifier.Flexbox, ['flex-1']),
+        `.flex-flex-1 {
+  display: flex;
+  flex: 1 1 0%;
+}`
+      ],
+      [
         getCSS(UnunuraIdentifier.Width, ['100%']),
         `.w-100 {
   width: 100%;
@@ -398,8 +405,13 @@ describe('css', () => {
   [resolveTitleCssClass(UnunuraIdentifier.Text, ['lg']), '.text-lg'],
   [resolveTitleCssClass(UnunuraIdentifier.BackgroundColor, ['rgba(255,255,255,0.3)']), '.bg-rgba255-255-255-03'],
   [resolveTitleCssClass(UnunuraIdentifier.BackgroundImage, ['/local_image.png']), '.bgi-local-imagepng'],
-  [resolveUnunuraCssName('m[10 0 10 0]'), 'm-10-0-10-0'],
-  [resolveUnunuraCssName('bgi:local_image.png'), 'bgi-local-imagepng'],
+  [resolveOnlyCssClassTitle(`.text-base {
+  font-size: 1rem;
+}`), 'text-base'],
+  [resolveOnlyCssClassTitle(`.border-white-rounded-30 {
+    border-color: white;
+    border-radius: 30px;
+  }`), 'border-white-rounded-30'],
   [getSupportedSizer(['xs', 'sm', 'base', 'lg', 'xl']), '0.75rem'],
   [getSupportedSizer(['sm', 'base', 'lg', 'xl']), '0.875rem'],
   [getSupportedSizer(['base', 'lg', 'xl']), '1rem'],

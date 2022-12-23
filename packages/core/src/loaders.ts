@@ -1,8 +1,9 @@
 import { CSSInject, UnunuraCoreOptions, STANDARD_EXCLUDE_SCAN, STANDARD_INCLUDE_SCAN, VueSFC } from 'ununura-shared'
-import { classesFromRawHtml } from './ast'
+import { classesFromRawHtml, generateCss } from './ast'
 import { generateCSSResources } from './resources'
 import { scan } from './scanner'
-import { resolveUnunuraCssName } from './resolvers'
+import { resolveOnlyCssClassTitle } from './resolvers'
+import { lex } from './lexer'
 
 export const UnunuraGenerate = async (options?: UnunuraCoreOptions): Promise<CSSInject> => {
   const files = await scan({
@@ -19,10 +20,11 @@ export const UnunuraVueSFCFile = (sfc: VueSFC): CSSInject => {
   const raw = classesFromRawHtml(sfc)
   let _code = sfc
 
-  raw.forEach((cl) => {
-    const css = resolveUnunuraCssName(cl)
+  raw.forEach((classTitle) => {
+    const generated = generateCss(lex(classTitle))
+    const resolvedClassTitle = resolveOnlyCssClassTitle(generated)
 
-    _code = _code.replaceAll(cl, css)
+    _code = _code.replaceAll(classTitle, resolvedClassTitle)
   })
 
   return _code

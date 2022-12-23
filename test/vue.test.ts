@@ -59,7 +59,8 @@ describe('resolvers', () => {
 </template>`
   ],
   [UnunuraVueSFCFile(`<template><div class="bgi:local_path.png" /></template>`), `<template><div class="bgi-local-pathpng" /></template>`],
-  [UnunuraVueSFCFile(`<template><div class="bgi:/he4rt.png" /></template>`), `<template><div class="bgi-he4rtpng" /></template>`]
+  [UnunuraVueSFCFile(`<template><div class="bgi:/he4rt.png" /></template>`), `<template><div class="bgi-he4rtpng" /></template>`],
+  [UnunuraVueSFCFile(`<template><div class="text[lg white indent-5] w[100%] h[min 50vh]" /></template>`), `<template><div class="text-lg-white-indent-5 w-100 h-min-50vh" /></template>`]
   ]
 
   for (const [sfc, result] of targets) {

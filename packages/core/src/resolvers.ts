@@ -1,5 +1,4 @@
-import { UnunuraIdentifier, NULLABLE, UnunuraKeys, isImage } from 'ununura-shared'
-import { lex } from './lexer'
+import { UnunuraIdentifier, NULLABLE } from 'ununura-shared'
 import {
   getResourceText,
   getResourceBackgroundColor,
@@ -12,10 +11,9 @@ import {
 
 export const resolveFloatingToClassName = (t: string) =>
   t
-    .replace(/[.\s]/gi, '')
+    .replace(/[.%\s]/gi, '')
     .replace(/[,_\s]/gi, '-')
     .replace(/[():/\s]/gi, '')
-    .replaceAll('%', '')
 
 export const getIdentifierInCSS = (identifier: UnunuraIdentifier): string => {
   switch (identifier) {
@@ -78,33 +76,13 @@ export const resolveCssClass = (identifier: UnunuraIdentifier, contents: string[
   return cl
 }
 
-export const resolveUnunuraCssName = (raw: string): string => {
-  if (isImage(raw)) return raw.replaceAll(/[:_[\s]/gi, '-').replaceAll(/[./[\s]/gi, '')
-
-  const keys = lex(raw)
-  const normalize = keys
-    .join('')
-    .replaceAll(/[:[\s]/gi, '-')
-    .replaceAll(UnunuraKeys.MultipleContextClose, '')
-    .split(/(border|text|bg|bgi|w|h|m|p)+/gi)
-    .join()
-    .replaceAll(/[,\s]/gi, ' ')
-    .replaceAll(/ -/gi, '-')
-    .trim()
-
-  /*
-  const setIdentifierSpace = (str: string) => {
-    return str
-      .replaceAll(UnunuraIdentifier.BackgroundColor, ` ${UnunuraIdentifier.BackgroundColor}`)
-      .replaceAll(UnunuraIdentifier.BackgroundImage, ` ${UnunuraIdentifier.BackgroundImage}`)
-      .replaceAll(UnunuraIdentifier.Border, ` ${UnunuraIdentifier.Border}`)
-      .replaceAll(UnunuraIdentifier.Margin, ` ${UnunuraIdentifier.Margin}`)
-      .replaceAll(UnunuraIdentifier.Padding, ` ${UnunuraIdentifier.Padding}`)
-      .replaceAll(UnunuraIdentifier.Text, ` ${UnunuraIdentifier.Text}`)
-      .replaceAll(UnunuraIdentifier.Radius, ` ${UnunuraIdentifier.Radius}`)
-      .trim()
-  }
-  */
-
-  return normalize
+export const resolveOnlyCssClassTitle = (css: string): string => {
+  return `\n${css}`
+    .split('\n.')
+    .filter(Boolean)
+    .join('{')
+    .split('{')
+    .filter((v) => !v.startsWith('\n'))
+    .map((v) => v.trim())
+    .join(' ')
 }

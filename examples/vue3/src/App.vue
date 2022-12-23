@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bg:gray text[gabriola white xl] p:20">
+    <div class="bgi:/he4rt.png w:100% h:50vh">
       example
     </div>
   </div>
