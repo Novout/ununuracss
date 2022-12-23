@@ -1,4 +1,4 @@
-import { UnunuraIdentifier, NULLABLE, UnunuraKeys } from 'ununura-shared'
+import { UnunuraIdentifier, NULLABLE, UnunuraKeys, isImage } from 'ununura-shared'
 import { lex } from './lexer'
 import {
   getResourceText,
@@ -11,8 +11,8 @@ import {
 export const resolveFloatingToClassName = (t: string) =>
   t
     .replace(/[.\s]/gi, '')
-    .replace(/[,\s]/gi, '-')
-    .replace(/[()\s]/gi, '')
+    .replace(/[,_\s]/gi, '-')
+    .replace(/[():/\s]/gi, '')
     .replaceAll('%', '')
 
 export const getIdentifierInCSS = (identifier: UnunuraIdentifier): string => {
@@ -66,6 +66,8 @@ export const resolveCssClass = (identifier: UnunuraIdentifier, contents: string[
 }
 
 export const resolveUnunuraCssName = (raw: string): string => {
+  if (isImage(raw)) return raw.replaceAll(/[:_[\s]/gi, '-').replaceAll(/[./[\s]/gi, '')
+
   const keys = lex(raw)
   const normalize = keys
     .join('')

@@ -329,10 +329,18 @@ describe('css', () => {
 }.border-white {
   border-color: white;
 }`],
+  [
+    generateCSSResources(`<div class="bgi:local_image.png" />
+  `),
+        `.bgi-local-imagepng {
+  background: url("local_image.png");
+}`],
   [resolveTitleCssClass(UnunuraIdentifier.Margin, ['15', '0', '10', '0']), '.m-15-0-10-0'],
   [resolveTitleCssClass(UnunuraIdentifier.Text, ['lg']), '.text-lg'],
   [resolveTitleCssClass(UnunuraIdentifier.BackgroundColor, ['rgba(255,255,255,0.3)']), '.bg-rgba255-255-255-03'],
+  [resolveTitleCssClass(UnunuraIdentifier.BackgroundImage, ['/local_image.png']), '.bgi-local-imagepng'],
   [resolveUnunuraCssName('m[10 0 10 0]'), 'm-10-0-10-0'],
+  [resolveUnunuraCssName('bgi:local_image.png'), 'bgi-local-imagepng'],
   [getSupportedSizer(['xs', 'sm', 'base', 'lg', 'xl']), '0.75rem'],
   [getSupportedSizer(['sm', 'base', 'lg', 'xl']), '0.875rem'],
   [getSupportedSizer(['base', 'lg', 'xl']), '1rem'],

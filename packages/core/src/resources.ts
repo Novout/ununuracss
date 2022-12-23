@@ -58,9 +58,8 @@ export const getResourceBackgroundColor = (identifier: UnunuraIdentifier, conten
 
   const inCss = getIdentifierInCSS(identifier)
 
-  const setter = `
-  ${inCss}-color: ${color};
-`
+  let setter = '\n'
+  setter += !isNullable(color) ? `  ${inCss}-color: ${color};\n` : ''
 
   return resolveCssClass(identifier, contents, setter)
 }
@@ -69,9 +68,8 @@ export const getResourceBackgroundImage = (identifier: UnunuraIdentifier, conten
   const image = getSupportedImage(contents)
   const inCss = getIdentifierInCSS(identifier)
 
-  const setter = `
-  ${inCss}: url("${image}");
-`
+  let setter = '\n'
+  setter += !isNullable(image) ? `  ${inCss}: url("${image}");\n` : ''
 
   return resolveCssClass(identifier, contents, setter)
 }

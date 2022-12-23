@@ -66,7 +66,7 @@ export default defineConfig({
 
 `bg:white`
 
-`bgi:https://test.png`
+`bgi:local_image.png`
 
 ### Multiple Resource Examples
 
