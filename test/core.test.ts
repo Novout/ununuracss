@@ -324,17 +324,21 @@ describe('css', () => {
 `),
         `.p-10 {
   padding: 10px;
-}.bg-black {
+}
+.bg-black {
   background-color: black;
-}.border-white {
+}
+.border-white {
   border-color: white;
-}`],
+}
+`],
   [
     generateCSSResources(`<div class="bgi:local_image.png" />
   `),
         `.bgi-local-imagepng {
   background: url("local_image.png");
-}`],
+}
+`],
   [resolveTitleCssClass(UnunuraIdentifier.Margin, ['15', '0', '10', '0']), '.m-15-0-10-0'],
   [resolveTitleCssClass(UnunuraIdentifier.Text, ['lg']), '.text-lg'],
   [resolveTitleCssClass(UnunuraIdentifier.BackgroundColor, ['rgba(255,255,255,0.3)']), '.bg-rgba255-255-255-03'],

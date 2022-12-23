@@ -58,5 +58,5 @@ export const generateCss = (keys: string[]): string => {
     }
   }
 
-  return css.reduce((acc, key) => (acc += key), '')
+  return css.reduce((acc, key) => (acc += `${key}\n`), '')
 }

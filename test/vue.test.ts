@@ -16,11 +16,14 @@ describe('resolvers', () => {
 `),
 `.p-10 {
   padding: 10px;
-}.bg-black {
+}
+.bg-black {
   background-color: black;
-}.border-white {
+}
+.border-white {
   border-color: white;
-}`],
+}
+`],
     ]
 
     for (const [sfc, result] of targets) {

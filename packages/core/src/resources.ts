@@ -22,7 +22,9 @@ export const generateCSSResources = (raw: string) => {
   const ast = classesFromRawHtml(raw)
 
   return ast.reduce((acc, cl) => {
-    return (acc += generateCss(lex(cl)))
+    const generated = generateCss(lex(cl))
+
+    return (acc += generated)
   }, '')
 }
 
