@@ -1,6 +1,8 @@
 export enum UnunuraIdentifier {
   Padding = 'p',
   Margin = 'm',
+  Height = 'h',
+  Width = 'w',
   Border = 'border',
   Text = 'text',
   BackgroundColor = 'bg',

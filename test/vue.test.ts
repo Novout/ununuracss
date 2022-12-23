@@ -41,7 +41,7 @@ describe('resolvers', () => {
   it('should set new sfc', () => {
     const targets = [
       [UnunuraVueSFCFile(`<template>
-  <div>
+  <div class="flex[col wrap] w[100%]">
     <div class="m[0 10 0 0] p:20 border[5 yellow]">
       a some test
     </div>
@@ -49,7 +49,7 @@ describe('resolvers', () => {
   </div>
   <div />
 </template>`), `<template>
-  <div>
+  <div class="flex-col-wrap w-100">
     <div class="m-0-10-0-0 p-20 border-5-yellow">
       a some test
     </div>

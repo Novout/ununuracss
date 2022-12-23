@@ -6,12 +6,20 @@ import {
   isHSLColor,
   isHTTPSImage,
   isImage,
+  isNumber,
   isRGBColor,
   isSizer,
   Nullable,
   NULLABLE,
   Option,
 } from 'ununura-shared'
+
+export const getSupportedMinOrMax = (contents: string[]): Nullable<string> => {
+  const min = contents.find((c) => c === 'min')
+  const max = contents.find((c) => c === 'max')
+
+  return min ?? max ?? NULLABLE
+}
 
 export const getSupportedColor = (contents: string[]): Nullable<string> => {
   const HEXColor = contents.find((c) => isHex(c))
@@ -80,4 +88,15 @@ export const getSupportedFlexGrow = (contents: string[]): Nullable<string> => {
   const GrowNoneReturn = GrowNone ? '0' : undefined
 
   return GrowReturn ?? GrowNoneReturn ?? NULLABLE
+}
+
+export const getSupportedNumber = (contents: string[]): Nullable<string> => {
+  const vh = contents.find((c) => c.endsWith('vh'))
+  const vw = contents.find((c) => c.endsWith('vw'))
+  const percentage = contents.find((c) => c.endsWith('%'))
+  const em = contents.find((c) => c.endsWith('em'))
+  const rem = contents.find((c) => c.endsWith('rem'))
+  const def = contents.find((c) => isNumber(c))
+
+  return vh ?? vw ?? percentage ?? em ?? rem ?? def ?? NULLABLE
 }

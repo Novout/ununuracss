@@ -6,8 +6,10 @@ import {
   getSupportedFlexGrow,
   getSupportedFont,
   getSupportedImage,
+  getSupportedMinOrMax,
+  getSupportedNumber,
   getSupportedSizer,
-} from './css'
+} from './support'
 import { appendGlobals } from './globals'
 import { lex } from './lexer'
 import { getCSS, resolveCssClass, getIdentifierInCSS } from './resolvers'
@@ -43,6 +45,18 @@ export const getResourcePaddingOrMargin = (identifier: UnunuraIdentifier, conten
   const setter = `
   ${isValidArgument ? `${getIdentifierInCSS(identifier)}:${contents.reduce((sum, acc) => (sum += ` ${acc}px`), '')};` : ''}
 `
+
+  return resolveCssClass(identifier, contents, setter)
+}
+
+export const getResourceWidthOrHeight = (identifier: UnunuraIdentifier, contents: string[]): string => {
+  const size = getSupportedNumber(contents)
+  const ranged = getSupportedMinOrMax(contents)
+
+  const inCss = getIdentifierInCSS(identifier)
+
+  let setter = '\n'
+  ranged ? (setter += !isNullable(ranged) ? `  ${ranged}-${inCss}: ${size};\n` : `  ${inCss}: ${size};\n`) : ''
 
   return resolveCssClass(identifier, contents, setter)
 }
@@ -108,8 +122,8 @@ export const getResourceFlex = (identifier: UnunuraIdentifier, contents: string[
   display: flex;
 `
 
-  setter += !isNullable(direction) ? `  flex-direction: ${direction};\n` : ''
-  setter += !isNullable(grow) ? `  flex-grow: ${grow};\n` : ''
+  setter += !isNullable(direction) ? `  ${identifier}-direction: ${direction};\n` : ''
+  setter += !isNullable(grow) ? `  ${identifier}-grow: ${grow};\n` : ''
   setter += appendGlobals(identifier, contents)
 
   return resolveCssClass(identifier, contents, setter)

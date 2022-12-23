@@ -1,4 +1,4 @@
-import { getSupportedSizer } from "packages/core/src/css";
+import { getSupportedSizer } from "packages/core/src/support";
 import { lex, classesFromRawHtml, resolveUnunuraCssName, resolveTitleCssClass, getCSS, generateUniqueClass, generateMultipleClass, generateCSSResources, scan, UnunuraGenerate } from "ununura-core";
 import { isKey, NULLABLE, UnunuraIdentifier } from "ununura-shared";
 import { describe, expect, it } from "vitest";
@@ -298,6 +298,36 @@ describe('transform', () => {
   display: flex;
   flex-direction: column-reverse;
   flex-grow: 0;
+}`
+      ],
+      [
+        getCSS(UnunuraIdentifier.Width, ['100%']),
+        `.w-100 {
+  width: 100%;
+}`
+      ],
+      [
+        getCSS(UnunuraIdentifier.Width, ['max', '50vw']),
+        `.w-max-50vw {
+  max-width: 50vw;
+}`
+      ],
+      [
+        getCSS(UnunuraIdentifier.Height, ['300px']),
+        `.h-300px {
+  height: 300px;
+}`
+      ],
+      [
+        getCSS(UnunuraIdentifier.Height, ['min', '100vh']),
+        `.h-min-100vh {
+  min-height: 100vh;
+}`
+      ],
+      [
+        getCSS(UnunuraIdentifier.Height, ['max', '10rem']),
+        `.h-max-10rem {
+  max-height: 10rem;
 }`
       ],
       [

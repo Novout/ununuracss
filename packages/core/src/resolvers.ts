@@ -7,6 +7,7 @@ import {
   getResourceBorder,
   getResourcePaddingOrMargin,
   getResourceFlex,
+  getResourceWidthOrHeight,
 } from './resources'
 
 export const resolveFloatingToClassName = (t: string) =>
@@ -31,6 +32,10 @@ export const getIdentifierInCSS = (identifier: UnunuraIdentifier): string => {
       return 'border'
     case UnunuraIdentifier.Flexbox:
       return 'flex'
+    case UnunuraIdentifier.Height:
+      return 'height'
+    case UnunuraIdentifier.Width:
+      return 'width'
   }
 }
 
@@ -49,6 +54,9 @@ export const getCSS = (identifier: UnunuraIdentifier, contents: string[]): strin
       return getResourceBorder(identifier, contents)
     case UnunuraIdentifier.Flexbox:
       return getResourceFlex(identifier, contents)
+    case UnunuraIdentifier.Height:
+    case UnunuraIdentifier.Width:
+      return getResourceWidthOrHeight(identifier, contents)
     default:
       return NULLABLE
   }
@@ -78,7 +86,7 @@ export const resolveUnunuraCssName = (raw: string): string => {
     .join('')
     .replaceAll(/[:[\s]/gi, '-')
     .replaceAll(UnunuraKeys.MultipleContextClose, '')
-    .split(/(m|p|border|text|bg|bgi)+/gi)
+    .split(/(border|text|bg|bgi|w|h|m|p)+/gi)
     .join()
     .replaceAll(/[,\s]/gi, ' ')
     .replaceAll(/ -/gi, '-')
