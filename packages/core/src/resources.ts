@@ -12,19 +12,19 @@ import {
 } from './support'
 import { appendGlobals } from './globals'
 import { lex } from './lexer'
-import { getCSS, resolveCssClass, getIdentifierInCSS } from './resolvers'
+import { resolveCSS, resolveCssClass, resolveIdentifierInCSS } from './resolvers'
 
 export const generateMultipleClass = (key: string) => {
   const [identifier, content] = key.split(UnunuraKeys.UniqueContext)
   const contents = content.split(' ')
 
-  return getCSS(identifier as UnunuraIdentifier, contents)
+  return resolveCSS(identifier as UnunuraIdentifier, contents)
 }
 
 export const generateUniqueClass = (key: string) => {
   const [identifier, content] = key.split(UnunuraKeys.UniqueContext)
 
-  return getCSS(identifier as UnunuraIdentifier, [content])
+  return resolveCSS(identifier as UnunuraIdentifier, [content])
 }
 
 export const generateCSSResources = (raw: string) => {
@@ -43,7 +43,7 @@ export const getResourcePaddingOrMargin = (identifier: UnunuraIdentifier, conten
   if (!isValidArgument) return NULLABLE
 
   const setter = `
-  ${isValidArgument ? `${getIdentifierInCSS(identifier)}:${contents.reduce((sum, acc) => (sum += ` ${acc}px`), '')};` : ''}
+  ${isValidArgument ? `${resolveIdentifierInCSS(identifier)}:${contents.reduce((sum, acc) => (sum += ` ${acc}px`), '')};` : ''}
 `
 
   return resolveCssClass(identifier, contents, setter)
@@ -53,7 +53,7 @@ export const getResourceWidthOrHeight = (identifier: UnunuraIdentifier, contents
   const size = getSupportedNumber(contents)
   const ranged = getSupportedMinOrMax(contents)
 
-  const inCss = getIdentifierInCSS(identifier)
+  const inCss = resolveIdentifierInCSS(identifier)
 
   let setter = '\n'
   ranged ? (setter += !isNullable(ranged) ? `  ${ranged}-${inCss}: ${size};\n` : `  ${inCss}: ${size};\n`) : ''
@@ -66,7 +66,7 @@ export const getResourceBorder = (identifier: UnunuraIdentifier, contents: strin
   const style = contents.find((c) => isBorderStyle(c)) ?? NULLABLE
   const color = getSupportedColor(contents)
 
-  const inCss = getIdentifierInCSS(identifier)
+  const inCss = resolveIdentifierInCSS(identifier)
 
   let setter = '\n'
   setter += !isNullable(style) ? `  ${inCss}: ${style};\n` : ''
@@ -80,7 +80,7 @@ export const getResourceBorder = (identifier: UnunuraIdentifier, contents: strin
 export const getResourceBackgroundColor = (identifier: UnunuraIdentifier, contents: string[]): string => {
   const color = getSupportedColor(contents)
 
-  const inCss = getIdentifierInCSS(identifier)
+  const inCss = resolveIdentifierInCSS(identifier)
 
   let setter = '\n'
   setter += !isNullable(color) ? `  ${inCss}-color: ${color};\n` : ''
@@ -91,7 +91,7 @@ export const getResourceBackgroundColor = (identifier: UnunuraIdentifier, conten
 
 export const getResourceBackgroundImage = (identifier: UnunuraIdentifier, contents: string[]): string => {
   const image = getSupportedImage(contents)
-  const inCss = getIdentifierInCSS(identifier)
+  const inCss = resolveIdentifierInCSS(identifier)
 
   let setter = '\n'
   setter += !isNullable(image) ? `  ${inCss}: url("${image}");\n` : ''

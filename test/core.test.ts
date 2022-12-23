@@ -1,5 +1,5 @@
 import { getSupportedSizer } from "packages/core/src/support";
-import { lex, classesFromRawHtml, resolveTitleCssClass, getCSS, generateUniqueClass, generateMultipleClass, generateCSSResources, scan, UnunuraGenerate, resolveOnlyCssClassTitle } from "ununura-core";
+import { lex, classesFromRawHtml, resolveTitleCssClass, resolveCSS, generateUniqueClass, generateMultipleClass, generateCSSResources, scan, UnunuraGenerate, resolveOnlyCssClassTitle } from "ununura-core";
 import { isKey, NULLABLE, UnunuraIdentifier } from "ununura-shared";
 import { describe, expect, it } from "vitest";
 
@@ -166,55 +166,55 @@ describe('transform', () => {
   it('should get css class', () => {
     const targets = [
       [
-        getCSS(UnunuraIdentifier.Padding, ['2']),
+        resolveCSS(UnunuraIdentifier.Padding, ['2']),
         `.p-2 {
   padding: 2px;
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Padding, ['2', '5']),
+        resolveCSS(UnunuraIdentifier.Padding, ['2', '5']),
         `.p-2-5 {
   padding: 2px 5px;
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Padding, ['2', '5', '0', '10']),
+        resolveCSS(UnunuraIdentifier.Padding, ['2', '5', '0', '10']),
         `.p-2-5-0-10 {
   padding: 2px 5px 0px 10px;
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Padding, ['0.25']),
+        resolveCSS(UnunuraIdentifier.Padding, ['0.25']),
         `.p-025 {
   padding: 0.25px;
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Margin, ['2']),
+        resolveCSS(UnunuraIdentifier.Margin, ['2']),
         `.m-2 {
   margin: 2px;
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Margin, ['2', '5']),
+        resolveCSS(UnunuraIdentifier.Margin, ['2', '5']),
         `.m-2-5 {
   margin: 2px 5px;
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Margin, ['2', '5', '0', '10']),
+        resolveCSS(UnunuraIdentifier.Margin, ['2', '5', '0', '10']),
         `.m-2-5-0-10 {
   margin: 2px 5px 0px 10px;
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Margin, ['0.25']),
+        resolveCSS(UnunuraIdentifier.Margin, ['0.25']),
         `.m-025 {
   margin: 0.25px;
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Border, ['white', '2', 'solid']),
+        resolveCSS(UnunuraIdentifier.Border, ['white', '2', 'solid']),
         `.border-white-2-solid {
   border: solid;
   border-color: white;
@@ -222,20 +222,20 @@ describe('transform', () => {
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Border, ['2']),
+        resolveCSS(UnunuraIdentifier.Border, ['2']),
         `.border-2 {
   border-width: 2px;
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Border, ['dashed', 'black']),
+        resolveCSS(UnunuraIdentifier.Border, ['dashed', 'black']),
         `.border-dashed-black {
   border: dashed;
   border-color: black;
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Border, ['10', 'dashed', 'black', 'rounded-4']),
+        resolveCSS(UnunuraIdentifier.Border, ['10', 'dashed', 'black', 'rounded-4']),
         `.border-10-dashed-black-rounded-4 {
   border: dashed;
   border-color: black;
@@ -244,20 +244,20 @@ describe('transform', () => {
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Text, ['lg', 'black']),
+        resolveCSS(UnunuraIdentifier.Text, ['lg', 'black']),
         `.text-lg-black {
   color: black;
   font-size: 1.125rem;
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Text, ['l-spacing-20']),
+        resolveCSS(UnunuraIdentifier.Text, ['l-spacing-20']),
         `.text-l-spacing-20 {
   letter-spacing: 20px;
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Text, ['lg', 'indent-5', 'l-spacing-10', 'w-spacing-5']),
+        resolveCSS(UnunuraIdentifier.Text, ['lg', 'indent-5', 'l-spacing-10', 'w-spacing-5']),
         `.text-lg-indent-5-l-spacing-10-w-spacing-5 {
   font-size: 1.125rem;
   letter-indent: 5px;
@@ -266,26 +266,26 @@ describe('transform', () => {
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Text, ['arial', 'indent-5']),
+        resolveCSS(UnunuraIdentifier.Text, ['arial', 'indent-5']),
         `.text-arial-indent-5 {
   font-family: 'Arial', sans-serif;
   letter-indent: 5px;
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.BackgroundColor, ['#000000']),
+        resolveCSS(UnunuraIdentifier.BackgroundColor, ['#000000']),
         `.bg-#000000 {
   background-color: #000000;
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.BackgroundImage, ['test.png']),
+        resolveCSS(UnunuraIdentifier.BackgroundImage, ['test.png']),
         `.bgi-testpng {
   background: url("test.png");
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Flexbox, ['row', 'grow']),
+        resolveCSS(UnunuraIdentifier.Flexbox, ['row', 'grow']),
         `.flex-row-grow {
   display: flex;
   flex-direction: row;
@@ -293,7 +293,7 @@ describe('transform', () => {
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Flexbox, ['col-reverse', 'grow-none']),
+        resolveCSS(UnunuraIdentifier.Flexbox, ['col-reverse', 'grow-none']),
         `.flex-col-reverse-grow-none {
   display: flex;
   flex-direction: column-reverse;
@@ -301,52 +301,52 @@ describe('transform', () => {
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Flexbox, ['flex-1']),
+        resolveCSS(UnunuraIdentifier.Flexbox, ['flex-1']),
         `.flex-flex-1 {
   display: flex;
   flex: 1 1 0%;
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Width, ['100%']),
+        resolveCSS(UnunuraIdentifier.Width, ['100%']),
         `.w-100 {
   width: 100%;
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Width, ['max', '50vw']),
+        resolveCSS(UnunuraIdentifier.Width, ['max', '50vw']),
         `.w-max-50vw {
   max-width: 50vw;
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Height, ['300px']),
+        resolveCSS(UnunuraIdentifier.Height, ['300px']),
         `.h-300px {
   height: 300px;
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Height, ['min', '100vh']),
+        resolveCSS(UnunuraIdentifier.Height, ['min', '100vh']),
         `.h-min-100vh {
   min-height: 100vh;
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Height, ['max', '10rem']),
+        resolveCSS(UnunuraIdentifier.Height, ['max', '10rem']),
         `.h-max-10rem {
   max-height: 10rem;
 }`
       ],
       [
-        getCSS(UnunuraIdentifier.Margin, ['2', '10', '5']),
+        resolveCSS(UnunuraIdentifier.Margin, ['2', '10', '5']),
         NULLABLE
       ],
       [
-        getCSS(UnunuraIdentifier.Padding, ['2', '10', '5']),
+        resolveCSS(UnunuraIdentifier.Padding, ['2', '10', '5']),
         NULLABLE
       ],
       [
-        getCSS('wrong' as any, ['foo', 'bar', 'baz']),
+        resolveCSS('wrong' as any, ['foo', 'bar', 'baz']),
         NULLABLE
       ],
     ]

@@ -15,7 +15,7 @@ export const resolveFloatingToClassName = (t: string) =>
     .replace(/[,_\s]/gi, '-')
     .replace(/[():/\s]/gi, '')
 
-export const getIdentifierInCSS = (identifier: UnunuraIdentifier): string => {
+export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string => {
   switch (identifier) {
     case UnunuraIdentifier.Margin:
       return 'margin'
@@ -37,7 +37,7 @@ export const getIdentifierInCSS = (identifier: UnunuraIdentifier): string => {
   }
 }
 
-export const getCSS = (identifier: UnunuraIdentifier, contents: string[]): string => {
+export const resolveCSS = (identifier: UnunuraIdentifier, contents: string[]): string => {
   switch (identifier) {
     case UnunuraIdentifier.Margin:
     case UnunuraIdentifier.Padding:
