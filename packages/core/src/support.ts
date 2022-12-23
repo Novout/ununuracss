@@ -100,6 +100,18 @@ export const getSupportedFlexGrow = (contents: string[]): Nullable<string> => {
   return GrowReturn ?? GrowNoneReturn ?? NULLABLE
 }
 
+export const getSupportedFlexWrap = (contents: string[]): Nullable<string> => {
+  const Wrap = contents.find((c) => c === 'wrap')
+  const WrapReverse = contents.find((c) => c === 'wrap-r')
+  const WrapNone = contents.find((c) => c === 'wrap-n')
+
+  const WrapReturn = Wrap ? 'wrap' : undefined
+  const WrapReverseReturn = WrapReverse ? 'wrap-reverse' : undefined
+  const WrapNoneReturn = WrapNone ? 'nowrap' : undefined
+
+  return WrapReturn ?? WrapReverseReturn ?? WrapNoneReturn ?? NULLABLE
+}
+
 export const getSupportedNumber = (contents: string[]): Nullable<string> => {
   const vh = contents.find((c) => c.endsWith('vh'))
   const vw = contents.find((c) => c.endsWith('vw'))
@@ -109,4 +121,8 @@ export const getSupportedNumber = (contents: string[]): Nullable<string> => {
   const def = contents.find((c) => isNumber(c))
 
   return vh ?? vw ?? percentage ?? em ?? rem ?? def ?? NULLABLE
+}
+
+export const getSupportedGlobalNone = (contents: string[]): Nullable<string> => {
+  return contents.find((c) => c === 'none') ?? NULLABLE
 }

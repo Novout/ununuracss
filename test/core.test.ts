@@ -315,6 +315,12 @@ describe('transform', () => {
 }`
       ],
       [
+        resolveCSS(UnunuraIdentifier.Flexbox, ['flex-1', 'none']),
+        `.flex-flex-1-none {
+  flex: 1 1 0%;
+}`
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Flexbox, ['flex-1']),
         `.flex-flex-1 {
   display: flex;
@@ -417,6 +423,7 @@ describe('css', () => {
 `],
   [resolveTitleCssClass(UnunuraIdentifier.Margin, ['15', '0', '10', '0']), '.m-15-0-10-0'],
   [resolveTitleCssClass(UnunuraIdentifier.Text, ['lg']), '.text-lg'],
+  [resolveTitleCssClass(UnunuraIdentifier.Flexbox, ['flex-1']), '.flex-flex-1'],
   [resolveTitleCssClass(UnunuraIdentifier.Background, ['rgba(255,255,255,0.3)']), '.bg-rgba255-255-255-03'],
   [resolveTitleCssClass(UnunuraIdentifier.Background, ['/local_image.png']), '.bg-local-imagepng'],
   [resolveOnlyCssClassTitle(`.text-base {

@@ -4,7 +4,9 @@ import {
   getSupportedColor,
   getSupportedFlexDirection,
   getSupportedFlexGrow,
+  getSupportedFlexWrap,
   getSupportedFont,
+  getSupportedGlobalNone,
   getSupportedImage,
   getSupportedImageRepeat,
   getSupportedImageSize,
@@ -114,13 +116,18 @@ export const getResourceText = (identifier: UnunuraIdentifier, contents: string[
 export const getResourceFlex = (identifier: UnunuraIdentifier, contents: string[]): string => {
   const direction = getSupportedFlexDirection(contents)
   const grow = getSupportedFlexGrow(contents)
+  const wrap = getSupportedFlexWrap(contents)
 
-  let setter = `
+  const gNone = getSupportedGlobalNone(contents)
+  let setter = isNullable(gNone)
+    ? `
   display: flex;
 `
+    : '\n'
 
   setter += !isNullable(direction) ? `  ${identifier}-direction: ${direction};\n` : ''
   setter += !isNullable(grow) ? `  ${identifier}-grow: ${grow};\n` : ''
+  setter += !isNullable(wrap) ? `  ${identifier}-wrap: ${wrap};\n` : ''
   setter += appendGlobals(identifier, contents)
 
   return resolveCssClass(identifier, contents, setter)
