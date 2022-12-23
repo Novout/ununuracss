@@ -1,6 +1,13 @@
 import { UnunuraIdentifier, UnunuraKeys, NULLABLE, isNumber, isBorderStyle, isNullable } from 'ununura-shared'
 import { classesFromRawHtml, generateCss } from './ast'
-import { getSupportedColor, getSupportedFont, getSupportedImage, getSupportedSizer } from './css'
+import {
+  getSupportedColor,
+  getSupportedFlexDirection,
+  getSupportedFlexGrow,
+  getSupportedFont,
+  getSupportedImage,
+  getSupportedSizer,
+} from './css'
 import { appendGlobals } from './globals'
 import { lex } from './lexer'
 import { getCSS, resolveCssClass, getIdentifierInCSS } from './resolvers'
@@ -51,6 +58,7 @@ export const getResourceBorder = (identifier: UnunuraIdentifier, contents: strin
   setter += !isNullable(style) ? `  ${inCss}: ${style};\n` : ''
   setter += !isNullable(color) ? `  ${inCss}-color: ${color};\n` : ''
   setter += !isNullable(size) ? `  ${inCss}-width: ${size}px;\n` : ''
+  setter += appendGlobals(identifier, contents)
 
   return resolveCssClass(identifier, contents, setter)
 }
@@ -62,6 +70,7 @@ export const getResourceBackgroundColor = (identifier: UnunuraIdentifier, conten
 
   let setter = '\n'
   setter += !isNullable(color) ? `  ${inCss}-color: ${color};\n` : ''
+  setter += appendGlobals(identifier, contents)
 
   return resolveCssClass(identifier, contents, setter)
 }
@@ -72,6 +81,7 @@ export const getResourceBackgroundImage = (identifier: UnunuraIdentifier, conten
 
   let setter = '\n'
   setter += !isNullable(image) ? `  ${inCss}: url("${image}");\n` : ''
+  setter += appendGlobals(identifier, contents)
 
   return resolveCssClass(identifier, contents, setter)
 }
@@ -85,6 +95,21 @@ export const getResourceText = (identifier: UnunuraIdentifier, contents: string[
   setter += !isNullable(color) ? `  color: ${color};\n` : ''
   setter += !isNullable(fontSize) ? `  font-size: ${fontSize};\n` : ''
   setter += !isNullable(fontFamily) ? `  font-family: '${fontFamily}', sans-serif;\n` : ''
+  setter += appendGlobals(identifier, contents)
+
+  return resolveCssClass(identifier, contents, setter)
+}
+
+export const getResourceFlex = (identifier: UnunuraIdentifier, contents: string[]): string => {
+  const direction = getSupportedFlexDirection(contents)
+  const grow = getSupportedFlexGrow(contents)
+
+  let setter = `
+  display: flex;
+`
+
+  setter += !isNullable(direction) ? `  flex-direction: ${direction};\n` : ''
+  setter += !isNullable(grow) ? `  flex-grow: ${grow};\n` : ''
   setter += appendGlobals(identifier, contents)
 
   return resolveCssClass(identifier, contents, setter)

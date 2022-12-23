@@ -5,13 +5,15 @@ export enum UnunuraIdentifier {
   Text = 'text',
   BackgroundColor = 'bg',
   BackgroundImage = 'bgi',
+  Flexbox = 'flex',
 }
 
 export enum UnunuraGlobals {
   TextIndent = 'indent',
   LetterSpacing = 'l-spacing',
   WordSpacing = 'w-spacing',
-  BorderRadius = 'radius',
+  BorderRadius = 'rounded',
+  FlexStandard = 'flex',
 }
 
 export enum UnunuraKeys {

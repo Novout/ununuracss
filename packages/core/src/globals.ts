@@ -1,4 +1,4 @@
-import { isGlobal, NULLABLE, UnunuraGlobals, UnunuraIdentifier } from 'ununura-shared'
+import { isGlobal, UnunuraGlobals, UnunuraIdentifier } from 'ununura-shared'
 
 export const GlobalTextIndent = (str: string) => {
   const [item, value] = str.split('-')
@@ -19,16 +19,15 @@ export const GlobalWordSpacing = (str: string) => {
 }
 
 export const GlobalBorderRadius = (str: string): string => {
-  const content = str.split('-')
-  const isValidArgument = str.length === 1 || str.length === 2 || str.length === 4
+  const [_, value] = str.split('-')
 
-  const asPercentage = (key: string) => key.endsWith('%')
+  return str.startsWith(UnunuraGlobals.BorderRadius.valueOf()) ? `  border-radius: ${value}px` : ''
+}
 
-  return str.startsWith(UnunuraGlobals.BorderRadius.valueOf())
-    ? `border-radius: ${
-        isValidArgument ? content.reduce((sum, key) => (sum += ` ${key}${asPercentage(key) ? '' : 'px'}`), '') : ''
-      }`
-    : ''
+export const GlobalFlexStandard = (str: string) => {
+  const [item, value] = str.split('-')
+
+  return str.startsWith(UnunuraGlobals.FlexStandard.valueOf()) ? `  ${item}: ${value} ${value} 0%` : ''
 }
 
 export const appendGlobals = (identifier: UnunuraIdentifier, contents: string[]): string => {
@@ -42,9 +41,15 @@ export const appendGlobals = (identifier: UnunuraIdentifier, contents: string[])
         setter += GlobalTextIndent(content)
         setter += GlobalLetterSpacing(content)
         setter += GlobalWordSpacing(content)
+        break
       }
       case UnunuraIdentifier.Border: {
         setter += GlobalBorderRadius(content)
+        break
+      }
+      case UnunuraIdentifier.Flexbox: {
+        setter += GlobalFlexStandard(content)
+        break
       }
     }
 

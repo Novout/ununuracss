@@ -57,3 +57,27 @@ export const getSupportedSizer = (contents: string[]): Nullable<`${string}rem`> 
 
   return getSizer(target as CSSResourceSizer) ?? NULLABLE
 }
+
+export const getSupportedFlexDirection = (contents: string[]): Nullable<string> => {
+  const Column = contents.find((c) => c === 'col')
+  const ColumnReverse = contents.find((c) => c === 'col-reverse')
+  const Row = contents.find((c) => c === 'row')
+  const RowReverse = contents.find((c) => c === 'row-reverse')
+
+  const ColumnReturn = Column ? 'column' : undefined
+  const ColumnReverseReturn = ColumnReverse ? 'column-reverse' : undefined
+  const RowReturn = Row ? 'row' : undefined
+  const RowReverseReturn = RowReverse ? 'row-reverse' : undefined
+
+  return RowReturn ?? ColumnReturn ?? RowReverseReturn ?? ColumnReverseReturn ?? NULLABLE
+}
+
+export const getSupportedFlexGrow = (contents: string[]): Nullable<string> => {
+  const Grow = contents.find((c) => c === 'grow')
+  const GrowNone = contents.find((c) => c === 'grow-none')
+
+  const GrowReturn = Grow ? '1' : undefined
+  const GrowNoneReturn = GrowNone ? '0' : undefined
+
+  return GrowReturn ?? GrowNoneReturn ?? NULLABLE
+}

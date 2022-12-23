@@ -24,6 +24,13 @@ describe('resolvers', () => {
   border-color: white;
 }
 `],
+  [
+    generateCSSResources(`<template><div class="flex[row col-reverse]" /></template>`),
+  `.flex-row-col-reverse {
+  display: flex;
+  flex-direction: row;
+}
+`]
     ]
 
     for (const [sfc, result] of targets) {

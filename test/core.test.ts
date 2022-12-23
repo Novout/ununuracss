@@ -235,6 +235,15 @@ describe('transform', () => {
 }`
       ],
       [
+        getCSS(UnunuraIdentifier.Border, ['10', 'dashed', 'black', 'rounded-4']),
+        `.border-10-dashed-black-rounded-4 {
+  border: dashed;
+  border-color: black;
+  border-width: 10px;
+  border-radius: 4px;
+}`
+      ],
+      [
         getCSS(UnunuraIdentifier.Text, ['lg', 'black']),
         `.text-lg-black {
   color: black;
@@ -273,6 +282,22 @@ describe('transform', () => {
         getCSS(UnunuraIdentifier.BackgroundImage, ['test.png']),
         `.bgi-testpng {
   background: url("test.png");
+}`
+      ],
+      [
+        getCSS(UnunuraIdentifier.Flexbox, ['row', 'grow']),
+        `.flex-row-grow {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}`
+      ],
+      [
+        getCSS(UnunuraIdentifier.Flexbox, ['col-reverse', 'grow-none']),
+        `.flex-col-reverse-grow-none {
+  display: flex;
+  flex-direction: column-reverse;
+  flex-grow: 0;
 }`
       ],
       [

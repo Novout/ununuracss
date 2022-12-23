@@ -6,6 +6,7 @@ import {
   getResourceBackgroundImage,
   getResourceBorder,
   getResourcePaddingOrMargin,
+  getResourceFlex,
 } from './resources'
 
 export const resolveFloatingToClassName = (t: string) =>
@@ -28,6 +29,8 @@ export const getIdentifierInCSS = (identifier: UnunuraIdentifier): string => {
       return 'text'
     case UnunuraIdentifier.Border:
       return 'border'
+    case UnunuraIdentifier.Flexbox:
+      return 'flex'
   }
 }
 
@@ -44,6 +47,8 @@ export const getCSS = (identifier: UnunuraIdentifier, contents: string[]): strin
       return getResourceText(identifier, contents)
     case UnunuraIdentifier.Border:
       return getResourceBorder(identifier, contents)
+    case UnunuraIdentifier.Flexbox:
+      return getResourceFlex(identifier, contents)
     default:
       return NULLABLE
   }
