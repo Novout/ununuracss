@@ -17,5 +17,5 @@
       "ununura-shared": ["./packages/shared/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "**/examples/**", "**/dist/**"]
+  "exclude": ["node_modules", "docs", "**/examples/**", "**/dist/**"]
 }
