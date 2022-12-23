@@ -218,6 +218,9 @@ export const isDefaultFont = (i: string): boolean =>
     'Wingdings',
     'Yu Gothic',
   ].some((c) => c.toLowerCase() === i.toLowerCase())
+export const isImageSize = (i: string) => ['auto', 'cover', 'contain'].some((d) => i.toLowerCase() === d.toLowerCase())
+export const isImageRepeat = (i: string) =>
+  ['repeat', 'no-repeat', 'repeat-x', 'repeat-y', 'repeat-round', 'repeat-space'].some((d) => i.toLowerCase() === d.toLowerCase())
 export const isRGBColor = (i: string): boolean => i.startsWith('rgb')
 export const isHSLColor = (i: string): boolean => i.startsWith('hsl')
 export const isHTTPSImage = (i: string): boolean => /(https?:\/\/.*\.(?:png|jpg|gif|jpe?g|tiff?|png|webp|bmp))/i.test(i)

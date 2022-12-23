@@ -43,7 +43,7 @@ export default defineConfig({
 
 ## Features
 
-- Zero dependencies
+- Zero dependencies / default css
 - No configuration files / full-reload / presets;
 - Only class-raw based;
 - Dynamic identifiers (rules) with unique/multiple engine;
@@ -54,7 +54,7 @@ export default defineConfig({
 
 ### Unique Resource Examples
 
-`text:roboto`
+`text:arial`
 
 `text:xl`
 
@@ -66,11 +66,11 @@ export default defineConfig({
 
 `bg:white`
 
-`bgi:local_image.png`
+`bg:/image_in_public_file.png`
 
 ### Multiple Resource Examples
 
-`text[roboto lg #FF00FF]`
+`text[arial lg #FF00FF]`
 
 `text[yellow bold]`
 
@@ -82,4 +82,4 @@ export default defineConfig({
 
 `bg[white]`
 
-`bgi[local_image.jpeg cover]`
+`bg[/image_in_public_file.jpeg cover]`

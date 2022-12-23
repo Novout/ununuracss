@@ -6,6 +6,8 @@ import {
   isHSLColor,
   isHTTPSImage,
   isImage,
+  isImageRepeat,
+  isImageSize,
   isNumber,
   isRGBColor,
   isSizer,
@@ -35,6 +37,14 @@ export const getSupportedImage = (contents: string[]): Nullable<string> => {
   const GenericImage = contents.find((c) => isImage(c))
 
   return HTTPSImage ?? GenericImage ?? NULLABLE
+}
+
+export const getSupportedImageSize = (contents: string[]): Nullable<string> => {
+  return contents.find((c) => isImageSize(c)) ?? NULLABLE
+}
+
+export const getSupportedImageRepeat = (contents: string[]): Nullable<string> => {
+  return contents.find((c) => isImageRepeat(c)) ?? NULLABLE
 }
 
 export const getSupportedFont = (contents: string[]): Nullable<string> => {

@@ -273,15 +273,29 @@ describe('transform', () => {
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.BackgroundColor, ['#000000']),
+        resolveCSS(UnunuraIdentifier.Background, ['#000000']),
         `.bg-#000000 {
   background-color: #000000;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.BackgroundImage, ['test.png']),
-        `.bgi-testpng {
-  background: url("test.png");
+        resolveCSS(UnunuraIdentifier.Background, ['#000001', 'cover']),
+        `.bg-#000001-cover {
+  background-color: #000001;
+  background-size: cover;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Background, ['/test.png']),
+        `.bg-testpng {
+  background-image: url("/test.png");
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Background, ['/foo.png', 'auto']),
+        `.bg-foopng-auto {
+  background-image: url("/foo.png");
+  background-size: auto;
 }`
       ],
       [
@@ -395,16 +409,16 @@ describe('css', () => {
 }
 `],
   [
-    generateCSSResources(`<div class="bgi:local_image.png" />
+    generateCSSResources(`<div class="bg:local_image.png" />
   `),
-        `.bgi-local-imagepng {
-  background: url("local_image.png");
+        `.bg-local-imagepng {
+  background-image: url("local_image.png");
 }
 `],
   [resolveTitleCssClass(UnunuraIdentifier.Margin, ['15', '0', '10', '0']), '.m-15-0-10-0'],
   [resolveTitleCssClass(UnunuraIdentifier.Text, ['lg']), '.text-lg'],
-  [resolveTitleCssClass(UnunuraIdentifier.BackgroundColor, ['rgba(255,255,255,0.3)']), '.bg-rgba255-255-255-03'],
-  [resolveTitleCssClass(UnunuraIdentifier.BackgroundImage, ['/local_image.png']), '.bgi-local-imagepng'],
+  [resolveTitleCssClass(UnunuraIdentifier.Background, ['rgba(255,255,255,0.3)']), '.bg-rgba255-255-255-03'],
+  [resolveTitleCssClass(UnunuraIdentifier.Background, ['/local_image.png']), '.bg-local-imagepng'],
   [resolveOnlyCssClassTitle(`.text-base {
   font-size: 1rem;
 }`), 'text-base'],

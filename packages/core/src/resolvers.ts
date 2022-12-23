@@ -1,12 +1,11 @@
 import { UnunuraIdentifier, NULLABLE } from 'ununura-shared'
 import {
   getResourceText,
-  getResourceBackgroundColor,
-  getResourceBackgroundImage,
   getResourceBorder,
   getResourcePaddingOrMargin,
   getResourceFlex,
   getResourceWidthOrHeight,
+  getResourceBackground,
 } from './resources'
 
 export const resolveFloatingToClassName = (t: string) =>
@@ -21,8 +20,7 @@ export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string =>
       return 'margin'
     case UnunuraIdentifier.Padding:
       return 'padding'
-    case UnunuraIdentifier.BackgroundColor:
-    case UnunuraIdentifier.BackgroundImage:
+    case UnunuraIdentifier.Background:
       return 'background'
     case UnunuraIdentifier.Text:
       return 'text'
@@ -42,10 +40,8 @@ export const resolveCSS = (identifier: UnunuraIdentifier, contents: string[]): s
     case UnunuraIdentifier.Margin:
     case UnunuraIdentifier.Padding:
       return getResourcePaddingOrMargin(identifier, contents)
-    case UnunuraIdentifier.BackgroundColor:
-      return getResourceBackgroundColor(identifier, contents)
-    case UnunuraIdentifier.BackgroundImage:
-      return getResourceBackgroundImage(identifier, contents)
+    case UnunuraIdentifier.Background:
+      return getResourceBackground(identifier, contents)
     case UnunuraIdentifier.Text:
       return getResourceText(identifier, contents)
     case UnunuraIdentifier.Border:

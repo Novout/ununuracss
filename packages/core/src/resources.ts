@@ -6,6 +6,8 @@ import {
   getSupportedFlexGrow,
   getSupportedFont,
   getSupportedImage,
+  getSupportedImageRepeat,
+  getSupportedImageSize,
   getSupportedMinOrMax,
   getSupportedNumber,
   getSupportedSizer,
@@ -77,24 +79,19 @@ export const getResourceBorder = (identifier: UnunuraIdentifier, contents: strin
   return resolveCssClass(identifier, contents, setter)
 }
 
-export const getResourceBackgroundColor = (identifier: UnunuraIdentifier, contents: string[]): string => {
+export const getResourceBackground = (identifier: UnunuraIdentifier, contents: string[]): string => {
   const color = getSupportedColor(contents)
+  const image = getSupportedImage(contents)
+  const size = getSupportedImageSize(contents)
+  const repeat = getSupportedImageRepeat(contents)
 
   const inCss = resolveIdentifierInCSS(identifier)
 
   let setter = '\n'
   setter += !isNullable(color) ? `  ${inCss}-color: ${color};\n` : ''
-  setter += appendGlobals(identifier, contents)
-
-  return resolveCssClass(identifier, contents, setter)
-}
-
-export const getResourceBackgroundImage = (identifier: UnunuraIdentifier, contents: string[]): string => {
-  const image = getSupportedImage(contents)
-  const inCss = resolveIdentifierInCSS(identifier)
-
-  let setter = '\n'
-  setter += !isNullable(image) ? `  ${inCss}: url("${image}");\n` : ''
+  setter += !isNullable(image) ? `  ${inCss}-image: url("${image}");\n` : ''
+  setter += !isNullable(size) ? `  ${inCss}-size: ${size};\n` : ''
+  setter += !isNullable(repeat) ? `  ${inCss}-repeat: ${size};\n` : ''
   setter += appendGlobals(identifier, contents)
 
   return resolveCssClass(identifier, contents, setter)
