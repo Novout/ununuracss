@@ -17,6 +17,7 @@ import {
 import { appendGlobals } from './globals'
 import { lex } from './lexer'
 import { resolveCSS, resolveCssClass, resolveIdentifierInCSS } from './resolvers'
+import { validateSpreadAllResource } from './validate'
 
 export const generateMultipleClass = (key: string) => {
   const [identifier, content] = key.split(UnunuraKeys.UniqueContext)
@@ -42,13 +43,15 @@ export const generateCSSResources = (raw: string) => {
 }
 
 export const getResourcePaddingOrMargin = (identifier: UnunuraIdentifier, contents: string[]): string => {
-  const isValidArgument = contents.length === 1 || contents.length === 2 || contents.length === 4
+  const validate = validateSpreadAllResource(contents)
 
-  if (!isValidArgument) return NULLABLE
+  if (!validate) return NULLABLE
 
-  const setter = `
-  ${isValidArgument ? `${resolveIdentifierInCSS(identifier)}:${contents.reduce((sum, acc) => (sum += ` ${acc}px`), '')};` : ''}
-`
+  let setter = '\n'
+  setter += `  ${resolveIdentifierInCSS(identifier)}:${contents.reduce(
+    (sum, acc) => (sum += ` ${getSupportedNumber([acc])}`),
+    ''
+  )};\n`
 
   return resolveCssClass(identifier, contents, setter)
 }
@@ -60,7 +63,14 @@ export const getResourceWidthOrHeight = (identifier: UnunuraIdentifier, contents
   const inCss = resolveIdentifierInCSS(identifier)
 
   let setter = '\n'
-  ranged ? (setter += !isNullable(ranged) ? `  ${ranged}-${inCss}: ${size};\n` : `  ${inCss}: ${size};\n`) : ''
+  ranged
+    ? (setter +=
+        !isNullable(ranged) && !isNullable(size)
+          ? `  ${ranged}-${inCss}: ${size};\n`
+          : !isNullable(size)
+          ? `  ${inCss}: ${size};\n`
+          : '')
+    : ''
 
   return resolveCssClass(identifier, contents, setter)
 }

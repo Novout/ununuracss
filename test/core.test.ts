@@ -178,9 +178,9 @@ describe('transform', () => {
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Padding, ['2', '5', '0', '10']),
-        `.p-2-5-0-10 {
-  padding: 2px 5px 0px 10px;
+        resolveCSS(UnunuraIdentifier.Padding, ['2', '5rem', '0', '10rem']),
+        `.p-2-5rem-0-10rem {
+  padding: 2px 5rem 0px 10rem;
 }`
       ],
       [
@@ -211,6 +211,12 @@ describe('transform', () => {
         resolveCSS(UnunuraIdentifier.Margin, ['0.25']),
         `.m-025 {
   margin: 0.25px;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Margin, ['50%', '25ch']),
+        `.m-50-25ch {
+  margin: 50% 25ch;
 }`
       ],
       [
@@ -337,6 +343,12 @@ describe('transform', () => {
         resolveCSS(UnunuraIdentifier.Width, ['max', '50vw']),
         `.w-max-50vw {
   max-width: 50vw;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Height, ['300']),
+        `.h-300 {
+  height: 300px;
 }`
       ],
       [

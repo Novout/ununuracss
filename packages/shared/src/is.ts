@@ -227,6 +227,32 @@ export const isHTTPSImage = (i: string): boolean => /(https?:\/\/.*\.(?:png|jpg|
 export const isImage = (i: string): boolean => /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(i)
 export const isBorderStyle = (i: string): boolean => ['solid', 'dotted', 'dashed'].some((c) => c === i)
 export const isSizer = (i: string): boolean => ['xs', 'sm', 'base', 'lg', 'xl'].some((c) => c === i)
+export const isNumberSuffix = (i: string): boolean =>
+  [
+    'cm',
+    'mm',
+    'pc',
+    'pt',
+    'em',
+    'ex',
+    'ch',
+    '%',
+    'rem',
+    'lh',
+    'rlh',
+    'vw',
+    'vh',
+    'vmin',
+    'vmax',
+    'vb',
+    'vi',
+    'svw',
+    'svh',
+    'lvw',
+    'lvh',
+    'dvw',
+    'dvh',
+  ].some((c) => i.toLowerCase().endsWith(c.toLowerCase()))
 
 export const isNullable = (i: string): boolean => i === NULLABLE
 export const isUniqueKey = (key: string) => key === UnunuraKeys.UniqueContext

@@ -9,6 +9,7 @@ import {
   isImageRepeat,
   isImageSize,
   isNumber,
+  isNumberSuffix,
   isRGBColor,
   isSizer,
   Nullable,
@@ -113,14 +114,10 @@ export const getSupportedFlexWrap = (contents: string[]): Nullable<string> => {
 }
 
 export const getSupportedNumber = (contents: string[]): Nullable<string> => {
-  const vh = contents.find((c) => c.endsWith('vh'))
-  const vw = contents.find((c) => c.endsWith('vw'))
-  const percentage = contents.find((c) => c.endsWith('%'))
-  const em = contents.find((c) => c.endsWith('em'))
-  const rem = contents.find((c) => c.endsWith('rem'))
+  const suffixed = contents.find((c) => isNumberSuffix(c))
   const def = contents.find((c) => isNumber(c))
 
-  return vh ?? vw ?? percentage ?? em ?? rem ?? def ?? NULLABLE
+  return suffixed ?? (def?.endsWith('px') ? def : `${def}px`) ?? NULLABLE
 }
 
 export const getSupportedGlobalNone = (contents: string[]): Nullable<string> => {

@@ -1,4 +1,4 @@
-import { UnunuraIdentifier, NULLABLE } from 'ununura-shared'
+import { UnunuraIdentifier, NULLABLE, Nullable } from 'ununura-shared'
 import {
   getResourceText,
   getResourceBorder,
@@ -64,8 +64,10 @@ export const resolveTitleCssClass = (identifier: UnunuraIdentifier, contents: st
   }, `.${identifier}`)
 }
 
-export const resolveCssClass = (identifier: UnunuraIdentifier, contents: string[], setter: string): string => {
+export const resolveCssClass = (identifier: UnunuraIdentifier, contents: string[], setter: string): Nullable<string> => {
   const title = resolveTitleCssClass(identifier, contents)
+
+  if (!setter.trim()) return NULLABLE
 
   const cl = `${title} {${setter}}`
 
