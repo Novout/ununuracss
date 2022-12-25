@@ -1,3 +1,4 @@
+import { purgeCSS } from "packages/core/src/purge";
 import { getSupportedSizer } from "packages/core/src/support";
 import { lex, classesFromRawHtml, resolveTitleCssClass, resolveCSS, generateUniqueClass, generateMultipleClass, generateCSSResources, scan, UnunuraGenerate, resolveOnlyCssClassTitle } from "ununura-core";
 import { isKey, NULLABLE, UnunuraIdentifier } from "ununura-shared";
@@ -454,6 +455,42 @@ describe('css', () => {
 
     for (const [raw, result] of targets) {
       expect(raw).toStrictEqual(result)
+    }
+  })
+})
+
+describe('purge', () => {
+  it('should purge or not css generated files', async () => {
+    const targets = [
+      [purgeCSS(`.bg-#000000 {
+  background-color: #000000;
+}
+.p-10 {
+  padding: 10px;
+}
+.bg-#000000 {
+  background-color: #000000;
+}`), `.bg-#000000 {
+  background-color: #000000;
+}
+.p-10 {
+  padding: 10px;
+}`],
+  [purgeCSS(`.bg-#000000 {
+  background-color: #000000;
+}
+.p-10 {
+  padding: 10px;
+}`), `.bg-#000000 {
+  background-color: #000000;
+}
+.p-10 {
+  padding: 10px;
+}`],
+    ]
+
+    for (const [raw, result] of targets) {
+      expect(await raw).toStrictEqual(result)
     }
   })
 })

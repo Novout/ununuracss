@@ -57,11 +57,7 @@ export const resolveCSS = (identifier: UnunuraIdentifier, contents: string[]): s
 }
 
 export const resolveTitleCssClass = (identifier: UnunuraIdentifier, contents: string[]) => {
-  return contents.reduce((sum, acc) => {
-    if (acc) return (sum += `-${resolveFloatingToClassName(acc)}`)
-
-    return sum
-  }, `.${identifier}`)
+  return contents.reduce((sum, acc) => (sum += `-${resolveFloatingToClassName(acc)}`), `.${identifier}`)
 }
 
 export const resolveCssClass = (identifier: UnunuraIdentifier, contents: string[], setter: string): Nullable<string> => {

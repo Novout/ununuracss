@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bgi:/he4rt.png w:100% h:50vh">
+    <div class="bg:black w:100% text:[white lg]">
       example
     </div>
   </div>
