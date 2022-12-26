@@ -254,7 +254,7 @@ export const isNumberSuffix = (i: string): boolean =>
     'dvh',
   ].some((c) => i.toLowerCase().endsWith(c.toLowerCase()))
 
-export const isNullable = (i: string): boolean => i === NULLABLE
+export const isNullable = (i?: string): boolean => i === NULLABLE || i === undefined || i === null
 export const isUniqueKey = (key: string) => key === UnunuraKeys.UniqueContext
 export const isOpenMultipleKey = (key: string) => key === UnunuraKeys.MultipleContextOpen
 export const isCloseMultipleKey = (key: string) => key === UnunuraKeys.MultipleContextClose

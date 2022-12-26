@@ -1,4 +1,4 @@
-import { UnunuraIdentifier, UnunuraKeys, NULLABLE, isNumber, isBorderStyle, isNullable } from 'ununura-shared'
+import { UnunuraIdentifier, UnunuraKeys, NULLABLE, isBorderStyle, isNullable, Option } from 'ununura-shared'
 import { classesFromRawHtml, generateCss } from './ast'
 import {
   getSupportedColor,
@@ -6,18 +6,33 @@ import {
   getSupportedFlexGrow,
   getSupportedFlexWrap,
   getSupportedFont,
+  getSupportedFontWeight,
+  getSupportedGlobalImportant,
   getSupportedGlobalNone,
   getSupportedImage,
   getSupportedImageRepeat,
   getSupportedImageSize,
   getSupportedMinOrMax,
   getSupportedNumber,
-  getSupportedSizer,
+  getSupportedStandardFlex,
 } from './support'
-import { appendGlobals } from './globals'
 import { lex } from './lexer'
 import { resolveCSS, resolveCssClass, resolveIdentifierInCSS } from './resolvers'
 import { validateSpreadAllResource } from './validate'
+
+export const setterHead = (contents: string[], start?: string) => {
+  const asDef = getSupportedGlobalNone(contents)
+
+  let _ = '\n' + (start && isNullable(asDef) ? `  ${start}\n` : '')
+
+  return _
+}
+
+export const setterRow = (item: Option<string> = undefined, valid: string, contents: string[]) => {
+  const asImportant = getSupportedGlobalImportant(contents)
+
+  return !isNullable(item) ? `  ${valid}${!isNullable(asImportant) ? ' !important' : ''};\n` : ''
+}
 
 export const generateMultipleClass = (key: string) => {
   const [identifier, content] = key.split(UnunuraKeys.UniqueContext)
@@ -43,15 +58,18 @@ export const generateCSSResources = (raw: string) => {
 }
 
 export const getResourcePaddingOrMargin = (identifier: UnunuraIdentifier, contents: string[]): string => {
-  const validate = validateSpreadAllResource(contents)
+  const values = validateSpreadAllResource(contents)
 
-  if (!validate) return NULLABLE
+  if (values.length === 0) return NULLABLE
 
-  let setter = '\n'
-  setter += `  ${resolveIdentifierInCSS(identifier)}:${contents.reduce(
+  let setter = setterHead(contents)
+
+  const spread = `${resolveIdentifierInCSS(identifier)}:${values.reduce(
     (sum, acc) => (sum += ` ${getSupportedNumber([acc])}`),
     ''
-  )};\n`
+  )}`
+
+  setter += setterRow('' as any, spread, contents)
 
   return resolveCssClass(identifier, contents, setter)
 }
@@ -62,13 +80,13 @@ export const getResourceWidthOrHeight = (identifier: UnunuraIdentifier, contents
 
   const inCss = resolveIdentifierInCSS(identifier)
 
-  let setter = '\n'
+  let setter = setterHead(contents)
   ranged
     ? (setter +=
         !isNullable(ranged) && !isNullable(size)
-          ? `  ${ranged}-${inCss}: ${size};\n`
+          ? setterRow('' as any, `${ranged}-${inCss}: ${size}`, contents)
           : !isNullable(size)
-          ? `  ${inCss}: ${size};\n`
+          ? setterRow('' as any, `${inCss}: ${size}`, contents)
           : '')
     : ''
 
@@ -76,17 +94,16 @@ export const getResourceWidthOrHeight = (identifier: UnunuraIdentifier, contents
 }
 
 export const getResourceBorder = (identifier: UnunuraIdentifier, contents: string[]): string => {
-  const size = contents.find((c) => isNumber(c)) ?? NULLABLE
+  const size = getSupportedNumber(contents)
   const style = contents.find((c) => isBorderStyle(c)) ?? NULLABLE
   const color = getSupportedColor(contents)
 
   const inCss = resolveIdentifierInCSS(identifier)
 
-  let setter = '\n'
+  let setter = setterHead(contents)
   setter += !isNullable(style) ? `  ${inCss}: ${style};\n` : ''
   setter += !isNullable(color) ? `  ${inCss}-color: ${color};\n` : ''
-  setter += !isNullable(size) ? `  ${inCss}-width: ${size}px;\n` : ''
-  setter += appendGlobals(identifier, contents)
+  setter += !isNullable(size) ? `  ${inCss}-width: ${size};\n` : ''
 
   return resolveCssClass(identifier, contents, setter)
 }
@@ -99,26 +116,26 @@ export const getResourceBackground = (identifier: UnunuraIdentifier, contents: s
 
   const inCss = resolveIdentifierInCSS(identifier)
 
-  let setter = '\n'
-  setter += !isNullable(color) ? `  ${inCss}-color: ${color};\n` : ''
-  setter += !isNullable(image) ? `  ${inCss}-image: url("${image}");\n` : ''
-  setter += !isNullable(size) ? `  ${inCss}-size: ${size};\n` : ''
-  setter += !isNullable(repeat) ? `  ${inCss}-repeat: ${size};\n` : ''
-  setter += appendGlobals(identifier, contents)
+  let setter = setterHead(contents)
+  setter += setterRow(color, `${inCss}-color: ${color}`, contents)
+  setter += setterRow(image, `${inCss}-image: url("${image}")`, contents)
+  setter += setterRow(size, `${inCss}-size: ${size}`, contents)
+  setter += setterRow(repeat, `${inCss}-repeat: ${repeat}`, contents)
 
   return resolveCssClass(identifier, contents, setter)
 }
 
 export const getResourceText = (identifier: UnunuraIdentifier, contents: string[]): string => {
   const color = getSupportedColor(contents)
-  const fontSize = getSupportedSizer(contents)
+  const fontSize = getSupportedNumber(contents)
   const fontFamily = getSupportedFont(contents)
+  const fontWeight = getSupportedFontWeight(contents)
 
-  let setter = '\n'
-  setter += !isNullable(color) ? `  color: ${color};\n` : ''
-  setter += !isNullable(fontSize) ? `  font-size: ${fontSize};\n` : ''
-  setter += !isNullable(fontFamily) ? `  font-family: '${fontFamily}', sans-serif;\n` : ''
-  setter += appendGlobals(identifier, contents)
+  let setter = setterHead(contents)
+  setter += setterRow(color, `color: ${color}`, contents)
+  setter += setterRow(fontSize, `font-size: ${fontSize}`, contents)
+  setter += setterRow(fontWeight, `font-weight: ${fontWeight}`, contents)
+  setter += setterRow(fontFamily, `font-family: '${fontFamily}', sans-serif`, contents)
 
   return resolveCssClass(identifier, contents, setter)
 }
@@ -127,18 +144,13 @@ export const getResourceFlex = (identifier: UnunuraIdentifier, contents: string[
   const direction = getSupportedFlexDirection(contents)
   const grow = getSupportedFlexGrow(contents)
   const wrap = getSupportedFlexWrap(contents)
+  const flex = getSupportedStandardFlex(contents)
 
-  const gNone = getSupportedGlobalNone(contents)
-  let setter = isNullable(gNone)
-    ? `
-  display: flex;
-`
-    : '\n'
-
-  setter += !isNullable(direction) ? `  ${identifier}-direction: ${direction};\n` : ''
-  setter += !isNullable(grow) ? `  ${identifier}-grow: ${grow};\n` : ''
-  setter += !isNullable(wrap) ? `  ${identifier}-wrap: ${wrap};\n` : ''
-  setter += appendGlobals(identifier, contents)
+  let setter = setterHead(contents, 'display: flex;')
+  setter += setterRow(direction, `${identifier}-direction: ${direction}`, contents)
+  setter += setterRow(grow, `${identifier}-grow: ${grow}`, contents)
+  setter += setterRow(wrap, `${identifier}-wrap: ${wrap}`, contents)
+  setter += setterRow(flex, `${identifier}: ${flex.split('-')[1]} ${flex.split('-')[1]} 0%`, contents)
 
   return resolveCssClass(identifier, contents, setter)
 }

@@ -1,10 +1,11 @@
-import { isNullable, NULLABLE } from 'ununura-shared'
-import { getSupportedNumber } from './support'
+import { isGlobal } from 'ununura-shared'
 
-export const validateSpreadAllResource = (resources: string[]): boolean => {
-  const isCorrectLength = resources.length === 1 || resources.length === 2 || resources.length === 4
+export const validateSpreadAllResource = (resources: string[]): string[] => {
+  const normalize = resources.filter((r) => !isGlobal(r))
 
-  if (!isCorrectLength) return false
+  const isCorrectLength = normalize.length === 1 || normalize.length === 2 || normalize.length === 4
 
-  return !isNullable(getSupportedNumber(resources))
+  if (!isCorrectLength) return []
+
+  return normalize
 }

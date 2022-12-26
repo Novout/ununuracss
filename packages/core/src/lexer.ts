@@ -46,10 +46,6 @@ export const lex = (raw: string): string[] => {
           is_unique_key = true
           actually_key = undefined
           break
-        case UnunuraKeys.Important:
-          actually_key = UnunuraKeys.Important
-          transformers.push(UnunuraKeys.Important)
-          break
       }
     } else {
       identifier += char

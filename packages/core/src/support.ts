@@ -1,5 +1,4 @@
 import {
-  CSSResourceSizer,
   isCSSColor,
   isDefaultFont,
   isHex,
@@ -11,10 +10,8 @@ import {
   isNumber,
   isNumberSuffix,
   isRGBColor,
-  isSizer,
   Nullable,
   NULLABLE,
-  Option,
 } from 'ununura-shared'
 
 export const getSupportedMinOrMax = (contents: string[]): Nullable<string> => {
@@ -54,27 +51,10 @@ export const getSupportedFont = (contents: string[]): Nullable<string> => {
   return GenericFont ? GenericFont?.charAt(0).toUpperCase() + GenericFont?.slice(1) : NULLABLE
 }
 
-export const getSupportedSizer = (contents: string[]): Nullable<`${string}rem`> => {
-  const getSizer = (key?: CSSResourceSizer): Option<`${string}rem`> => {
-    switch (key) {
-      case 'xs':
-        return '0.75rem'
-      case 'sm':
-        return '0.875rem'
-      case 'base':
-        return '1rem'
-      case 'lg':
-        return '1.125rem'
-      case 'xl':
-        return '1.25rem'
-      default:
-        return undefined
-    }
-  }
+export const getSupportedFontWeight = (contents: string[]): Nullable<string> => {
+  const weight = contents.find((c) => c.length === 3 && isNumber(c) && c.endsWith('00'))
 
-  const target = contents.find((c) => isSizer(c))
-
-  return getSizer(target as CSSResourceSizer) ?? NULLABLE
+  return weight ?? NULLABLE
 }
 
 export const getSupportedFlexDirection = (contents: string[]): Nullable<string> => {
@@ -106,20 +86,33 @@ export const getSupportedFlexWrap = (contents: string[]): Nullable<string> => {
   const WrapReverse = contents.find((c) => c === 'wrap-r')
   const WrapNone = contents.find((c) => c === 'wrap-n')
 
-  const WrapReturn = Wrap ? 'wrap' : undefined
   const WrapReverseReturn = WrapReverse ? 'wrap-reverse' : undefined
   const WrapNoneReturn = WrapNone ? 'nowrap' : undefined
 
-  return WrapReturn ?? WrapReverseReturn ?? WrapNoneReturn ?? NULLABLE
+  return Wrap ?? WrapReverseReturn ?? WrapNoneReturn ?? NULLABLE
+}
+
+export const getSupportedStandardFlex = (contents: string[]): Nullable<string> => {
+  return contents.find((c) => c.startsWith('flex-')) ?? NULLABLE
 }
 
 export const getSupportedNumber = (contents: string[]): Nullable<string> => {
   const suffixed = contents.find((c) => isNumberSuffix(c))
-  const def = contents.find((c) => isNumber(c))
 
-  return suffixed ?? (def?.endsWith('px') ? def : `${def}px`) ?? NULLABLE
+  const def = contents.find((c) => isNumber(c) && isNumber(c[0]))
+  const defSet = def?.endsWith('px') ? def : def ? `${def}px` : undefined
+
+  return suffixed ?? defSet ?? NULLABLE
+}
+
+export const getSupportedInteger = (contents: string[]): Nullable<string> => {
+  return contents.find((c) => Number.isInteger(c)) ?? NULLABLE
 }
 
 export const getSupportedGlobalNone = (contents: string[]): Nullable<string> => {
-  return contents.find((c) => c === 'none') ?? NULLABLE
+  return contents.find((c) => c === '?') ?? NULLABLE
+}
+
+export const getSupportedGlobalImportant = (contents: string[]): Nullable<string> => {
+  return contents.find((c) => c === '!') ?? NULLABLE
 }

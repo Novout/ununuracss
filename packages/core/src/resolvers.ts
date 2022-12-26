@@ -8,11 +8,13 @@ import {
   getResourceBackground,
 } from './resources'
 
-export const resolveFloatingToClassName = (t: string) =>
+export const resolveTitleToClassName = (t: string) =>
   t
-    .replace(/[.%\s]/gi, '')
+    .replace(/[.%\s]/gi, '') // defaults
     .replace(/[,_\s]/gi, '-')
     .replace(/[():/\s]/gi, '')
+    .replaceAll('?', '_none_') // globals
+    .replaceAll('!', '_important_')
 
 export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string => {
   switch (identifier) {
@@ -57,7 +59,7 @@ export const resolveCSS = (identifier: UnunuraIdentifier, contents: string[]): s
 }
 
 export const resolveTitleCssClass = (identifier: UnunuraIdentifier, contents: string[]) => {
-  return contents.reduce((sum, acc) => (sum += `-${resolveFloatingToClassName(acc)}`), `.${identifier}`)
+  return contents.reduce((sum, acc) => (sum += `-${resolveTitleToClassName(acc)}`), `.${identifier}`)
 }
 
 export const resolveCssClass = (identifier: UnunuraIdentifier, contents: string[], setter: string): Nullable<string> => {

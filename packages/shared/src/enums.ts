@@ -10,11 +10,8 @@ export enum UnunuraIdentifier {
 }
 
 export enum UnunuraGlobals {
-  TextIndent = 'indent',
-  LetterSpacing = 'l-spacing',
-  WordSpacing = 'w-spacing',
-  BorderRadius = 'rounded',
-  FlexStandard = 'flex',
+  None = '?',
+  Important = '!',
 }
 
 export enum UnunuraKeys {
@@ -23,5 +20,4 @@ export enum UnunuraKeys {
   SpecificContextOpen = '(',
   SpecificContextClose = ')',
   UniqueContext = ':',
-  Important = '!',
 }

@@ -1,5 +1,4 @@
 import { purgeCSS } from "packages/core/src/purge";
-import { getSupportedSizer } from "packages/core/src/support";
 import { lex, classesFromRawHtml, resolveTitleCssClass, resolveCSS, generateUniqueClass, generateMultipleClass, generateCSSResources, scan, UnunuraGenerate, resolveOnlyCssClassTitle } from "ununura-core";
 import { isKey, NULLABLE, UnunuraIdentifier } from "ununura-shared";
 import { describe, expect, it } from "vitest";
@@ -8,7 +7,7 @@ describe('lexer', () => {
   it('should lex a css class', () => {
     const targets = [
       [
-        lex('bg:#909090 m[0 0 10 0] border:10 text:lg'), 
+        lex('bg:#909090 m[0 0 10 0] border:10 text:10'), 
         [
           "bg",
           ":",
@@ -22,7 +21,7 @@ describe('lexer', () => {
           "10",
           "text",
           ":",
-          "lg"
+          "10"
         ]
       ],
       [
@@ -35,11 +34,11 @@ describe('lexer', () => {
         ]
       ],
       [
-        lex('text[white lg bold] m[0 0 10 0] p:10'), 
+        lex('text[white 500 2] m[0 0 10 0] p:10'), 
         [
           "text",
           "[",
-          "white lg bold",
+          "white 500 2",
           "]",
           "m",
           "[",
@@ -51,7 +50,7 @@ describe('lexer', () => {
         ]
       ],
       [
-        lex('bg:white m[0 0 10 0] !p:10'), 
+        lex('bg:white m[0 0 10 0] p:10'), 
         [
           "bg",
           ":",
@@ -60,21 +59,20 @@ describe('lexer', () => {
           "[",
           "0 0 10 0",
           "]",
-          "!",
           "p",
           ":",
           "10"
         ]
       ],
       [
-        lex('text:roboto text[white xl bold] border[2 #050505 dashed rounded]'), 
+        lex('text:roboto text[white xl 900] border[2 #050505 dashed rounded]'), 
         [
           "text",
           ":",
           "roboto",
           "text",
           "[",
-          "white xl bold",
+          "white xl 900",
           "]",
           "border",
           "[",
@@ -124,7 +122,7 @@ describe('lexer', () => {
   })
   
   it('should get a key', () => {
-    [':', '(', ')', '[', ']', '!'].forEach(key => expect(isKey(key)).toBeTruthy())
+    [':', '(', ')', '[', ']'].forEach(key => expect(isKey(key)).toBeTruthy())
   })
 })
 
@@ -140,20 +138,20 @@ describe('html', () => {
         []
       ],
       [
-        classesFromRawHtml('<div class="bg:white text[white bold]" />'),
-        ['bg:white text[white bold]']
+        classesFromRawHtml('<div class="bg:white text[white 700]" />'),
+        ['bg:white text[white 700]']
       ],
       [
-        classesFromRawHtml('<div id="1" class="bg:white text[white bold]" />'),
-        ['bg:white text[white bold]']
+        classesFromRawHtml('<div id="1" class="bg:white text[white 700]" />'),
+        ['bg:white text[white 700]']
       ],
       [
-        classesFromRawHtml('<div :style={ backgroundColor: "white" } class="text[white bold]" />'),
-        ['text[white bold]']
+        classesFromRawHtml('<div :style={ backgroundColor: "white" } class="text[white 700]" />'),
+        ['text[white 700]']
       ],
       [
-        classesFromRawHtml('<div :style={ backgroundColor: "white" } class="text[white bold]">some text</div><div class="border[top 2 black]" />'),
-        ['text[white bold]', 'border[top 2 black]']
+        classesFromRawHtml('<div :style={ backgroundColor: "white" } class="text[white 700]">some text</div><div class="border[top 2 black]" />'),
+        ['text[white 700]', 'border[top 2 black]']
       ],
     ]
 
@@ -221,6 +219,12 @@ describe('transform', () => {
 }`
       ],
       [
+        resolveCSS(UnunuraIdentifier.Margin, ['!', '50%', '25ch']),
+        `.m-_important_-50-25ch {
+  margin: 50% 25ch !important;
+}`
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Border, ['white', '2', 'solid']),
         `.border-white-2-solid {
   border: solid;
@@ -242,41 +246,30 @@ describe('transform', () => {
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Border, ['10', 'dashed', 'black', 'rounded-4']),
-        `.border-10-dashed-black-rounded-4 {
+        resolveCSS(UnunuraIdentifier.Border, ['10', 'dashed', 'black']),
+        `.border-10-dashed-black {
   border: dashed;
   border-color: black;
   border-width: 10px;
-  border-radius: 4px;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Text, ['lg', 'black']),
-        `.text-lg-black {
+        resolveCSS(UnunuraIdentifier.Text, ['2rem', 'black']),
+        `.text-2rem-black {
   color: black;
-  font-size: 1.125rem;
+  font-size: 2rem;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Text, ['l-spacing-20']),
-        `.text-l-spacing-20 {
-  letter-spacing: 20px;
+        resolveCSS(UnunuraIdentifier.Text, ['2rem']),
+        `.text-2rem {
+  font-size: 2rem;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Text, ['lg', 'indent-5', 'l-spacing-10', 'w-spacing-5']),
-        `.text-lg-indent-5-l-spacing-10-w-spacing-5 {
-  font-size: 1.125rem;
-  letter-indent: 5px;
-  letter-spacing: 10px;
-  word-spacing: 5px;
-}`
-      ],
-      [
-        resolveCSS(UnunuraIdentifier.Text, ['arial', 'indent-5']),
-        `.text-arial-indent-5 {
+        resolveCSS(UnunuraIdentifier.Text, ['arial']),
+        `.text-arial {
   font-family: 'Arial', sans-serif;
-  letter-indent: 5px;
 }`
       ],
       [
@@ -322,8 +315,8 @@ describe('transform', () => {
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Flexbox, ['flex-1', 'none']),
-        `.flex-flex-1-none {
+        resolveCSS(UnunuraIdentifier.Flexbox, ['?', 'flex-1']),
+        `.flex-_none_-flex-1 {
   flex: 1 1 0%;
 }`
       ],
@@ -344,6 +337,12 @@ describe('transform', () => {
         resolveCSS(UnunuraIdentifier.Width, ['max', '50vw']),
         `.w-max-50vw {
   max-width: 50vw;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Width, ['100dvw']),
+        `.w-100dvw {
+  width: 100dvw;
 }`
       ],
       [
@@ -442,15 +441,9 @@ describe('css', () => {
   [resolveOnlyCssClassTitle(`.text-base {
   font-size: 1rem;
 }`), 'text-base'],
-  [resolveOnlyCssClassTitle(`.border-white-rounded-30 {
+  [resolveOnlyCssClassTitle(`.border-white {
     border-color: white;
-    border-radius: 30px;
-  }`), 'border-white-rounded-30'],
-  [getSupportedSizer(['xs', 'sm', 'base', 'lg', 'xl']), '0.75rem'],
-  [getSupportedSizer(['sm', 'base', 'lg', 'xl']), '0.875rem'],
-  [getSupportedSizer(['base', 'lg', 'xl']), '1rem'],
-  [getSupportedSizer(['lg', 'xl']), '1.125rem'],
-  [getSupportedSizer(['xl']), '1.25rem']
+  }`), 'border-white']
 ]
 
     for (const [raw, result] of targets) {
