@@ -8,3 +8,14 @@ export const purgeCSS = (buffer: string) => {
       .join('\n.')
   )
 }
+
+export const purgeOnlyCssClassTitle = (css: string): string => {
+  return `\n${css}`
+    .split('\n.')
+    .filter(Boolean)
+    .join('{')
+    .split('{')
+    .filter((v) => !v.startsWith('\n'))
+    .map((v) => v.trim())
+    .join(' ')
+}

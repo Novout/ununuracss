@@ -106,7 +106,7 @@ export const getSupportedNumber = (contents: string[]): Nullable<string> => {
 }
 
 export const getSupportedInteger = (contents: string[]): Nullable<string> => {
-  return contents.find((c) => Number.isInteger(c)) ?? NULLABLE
+  return contents.find((c) => Number.isInteger(Number(c))) || NULLABLE
 }
 
 export const getSupportedGlobalNone = (contents: string[]): Nullable<string> => {

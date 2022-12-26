@@ -25,7 +25,7 @@ export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string =>
     case UnunuraIdentifier.Background:
       return 'background'
     case UnunuraIdentifier.Text:
-      return 'text'
+      return 'font'
     case UnunuraIdentifier.Border:
       return 'border'
     case UnunuraIdentifier.Flexbox:
@@ -70,15 +70,4 @@ export const resolveCssClass = (identifier: UnunuraIdentifier, contents: string[
   const cl = `${title} {${setter}}`
 
   return cl
-}
-
-export const resolveOnlyCssClassTitle = (css: string): string => {
-  return `\n${css}`
-    .split('\n.')
-    .filter(Boolean)
-    .join('{')
-    .split('{')
-    .filter((v) => !v.startsWith('\n'))
-    .map((v) => v.trim())
-    .join(' ')
 }

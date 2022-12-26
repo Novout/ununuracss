@@ -1,5 +1,6 @@
-import { purgeCSS } from "packages/core/src/purge";
-import { lex, classesFromRawHtml, resolveTitleCssClass, resolveCSS, generateUniqueClass, generateMultipleClass, generateCSSResources, scan, UnunuraGenerate, resolveOnlyCssClassTitle } from "ununura-core";
+import { purgeCSS, purgeOnlyCssClassTitle } from "packages/core/src/purge";
+import { getSupportedInteger } from "packages/core/src/support";
+import { lex, classesFromRawHtml, resolveTitleCssClass, resolveCSS, generateUniqueClass, generateMultipleClass, generateCSSResources, scan, UnunuraGenerate, resolveIdentifierInCSS } from "ununura-core";
 import { isKey, NULLABLE, UnunuraIdentifier } from "ununura-shared";
 import { describe, expect, it } from "vitest";
 
@@ -433,17 +434,13 @@ describe('css', () => {
   background-image: url("local_image.png");
 }
 `],
+  [resolveIdentifierInCSS(UnunuraIdentifier.Text), 'font'],
+  [resolveIdentifierInCSS(UnunuraIdentifier.Flexbox), 'flex'],
   [resolveTitleCssClass(UnunuraIdentifier.Margin, ['15', '0', '10', '0']), '.m-15-0-10-0'],
   [resolveTitleCssClass(UnunuraIdentifier.Text, ['lg']), '.text-lg'],
   [resolveTitleCssClass(UnunuraIdentifier.Flexbox, ['flex-1']), '.flex-flex-1'],
   [resolveTitleCssClass(UnunuraIdentifier.Background, ['rgba(255,255,255,0.3)']), '.bg-rgba255-255-255-03'],
-  [resolveTitleCssClass(UnunuraIdentifier.Background, ['/local_image.png']), '.bg-local-imagepng'],
-  [resolveOnlyCssClassTitle(`.text-base {
-  font-size: 1rem;
-}`), 'text-base'],
-  [resolveOnlyCssClassTitle(`.border-white {
-    border-color: white;
-  }`), 'border-white']
+  [resolveTitleCssClass(UnunuraIdentifier.Background, ['/local_image.png']), '.bg-local-imagepng']
 ]
 
     for (const [raw, result] of targets) {
@@ -453,7 +450,7 @@ describe('css', () => {
 })
 
 describe('purge', () => {
-  it('should purge or not css generated files', async () => {
+  it('should purge or not css generated files', () => {
     const targets = [
       [purgeCSS(`.bg-#000000 {
   background-color: #000000;
@@ -472,18 +469,37 @@ describe('purge', () => {
   [purgeCSS(`.bg-#000000 {
   background-color: #000000;
 }
-.p-10 {
-  padding: 10px;
+.p-35 {
+  padding: 35px;
 }`), `.bg-#000000 {
   background-color: #000000;
 }
-.p-10 {
-  padding: 10px;
-}`],
+.p-35 {
+  padding: 35px;
+}`], [purgeCSS(`a wrong css file`), `.
+a wrong css file`], [purgeOnlyCssClassTitle(`.text-base {
+  font-size: 1rem;
+}`), 'text-base'],
+  [purgeOnlyCssClassTitle(`.border-white {
+    border-color: white;
+  }`), 'border-white']
     ]
 
     for (const [raw, result] of targets) {
-      expect(await raw).toStrictEqual(result)
+      expect(raw).toStrictEqual(result)
+    }
+  })
+})
+
+describe('support', () => {
+  it('should get correct value', () => {
+    const targets = [
+      [getSupportedInteger(['400']), '400'],
+      [getSupportedInteger(['xyz']), NULLABLE],
+    ]
+
+    for (const [raw, result] of targets) {
+      expect(raw).toStrictEqual(result)
     }
   })
 })
