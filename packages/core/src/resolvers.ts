@@ -12,9 +12,10 @@ export const resolveTitleToClassName = (t: string) =>
   t
     .replace(/[.%\s]/gi, '') // defaults
     .replace(/[,_\s]/gi, '-')
-    .replace(/[():/\s]/gi, '')
+    .replace(/[():#/\s]/gi, '')
     .replaceAll('?', '_none_') // globals
     .replaceAll('!', '_important_')
+    .toLowerCase()
 
 export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string => {
   switch (identifier) {

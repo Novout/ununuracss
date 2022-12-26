@@ -275,13 +275,13 @@ describe('transform', () => {
       ],
       [
         resolveCSS(UnunuraIdentifier.Background, ['#000000']),
-        `.bg-#000000 {
+        `.bg-000000 {
   background-color: #000000;
 }`
       ],
       [
         resolveCSS(UnunuraIdentifier.Background, ['#000001', 'cover']),
-        `.bg-#000001-cover {
+        `.bg-000001-cover {
   background-color: #000001;
   background-size: cover;
 }`
@@ -440,6 +440,7 @@ describe('css', () => {
   [resolveTitleCssClass(UnunuraIdentifier.Text, ['lg']), '.text-lg'],
   [resolveTitleCssClass(UnunuraIdentifier.Flexbox, ['flex-1']), '.flex-flex-1'],
   [resolveTitleCssClass(UnunuraIdentifier.Background, ['rgba(255,255,255,0.3)']), '.bg-rgba255-255-255-03'],
+  [resolveTitleCssClass(UnunuraIdentifier.Background, ['#FF0000']), '.bg-ff0000'],
   [resolveTitleCssClass(UnunuraIdentifier.Background, ['/local_image.png']), '.bg-local-imagepng']
 ]
 
