@@ -13,7 +13,7 @@ export const lex = (raw: string): string[] => {
     const valid = isKey(char)
 
     if ((valid || (char === ' ' && !actually_key)) && char !== '') {
-      const normalized = identifier.toLowerCase().trim()
+      const normalized = identifier.trim()
 
       if (isIdentifier(normalized)) ignorable = false
 
@@ -52,7 +52,7 @@ export const lex = (raw: string): string[] => {
     }
   }
 
-  const normalized = identifier.toLowerCase().trim()
+  const normalized = identifier.trim()
 
   if (isIdentifier(normalized)) ignorable = false
 

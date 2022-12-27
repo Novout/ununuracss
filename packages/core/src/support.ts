@@ -5,7 +5,6 @@ import {
   isFlexVertical,
   isHex,
   isHSLColor,
-  isHTTPSImage,
   isImage,
   isImageRepeat,
   isImageSize,
@@ -13,6 +12,7 @@ import {
   isNumberSuffix,
   isRGBColor,
   isScroll,
+  isSlashImage,
   Nullable,
   NULLABLE,
 } from 'ununura-shared'
@@ -34,10 +34,10 @@ export const getSupportedColor = (contents: string[]): Nullable<string> => {
 }
 
 export const getSupportedImage = (contents: string[]): Nullable<string> => {
-  const HTTPSImage = contents.find((c) => isHTTPSImage(c))
+  const SlashImage = contents.find((c) => isSlashImage(c))
   const GenericImage = contents.find((c) => isImage(c))
 
-  return HTTPSImage ?? GenericImage ?? NULLABLE
+  return SlashImage ?? GenericImage ?? NULLABLE
 }
 
 export const getSupportedImageSize = (contents: string[]): Nullable<string> => {

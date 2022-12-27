@@ -7,6 +7,7 @@ import {
   Option,
   findResource,
   findResourceInStart,
+  isSlashImage,
 } from 'ununura-shared'
 import { classesFromRawHtml, generateCss } from './ast'
 import {
@@ -152,7 +153,7 @@ export const getResourceBackground = (identifier: UnunuraIdentifier, contents: s
 
   let setter = setterHead(contents)
   setter += setterRow(color, `${inCss}-color: ${color}`, contents)
-  setter += setterRow(image, `${inCss}-image: url("${image}")`, contents)
+  setter += setterRow(image, `${inCss}-image: url("${isSlashImage(image) ? 'https:' : ''}${image}")`, contents)
   setter += setterRow(size, `${inCss}-size: ${size}`, contents)
   setter += setterRow(repeat, `${inCss}-repeat: ${repeat}`, contents)
 

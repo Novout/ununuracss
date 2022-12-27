@@ -58,8 +58,8 @@ describe('resolvers', () => {
   <div />
 </template>`
   ],
-  [UnunuraVueSFCFile(`<template><div class="bg:local_path.png" /></template>`), `<template><div class="bg-local-pathpng" /></template>`],
-  [UnunuraVueSFCFile(`<template><div class="bg:/he4rt.png" /></template>`), `<template><div class="bg-he4rtpng" /></template>`],
+  [UnunuraVueSFCFile(`<template><div class="bg://i.imgur.com/xYz.jpeg" /></template>`), `<template><div class="bg-iimgurcomxyzjpeg" /></template>`],
+  [UnunuraVueSFCFile(`<template><div class="bg:/foo.png" /></template>`), `<template><div class="bg-foopng" /></template>`],
   [UnunuraVueSFCFile(`<template><div class="text[lg white indent-5] w[100%] h[min 50vh]" /></template>`), `<template><div class="text-lg-white-indent-5 w-100 h-min-50vh" /></template>`]
   ]
 

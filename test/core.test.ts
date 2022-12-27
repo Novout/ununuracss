@@ -111,6 +111,14 @@ describe('lexer', () => {
           "]"
         ]
       ],
+      [
+        lex('bg://i.imgur.com/XyZvY.png'),
+        [
+          "bg",
+          ":",
+          "//i.imgur.com/XyZvY.png"
+        ]
+      ],
     ]
   
     for (const [lex, result] of targets) {
@@ -297,6 +305,12 @@ describe('transform', () => {
         `.bg-foopng-auto {
   background-image: url("/foo.png");
   background-size: auto;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Background, ['https://foo/bar.png']),
+        `.bg-httpsfoobarpng {
+  background-image: url("https://foo/bar.png");
 }`
       ],
       [
@@ -512,10 +526,10 @@ describe('css', () => {
 }
 `],
   [
-    generateCSSResources(`<div class="bg:local_image.png" />
+    generateCSSResources(`<div class="bg:/local_image.png" />
   `),
         `.bg-local-imagepng {
-  background-image: url("local_image.png");
+  background-image: url("/local_image.png");
 }
 `],
   [resolveIdentifierInCSS(UnunuraIdentifier.Text), 'font'],

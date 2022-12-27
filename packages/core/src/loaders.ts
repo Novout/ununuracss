@@ -22,6 +22,7 @@ export const UnunuraVueSFCFile = (sfc: VueSFC): CSSInject => {
 
   raw.forEach((classTitle) => {
     const generated = generateCss(lex(classTitle))
+
     const resolvedClassTitle = purgeOnlyCssClassTitle(generated)
 
     _code = _code.replaceAll(classTitle, resolvedClassTitle)
