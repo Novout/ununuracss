@@ -7,6 +7,7 @@ export enum UnunuraIdentifier {
   Text = 'text',
   Background = 'bg',
   Flexbox = 'flex',
+  Position = 'pos',
 }
 
 export enum UnunuraGlobals {

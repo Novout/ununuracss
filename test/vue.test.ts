@@ -42,7 +42,7 @@ describe('resolvers', () => {
     const targets = [
       [UnunuraVueSFCFile(`<template>
   <div class="flex[col wrap] w[100%]">
-    <div class="m[0 10 0 0] p:20 border[5 yellow]">
+    <div class="m[0 10 0 0] p:20 border[5 yellow] pos[absolute right-0 left-0]">
       a some test
     </div>
     <p>m[0 10 0 0]</p>
@@ -50,7 +50,7 @@ describe('resolvers', () => {
   <div />
 </template>`), `<template>
   <div class="flex-col-wrap w-100">
-    <div class="m-0-10-0-0 p-20 border-5-yellow">
+    <div class="m-0-10-0-0 p-20 border-5-yellow pos-absolute-right-0-left-0">
       a some test
     </div>
     <p>m[0 10 0 0]</p>

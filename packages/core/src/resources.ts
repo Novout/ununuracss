@@ -1,9 +1,21 @@
-import { UnunuraIdentifier, UnunuraKeys, NULLABLE, isBorderStyle, isNullable, Option } from 'ununura-shared'
+import {
+  UnunuraIdentifier,
+  UnunuraKeys,
+  NULLABLE,
+  isBorderStyle,
+  isNullable,
+  Option,
+  findResource,
+  findResourceInStart,
+} from 'ununura-shared'
 import { classesFromRawHtml, generateCss } from './ast'
 import {
   getSupportedColor,
   getSupportedFlexDirection,
+  getSupportedFlexGap,
   getSupportedFlexGrow,
+  getSupportedFlexHorizontal,
+  getSupportedFlexVertical,
   getSupportedFlexWrap,
   getSupportedFont,
   getSupportedFontWeight,
@@ -93,6 +105,26 @@ export const getResourceWidthOrHeight = (identifier: UnunuraIdentifier, contents
   return resolveCssClass(identifier, contents, setter)
 }
 
+export const getResourcePosition = (identifier: UnunuraIdentifier, contents: string[]): string => {
+  const base = findResource(contents, ['static', 'relative', 'fixed', 'absolute', 'sticky'])
+
+  const left = findResourceInStart(contents, ['left-'])
+  const right = findResourceInStart(contents, ['right-'])
+  const top = findResourceInStart(contents, ['top-'])
+  const bottom = findResourceInStart(contents, ['bottom-'])
+
+  if (!base) return NULLABLE
+
+  let setter = setterHead(contents)
+  setter += setterRow(base, `position: ${base}`, contents)
+  setter += setterRow(left, `left: ${left.split('-')[1]}`, contents)
+  setter += setterRow(right, `right: ${right.split('-')[1]}`, contents)
+  setter += setterRow(top, `top: ${top.split('-')[1]}`, contents)
+  setter += setterRow(bottom, `bottom: ${bottom.split('-')[1]}`, contents)
+
+  return resolveCssClass(identifier, contents, setter)
+}
+
 export const getResourceBorder = (identifier: UnunuraIdentifier, contents: string[]): string => {
   const size = getSupportedNumber(contents)
   const style = contents.find((c) => isBorderStyle(c)) ?? NULLABLE
@@ -101,9 +133,9 @@ export const getResourceBorder = (identifier: UnunuraIdentifier, contents: strin
   const inCss = resolveIdentifierInCSS(identifier)
 
   let setter = setterHead(contents)
-  setter += !isNullable(style) ? `  ${inCss}: ${style};\n` : ''
-  setter += !isNullable(color) ? `  ${inCss}-color: ${color};\n` : ''
-  setter += !isNullable(size) ? `  ${inCss}-width: ${size};\n` : ''
+  setter += setterRow(style, `${inCss}: ${style}`, contents)
+  setter += setterRow(color, `${inCss}-color: ${color}`, contents)
+  setter += setterRow(size, `${inCss}-width: ${size}`, contents)
 
   return resolveCssClass(identifier, contents, setter)
 }
@@ -145,12 +177,18 @@ export const getResourceFlex = (identifier: UnunuraIdentifier, contents: string[
   const grow = getSupportedFlexGrow(contents)
   const wrap = getSupportedFlexWrap(contents)
   const flex = getSupportedStandardFlex(contents)
+  const gap = getSupportedFlexGap(contents)
+  const horizontal = getSupportedFlexHorizontal(contents).replace(/h-/, '')
+  const vertical = getSupportedFlexVertical(contents).replace(/v-/, '')
 
   let setter = setterHead(contents, 'display: flex;')
   setter += setterRow(direction, `${identifier}-direction: ${direction}`, contents)
   setter += setterRow(grow, `${identifier}-grow: ${grow}`, contents)
   setter += setterRow(wrap, `${identifier}-wrap: ${wrap}`, contents)
   setter += setterRow(flex, `${identifier}: ${flex.split('-')[1]} ${flex.split('-')[1]} 0%`, contents)
+  setter += setterRow(gap, `gap: ${gap.split('-')[1]}`, contents)
+  setter += setterRow(horizontal, `justify-content: ${horizontal}`, contents)
+  setter += setterRow(vertical, `align-items: ${vertical}`, contents)
 
   return resolveCssClass(identifier, contents, setter)
 }

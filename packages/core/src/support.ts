@@ -1,6 +1,8 @@
 import {
   isCSSColor,
   isDefaultFont,
+  isFlexHorizontal,
+  isFlexVertical,
   isHex,
   isHSLColor,
   isHTTPSImage,
@@ -94,6 +96,18 @@ export const getSupportedFlexWrap = (contents: string[]): Nullable<string> => {
 
 export const getSupportedStandardFlex = (contents: string[]): Nullable<string> => {
   return contents.find((c) => c.startsWith('flex-')) ?? NULLABLE
+}
+
+export const getSupportedFlexGap = (contents: string[]): Nullable<string> => {
+  return contents.find((c) => c.startsWith('gap-')) ?? NULLABLE
+}
+
+export const getSupportedFlexVertical = (contents: string[]): Nullable<string> => {
+  return contents.find((c) => isFlexVertical(c)) ?? NULLABLE
+}
+
+export const getSupportedFlexHorizontal = (contents: string[]): Nullable<string> => {
+  return contents.find((c) => isFlexHorizontal(c)) ?? NULLABLE
 }
 
 export const getSupportedNumber = (contents: string[]): Nullable<string> => {

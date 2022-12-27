@@ -308,11 +308,38 @@ describe('transform', () => {
 }`
       ],
       [
+        resolveCSS(UnunuraIdentifier.Flexbox, ['row', 'v-center', 'h-center']),
+        `.flex-row-v-center-h-center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Flexbox, ['row', 'v-stretch', 'h-flex-start']),
+        `.flex-row-v-stretch-h-flex-start {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+}`
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Flexbox, ['col-reverse', 'grow-none']),
         `.flex-col-reverse-grow-none {
   display: flex;
   flex-direction: column-reverse;
   flex-grow: 0;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Flexbox, ['col-reverse', 'grow-none', 'gap-2rem']),
+        `.flex-col-reverse-grow-none-gap-2rem {
+  display: flex;
+  flex-direction: column-reverse;
+  flex-grow: 0;
+  gap: 2rem;
 }`
       ],
       [
@@ -368,6 +395,33 @@ describe('transform', () => {
         resolveCSS(UnunuraIdentifier.Height, ['max', '10rem']),
         `.h-max-10rem {
   max-height: 10rem;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Position, ['absolute']),
+        `.pos-absolute {
+  position: absolute;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Position, ['sticky', 'left-2rem']),
+        `.pos-sticky-left-2rem {
+  position: sticky;
+  left: 2rem;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Position, ['relative', 'right-0']),
+        `.pos-relative-right-0 {
+  position: relative;
+  right: 0;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Position, ['!', 'sticky', 'left-2rem']),
+        `.pos-_important_-sticky-left-2rem {
+  position: sticky !important;
+  left: 2rem !important;
 }`
       ],
       [

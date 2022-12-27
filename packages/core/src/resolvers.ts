@@ -6,6 +6,7 @@ import {
   getResourceFlex,
   getResourceWidthOrHeight,
   getResourceBackground,
+  getResourcePosition,
 } from './resources'
 
 export const resolveTitleToClassName = (t: string) =>
@@ -35,6 +36,8 @@ export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string =>
       return 'height'
     case UnunuraIdentifier.Width:
       return 'width'
+    case UnunuraIdentifier.Position:
+      return 'pos'
   }
 }
 
@@ -54,6 +57,8 @@ export const resolveCSS = (identifier: UnunuraIdentifier, contents: string[]): s
     case UnunuraIdentifier.Height:
     case UnunuraIdentifier.Width:
       return getResourceWidthOrHeight(identifier, contents)
+    case UnunuraIdentifier.Position:
+      return getResourcePosition(identifier, contents)
     default:
       return NULLABLE
   }
