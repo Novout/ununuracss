@@ -8,6 +8,7 @@ export enum UnunuraIdentifier {
   Background = 'bg',
   Flexbox = 'flex',
   Position = 'pos',
+  Scroll = 'scroll',
 }
 
 export enum UnunuraGlobals {

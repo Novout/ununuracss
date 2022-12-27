@@ -26,6 +26,8 @@ import {
   getSupportedImageSize,
   getSupportedMinOrMax,
   getSupportedNumber,
+  getSupportedScroll,
+  getSupportedScrollDirection,
   getSupportedStandardFlex,
 } from './support'
 import { lex } from './lexer'
@@ -153,6 +155,16 @@ export const getResourceBackground = (identifier: UnunuraIdentifier, contents: s
   setter += setterRow(image, `${inCss}-image: url("${image}")`, contents)
   setter += setterRow(size, `${inCss}-size: ${size}`, contents)
   setter += setterRow(repeat, `${inCss}-repeat: ${repeat}`, contents)
+
+  return resolveCssClass(identifier, contents, setter)
+}
+
+export const getResourceScroll = (identifier: UnunuraIdentifier, contents: string[]): string => {
+  const scroll = getSupportedScroll(contents)
+  const scrollDirection = getSupportedScrollDirection(contents)
+
+  let setter = setterHead(contents)
+  setter += setterRow(scroll, `overflow${scrollDirection}: ${scroll}`, contents)
 
   return resolveCssClass(identifier, contents, setter)
 }

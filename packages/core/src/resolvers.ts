@@ -7,6 +7,7 @@ import {
   getResourceWidthOrHeight,
   getResourceBackground,
   getResourcePosition,
+  getResourceScroll,
 } from './resources'
 
 export const resolveTitleToClassName = (t: string) =>
@@ -38,6 +39,8 @@ export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string =>
       return 'width'
     case UnunuraIdentifier.Position:
       return 'pos'
+    case UnunuraIdentifier.Scroll:
+      return 'scroll'
   }
 }
 
@@ -59,6 +62,8 @@ export const resolveCSS = (identifier: UnunuraIdentifier, contents: string[]): s
       return getResourceWidthOrHeight(identifier, contents)
     case UnunuraIdentifier.Position:
       return getResourcePosition(identifier, contents)
+    case UnunuraIdentifier.Scroll:
+      return getResourceScroll(identifier, contents)
     default:
       return NULLABLE
   }

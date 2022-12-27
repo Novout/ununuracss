@@ -425,6 +425,36 @@ describe('transform', () => {
 }`
       ],
       [
+        resolveCSS(UnunuraIdentifier.Scroll, ['hidden']),
+        `.scroll-hidden {
+  overflow: hidden;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Scroll, ['x', 'auto']),
+        `.scroll-x-auto {
+  overflow-x: auto;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Scroll, ['y', 'visible']),
+        `.scroll-y-visible {
+  overflow-y: visible;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Scroll, []),
+        `.scroll {
+  overflow: scroll;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Scroll, ['x']),
+        `.scroll-x {
+  overflow-x: scroll;
+}`
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Margin, ['2', '10', '5']),
         NULLABLE
       ],

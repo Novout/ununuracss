@@ -12,6 +12,7 @@ import {
   isNumber,
   isNumberSuffix,
   isRGBColor,
+  isScroll,
   Nullable,
   NULLABLE,
 } from 'ununura-shared'
@@ -108,6 +109,22 @@ export const getSupportedFlexVertical = (contents: string[]): Nullable<string> =
 
 export const getSupportedFlexHorizontal = (contents: string[]): Nullable<string> => {
   return contents.find((c) => isFlexHorizontal(c)) ?? NULLABLE
+}
+
+export const getSupportedScrollDirection = (contents: string[]): Nullable<string> => {
+  const x = contents.find((c) => c === 'x')
+  const y = contents.find((c) => c === 'y')
+
+  if (!x && !y) return ''
+
+  if (x) return `-${x}`
+  if (y) return `-${y}`
+
+  return NULLABLE
+}
+
+export const getSupportedScroll = (contents: string[]): string => {
+  return contents.find((c) => isScroll(c)) ?? 'scroll'
 }
 
 export const getSupportedNumber = (contents: string[]): Nullable<string> => {
