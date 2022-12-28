@@ -128,7 +128,7 @@ export const getSupportedScroll = (contents: string[]): string => {
 }
 
 export const getSupportedNumber = (contents: string[]): Nullable<string> => {
-  const suffixed = contents.find((c) => isNumberSuffix(c))
+  const suffixed = contents.find((c) => isNumberSuffix(c) && isNumber(c[0]))
 
   const def = contents.find((c) => isNumber(c) && isNumber(c[0]))
   const defSet = def?.endsWith('px') ? def : def ? `${def}px` : undefined
