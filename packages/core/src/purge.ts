@@ -6,6 +6,7 @@ export const purgeCSS = (buffer: string) => {
       .filter(Boolean)
       .filter((v, i, a) => a.indexOf(v) === i)
       .join('\n.')
+      .replace(/__NULLABLE__/, '')
   )
 }
 
