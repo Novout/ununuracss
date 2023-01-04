@@ -1,3 +1,5 @@
 export default defineNuxtConfig({
-  extends: '@nuxt-themes/docus',
+  modules: [
+    'ununura-nuxt'
+  ]
 })

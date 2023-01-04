@@ -6,9 +6,11 @@
   "license": "MIT",
   "homepage": "https://github.com/Novout/ununura",
   "keywords": [
-    "ununura",
+    "ununuracss",
     "atomic-css",
-    "css"
+    "nuxt-module",
+    "nuxt",
+    "nuxt3"
   ],
   "sideEffects": false,
   "exports": {
@@ -28,5 +30,13 @@
     "dev": "tsup --watch",
     "build": "tsup"
   },
-  "devDependencies": {}
+  "dependencies": {
+    "@nuxt/kit": "^3.0.0",
+    "ununura": "workspace:*",
+    "ununura-core": "workspace:*",
+    "ununura-shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@nuxt/schema": "^3.0.0"
+  }
 }

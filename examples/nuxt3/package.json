@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "scripts": {
+    "demo:nuxt": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview:nuxt": "nuxt build && nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "ununura-nuxt": "workspace:*",
+    "nuxt": "3.0.0"
+  }
+}

@@ -7,7 +7,6 @@
     "preview:vue": "vite build && vite preview --port 5000"
   },
   "dependencies": {
-    "ununura-core": "workspace:^0.0.0",
-    "ununura": "workspace:^0.0.0"
+    "ununura": "workspace:*"
   }
 }
