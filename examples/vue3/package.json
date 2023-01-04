@@ -8,6 +8,6 @@
   },
   "dependencies": {
     "ununura-core": "workspace:^0.0.0",
-    "ununura-vite": "workspace:^0.0.0"
+    "ununura": "workspace:^0.0.0"
   }
 }

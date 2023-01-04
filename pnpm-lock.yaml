@@ -42,11 +42,11 @@ importers:
 
   examples/vue3:
     specifiers:
+      ununura: workspace:^0.0.0
       ununura-core: workspace:^0.0.0
-      ununura-vite: workspace:^0.0.0
     dependencies:
+      ununura: link:../../packages/vite
       ununura-core: link:../../packages/core
-      ununura-vite: link:../../packages/vite
 
   packages/core:
     specifiers:
