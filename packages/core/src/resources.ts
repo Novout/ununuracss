@@ -149,6 +149,7 @@ export const getResourceBackground = (identifier: UnunuraIdentifier, contents: s
   const image = getSupportedImage(contents)
   const size = getSupportedImageSize(contents)
   const repeat = getSupportedImageRepeat(contents)
+  const transparent = contents.find((c) => c === 'none')
 
   const inCss = resolveIdentifierInCSS(identifier)
 

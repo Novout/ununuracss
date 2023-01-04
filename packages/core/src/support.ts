@@ -29,8 +29,9 @@ export const getSupportedColor = (contents: string[]): Nullable<string> => {
   const CSSColor = contents.find((c) => isCSSColor(c))
   const RGBColor = contents.find((c) => isRGBColor(c))
   const HSLColor = contents.find((c) => isHSLColor(c))
+  const Transparent = contents.find((c) => c === 'transparent')
 
-  return HEXColor ?? CSSColor ?? RGBColor ?? HSLColor ?? NULLABLE
+  return HEXColor ?? CSSColor ?? RGBColor ?? HSLColor ?? Transparent ?? NULLABLE
 }
 
 export const getSupportedImage = (contents: string[]): Nullable<string> => {

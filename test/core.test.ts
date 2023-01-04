@@ -314,6 +314,12 @@ describe('transform', () => {
 }`
       ],
       [
+        resolveCSS(UnunuraIdentifier.Background, ['transparent']),
+        `.bg-transparent {
+  background-color: transparent;
+}`
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Flexbox, ['row', 'grow']),
         `.flex-row-grow {
   display: flex;
