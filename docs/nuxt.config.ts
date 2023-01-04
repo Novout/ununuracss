@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   ssr: false,
-  nitro: {
-    preset: 'vercel-edge',
+  experimental: {
+    payloadExtraction: false,
   },
   extends: '@nuxt-themes/docus',
 })

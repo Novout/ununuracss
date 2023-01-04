@@ -1,5 +1,6 @@
 .vscode
 .idea
+.vercel
 
 node_modules
 dist
