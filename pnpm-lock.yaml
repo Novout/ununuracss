@@ -40,6 +40,37 @@ importers:
       vite-plugin-inspect: 0.7.12_vite@4.0.4
       vitest: 0.26.3
 
+  examples/vue3:
+    specifiers:
+      ununura-core: workspace:^0.0.0
+      ununura-vite: workspace:^0.0.0
+    dependencies:
+      ununura-core: link:../../packages/core
+      ununura-vite: link:../../packages/vite
+
+  packages/core:
+    specifiers:
+      ununura-shared: workspace:*
+    dependencies:
+      ununura-shared: link:../shared
+
+  packages/nuxt:
+    specifiers: {}
+
+  packages/shared:
+    specifiers: {}
+
+  packages/vite:
+    specifiers:
+      ununura-core: workspace:*
+      ununura-shared: workspace:*
+      vite: ^4.0.3
+    dependencies:
+      ununura-core: link:../core
+      ununura-shared: link:../shared
+    devDependencies:
+      vite: 4.0.4
+
 packages:
 
   /@babel/code-frame/7.18.6:
