@@ -7,3 +7,5 @@ pnpm-yorkspace.yaml
 coverage
 examples
 test
+
+*.md

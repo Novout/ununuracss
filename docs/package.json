@@ -6,7 +6,8 @@
     "dev": "nuxi dev",
     "build": "nuxi build",
     "generate": "nuxi generate",
-    "preview": "nuxi preview"
+    "preview": "nuxi preview",
+    "pr": "nuxi prepare"
   },
   "devDependencies": {
     "nuxt": "^3.0.0",
