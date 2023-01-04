@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="bg:black w:100% text:[white lg]">
-      example
+    <div class="flex[col h-center v-center] bg:black w:100% h:100vh text[arial white 2rem 700]">
+      Hello UnunuraCSS!
     </div>
   </div>
   <div />

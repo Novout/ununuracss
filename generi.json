@@ -1,0 +1,8 @@
+{
+  "silent": false,
+  "commits": "conventional-commits",
+  "tag": true,
+  "version": true,
+  "push": true,
+  "publish": false
+}
