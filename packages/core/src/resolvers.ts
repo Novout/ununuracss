@@ -8,16 +8,18 @@ import {
   getResourceBackground,
   getResourcePosition,
   getResourceScroll,
+  getResourceReset,
 } from './resources'
 
-export const resolveTitleToClassName = (t: string) =>
-  t
+export const resolveTitleToClassName = (t: string) => {
+  return t
     .replace(/[.%\s]/gi, '') // defaults
     .replace(/[,_\s]/gi, '-')
     .replace(/[():#/\s]/gi, '')
     .replaceAll('?', '_none_') // globals
     .replaceAll('!', '_important_')
     .toLowerCase()
+}
 
 export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string => {
   switch (identifier) {
@@ -41,6 +43,8 @@ export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string =>
       return 'pos'
     case UnunuraIdentifier.Scroll:
       return 'scroll'
+    case UnunuraIdentifier.Reset:
+      return 'reset'
   }
 }
 
@@ -49,6 +53,9 @@ export const resolveCSS = (identifier: UnunuraIdentifier, contents: string[]): s
     case UnunuraIdentifier.Margin:
     case UnunuraIdentifier.Padding:
       return getResourcePaddingOrMargin(identifier, contents)
+    case UnunuraIdentifier.Height:
+    case UnunuraIdentifier.Width:
+      return getResourceWidthOrHeight(identifier, contents)
     case UnunuraIdentifier.Background:
       return getResourceBackground(identifier, contents)
     case UnunuraIdentifier.Text:
@@ -57,13 +64,12 @@ export const resolveCSS = (identifier: UnunuraIdentifier, contents: string[]): s
       return getResourceBorder(identifier, contents)
     case UnunuraIdentifier.Flexbox:
       return getResourceFlex(identifier, contents)
-    case UnunuraIdentifier.Height:
-    case UnunuraIdentifier.Width:
-      return getResourceWidthOrHeight(identifier, contents)
     case UnunuraIdentifier.Position:
       return getResourcePosition(identifier, contents)
     case UnunuraIdentifier.Scroll:
       return getResourceScroll(identifier, contents)
+    case UnunuraIdentifier.Reset:
+      return getResourceReset(identifier, contents)
     default:
       return NULLABLE
   }

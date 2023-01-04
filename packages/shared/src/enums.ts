@@ -9,6 +9,7 @@ export enum UnunuraIdentifier {
   Flexbox = 'flex',
   Position = 'pos',
   Scroll = 'scroll',
+  Reset = 'reset',
 }
 
 export enum UnunuraGlobals {

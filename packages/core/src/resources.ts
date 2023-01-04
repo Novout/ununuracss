@@ -34,6 +34,7 @@ import {
 import { lex } from './lexer'
 import { resolveCSS, resolveCssClass, resolveIdentifierInCSS } from './resolvers'
 import { validateSpreadAllResource } from './validate'
+import { NOVOUT_RESET_CSS } from 'packages/shared/src/defines'
 
 export const setterHead = (contents: string[], start?: string) => {
   const asDef = getSupportedGlobalNone(contents)
@@ -166,6 +167,16 @@ export const getResourceScroll = (identifier: UnunuraIdentifier, contents: strin
 
   let setter = setterHead(contents)
   setter += setterRow(scroll, `overflow${scrollDirection}: ${scroll}`, contents)
+
+  return resolveCssClass(identifier, contents, setter)
+}
+
+export const getResourceReset = (identifier: UnunuraIdentifier, contents: string[]): string => {
+  const novoutReset = contents.find((c) => c === 'novout')
+
+  if (novoutReset) return NOVOUT_RESET_CSS()
+
+  let setter = setterHead(contents)
 
   return resolveCssClass(identifier, contents, setter)
 }
