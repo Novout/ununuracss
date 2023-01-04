@@ -15,7 +15,7 @@ Reading how [UnoCSS](https://github.com/unocss/unocss) was designed, he had the 
 
 **ATTENTION!** UnunuraCSS was not designed for medium-large projects that require standardized resources.
 
-## Use
+## Example with Vue
 
 ```ts
 import { defineConfig } from 'vite'
@@ -27,24 +27,18 @@ export default defineConfig({
 })
 ```
 
-## Example
-
 ```vue
 <template>
-  <div>
-    <div class="flex[col wrap] bg:gray text[white xl] p:20">
-      <p class="text[white xl bold]">1</p>
-      <p class="text:#FF0000">2</p>
-      <p class="text:bold">3</p>
-    </div>
-  </div>
+  <main class="reset:meyer">
+    <div class="flex[col h-center v-center] bg:black w:100% h:100vh text[arial white 2rem 700]">Hello UnunuraCSS!</div>
+  </main>
 </template>
 ```
 
 ## Features
 
-- Zero dependencies / default css
-- No configuration files / full-reload / presets;
+- Zero dependencies / 0kb default injected css
+- No configuration files / full-reload / directives / presets;
 - Only class-raw based;
 - Dynamic identifiers (rules) with unique/multiple engine;
 - Nullable options/classes;
@@ -58,7 +52,7 @@ export default defineConfig({
 
 `text:xl`
 
-`p:0.25`
+`p:0.25rem`
 
 `m:5`
 
@@ -74,9 +68,9 @@ export default defineConfig({
 
 `text[yellow bold]`
 
-`p[0 10.5]`
+`p[0 10.5rem]`
 
-`m[10 20 0 0]`
+`m[10 2rem 0 0]`
 
 `border[2 dashed hsla(100,100%,53%,0.6)]`
 
