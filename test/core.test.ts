@@ -496,6 +496,54 @@ describe('transform', () => {
 }`
       ],
       [
+        resolveCSS(UnunuraIdentifier.Cursor, ['pointer']),
+        `.cursor-pointer {
+  cursor: pointer;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Cursor, ['none']),
+        `.cursor-none {
+  cursor: none;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Rounded, ['1rem']),
+        `.rounded-1rem {
+  border-radius: 1rem;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Rounded, ['25px', '2rem']),
+        `.rounded-25px-2rem {
+  border-radius: 25px 2rem;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Shadow, ['black']),
+        `.shadow-black {
+  box-shadow: 5px 5px 5px 0px black;
+  -webkit-box-shadow: 5px 5px 5px 0px black;
+  -moz-box-shadow: 5px 5px 5px 0px black;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Shadow, ['h-10', 'v-10']),
+        `.shadow-h-10-v-10 {
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Shadow, ['inset', 'h-10', 'v-10']),
+        `.shadow-inset-h-10-v-10 {
+  box-shadow: inset 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: inset 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: inset 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
+}`
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Reset, ['antialiased']),
         `* {
 ${ANTIALIASED_RESET_CSS()}}`

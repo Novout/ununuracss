@@ -2,13 +2,15 @@ import { UnunuraIdentifier, NULLABLE, Nullable } from 'ununura-shared'
 import {
   getResourceText,
   getResourceBorder,
-  getResourcePaddingOrMargin,
+  getResourceSpreadValues,
   getResourceFlex,
   getResourceWidthOrHeight,
   getResourceBackground,
   getResourcePosition,
   getResourceScroll,
   getResourceReset,
+  getResourceShadow,
+  getResourceCursor,
 } from './resources'
 
 export const resolveTitleToClassName = (t: string) => {
@@ -45,6 +47,12 @@ export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string =>
       return 'scroll'
     case UnunuraIdentifier.Reset:
       return 'reset'
+    case UnunuraIdentifier.Shadow:
+      return 'shadow'
+    case UnunuraIdentifier.Cursor:
+      return 'cursor'
+    case UnunuraIdentifier.Rounded:
+      return 'border-radius'
   }
 }
 
@@ -52,7 +60,8 @@ export const resolveCSS = (identifier: UnunuraIdentifier, contents: string[]): s
   switch (identifier) {
     case UnunuraIdentifier.Margin:
     case UnunuraIdentifier.Padding:
-      return getResourcePaddingOrMargin(identifier, contents)
+    case UnunuraIdentifier.Rounded:
+      return getResourceSpreadValues(identifier, contents)
     case UnunuraIdentifier.Height:
     case UnunuraIdentifier.Width:
       return getResourceWidthOrHeight(identifier, contents)
@@ -70,6 +79,10 @@ export const resolveCSS = (identifier: UnunuraIdentifier, contents: string[]): s
       return getResourceScroll(identifier, contents)
     case UnunuraIdentifier.Reset:
       return getResourceReset(identifier, contents)
+    case UnunuraIdentifier.Shadow:
+      return getResourceShadow(identifier, contents)
+    case UnunuraIdentifier.Cursor:
+      return getResourceCursor(identifier, contents)
     default:
       return NULLABLE
   }

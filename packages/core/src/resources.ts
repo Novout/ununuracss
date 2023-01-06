@@ -8,10 +8,14 @@ import {
   findResource,
   findResourceInStart,
   isSlashImage,
+  ANTIALIASED_RESET_CSS,
+  MEYER_RESET_CSS,
+  NOVOUT_RESET_CSS,
 } from 'ununura-shared'
 import { classesFromRawHtml, generateCss } from './ast'
 import {
   getSupportedColor,
+  getSupportedCursor,
   getSupportedFlexDirection,
   getSupportedFlexGap,
   getSupportedFlexGrow,
@@ -34,7 +38,6 @@ import {
 import { lex } from './lexer'
 import { resolveCSS, resolveCssClass, resolveIdentifierInCSS } from './resolvers'
 import { validateSpreadAllResource } from './validate'
-import { ANTIALIASED_RESET_CSS, MEYER_RESET_CSS, NOVOUT_RESET_CSS } from 'packages/shared/src/defines'
 
 export const setterHead = (contents: string[], start?: string) => {
   const asDef = getSupportedGlobalNone(contents)
@@ -73,7 +76,7 @@ export const generateCSSResources = (raw: string) => {
   }, '')
 }
 
-export const getResourcePaddingOrMargin = (identifier: UnunuraIdentifier, contents: string[]): string => {
+export const getResourceSpreadValues = (identifier: UnunuraIdentifier, contents: string[]): string => {
   const values = validateSpreadAllResource(contents)
 
   if (values.length === 0) return NULLABLE
@@ -185,6 +188,41 @@ export const getResourceReset = (identifier: UnunuraIdentifier, contents: string
   setter += '}'
 
   return setter
+}
+
+export const getResourceShadow = (identifier: UnunuraIdentifier, contents: string[]): string => {
+  const color = getSupportedColor(contents)
+  const horizontal = findResourceInStart(contents, ['h-'], { onlyValue: true })
+  const vertical = findResourceInStart(contents, ['v-'], { onlyValue: true })
+  const blur = findResourceInStart(contents, ['blur-'], { onlyValue: true })
+  const radius = findResourceInStart(contents, ['radius-'], { onlyValue: true })
+  const inset = findResource(contents, ['inset'])
+
+  const colorResolved = isNullable(color) ? 'rgba(0, 0, 0, 0.5)' : color
+  const horizontalResolved = isNullable(horizontal) ? '5px' : horizontal + 'px'
+  const verticalResolved = isNullable(vertical) ? '5px' : vertical + 'px'
+  const blurResolved = isNullable(blur) ? '5px' : blur + 'px'
+  const radiusResolved = isNullable(radius) ? '0px' : radius + 'px'
+
+  const value = `${
+    !isNullable(inset) ? `${inset} ` : ''
+  }${horizontalResolved} ${verticalResolved} ${blurResolved} ${radiusResolved} ${colorResolved};\n`
+
+  let setter = setterHead(contents)
+  setter += `  box-shadow: ${value}`
+  setter += `  -webkit-box-shadow: ${value}`
+  setter += `  -moz-box-shadow: ${value}`
+
+  return resolveCssClass(identifier, contents, setter)
+}
+
+export const getResourceCursor = (identifier: UnunuraIdentifier, contents: string[]): string => {
+  const cursor = getSupportedCursor(contents)
+
+  let setter = setterHead(contents)
+  setter += setterRow(cursor, `cursor: ${cursor}`, contents)
+
+  return resolveCssClass(identifier, contents, setter)
 }
 
 export const getResourceText = (identifier: UnunuraIdentifier, contents: string[]): string => {

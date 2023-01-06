@@ -10,6 +10,9 @@ export enum UnunuraIdentifier {
   Position = 'pos',
   Scroll = 'scroll',
   Reset = 'reset',
+  Cursor = 'cursor',
+  Shadow = 'shadow',
+  Rounded = 'rounded',
 }
 
 export enum UnunuraGlobals {

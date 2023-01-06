@@ -1,5 +1,6 @@
 import {
   isCSSColor,
+  isCursor,
   isDefaultFont,
   isFlexHorizontal,
   isFlexVertical,
@@ -144,4 +145,8 @@ export const getSupportedGlobalNone = (contents: string[]): Nullable<string> => 
 
 export const getSupportedGlobalImportant = (contents: string[]): Nullable<string> => {
   return contents.find((c) => c === '!') ?? NULLABLE
+}
+
+export const getSupportedCursor = (contents: string[]): Nullable<string> => {
+  return contents.find((c) => isCursor(c)) ?? NULLABLE
 }

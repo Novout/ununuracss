@@ -235,6 +235,45 @@ export const isImage = (i: string): boolean => /\.(gif|jpe?g|tiff?|png|webp|bmp)
 export const isBorderStyle = (i: string): boolean => ['solid', 'dotted', 'dashed'].some((c) => c === i)
 export const isSizer = (i: string): boolean => ['xs', 'sm', 'base', 'lg', 'xl'].some((c) => c === i)
 export const isScroll = (i: string): boolean => ['scroll', 'hidden', 'auto', 'clip', 'visible'].some((c) => c === i)
+export const isCursor = (i: string): boolean =>
+  [
+    'auto',
+    'default',
+    'pointer',
+    'wait',
+    'text',
+    'move',
+    'help',
+    'not-allowed',
+    'none',
+    'context-menu',
+    'progress',
+    'cell',
+    'crosshair',
+    'vertical-text',
+    'alias',
+    'copy',
+    'no-drop',
+    'grap',
+    'grabbing',
+    'all-scroll',
+    'col-resize',
+    'row-resize',
+    'n-resize',
+    'e-resize',
+    's-resize',
+    'w-resize',
+    'ne-resize',
+    'nw-resize',
+    'se-resize',
+    'sw-resize',
+    'ew-resize',
+    'ns-resize',
+    'nesw-resize',
+    'nwse-resize',
+    'zoom-in',
+    'zoom-out',
+  ].some((c) => c === i)
 export const isNumberSuffix = (i: string): boolean =>
   [
     'cm',
