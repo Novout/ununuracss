@@ -363,6 +363,27 @@ describe('transform', () => {
 }`
       ],
       [
+        resolveCSS(UnunuraIdentifier.Flexbox, ['wrap']),
+        `.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Flexbox, ['nowrap']),
+        `.flex-nowrap {
+  display: flex;
+  flex-wrap: nowrap;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Flexbox, ['wrap-reverse']),
+        `.flex-wrap-reverse {
+  display: flex;
+  flex-wrap: wrap-reverse;
+}`
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Flexbox, ['?', 'flex-1']),
         `.flex-_none_-flex-1 {
   flex: 1 1 0%;

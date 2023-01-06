@@ -87,13 +87,10 @@ export const getSupportedFlexGrow = (contents: string[]): Nullable<string> => {
 
 export const getSupportedFlexWrap = (contents: string[]): Nullable<string> => {
   const Wrap = contents.find((c) => c === 'wrap')
-  const WrapReverse = contents.find((c) => c === 'wrap-r')
-  const WrapNone = contents.find((c) => c === 'wrap-n')
+  const WrapReverse = contents.find((c) => c === 'wrap-reverse')
+  const WrapNone = contents.find((c) => c === 'nowrap')
 
-  const WrapReverseReturn = WrapReverse ? 'wrap-reverse' : undefined
-  const WrapNoneReturn = WrapNone ? 'nowrap' : undefined
-
-  return Wrap ?? WrapReverseReturn ?? WrapNoneReturn ?? NULLABLE
+  return Wrap ?? WrapReverse ?? WrapNone ?? NULLABLE
 }
 
 export const getSupportedStandardFlex = (contents: string[]): Nullable<string> => {
