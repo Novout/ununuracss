@@ -34,7 +34,7 @@ import {
 import { lex } from './lexer'
 import { resolveCSS, resolveCssClass, resolveIdentifierInCSS } from './resolvers'
 import { validateSpreadAllResource } from './validate'
-import { MEYER_RESET_CSS, NOVOUT_RESET_CSS } from 'packages/shared/src/defines'
+import { ANTIALIASED_RESET_CSS, MEYER_RESET_CSS, NOVOUT_RESET_CSS } from 'packages/shared/src/defines'
 
 export const setterHead = (contents: string[], start?: string) => {
   const asDef = getSupportedGlobalNone(contents)
@@ -175,12 +175,16 @@ export const getResourceReset = (identifier: UnunuraIdentifier, contents: string
   const novoutReset = contents.find((c) => c === 'novout')
   const meyerReset = contents.find((c) => c === 'meyer')
 
+  const antialiased = contents.find((c) => c === 'antialiased')
+
   if (novoutReset) return NOVOUT_RESET_CSS()
   if (meyerReset) return MEYER_RESET_CSS()
 
-  let setter = setterHead(contents)
+  let setter = '* {\n'
+  if (antialiased) setter += ANTIALIASED_RESET_CSS()
+  setter += '}'
 
-  return resolveCssClass(identifier, contents, setter)
+  return setter
 }
 
 export const getResourceText = (identifier: UnunuraIdentifier, contents: string[]): string => {

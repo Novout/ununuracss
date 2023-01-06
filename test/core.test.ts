@@ -1,7 +1,7 @@
 import { purgeCSS, purgeOnlyCssClassTitle } from "packages/core/src/purge";
 import { getSupportedInteger } from "packages/core/src/support";
 import { lex, classesFromRawHtml, resolveTitleCssClass, resolveCSS, generateUniqueClass, generateMultipleClass, generateCSSResources, scan, UnunuraGenerate, resolveIdentifierInCSS } from "ununura-core";
-import { isKey, NULLABLE, UnunuraIdentifier, ANTIALISED_RESET_CSS } from "ununura-shared";
+import { isKey, NULLABLE, UnunuraIdentifier, ANTIALIASED_RESET_CSS } from "ununura-shared";
 import { describe, expect, it } from "vitest";
 
 describe('lexer', () => {
@@ -475,6 +475,11 @@ describe('transform', () => {
 }`
       ],
       [
+        resolveCSS(UnunuraIdentifier.Reset, ['antialiased']),
+        `* {
+${ANTIALIASED_RESET_CSS()}}`
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Reset, ['meyer']),
         `/* http://meyerweb.com/eric/tools/css/reset/ 
   v2.0 | 20110126
@@ -532,12 +537,8 @@ table {
   padding: 0;
   margin: 0;
   outline: 0;
-  ${ANTIALISED_RESET_CSS()}
-}
-
-#app {
-  min-height: 100vh;
-  width: 100%;
+  font-size: 16px;
+  ${ANTIALIASED_RESET_CSS()}
 }
 
 [contenteditable] {
