@@ -1,4 +1,5 @@
 import {
+  findResourceInStart,
   isCSSColor,
   isCursor,
   isDefaultFont,
@@ -10,6 +11,7 @@ import {
   isImage,
   isImageRepeat,
   isImageSize,
+  isNullable,
   isNumber,
   isNumberSuffix,
   isRGBColor,
@@ -29,11 +31,45 @@ export const getSupportedMinOrMax = (contents: string[]): Nullable<string> => {
 export const getSupportedColor = (contents: string[]): Nullable<string> => {
   const HEXColor = contents.find((c) => isHex(c))
   const CSSColor = contents.find((c) => isCSSColor(c))
-  const RGBColor = contents.find((c) => isRGBColor(c))
-  const HSLColor = contents.find((c) => isHSLColor(c))
+
+  const RGBColor = findResourceInStart(contents, ['rgb-'], { onlySpreadValue: true })
+  const RGBAColor = findResourceInStart(contents, ['rgba-'], { onlySpreadValue: true })
+  const HSLColor = findResourceInStart(contents, ['hsl-'], { onlySpreadValue: true })
+  const HSLAColor = findResourceInStart(contents, ['hsla-'], { onlySpreadValue: true })
+
+  const RGBColorResolved = !isNullable(RGBColor)
+    ? `rgb(${RGBColor.split('-')
+        .reduce((acc, val) => (acc += `${val}, `), '')
+        .slice(0, -2)})`
+    : undefined
+  const RGBAColorResolved = !isNullable(RGBAColor)
+    ? `rgba(${RGBAColor.split('-')
+        .reduce((acc, val) => (acc += `${val}, `), '')
+        .slice(0, -2)})`
+    : undefined
+  const HSLColorResolved = !isNullable(HSLColor)
+    ? `hsl(${HSLColor.split('-')
+        .reduce((acc, val) => (acc += `${val}, `), '')
+        .slice(0, -2)})`
+    : undefined
+  const HSLAColorResolved = !isNullable(HSLAColor)
+    ? `hsla(${HSLAColor.split('-')
+        .reduce((acc, val) => (acc += `${val}, `), '')
+        .slice(0, -2)})`
+    : undefined
+
   const Transparent = contents.find((c) => c === 'transparent')
 
-  return HEXColor ?? CSSColor ?? RGBColor ?? HSLColor ?? Transparent ?? NULLABLE
+  return (
+    HEXColor ??
+    CSSColor ??
+    RGBColorResolved ??
+    RGBAColorResolved ??
+    HSLColorResolved ??
+    HSLAColorResolved ??
+    Transparent ??
+    NULLABLE
+  )
 }
 
 export const getSupportedImage = (contents: string[]): Nullable<string> => {

@@ -294,6 +294,30 @@ describe('transform', () => {
 }`
       ],
       [
+        resolveCSS(UnunuraIdentifier.Background, ['rgb-255-255-255']),
+        `.bg-rgb-255-255-255 {
+  background-color: rgb(255, 255, 255);
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Background, ['rgba-255-255-255-0.5']),
+        `.bg-rgba-255-255-255-05 {
+  background-color: rgba(255, 255, 255, 0.5);
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Background, ['hsl-0-100%-50%']),
+        `.bg-hsl-0-100-50 {
+  background-color: hsl(0, 100%, 50%);
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Background, ['hsla-0-100%-50%-0.5']),
+        `.bg-hsla-0-100-50-05 {
+  background-color: hsla(0, 100%, 50%, 0.5);
+}`
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Background, ['#000001', 'cover']),
         `.bg-000001-cover {
   background-color: #000001;
@@ -692,7 +716,7 @@ describe('css', () => {
   [resolveTitleCssClass(UnunuraIdentifier.Margin, ['15', '0', '10', '0']), '.m-15-0-10-0'],
   [resolveTitleCssClass(UnunuraIdentifier.Text, ['lg']), '.text-lg'],
   [resolveTitleCssClass(UnunuraIdentifier.Flexbox, ['flex-1']), '.flex-flex-1'],
-  [resolveTitleCssClass(UnunuraIdentifier.Background, ['rgba(255,255,255,0.3)']), '.bg-rgba255-255-255-03'],
+  [resolveTitleCssClass(UnunuraIdentifier.Background, ['rgba-255-255-255-0.3)']), '.bg-rgba-255-255-255-03'],
   [resolveTitleCssClass(UnunuraIdentifier.Background, ['#FF0000']), '.bg-ff0000'],
   [resolveTitleCssClass(UnunuraIdentifier.Background, ['/local_image.png']), '.bg-local-imagepng']
 ]

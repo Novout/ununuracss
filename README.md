@@ -2,8 +2,6 @@
 
 A different form to interpreter Atomic CSS focused on vite ecosystem.
 
-> Version 0.0.1 will only be published when it is stable for basic use.
-
 <div>
   <img src="https://img.shields.io/github/package-json/v/Novout/ununuracss?color=%23cccccc&logoColor=%23cccccc&style=for-the-badge">
   <img src="https://img.shields.io/github/actions/workflow/status/Novout/ununuracss/test.yml?color=%23cccccc&logoColor=%23cccccc&style=for-the-badge">
@@ -20,7 +18,7 @@ Reading how [UnoCSS](https://github.com/unocss/unocss) was designed, he had the 
 ```ts
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import ununura from 'ununura-vite'
+import ununura from 'ununura'
 
 export default defineConfig({
   plugins: [vue(), ununura()],
@@ -72,8 +70,8 @@ export default defineConfig({
 
 `m[10 2rem 0 0]`
 
-`border[2 dashed hsla(100,100%,53%,0.6)]`
+`border[1 solid red]`
 
-`bg[white]`
+`bg[rgba-255-255-0-0.5 bold]`
 
 `bg[/image_in_public_file.jpeg cover]`
