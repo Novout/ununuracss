@@ -1,7 +1,17 @@
 <template>
   <main class="reset:novout">
-    <div class="flex[col h-center v-center] bg:black w:100% h:100vh text[arial white 2rem 700]">
-      Hello!
+    <div class="flex:col bg:#090909 h[min 100vh] p[0 0 0 5rem] bg[/vue.png cover]">
+      <section class="m[10rem 0 0 0]">
+        <p class="text[roboto #EEEEEE 4rem 700]">Hello UnunuraCSS!</p>
+        <p class="m[1rem 0 0 0] text[roboto #AAAAAA 1.25rem 200]">A Vue 3 + Vite demo.</p>
+        <button @click="onClick" class="bg:#101010 text[#EEEEEE roboto 700 1.1rem] p[1rem 2rem 1rem 2rem] m[3rem 0 0 0] cursor:pointer rounded:0.75rem">Github</button>
+      </section>
     </div>
   </main>
 </template>
+
+<script setup lang="ts">
+const onClick = () => {
+  window.location.href = 'https://github.com/Novout/ununuracss'
+}
+</script>
