@@ -4,6 +4,7 @@ import {
   isDefaultFont,
   isFlexHorizontal,
   isFlexVertical,
+  isGoogleFont,
   isHex,
   isHSLColor,
   isImage,
@@ -53,7 +54,13 @@ export const getSupportedImageRepeat = (contents: string[]): Nullable<string> =>
 export const getSupportedFont = (contents: string[]): Nullable<string> => {
   const GenericFont = contents.find((c) => isDefaultFont(c))
 
-  return GenericFont ? GenericFont?.charAt(0).toUpperCase() + GenericFont?.slice(1) : NULLABLE
+  // TODO: Dynamic google font search with fonts[google <font-here>] resource
+  const GoogleFont = contents.find((c) => isGoogleFont(c))
+
+  const GoogleFontResolved = GoogleFont ? GoogleFont?.charAt(0).toUpperCase() + GoogleFont?.slice(1) : undefined
+  const GenericFontResolved = GenericFont ? GenericFont?.charAt(0).toUpperCase() + GenericFont?.slice(1) : undefined
+
+  return GoogleFontResolved ?? GenericFontResolved ?? NULLABLE
 }
 
 export const getSupportedFontWeight = (contents: string[]): Nullable<string> => {

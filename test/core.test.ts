@@ -282,6 +282,12 @@ describe('transform', () => {
 }`
       ],
       [
+        resolveCSS(UnunuraIdentifier.Text, ['roboto']),
+        `.text-roboto {
+  font-family: 'Roboto', sans-serif;
+}`
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Background, ['#000000']),
         `.bg-000000 {
   background-color: #000000;

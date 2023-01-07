@@ -218,6 +218,8 @@ export const isDefaultFont = (i: string): boolean =>
     'Wingdings',
     'Yu Gothic',
   ].some((c) => c.toLowerCase() === i.toLowerCase())
+export const isGoogleFont = (i: string) =>
+  ['Roboto', 'Lato', 'Poppins', 'Raleway', 'Montserrat'].some((d) => i.toLowerCase() === d.toLowerCase())
 export const isImageSize = (i: string) => ['auto', 'cover', 'contain'].some((d) => i.toLowerCase() === d.toLowerCase())
 export const isFlexHorizontal = (i: string) =>
   ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly', 'initial', 'inherit'].some(
