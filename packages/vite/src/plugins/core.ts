@@ -1,5 +1,5 @@
 import type { Plugin } from 'vite'
-import { UnunuraGenerate, UnunuraVueSFCFile } from 'ununura-core'
+import { UnunuraGenerate, UnunuraVueSFCFile } from 'ununura-engine'
 import { isVueFile, VIRTUAL_CSS_INJECT_FILENAME, RESOLVED_VIRTUAL_CSS_INJECT_FILENAME } from 'ununura-shared'
 import { reloadServer } from '../hot'
 import { validForUpdate } from '../support'

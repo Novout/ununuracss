@@ -33,7 +33,7 @@
   "dependencies": {
     "@nuxt/kit": "^3.0.0",
     "ununura": "workspace:*",
-    "ununura-core": "workspace:*",
+    "ununura-engine": "workspace:*",
     "ununura-shared": "workspace:*"
   },
   "devDependencies": {

@@ -12,7 +12,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      'ununura-core': resolve(__dirname, './packages/core/src/'),
+      'ununura-engine': resolve(__dirname, './packages/engine/src/'),
       'ununura-vite': resolve(__dirname, './packages/vite/src/'),
       'ununura-nuxt': resolve(__dirname, './packages/nuxt/src/'),
       'ununura-shared': resolve(__dirname, './packages/shared/src/'),

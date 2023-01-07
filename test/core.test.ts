@@ -1,6 +1,6 @@
-import { purgeCSS, purgeOnlyCssClassTitle } from "packages/core/src/purge";
-import { getSupportedInteger } from "packages/core/src/support";
-import { lex, classesFromRawHtml, resolveTitleCssClass, resolveCSS, generateUniqueClass, generateMultipleClass, generateCSSResources, scan, UnunuraGenerate, resolveIdentifierInCSS } from "ununura-core";
+import { purgeCSS, purgeOnlyCssClassTitle } from "packages/engine/src/purge";
+import { getSupportedInteger } from "packages/engine/src/support";
+import { lex, classesFromRawHtml, resolveTitleCssClass, resolveCSS, generateUniqueClass, generateMultipleClass, generateCSSResources, scan, UnunuraGenerate, resolveIdentifierInCSS } from "ununura-engine";
 import { isKey, NULLABLE, UnunuraIdentifier, ANTIALIASED_RESET_CSS } from "ununura-shared";
 import { describe, expect, it } from "vitest";
 

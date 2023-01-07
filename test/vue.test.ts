@@ -1,4 +1,4 @@
-import { generateCSSResources, UnunuraVueSFCFile } from "ununura-core";
+import { generateCSSResources, UnunuraVueSFCFile } from "ununura-engine";
 import { describe, expect, it } from "vitest";
 
 describe('resolvers', () => {
