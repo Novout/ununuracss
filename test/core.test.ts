@@ -318,6 +318,12 @@ describe('transform', () => {
 }`
       ],
       [
+        resolveCSS(UnunuraIdentifier.Background, ['--primary-color']),
+        `.bg---primary-color {
+  background-color: var(--primary-color);
+}`
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Background, ['#000001', 'cover']),
         `.bg-000001-cover {
   background-color: #000001;

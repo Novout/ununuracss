@@ -7,14 +7,12 @@ import {
   isFlexVertical,
   isGoogleFont,
   isHex,
-  isHSLColor,
   isImage,
   isImageRepeat,
   isImageSize,
   isNullable,
   isNumber,
   isNumberSuffix,
-  isRGBColor,
   isScroll,
   isSlashImage,
   Nullable,
@@ -58,7 +56,10 @@ export const getSupportedColor = (contents: string[]): Nullable<string> => {
         .slice(0, -2)})`
     : undefined
 
-  const Transparent = contents.find((c) => c === 'transparent')
+  const CSSVar = findResourceInStart(contents, ['--'])
+  const CSSVarColorResolved = !isNullable(CSSVar) ? `var(${CSSVar})` : undefined
+
+  const TransparentColor = contents.find((c) => c === 'transparent')
 
   return (
     HEXColor ??
@@ -67,7 +68,8 @@ export const getSupportedColor = (contents: string[]): Nullable<string> => {
     RGBAColorResolved ??
     HSLColorResolved ??
     HSLAColorResolved ??
-    Transparent ??
+    CSSVarColorResolved ??
+    TransparentColor ??
     NULLABLE
   )
 }

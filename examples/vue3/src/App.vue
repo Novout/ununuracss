@@ -1,6 +1,6 @@
 <template>
   <main class="reset:novout">
-    <div class="flex:col bg:#090909 h[min 100vh] p[0 0 0 5rem] bg[/vue.png cover]">
+    <div class="flex:col bg:--background-color h[min 100vh] p[0 0 0 5rem] bg[/vue.png cover]">
       <section class="m[10rem 0 0 0]">
         <p class="text[roboto #EEEEEE 4rem 700]">Hello UnunuraCSS!</p>
         <p class="m[1rem 0 0 0] text[roboto #AAAAAA 1.25rem 200]">A Vue 3 + Vite demo.</p>

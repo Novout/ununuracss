@@ -229,8 +229,6 @@ export const isFlexVertical = (i: string) =>
   ['stretch', 'center', 'flex-start', 'flex-end', 'baseline', 'initial', 'inherit'].some((d) => i === `v-${d}`)
 export const isImageRepeat = (i: string) =>
   ['repeat', 'no-repeat', 'repeat-x', 'repeat-y', 'repeat-round', 'repeat-space'].some((d) => i.toLowerCase() === d.toLowerCase())
-export const isRGBColor = (i: string): boolean => i.startsWith('rgb')
-export const isHSLColor = (i: string): boolean => i.startsWith('hsl')
 export const isSlashImage = (i: string): boolean => i.startsWith('//')
 export const isHTTPSImage = (i: string): boolean => /(https?:\/\/.*\.(?:png|jpg|gif|jpe?g|tiff?|png|webp|bmp))/i.test(i)
 export const isImage = (i: string): boolean => /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(i)
