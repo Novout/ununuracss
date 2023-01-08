@@ -3,7 +3,7 @@
 A different form to interpreter Atomic CSS focused on vite ecosystem.
 
 <div>
-  <img src="https://img.shields.io/github/package-json/v/Novout/ununuracss?color=%23cccccc&logoColor=%23cccccc&style=for-the-badge">
+  <img src="https://img.shields.io/github/lerna-json/v/Novout/ununuracss?color=ccc&label=version&logoColor=ccc&style=for-the-badge">
   <img src="https://img.shields.io/github/actions/workflow/status/Novout/ununuracss/test.yml?color=%23cccccc&logoColor=%23cccccc&style=for-the-badge">
 </div>
 
