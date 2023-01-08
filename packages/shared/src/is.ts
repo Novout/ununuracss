@@ -1,4 +1,5 @@
 import { NULLABLE } from './constants'
+import { browserFonts, googleFonts } from './defines'
 import { UnunuraContextualizeResponsive, UnunuraGlobals, UnunuraIdentifier, UnunuraKeys } from './enums'
 import { Option } from './types'
 
@@ -156,70 +157,8 @@ export const isCSSColor = (i: string): boolean =>
     'Yellow',
     'YellowGreen',
   ].some((c) => c.toLowerCase() === i.toLowerCase())
-export const isDefaultFont = (i: string): boolean =>
-  [
-    'Arial',
-    'Arial Black',
-    'Bahnschrift',
-    'Calibri',
-    'Cambria',
-    'Cambria Math',
-    'Candara',
-    'Comic Sans MS',
-    'Consolas',
-    'Constantia',
-    'Corbel',
-    'Courier New',
-    'Ebrima',
-    'Franklin Gothic Medium',
-    'Gabriola',
-    'Gadugi',
-    'Georgia',
-    'HoloLens MDL2 Assets',
-    'Impact',
-    'Ink Free',
-    'Javanese Text',
-    'Leelawadee UI',
-    'Lucida Console',
-    'Lucida Sans Unicode',
-    'Malgun Gothic',
-    'Marlett',
-    'Microsoft Himalaya',
-    'Microsoft JhengHei',
-    'Microsoft New Tai Lue',
-    'Microsoft PhagsPa',
-    'Microsoft Sans Serif',
-    'Microsoft Tai Le',
-    'Microsoft YaHei',
-    'Microsoft Yi Baiti',
-    'MingLiU-ExtB',
-    'Mongolian Baiti',
-    'MS Gothic',
-    'MV Boli',
-    'Myanmar Text',
-    'Nirmala UI',
-    'Palatino Linotype',
-    'Segoe MDL2 Assets',
-    'Segoe Print',
-    'Segoe Script',
-    'Segoe UI',
-    'Segoe UI Historic',
-    'Segoe UI Emoji',
-    'Segoe UI Symbol',
-    'SimSun',
-    'Sitka',
-    'Sylfaen',
-    'Symbol',
-    'Tahoma',
-    'Times New Roman',
-    'Trebuchet MS',
-    'Verdana',
-    'Webdings',
-    'Wingdings',
-    'Yu Gothic',
-  ].some((c) => c.toLowerCase() === i.toLowerCase())
-export const isGoogleFont = (i: string) =>
-  ['Roboto', 'Lato', 'Poppins', 'Raleway', 'Montserrat'].some((d) => i.toLowerCase() === d.toLowerCase())
+export const isDefaultFont = (i: string): boolean => [...browserFonts].some((c) => c.toLowerCase() === i.toLowerCase())
+export const isGoogleFont = (i: string) => [...googleFonts].some((d) => i.toLowerCase() === d.toLowerCase())
 export const isImageSize = (i: string) => ['auto', 'cover', 'contain'].some((d) => i.toLowerCase() === d.toLowerCase())
 export const isFlexHorizontal = (i: string) =>
   ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly', 'initial', 'inherit'].some(
