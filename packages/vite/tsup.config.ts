@@ -5,5 +5,5 @@ export default defineConfig({
   format: ['esm', 'cjs'],
   clean: true,
   dts: true,
-  external: ['vite', 'ununura-engine', 'ununura-shared'],
+  external: ['vite', 'ununura-engine', 'ununura-shared', 'fontaine'],
 })
