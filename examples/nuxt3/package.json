@@ -10,5 +10,5 @@
     "nuxt": "3.0.0",
     "ununura-nuxt": "workspace:*"
   },
-  "version": "0.0.1"
+  "version": "0.0.2"
 }
