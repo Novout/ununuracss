@@ -5,4 +5,5 @@ export default defineConfig({
   format: ['esm', 'cjs'],
   clean: true,
   dts: false,
+  external: ['ununura', 'ununura-engine', 'ununura-shared'],
 })
