@@ -305,8 +305,13 @@ export const isNullable = (i?: string): boolean => i === NULLABLE || i === undef
 export const isUniqueKey = (key: string) => key === UnunuraKeys.UniqueContext
 export const isOpenMultipleKey = (key: string) => key === UnunuraKeys.MultipleContextOpen
 export const isCloseMultipleKey = (key: string) => key === UnunuraKeys.MultipleContextClose
+export const isContextOpenKey = (key: string) => key === UnunuraKeys.SpecificContextOpen
+export const isContextCloseKey = (key: string) => key === UnunuraKeys.SpecificContextClose
 export const isContextKey = (key: string) => isUniqueKey(key) || isOpenMultipleKey(key) || isCloseMultipleKey(key)
 
 export const isKey = (char: string): boolean => Object.values(UnunuraKeys).some((key) => key === char)
-export const isIdentifier = (str: string): boolean => Object.values(UnunuraIdentifier).some((key) => key === str)
+export const isContextIdentifier = (str: string) =>
+  ['dark', 'light', 'sepia', 'xs', 'sm', 'md', 'lg', 'xl'].some((key) => key === str)
+export const isCommonIdentifier = (str: string) => Object.values(UnunuraIdentifier).some((key) => key === str)
+export const isIdentifier = (str: string): boolean => isCommonIdentifier(str) || isContextIdentifier(str)
 export const isGlobal = (str: string): Option<string> => Object.values(UnunuraGlobals).find((key) => str.startsWith(key))

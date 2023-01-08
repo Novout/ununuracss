@@ -1,4 +1,4 @@
-import { UnunuraIdentifier, NULLABLE, Nullable } from 'ununura-shared'
+import { UnunuraIdentifier, NULLABLE, Nullable, UnunuraContextualizeStack } from 'ununura-shared'
 import {
   getResourceText,
   getResourceBorder,
@@ -18,6 +18,7 @@ export const resolveTitleToClassName = (t: string) => {
     .replace(/[.%\s]/gi, '') // defaults
     .replace(/[,_\s]/gi, '-')
     .replace(/[():#/\s]/gi, '')
+    .replace(/ /gi, '')
     .replaceAll('?', '_none_') // globals
     .replaceAll('!', '_important_')
     .toLowerCase()
@@ -56,44 +57,57 @@ export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string =>
   }
 }
 
-export const resolveCSS = (identifier: UnunuraIdentifier, contents: string[]): string => {
+export const resolveCSS = (identifier: UnunuraIdentifier, contents: string[], context?: UnunuraContextualizeStack): string => {
   switch (identifier) {
     case UnunuraIdentifier.Margin:
     case UnunuraIdentifier.Padding:
     case UnunuraIdentifier.Rounded:
-      return getResourceSpreadValues(identifier, contents)
+      return getResourceSpreadValues(identifier, contents, context)
     case UnunuraIdentifier.Height:
     case UnunuraIdentifier.Width:
-      return getResourceWidthOrHeight(identifier, contents)
+      return getResourceWidthOrHeight(identifier, contents, context)
     case UnunuraIdentifier.Background:
-      return getResourceBackground(identifier, contents)
+      return getResourceBackground(identifier, contents, context)
     case UnunuraIdentifier.Text:
-      return getResourceText(identifier, contents)
+      return getResourceText(identifier, contents, context)
     case UnunuraIdentifier.Border:
-      return getResourceBorder(identifier, contents)
+      return getResourceBorder(identifier, contents, context)
     case UnunuraIdentifier.Flexbox:
-      return getResourceFlex(identifier, contents)
+      return getResourceFlex(identifier, contents, context)
     case UnunuraIdentifier.Position:
-      return getResourcePosition(identifier, contents)
+      return getResourcePosition(identifier, contents, context)
     case UnunuraIdentifier.Scroll:
-      return getResourceScroll(identifier, contents)
+      return getResourceScroll(identifier, contents, context)
     case UnunuraIdentifier.Reset:
-      return getResourceReset(identifier, contents)
+      return getResourceReset(identifier, contents, context)
     case UnunuraIdentifier.Shadow:
-      return getResourceShadow(identifier, contents)
+      return getResourceShadow(identifier, contents, context)
     case UnunuraIdentifier.Cursor:
-      return getResourceCursor(identifier, contents)
+      return getResourceCursor(identifier, contents, context)
     default:
       return NULLABLE
   }
 }
 
-export const resolveTitleCssClass = (identifier: UnunuraIdentifier, contents: string[]) => {
-  return contents.reduce((sum, acc) => (sum += `-${resolveTitleToClassName(acc)}`), `.${identifier}`)
+export const resolveTitleCssClass = (identifier: UnunuraIdentifier, contents: string[], context?: UnunuraContextualizeStack) => {
+  const asTheme = context?.find((c) => c === 'dark' || c === 'light' || c === 'sepia')
+
+  let setter = contents.reduce(
+    (sum, acc) => (sum += `-${resolveTitleToClassName(acc)}`),
+    (asTheme ? `.${asTheme} ` : '') + `.${identifier}`
+  )
+  setter += asTheme ? `-${asTheme}` : ''
+
+  return setter
 }
 
-export const resolveCssClass = (identifier: UnunuraIdentifier, contents: string[], setter: string): Nullable<string> => {
-  const title = resolveTitleCssClass(identifier, contents)
+export const resolveCssClass = (
+  identifier: UnunuraIdentifier,
+  contents: string[],
+  setter: string,
+  context?: UnunuraContextualizeStack
+): Nullable<string> => {
+  const title = resolveTitleCssClass(identifier, contents, context)
 
   if (!setter.trim()) return NULLABLE
 

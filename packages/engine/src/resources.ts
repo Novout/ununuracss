@@ -11,6 +11,7 @@ import {
   ANTIALIASED_RESET_CSS,
   MEYER_RESET_CSS,
   NOVOUT_RESET_CSS,
+  UnunuraContextualizeStack,
 } from 'ununura-shared'
 import { classesFromRawHtml, generateCss } from './ast'
 import {
@@ -39,7 +40,20 @@ import { lex } from './lexer'
 import { resolveCSS, resolveCssClass, resolveIdentifierInCSS } from './resolvers'
 import { validateSpreadAllResource } from './validate'
 
-export const setterHead = (contents: string[], start?: string) => {
+export const generateMultipleClass = (key: [string, string], context?: UnunuraContextualizeStack) => {
+  const [identifier, content] = key
+  const contents = content.split(' ')
+
+  return resolveCSS(identifier as UnunuraIdentifier, contents, context)
+}
+
+export const generateUniqueClass = (key: [string, string], context?: UnunuraContextualizeStack) => {
+  const [identifier, content] = key
+
+  return resolveCSS(identifier as UnunuraIdentifier, [content], context)
+}
+
+export const setterHead = (contents: string[], context?: UnunuraContextualizeStack, start?: string) => {
   const asDef = getSupportedGlobalNone(contents)
 
   let _ = '\n' + (start && isNullable(asDef) ? `  ${start}\n` : '')
@@ -53,19 +67,6 @@ export const setterRow = (item: Option<string> = undefined, valid: string, conte
   return !isNullable(item) ? `  ${valid}${!isNullable(asImportant) ? ' !important' : ''};\n` : ''
 }
 
-export const generateMultipleClass = (key: string) => {
-  const [identifier, content] = key.split(UnunuraKeys.UniqueContext)
-  const contents = content.split(' ')
-
-  return resolveCSS(identifier as UnunuraIdentifier, contents)
-}
-
-export const generateUniqueClass = (key: string) => {
-  const [identifier, content] = key.split(UnunuraKeys.UniqueContext)
-
-  return resolveCSS(identifier as UnunuraIdentifier, [content])
-}
-
 export const generateCSSResources = (raw: string) => {
   const ast = classesFromRawHtml(raw)
 
@@ -76,12 +77,16 @@ export const generateCSSResources = (raw: string) => {
   }, '')
 }
 
-export const getResourceSpreadValues = (identifier: UnunuraIdentifier, contents: string[]): string => {
+export const getResourceSpreadValues = (
+  identifier: UnunuraIdentifier,
+  contents: string[],
+  context?: UnunuraContextualizeStack
+): string => {
   const values = validateSpreadAllResource(contents)
 
   if (values.length === 0) return NULLABLE
 
-  let setter = setterHead(contents)
+  let setter = setterHead(contents, context)
 
   const spread = `${resolveIdentifierInCSS(identifier)}:${values.reduce(
     (sum, acc) => (sum += ` ${getSupportedNumber([acc])}`),
@@ -90,16 +95,20 @@ export const getResourceSpreadValues = (identifier: UnunuraIdentifier, contents:
 
   setter += setterRow('' as any, spread, contents)
 
-  return resolveCssClass(identifier, contents, setter)
+  return resolveCssClass(identifier, contents, setter, context)
 }
 
-export const getResourceWidthOrHeight = (identifier: UnunuraIdentifier, contents: string[]): string => {
+export const getResourceWidthOrHeight = (
+  identifier: UnunuraIdentifier,
+  contents: string[],
+  context?: UnunuraContextualizeStack
+): string => {
   const size = getSupportedNumber(contents)
   const ranged = getSupportedMinOrMax(contents)
 
   const inCss = resolveIdentifierInCSS(identifier)
 
-  let setter = setterHead(contents)
+  let setter = setterHead(contents, context)
   ranged
     ? (setter +=
         !isNullable(ranged) && !isNullable(size)
@@ -109,10 +118,14 @@ export const getResourceWidthOrHeight = (identifier: UnunuraIdentifier, contents
           : '')
     : ''
 
-  return resolveCssClass(identifier, contents, setter)
+  return resolveCssClass(identifier, contents, setter, context)
 }
 
-export const getResourcePosition = (identifier: UnunuraIdentifier, contents: string[]): string => {
+export const getResourcePosition = (
+  identifier: UnunuraIdentifier,
+  contents: string[],
+  context?: UnunuraContextualizeStack
+): string => {
   const base = findResource(contents, ['static', 'relative', 'fixed', 'absolute', 'sticky'])
 
   const left = findResourceInStart(contents, ['left-'])
@@ -122,32 +135,40 @@ export const getResourcePosition = (identifier: UnunuraIdentifier, contents: str
 
   if (!base) return NULLABLE
 
-  let setter = setterHead(contents)
+  let setter = setterHead(contents, context)
   setter += setterRow(base, `position: ${base}`, contents)
   setter += setterRow(left, `left: ${left.split('-')[1]}`, contents)
   setter += setterRow(right, `right: ${right.split('-')[1]}`, contents)
   setter += setterRow(top, `top: ${top.split('-')[1]}`, contents)
   setter += setterRow(bottom, `bottom: ${bottom.split('-')[1]}`, contents)
 
-  return resolveCssClass(identifier, contents, setter)
+  return resolveCssClass(identifier, contents, setter, context)
 }
 
-export const getResourceBorder = (identifier: UnunuraIdentifier, contents: string[]): string => {
+export const getResourceBorder = (
+  identifier: UnunuraIdentifier,
+  contents: string[],
+  context?: UnunuraContextualizeStack
+): string => {
   const size = getSupportedNumber(contents)
   const style = contents.find((c) => isBorderStyle(c)) ?? NULLABLE
   const color = getSupportedColor(contents)
 
   const inCss = resolveIdentifierInCSS(identifier)
 
-  let setter = setterHead(contents)
+  let setter = setterHead(contents, context)
   setter += setterRow(style, `${inCss}: ${style}`, contents)
   setter += setterRow(color, `${inCss}-color: ${color}`, contents)
   setter += setterRow(size, `${inCss}-width: ${size}`, contents)
 
-  return resolveCssClass(identifier, contents, setter)
+  return resolveCssClass(identifier, contents, setter, context)
 }
 
-export const getResourceBackground = (identifier: UnunuraIdentifier, contents: string[]): string => {
+export const getResourceBackground = (
+  identifier: UnunuraIdentifier,
+  contents: string[],
+  context?: UnunuraContextualizeStack
+): string => {
   const color = getSupportedColor(contents)
   const image = getSupportedImage(contents)
   const size = getSupportedImageSize(contents)
@@ -155,26 +176,34 @@ export const getResourceBackground = (identifier: UnunuraIdentifier, contents: s
 
   const inCss = resolveIdentifierInCSS(identifier)
 
-  let setter = setterHead(contents)
+  let setter = setterHead(contents, context)
   setter += setterRow(color, `${inCss}-color: ${color}`, contents)
   setter += setterRow(image, `${inCss}-image: url("${isSlashImage(image) ? 'https:' : ''}${image}")`, contents)
   setter += setterRow(size, `${inCss}-size: ${size}`, contents)
   setter += setterRow(repeat, `${inCss}-repeat: ${repeat}`, contents)
 
-  return resolveCssClass(identifier, contents, setter)
+  return resolveCssClass(identifier, contents, setter, context)
 }
 
-export const getResourceScroll = (identifier: UnunuraIdentifier, contents: string[]): string => {
+export const getResourceScroll = (
+  identifier: UnunuraIdentifier,
+  contents: string[],
+  context?: UnunuraContextualizeStack
+): string => {
   const scroll = getSupportedScroll(contents)
   const scrollDirection = getSupportedScrollDirection(contents)
 
-  let setter = setterHead(contents)
+  let setter = setterHead(contents, context)
   setter += setterRow(scroll, `overflow${scrollDirection}: ${scroll}`, contents)
 
-  return resolveCssClass(identifier, contents, setter)
+  return resolveCssClass(identifier, contents, setter, context)
 }
 
-export const getResourceReset = (identifier: UnunuraIdentifier, contents: string[]): string => {
+export const getResourceReset = (
+  identifier: UnunuraIdentifier,
+  contents: string[],
+  context?: UnunuraContextualizeStack
+): string => {
   const novoutReset = contents.find((c) => c === 'novout')
   const meyerReset = contents.find((c) => c === 'meyer')
 
@@ -190,7 +219,11 @@ export const getResourceReset = (identifier: UnunuraIdentifier, contents: string
   return setter
 }
 
-export const getResourceShadow = (identifier: UnunuraIdentifier, contents: string[]): string => {
+export const getResourceShadow = (
+  identifier: UnunuraIdentifier,
+  contents: string[],
+  context?: UnunuraContextualizeStack
+): string => {
   const color = getSupportedColor(contents)
   const horizontal = findResourceInStart(contents, ['h-'], { onlyValue: true })
   const vertical = findResourceInStart(contents, ['v-'], { onlyValue: true })
@@ -208,39 +241,51 @@ export const getResourceShadow = (identifier: UnunuraIdentifier, contents: strin
     !isNullable(inset) ? `${inset} ` : ''
   }${horizontalResolved} ${verticalResolved} ${blurResolved} ${radiusResolved} ${colorResolved};\n`
 
-  let setter = setterHead(contents)
+  let setter = setterHead(contents, context)
   setter += `  box-shadow: ${value}`
   setter += `  -webkit-box-shadow: ${value}`
   setter += `  -moz-box-shadow: ${value}`
 
-  return resolveCssClass(identifier, contents, setter)
+  return resolveCssClass(identifier, contents, setter, context)
 }
 
-export const getResourceCursor = (identifier: UnunuraIdentifier, contents: string[]): string => {
+export const getResourceCursor = (
+  identifier: UnunuraIdentifier,
+  contents: string[],
+  context?: UnunuraContextualizeStack
+): string => {
   const cursor = getSupportedCursor(contents)
 
-  let setter = setterHead(contents)
+  let setter = setterHead(contents, context)
   setter += setterRow(cursor, `cursor: ${cursor}`, contents)
 
-  return resolveCssClass(identifier, contents, setter)
+  return resolveCssClass(identifier, contents, setter, context)
 }
 
-export const getResourceText = (identifier: UnunuraIdentifier, contents: string[]): string => {
+export const getResourceText = (
+  identifier: UnunuraIdentifier,
+  contents: string[],
+  context?: UnunuraContextualizeStack
+): string => {
   const color = getSupportedColor(contents)
   const fontSize = getSupportedNumber(contents)
   const fontFamily = getSupportedFont(contents)
   const fontWeight = getSupportedFontWeight(contents)
 
-  let setter = setterHead(contents)
+  let setter = setterHead(contents, context)
   setter += setterRow(color, `color: ${color}`, contents)
   setter += setterRow(fontSize, `font-size: ${fontSize}`, contents)
   setter += setterRow(fontWeight, `font-weight: ${fontWeight}`, contents)
   setter += setterRow(fontFamily, `font-family: '${fontFamily}', sans-serif`, contents)
 
-  return resolveCssClass(identifier, contents, setter)
+  return resolveCssClass(identifier, contents, setter, context)
 }
 
-export const getResourceFlex = (identifier: UnunuraIdentifier, contents: string[]): string => {
+export const getResourceFlex = (
+  identifier: UnunuraIdentifier,
+  contents: string[],
+  context?: UnunuraContextualizeStack
+): string => {
   const direction = getSupportedFlexDirection(contents)
   const grow = getSupportedFlexGrow(contents)
   const wrap = getSupportedFlexWrap(contents)
@@ -249,7 +294,7 @@ export const getResourceFlex = (identifier: UnunuraIdentifier, contents: string[
   const horizontal = getSupportedFlexHorizontal(contents).replace(/h-/, '')
   const vertical = getSupportedFlexVertical(contents).replace(/v-/, '')
 
-  let setter = setterHead(contents, 'display: flex;')
+  let setter = setterHead(contents, context, 'display: flex;')
   setter += setterRow(direction, `${identifier}-direction: ${direction}`, contents)
   setter += setterRow(grow, `${identifier}-grow: ${grow}`, contents)
   setter += setterRow(wrap, `${identifier}-wrap: ${wrap}`, contents)
@@ -258,5 +303,5 @@ export const getResourceFlex = (identifier: UnunuraIdentifier, contents: string[
   setter += setterRow(horizontal, `justify-content: ${horizontal}`, contents)
   setter += setterRow(vertical, `align-items: ${vertical}`, contents)
 
-  return resolveCssClass(identifier, contents, setter)
+  return resolveCssClass(identifier, contents, setter, context)
 }

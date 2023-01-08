@@ -1,7 +1,10 @@
 .vscode
 .idea
 .vercel
+.lapce
 
 node_modules
 dist
 coverage
+
+TODO.md

@@ -41,6 +41,12 @@ export const lex = (raw: string): string[] => {
           transformers.push(UnunuraKeys.MultipleContextClose)
           ignorable = true
           break
+        case UnunuraKeys.SpecificContextOpen:
+          transformers.push(UnunuraKeys.SpecificContextOpen)
+          break
+        case UnunuraKeys.SpecificContextClose:
+          transformers.push(UnunuraKeys.SpecificContextClose)
+          break
         case UnunuraKeys.UniqueContext:
           transformers.push(UnunuraKeys.UniqueContext)
           is_unique_key = true

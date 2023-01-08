@@ -20,6 +20,11 @@ export enum UnunuraGlobals {
   Important = '!',
 }
 
+export type UnunuraContextualizeTheme = 'light' | 'dark' | 'sepia'
+export type UnunuraContextualizeResponsive = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+export type UnunuraContextualize = UnunuraContextualizeTheme | UnunuraContextualizeResponsive
+export type UnunuraContextualizeStack = UnunuraContextualize[]
+
 export enum UnunuraKeys {
   MultipleContextOpen = '[',
   MultipleContextClose = ']',

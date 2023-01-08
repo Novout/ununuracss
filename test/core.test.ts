@@ -119,6 +119,63 @@ describe('lexer', () => {
           "//i.imgur.com/XyZvY.png"
         ]
       ],
+      [
+        lex('bg:white md(m[0 0 10 0] p:10) dark(text:white bg:black)'), 
+        [
+          "bg",
+          ":",
+          "white",
+          "md",
+          "(",
+          "m",
+          "[",
+          "0 0 10 0",
+          "]",
+          "p",
+          ":",
+          "10",
+          ")",
+          "dark",
+          "(",
+          "text",
+          ":",
+          "white",
+          "bg",
+          ":",
+          "black",
+          ")"
+        ]
+      ],
+      [
+        lex('bg:white text:black dark(md(m[0 0 10 0] p:10) text:white bg:black)'), 
+        [
+          "bg",
+          ":",
+          "white",
+          "text",
+          ":",
+          "black",
+          "dark",
+          "(",
+          "md",
+          "(",
+          "m",
+          "[",
+          "0 0 10 0",
+          "]",
+          "p",
+          ":",
+          "10",
+          ")",
+          "text",
+          ":",
+          "white",
+          "bg",
+          ":",
+          "black",
+          ")"
+        ]
+      ],
     ]
   
     for (const [lex, result] of targets) {
@@ -290,6 +347,12 @@ describe('transform', () => {
       [
         resolveCSS(UnunuraIdentifier.Background, ['#000000']),
         `.bg-000000 {
+  background-color: #000000;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Background, ['#000000'], ['dark']),
+        `.dark .bg-000000-dark {
   background-color: #000000;
 }`
       ],
@@ -672,15 +735,42 @@ table {
     }
   })
 
+  it('should get css class in theme context', () => {
+    const targets = [
+      [
+        resolveCSS(UnunuraIdentifier.Cursor, ['none'], ['dark']),
+        `.dark .cursor-none-dark {
+  cursor: none;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Padding, ['5rem'], ['sepia']),
+        `.sepia .p-5rem-sepia {
+  padding: 5rem;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Rounded, ['2rem'], ['light']),
+        `.light .rounded-2rem-light {
+  border-radius: 2rem;
+}`
+      ],
+    ]
+
+    for (const [css, result] of targets) {
+      expect(css).toStrictEqual(result)
+    }
+  })
+
   it('should generate correct classes from raw context', () => {
     const targets = [
       [
-        generateUniqueClass('m:10'), `.m-10 {
+        generateUniqueClass(['m','10']), `.m-10 {
   margin: 10px;
 }`
       ],
       [
-        generateMultipleClass('m:0 10 0 0'), `.m-0-10-0-0 {
+        generateMultipleClass(['m', '0 10 0 0']), `.m-0-10-0-0 {
   margin: 0px 10px 0px 0px;
 }`
       ],
@@ -720,7 +810,6 @@ describe('css', () => {
   [resolveIdentifierInCSS(UnunuraIdentifier.Text), 'font'],
   [resolveIdentifierInCSS(UnunuraIdentifier.Flexbox), 'flex'],
   [resolveTitleCssClass(UnunuraIdentifier.Margin, ['15', '0', '10', '0']), '.m-15-0-10-0'],
-  [resolveTitleCssClass(UnunuraIdentifier.Text, ['lg']), '.text-lg'],
   [resolveTitleCssClass(UnunuraIdentifier.Flexbox, ['flex-1']), '.flex-flex-1'],
   [resolveTitleCssClass(UnunuraIdentifier.Background, ['rgba-255-255-255-0.3)']), '.bg-rgba-255-255-255-03'],
   [resolveTitleCssClass(UnunuraIdentifier.Background, ['#FF0000']), '.bg-ff0000'],
