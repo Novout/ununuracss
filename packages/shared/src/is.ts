@@ -1,5 +1,5 @@
 import { NULLABLE } from './constants'
-import { UnunuraGlobals, UnunuraIdentifier, UnunuraKeys } from './enums'
+import { UnunuraContextualizeResponsive, UnunuraGlobals, UnunuraIdentifier, UnunuraKeys } from './enums'
 import { Option } from './types'
 
 export const isHex = (i: string): boolean => /^#[0-9a-fA-F]{6}/i.test(i)
@@ -310,8 +310,10 @@ export const isContextCloseKey = (key: string) => key === UnunuraKeys.SpecificCo
 export const isContextKey = (key: string) => isUniqueKey(key) || isOpenMultipleKey(key) || isCloseMultipleKey(key)
 
 export const isKey = (char: string): boolean => Object.values(UnunuraKeys).some((key) => key === char)
-export const isContextIdentifier = (str: string) =>
-  ['dark', 'light', 'sepia', 'xs', 'sm', 'md', 'lg', 'xl'].some((key) => key === str)
+export const isThemeContextIdentifier = (str: string) => ['dark', 'light', 'sepia'].find((key) => key === str)
+export const isResponsiveContextIdentifier = (str: string): Option<UnunuraContextualizeResponsive> =>
+  ['xs', 'sm', 'md', 'lg', 'xl']!.find((key) => key === str) as Option<UnunuraContextualizeResponsive>
+export const isContextIdentifier = (str: string) => isThemeContextIdentifier(str) || isResponsiveContextIdentifier(str)
 export const isCommonIdentifier = (str: string) => Object.values(UnunuraIdentifier).some((key) => key === str)
-export const isIdentifier = (str: string): boolean => isCommonIdentifier(str) || isContextIdentifier(str)
+export const isIdentifier = (str: string) => isCommonIdentifier(str) || isContextIdentifier(str)
 export const isGlobal = (str: string): Option<string> => Object.values(UnunuraGlobals).find((key) => str.startsWith(key))

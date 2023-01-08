@@ -1,3 +1,5 @@
+import { UnunuraContextualizeResponsive } from './enums'
+
 export const ANTIALIASED_RESET_CSS = () => `  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 `
@@ -66,3 +68,13 @@ table {
 	border-spacing: 0;
 }
 `
+
+export const UNUNURA_RESPONSIVE = (target: UnunuraContextualizeResponsive): string => {
+  return {
+    xs: '538px',
+    sm: '640px',
+    md: '768px',
+    lg: '1024px',
+    xl: '1536px',
+  }[target]
+}

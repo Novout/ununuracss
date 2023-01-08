@@ -619,6 +619,14 @@ describe('transform', () => {
 }`
       ],
       [
+        resolveCSS(UnunuraIdentifier.Rounded, ['25px', '2rem'], ['xl']),
+        `@media (min-width: 1536px) {
+.rounded-25px-2rem {
+  border-radius: 25px 2rem;
+}
+}`
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Shadow, ['black']),
         `.shadow-black {
   box-shadow: 5px 5px 5px 0px black;
@@ -805,6 +813,18 @@ describe('css', () => {
   `),
         `.bg-local-imagepng {
   background-image: url("/local_image.png");
+}
+`],
+  [
+    generateCSSResources(`<div class="md(bg:/local_image.png) bg:/other_image.png" />
+  `),
+  `@media (min-width: 768px) {
+.bg-local-imagepng {
+  background-image: url("/local_image.png");
+}
+}
+.bg-other-imagepng {
+  background-image: url("/other_image.png");
 }
 `],
   [resolveIdentifierInCSS(UnunuraIdentifier.Text), 'font'],

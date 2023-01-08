@@ -1,4 +1,11 @@
-import { UnunuraIdentifier, NULLABLE, Nullable, UnunuraContextualizeStack } from 'ununura-shared'
+import {
+  UnunuraIdentifier,
+  NULLABLE,
+  Nullable,
+  UnunuraContextualizeStack,
+  isResponsiveContextIdentifier,
+  UnunuraContextualizeResponsive,
+} from 'ununura-shared'
 import {
   getResourceText,
   getResourceBorder,
@@ -12,6 +19,7 @@ import {
   getResourceShadow,
   getResourceCursor,
 } from './resources'
+import { TemplateClassResponsive } from './template'
 
 export const resolveTitleToClassName = (t: string) => {
   return t
@@ -112,6 +120,10 @@ export const resolveCssClass = (
   if (!setter.trim()) return NULLABLE
 
   const cl = `${title} {${setter}}`
+
+  const asResponsive = context?.find((c) => isResponsiveContextIdentifier(c))
+
+  if (asResponsive) return TemplateClassResponsive(asResponsive as UnunuraContextualizeResponsive, cl)
 
   return cl
 }
