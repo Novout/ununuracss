@@ -7,7 +7,8 @@
     "nuxtprepare": "nuxt prepare"
   },
   "devDependencies": {
-    "ununura-nuxt": "workspace:*",
-    "nuxt": "3.0.0"
-  }
+    "nuxt": "3.0.0",
+    "ununura-nuxt": "workspace:*"
+  },
+  "version": "0.0.1"
 }

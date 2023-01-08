@@ -8,5 +8,6 @@
   },
   "dependencies": {
     "ununura": "workspace:*"
-  }
+  },
+  "version": "0.0.1"
 }
