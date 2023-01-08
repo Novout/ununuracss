@@ -18,6 +18,9 @@ import {
   getResourceReset,
   getResourceShadow,
   getResourceCursor,
+  getResourceFloat,
+  getResourceDisplay,
+  getResourceZIndex,
 } from './resources'
 import { TemplateClassResponsive } from './template'
 
@@ -62,6 +65,12 @@ export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string =>
       return 'cursor'
     case UnunuraIdentifier.Rounded:
       return 'border-radius'
+    case UnunuraIdentifier.ZIndex:
+      return 'z-index'
+    case UnunuraIdentifier.Display:
+      return 'display'
+    case UnunuraIdentifier.Float:
+      return 'float'
   }
 }
 
@@ -92,6 +101,12 @@ export const resolveCSS = (identifier: UnunuraIdentifier, contents: string[], co
       return getResourceShadow(identifier, contents, context)
     case UnunuraIdentifier.Cursor:
       return getResourceCursor(identifier, contents, context)
+    case UnunuraIdentifier.ZIndex:
+      return getResourceZIndex(identifier, contents, context)
+    case UnunuraIdentifier.Display:
+      return getResourceDisplay(identifier, contents, context)
+    case UnunuraIdentifier.Float:
+      return getResourceFloat(identifier, contents, context)
     default:
       return NULLABLE
   }

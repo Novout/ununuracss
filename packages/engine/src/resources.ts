@@ -30,6 +30,7 @@ import {
   getSupportedImage,
   getSupportedImageRepeat,
   getSupportedImageSize,
+  getSupportedInteger,
   getSupportedMinOrMax,
   getSupportedNumber,
   getSupportedScroll,
@@ -195,6 +196,66 @@ export const getResourceScroll = (
 
   let setter = setterHead(contents, context)
   setter += setterRow(scroll, `overflow${scrollDirection}: ${scroll}`, contents)
+
+  return resolveCssClass(identifier, contents, setter, context)
+}
+
+export const getResourceDisplay = (
+  identifier: UnunuraIdentifier,
+  contents: string[],
+  context?: UnunuraContextualizeStack
+): string => {
+  const base = findResource(contents, [
+    'block',
+    'inline-block',
+    'inline',
+    'inline-flex',
+    'flex',
+    'table',
+    'inline-table',
+    'grid',
+    'none',
+    'contents',
+    'list-item',
+    'flow-root',
+    'table-row',
+    'table-cell',
+  ])
+
+  const inCss = resolveIdentifierInCSS(identifier)
+
+  let setter = setterHead(contents, context)
+  setter += setterRow(base, `${inCss}: ${base}`, contents)
+
+  return resolveCssClass(identifier, contents, setter, context)
+}
+
+export const getResourceFloat = (
+  identifier: UnunuraIdentifier,
+  contents: string[],
+  context?: UnunuraContextualizeStack
+): string => {
+  const base = findResource(contents, ['right', 'left', 'none'])
+
+  const inCss = resolveIdentifierInCSS(identifier)
+
+  let setter = setterHead(contents, context)
+  setter += setterRow(base, `${inCss}: ${base}`, contents)
+
+  return resolveCssClass(identifier, contents, setter, context)
+}
+
+export const getResourceZIndex = (
+  identifier: UnunuraIdentifier,
+  contents: string[],
+  context?: UnunuraContextualizeStack
+): string => {
+  const value = getSupportedInteger(contents)
+
+  const inCss = resolveIdentifierInCSS(identifier)
+
+  let setter = setterHead(contents, context)
+  setter += setterRow(value, `${inCss}: ${value}`, contents)
 
   return resolveCssClass(identifier, contents, setter, context)
 }

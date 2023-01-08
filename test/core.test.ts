@@ -607,6 +607,24 @@ describe('transform', () => {
 }`
       ],
       [
+        resolveCSS(UnunuraIdentifier.Float, ['right']),
+        `.float-right {
+  float: right;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.ZIndex, ['5']),
+        `.z-5 {
+  z-index: 5;
+}`
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Display, ['none']),
+        `.display-none {
+  display: none;
+}`
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Rounded, ['1rem']),
         `.rounded-1rem {
   border-radius: 1rem;

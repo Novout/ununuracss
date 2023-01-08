@@ -13,6 +13,9 @@ export enum UnunuraIdentifier {
   Cursor = 'cursor',
   Shadow = 'shadow',
   Rounded = 'rounded',
+  ZIndex = 'z',
+  Display = 'display',
+  Float = 'float',
 }
 
 export enum UnunuraGlobals {
