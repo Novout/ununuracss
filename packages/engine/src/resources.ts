@@ -40,6 +40,7 @@ import {
 import { lex } from './lexer'
 import { resolveCSS, resolveCssClass, resolveIdentifierInCSS } from './resolvers'
 import { validateSpreadAllResource } from './validate'
+import { purgeOnlyCssClassTitle } from './purge'
 
 export const generateMultipleClass = (key: [string, string], ctx: UnunuraGenerateContext) => {
   const [identifier, content] = key

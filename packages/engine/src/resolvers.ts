@@ -2,10 +2,13 @@ import {
   UnunuraIdentifier,
   NULLABLE,
   Nullable,
+  isNullable,
   isResponsiveContextIdentifier,
+  isThemeContextIdentifier,
   UnunuraContextualizeResponsive,
   UnunuraGenerateContext,
 } from 'ununura-shared'
+import { purgeOnlyCssClassTitle } from './purge'
 import {
   getResourceText,
   getResourceBorder,
@@ -112,13 +115,20 @@ export const resolveCSS = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateCo
   }
 }
 
-export const resolveTitleCssClass = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext) => {
-  const asTheme = ctx.stack?.find((c) => c === 'dark' || c === 'light' || c === 'sepia')
+export const resolveTitleCssClass = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): Nullable<string> => {
+  const asTheme = ctx.stack?.find((c) => isThemeContextIdentifier(c))
 
-  let setter = ctx.contents.reduce(
-    (sum, acc) => (sum += `-${resolveTitleToClassName(acc)}`),
-    (asTheme ? `.${asTheme} ` : '') + `.${identifier}`
-  )
+  const asResponsive = ctx.stack?.find((c) => isResponsiveContextIdentifier(c))
+  const buffered = asResponsive ? ctx.buffer?.find((c) => purgeOnlyCssClassTitle(c).startsWith(identifier)) : undefined
+
+  if (asResponsive && !buffered) return NULLABLE
+
+  let setter = !asResponsive
+    ? ctx.contents.reduce(
+        (sum, acc) => (sum += `-${resolveTitleToClassName(acc)}`),
+        (asTheme ? `.${asTheme} ` : '') + `.${identifier}`
+      )
+    : (asTheme ? `.${asTheme} ` : '') + `.${purgeOnlyCssClassTitle(buffered as string)}`
   setter += asTheme ? `-${asTheme}` : ''
 
   return setter
@@ -126,6 +136,8 @@ export const resolveTitleCssClass = (identifier: UnunuraIdentifier, ctx: Ununura
 
 export const resolveCssClass = (identifier: UnunuraIdentifier, setter: string, ctx: UnunuraGenerateContext): Nullable<string> => {
   const title = resolveTitleCssClass(identifier, ctx)
+
+  if (isNullable(title)) return NULLABLE
 
   if (!setter.trim()) return NULLABLE
 

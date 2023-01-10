@@ -631,9 +631,9 @@ describe('transform', () => {
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Rounded, { contents: ['25px', '2rem'], buffer: [], stack: ['xl'] }),
+        resolveCSS(UnunuraIdentifier.Rounded, { contents: ['25px', '2rem'], buffer: ['.rounded-10'], stack: ['xl'] }),
         `@media (min-width: 1536px) {
-.rounded-25px-2rem {
+.rounded-10 {
   border-radius: 25px 2rem;
 }
 }`
@@ -828,15 +828,15 @@ describe('css', () => {
 }
 `],
   [
-    generateCSSResources(`<div class="md(bg:/local_image.png) bg:/other_image.png" />
+    generateCSSResources(`<div class="bg:/other_image.png md(bg:/local_image.png)" />
   `),
-  `@media (min-width: 768px) {
-.bg-local-imagepng {
+  `.bg-other-imagepng {
+  background-image: url("/other_image.png");
+}
+@media (min-width: 768px) {
+.bg-other-imagepng {
   background-image: url("/local_image.png");
 }
-}
-.bg-other-imagepng {
-  background-image: url("/other_image.png");
 }
 `],
   [resolveIdentifierInCSS(UnunuraIdentifier.Text), 'font'],
