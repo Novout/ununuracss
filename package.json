@@ -25,7 +25,7 @@
     "execa": "^6.1.0",
     "fast-glob": "^3.2.12",
     "fontaine": "^0.2.3",
-    "generi": "^0.4.2",
+    "generi": "^0.5.1",
     "hast": "^1.0.0",
     "hast-util-from-html": "^1.0.0",
     "husky": "^8.0.2",
@@ -36,6 +36,6 @@
     "tsup": "^6.5.0",
     "typescript": "^4.9.4",
     "vite-plugin-inspect": "^0.7.11",
-    "vitest": "^0.26.2"
+    "vitest": "^0.27.0"
   }
 }
