@@ -2,7 +2,7 @@
   "name": "ununura-monorepo",
   "author": "Novout",
   "license": "MIT",
-  "description": "Simplified Atomic CSS Engine",
+  "description": "A Simplified Atomic CSS Engine",
   "private": true,
   "scripts": {
     "build": "lerna run build",
