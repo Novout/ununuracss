@@ -1,6 +1,5 @@
 import {
   UnunuraIdentifier,
-  UnunuraKeys,
   NULLABLE,
   isBorderStyle,
   isNullable,
@@ -8,9 +7,6 @@ import {
   findResource,
   findResourceInStart,
   isSlashImage,
-  ANTIALIASED_RESET_CSS,
-  MEYER_RESET_CSS,
-  NOVOUT_RESET_CSS,
   UnunuraGenerateContext,
 } from 'ununura-shared'
 import { classesFromRawHtml, generateCss } from './ast'
@@ -40,7 +36,6 @@ import {
 import { lex } from './lexer'
 import { resolveCSS, resolveCssClass, resolveIdentifierInCSS } from './resolvers'
 import { validateSpreadAllResource } from './validate'
-import { purgeOnlyCssClassTitle } from './purge'
 
 export const generateMultipleClass = (key: [string, string], ctx: UnunuraGenerateContext) => {
   const [identifier, content] = key
@@ -255,26 +250,6 @@ export const getResourceZIndex = (
   setter += setterRow(value, `${inCss}: ${value}`, ctx.contents)
 
   return resolveCssClass(identifier, setter, ctx)
-}
-
-export const getResourceReset = (
-  identifier: UnunuraIdentifier,
-
-  ctx: UnunuraGenerateContext
-): string => {
-  const novoutReset = ctx.contents.find((c) => c === 'novout')
-  const meyerReset = ctx.contents.find((c) => c === 'meyer')
-
-  const antialiased = ctx.contents.find((c) => c === 'antialiased')
-
-  if (novoutReset) return NOVOUT_RESET_CSS()
-  if (meyerReset) return MEYER_RESET_CSS()
-
-  let setter = '* {\n'
-  if (antialiased) setter += ANTIALIASED_RESET_CSS()
-  setter += '}'
-
-  return setter
 }
 
 export const getResourceShadow = (

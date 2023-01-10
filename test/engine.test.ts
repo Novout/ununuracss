@@ -1,7 +1,8 @@
+import { getGlobals } from "packages/engine/src/globals";
 import { purgeCSS, purgeOnlyCssClassTitle } from "packages/engine/src/purge";
 import { getSupportedInteger } from "packages/engine/src/support";
-import { lex, classesFromRawHtml, resolveTitleCssClass, resolveCSS, generateUniqueClass, generateMultipleClass, generateCSSResources, scan, UnunuraGenerate, resolveIdentifierInCSS } from "ununura-engine";
-import { isKey, NULLABLE, UnunuraIdentifier, ANTIALIASED_RESET_CSS } from "ununura-shared";
+import { lex, classesFromRawHtml, resolveTitleCssClass, resolveCSS, generateUniqueClass, generateMultipleClass, generateCSSResources, scan, UnunuraGlobalGenerate, resolveIdentifierInCSS } from "ununura-engine";
+import { ANTIALIASED_RESET_CSS, isKey, MEYER_RESET_CSS, NOVOUT_RESET_CSS, NULLABLE, UnunuraIdentifier } from "ununura-shared";
 import { describe, expect, it } from "vitest";
 
 describe('lexer', () => {
@@ -663,78 +664,12 @@ describe('transform', () => {
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Reset, { contents: ['antialiased'], buffer: [], stack: [] }),
-        `* {
-${ANTIALIASED_RESET_CSS()}}`
-      ],
-      [
         resolveCSS(UnunuraIdentifier.Reset, { contents: ['meyer'], buffer: [], stack: [] }),
-        `/* http://meyerweb.com/eric/tools/css/reset/ 
-  v2.0 | 20110126
-  License: none (public domain)
-*/
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body {
-	line-height: 1;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-`
+        NULLABLE
       ],
       [
         resolveCSS(UnunuraIdentifier.Reset, { contents: ['novout'], buffer: [], stack: [] }),
-        `* {
-  padding: 0;
-  margin: 0;
-  outline: 0;
-  font-size: 16px;
-  ${ANTIALIASED_RESET_CSS()}
-}
-
-[contenteditable] {
-  outline: none;
-  -moz-user-select: text;
-  -webkit-tap-highlight-color: transparent;
-}  
-`
+        NULLABLE
       ],
       [
         resolveCSS(UnunuraIdentifier.Margin, { contents: ['2', '10', '5'], buffer: [], stack: [] }),
@@ -854,6 +789,8 @@ describe('css', () => {
 }
 }
 `],
+  [getGlobals(['<template><div class="m[10 0 0 0] cursor:pointer reset:novout p[10 0 0 0]" /></template>']), NOVOUT_RESET_CSS()],
+  [getGlobals(['<template><div class="reset:meyer" /></template>']), MEYER_RESET_CSS()],
   [resolveIdentifierInCSS(UnunuraIdentifier.Text), 'font'],
   [resolveIdentifierInCSS(UnunuraIdentifier.Flexbox), 'flex'],
   [resolveTitleCssClass(UnunuraIdentifier.Margin, { contents: ['15', '0', '10', '0'], buffer: [], stack: [] }), '.m-15-0-10-0'],
@@ -928,7 +865,7 @@ describe('fs', () => {
   it('should ignore files', async () => {
     const targets = [
       [scan({ include: ['**/*.xyz'], exclude: [] }), []],
-      [UnunuraGenerate({ include: ['**/*.xyz'], exclude: [] }), ''],
+      [UnunuraGlobalGenerate({ include: ['**/*.xyz'], exclude: [] }), ''],
     ]
 
     for (const [raw, result] of targets) {

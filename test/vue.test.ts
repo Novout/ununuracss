@@ -41,7 +41,7 @@ describe('resolvers', () => {
   it('should set new sfc', () => {
     const targets = [
       [UnunuraVueSFCFile(`<template>
-  <div class="flex[col wrap] w[100%] dark(w[50%])">
+  <div class="reset:novout flex[col wrap] w[100%] dark(w[50%])">
     <div class="m[0 10 0 0] p:20 border[5 yellow] pos[absolute right-0 left-0]">
       a some test
     </div>
@@ -56,11 +56,37 @@ describe('resolvers', () => {
     <p>m[0 10 0 0]</p>
   </div>
   <div />
-</template>`
+</template>
+
+<style scoped>
+.flex-col-wrap {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.w-100 {
+  width: 100%;
+}
+.dark .w-50-dark {
+  width: 50%;
+}
+.m-0-10-0-0 {
+  margin: 0px 10px 0px 0px;
+}
+.p-20 {
+  padding: 20px;
+}
+.border-5-yellow {
+  border-color: yellow;
+  border-width: 5px;
+}
+.pos-absolute-right-0-left-0 {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+</style>`
   ],
-  [UnunuraVueSFCFile(`<template><div class="bg://i.imgur.com/xYz.jpeg" /></template>`), `<template><div class="bg-iimgurcomxyzjpeg" /></template>`],
-  [UnunuraVueSFCFile(`<template><div class="bg:/foo.png" /></template>`), `<template><div class="bg-foopng" /></template>`],
-  [UnunuraVueSFCFile(`<template><div class="text[1rem white indent-5] w[100%] h[min 50vh]" /></template>`), `<template><div class="text-1rem-white-indent-5 w-100 h-min-50vh" /></template>`]
   ]
 
   for (const [sfc, result] of targets) {

@@ -18,7 +18,6 @@ import {
   getResourceBackground,
   getResourcePosition,
   getResourceScroll,
-  getResourceReset,
   getResourceShadow,
   getResourceCursor,
   getResourceFloat,
@@ -98,8 +97,6 @@ export const resolveCSS = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateCo
       return getResourcePosition(identifier, ctx)
     case UnunuraIdentifier.Scroll:
       return getResourceScroll(identifier, ctx)
-    case UnunuraIdentifier.Reset:
-      return getResourceReset(identifier, ctx)
     case UnunuraIdentifier.Shadow:
       return getResourceShadow(identifier, ctx)
     case UnunuraIdentifier.Cursor:
@@ -110,6 +107,8 @@ export const resolveCSS = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateCo
       return getResourceDisplay(identifier, ctx)
     case UnunuraIdentifier.Float:
       return getResourceFloat(identifier, ctx)
+    case UnunuraIdentifier.Reset: //global
+      return NULLABLE
     default:
       return NULLABLE
   }

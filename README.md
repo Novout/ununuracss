@@ -9,7 +9,7 @@ A different form to interpreter Atomic CSS focused on vite ecosystem.
 
 ## Features
 
-- Zero dependencies / 0kb default injected css;
+- 0kb default injected css;
 - [Fontaine](https://github.com/danielroe/fontaine) integrated;
 - No configuration files / full-reload / directives / presets;
 - Only class-raw based;
