@@ -1,5 +1,5 @@
-import { generateCSSResources, UnunuraVueSFCFile } from "ununura-engine";
-import { beforeEach, describe, expect, it } from "vitest";
+import { generateCSSResources, UnunuraVueSFCFile } from 'ununura-engine'
+import { beforeEach, describe, expect, it } from 'vitest'
 
 describe('resolvers', () => {
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe('resolvers', () => {
 <script setup lang="ts>
 </script>
 `),
-`.p-10 {
+        `.p-10 {
   padding: 10px;
 }
 .bg-black {
@@ -27,14 +27,16 @@ describe('resolvers', () => {
 .border-white {
   border-color: white;
 }
-`],
-  [
-    generateCSSResources(`<template><div class="flex[row col-reverse]" /></template>`),
-  `.flex-row-col-reverse {
+`,
+      ],
+      [
+        generateCSSResources(`<template><div class="flex[row col-reverse]" /></template>`),
+        `.flex-row-col-reverse {
   display: flex;
   flex-direction: row;
 }
-`]
+`,
+      ],
     ]
 
     for (const [sfc, result] of targets) {
@@ -44,7 +46,8 @@ describe('resolvers', () => {
 
   it('should set new sfc', () => {
     const targets = [
-      [UnunuraVueSFCFile(`<template>
+      [
+        UnunuraVueSFCFile(`<template>
   <div class="reset:novout flex[col wrap] w[100%] dark(w[50%])">
     <div class="m[0 10 0 0] p:20 border[5 yellow] pos[absolute right-0 left-0]">
       a some test
@@ -52,7 +55,8 @@ describe('resolvers', () => {
     <p>m[0 10 0 0]</p>
   </div>
   <div />
-</template>`), `<template>
+</template>`),
+        `<template>
   <div class="flex-col-wrap w-100 w-50-dark">
     <div class="m-0-10-0-0 p-20 border-5-yellow pos-absolute-right-0-left-0">
       a some test
@@ -89,11 +93,12 @@ describe('resolvers', () => {
   left: 0;
   right: 0;
 }
-</style>`
-  ],
-  ]
+</style>`,
+      ],
+    ]
 
-  for (const [sfc, result] of targets) {
-    expect(sfc).toStrictEqual(result)
-  }
-})})
+    for (const [sfc, result] of targets) {
+      expect(sfc).toStrictEqual(result)
+    }
+  })
+})

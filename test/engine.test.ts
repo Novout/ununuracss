@@ -1,9 +1,20 @@
-import { getGlobals } from "packages/engine/src/globals";
-import { purgeCSS, purgeOnlyCssClassTitle } from "packages/engine/src/purge";
-import { getSupportedInteger } from "packages/engine/src/support";
-import { lex, classesFromRawHtml, resolveTitleCssClass, resolveCSS, generateUniqueClass, generateMultipleClass, generateCSSResources, scan, UnunuraGlobalGenerate, resolveIdentifierInCSS } from "ununura-engine";
-import { isKey, MEYER_RESET_CSS, NOVOUT_RESET_CSS, NULLABLE, UnunuraIdentifier } from "ununura-shared";
-import { beforeEach, describe, expect, it } from "vitest";
+import { getGlobals } from 'packages/engine/src/globals'
+import { purgeCSS, purgeOnlyCssClassTitle } from 'packages/engine/src/purge'
+import { getSupportedInteger } from 'packages/engine/src/support'
+import {
+  lex,
+  classesFromRawHtml,
+  resolveTitleCssClass,
+  resolveCSS,
+  generateUniqueClass,
+  generateMultipleClass,
+  generateCSSResources,
+  scan,
+  UnunuraGlobalGenerate,
+  resolveIdentifierInCSS,
+} from 'ununura-engine'
+import { isKey, MEYER_RESET_CSS, NOVOUT_RESET_CSS, NULLABLE, UnunuraIdentifier } from 'ununura-shared'
+import { beforeEach, describe, expect, it } from 'vitest'
 
 describe('lexer', () => {
   beforeEach(() => {
@@ -13,216 +24,106 @@ describe('lexer', () => {
   it('should lex a css class', () => {
     const targets = [
       [
-        lex('bg:#909090 m[0 0 10 0] border:10 text:10'), 
+        lex('bg:#909090 m[0 0 10 0] border:10 text:10'),
+        ['bg', ':', '#909090', 'm', '[', '0 0 10 0', ']', 'border', ':', '10', 'text', ':', '10'],
+      ],
+      [lex('border[5 yellow]'), ['border', '[', '5 yellow', ']']],
+      [lex('text[white 500 2] m[0 0 10 0] p:10'), ['text', '[', 'white 500 2', ']', 'm', '[', '0 0 10 0', ']', 'p', ':', '10']],
+      [lex('bg:white m[0 0 10 0] p:10'), ['bg', ':', 'white', 'm', '[', '0 0 10 0', ']', 'p', ':', '10']],
+      [
+        lex('text:roboto text[white xl 900] border[2 #050505 dashed rounded]'),
+        ['text', ':', 'roboto', 'text', '[', 'white xl 900', ']', 'border', '[', '2 #050505 dashed rounded', ']'],
+      ],
+      [lex('external-class foo bar baz border[5 yellow] foo bar baz'), ['border', '[', '5 yellow', ']']],
+      [lex('external-class foo p:10 bar baz border[5 yellow] foo bar baz'), ['p', ':', '10', 'border', '[', '5 yellow', ']']],
+      [lex('bar baz border[5 yellow] external-class foo'), ['border', '[', '5 yellow', ']']],
+      [lex('bg://i.imgur.com/XyZvY.png'), ['bg', ':', '//i.imgur.com/XyZvY.png']],
+      [
+        lex('bg:white md(m[0 0 10 0] p:10) dark(text:white bg:black)'),
         [
-          "bg",
-          ":",
-          "#909090",
-          "m",
-          "[",
-          "0 0 10 0",
-          "]",
-          "border",
-          ":",
-          "10",
-          "text",
-          ":",
-          "10"
-        ]
+          'bg',
+          ':',
+          'white',
+          'md',
+          '(',
+          'm',
+          '[',
+          '0 0 10 0',
+          ']',
+          'p',
+          ':',
+          '10',
+          ')',
+          'dark',
+          '(',
+          'text',
+          ':',
+          'white',
+          'bg',
+          ':',
+          'black',
+          ')',
+        ],
       ],
       [
-        lex('border[5 yellow]'),
+        lex('bg:white text:black dark(md(m[0 0 10 0] p:10) text:white bg:black)'),
         [
-          "border",
-          "[",
-          "5 yellow",
-          "]"
-        ]
-      ],
-      [
-        lex('text[white 500 2] m[0 0 10 0] p:10'), 
-        [
-          "text",
-          "[",
-          "white 500 2",
-          "]",
-          "m",
-          "[",
-          "0 0 10 0",
-          "]",
-          "p",
-          ":",
-          "10"
-        ]
-      ],
-      [
-        lex('bg:white m[0 0 10 0] p:10'), 
-        [
-          "bg",
-          ":",
-          "white",
-          "m",
-          "[",
-          "0 0 10 0",
-          "]",
-          "p",
-          ":",
-          "10"
-        ]
-      ],
-      [
-        lex('text:roboto text[white xl 900] border[2 #050505 dashed rounded]'), 
-        [
-          "text",
-          ":",
-          "roboto",
-          "text",
-          "[",
-          "white xl 900",
-          "]",
-          "border",
-          "[",
-          "2 #050505 dashed rounded",
-          "]"
-        ]
-      ],
-      [
-        lex('external-class foo bar baz border[5 yellow] foo bar baz'),
-        [
-          "border",
-          "[",
-          "5 yellow",
-          "]"
-        ]
-      ],
-      [
-        lex('external-class foo p:10 bar baz border[5 yellow] foo bar baz'),
-        [
-          "p",
-          ":",
-          "10",
-          "border",
-          "[",
-          "5 yellow",
-          "]"
-        ]
-      ],
-      [
-        lex('bar baz border[5 yellow] external-class foo'),
-        [
-          "border",
-          "[",
-          "5 yellow",
-          "]"
-        ]
-      ],
-      [
-        lex('bg://i.imgur.com/XyZvY.png'),
-        [
-          "bg",
-          ":",
-          "//i.imgur.com/XyZvY.png"
-        ]
-      ],
-      [
-        lex('bg:white md(m[0 0 10 0] p:10) dark(text:white bg:black)'), 
-        [
-          "bg",
-          ":",
-          "white",
-          "md",
-          "(",
-          "m",
-          "[",
-          "0 0 10 0",
-          "]",
-          "p",
-          ":",
-          "10",
-          ")",
-          "dark",
-          "(",
-          "text",
-          ":",
-          "white",
-          "bg",
-          ":",
-          "black",
-          ")"
-        ]
-      ],
-      [
-        lex('bg:white text:black dark(md(m[0 0 10 0] p:10) text:white bg:black)'), 
-        [
-          "bg",
-          ":",
-          "white",
-          "text",
-          ":",
-          "black",
-          "dark",
-          "(",
-          "md",
-          "(",
-          "m",
-          "[",
-          "0 0 10 0",
-          "]",
-          "p",
-          ":",
-          "10",
-          ")",
-          "text",
-          ":",
-          "white",
-          "bg",
-          ":",
-          "black",
-          ")"
-        ]
+          'bg',
+          ':',
+          'white',
+          'text',
+          ':',
+          'black',
+          'dark',
+          '(',
+          'md',
+          '(',
+          'm',
+          '[',
+          '0 0 10 0',
+          ']',
+          'p',
+          ':',
+          '10',
+          ')',
+          'text',
+          ':',
+          'white',
+          'bg',
+          ':',
+          'black',
+          ')',
+        ],
       ],
     ]
-  
+
     for (const [lex, result] of targets) {
       expect(lex).toStrictEqual(result)
     }
-  })  
+  })
 
   it('should not get a key', () => {
     expect(isKey(' ')).toBeFalsy()
   })
-  
+
   it('should get a key', () => {
-    [':', '(', ')', '[', ']'].forEach(key => expect(isKey(key)).toBeTruthy())
+    ;[':', '(', ')', '[', ']'].forEach((key) => expect(isKey(key)).toBeTruthy())
   })
 })
 
 describe('html', () => {
   it('should get a classes from raw html', () => {
     const targets = [
+      [classesFromRawHtml(''), []],
+      [classesFromRawHtml('<div>some div</div>'), []],
+      [classesFromRawHtml('<div class="bg:white text[white 700]" />'), ['bg:white text[white 700]']],
+      [classesFromRawHtml('<div id="1" class="bg:white text[white 700]" />'), ['bg:white text[white 700]']],
+      [classesFromRawHtml('<div :style={ backgroundColor: "white" } class="text[white 700]" />'), ['text[white 700]']],
       [
-        classesFromRawHtml(''),
-        []
-      ],
-      [
-        classesFromRawHtml('<div>some div</div>'),
-        []
-      ],
-      [
-        classesFromRawHtml('<div class="bg:white text[white 700]" />'),
-        ['bg:white text[white 700]']
-      ],
-      [
-        classesFromRawHtml('<div id="1" class="bg:white text[white 700]" />'),
-        ['bg:white text[white 700]']
-      ],
-      [
-        classesFromRawHtml('<div :style={ backgroundColor: "white" } class="text[white 700]" />'),
-        ['text[white 700]']
-      ],
-      [
-        classesFromRawHtml('<div :style={ backgroundColor: "white" } class="text[white 700]">some text</div><div class="border[top 2 black]" />'),
-        ['text[white 700]', 'border[top 2 black]']
+        classesFromRawHtml(
+          '<div :style={ backgroundColor: "white" } class="text[white 700]">some text</div><div class="border[top 2 black]" />'
+        ),
+        ['text[white 700]', 'border[top 2 black]'],
       ],
     ]
 
@@ -239,61 +140,61 @@ describe('transform', () => {
         resolveCSS(UnunuraIdentifier.Padding, { contents: ['2'], buffer: [], stack: [] }),
         `.p-2 {
   padding: 2px;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Padding, { contents: ['2', '5'], buffer: [], stack: [] }),
         `.p-2-5 {
   padding: 2px 5px;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Padding, { contents: ['2', '5rem', '0', '10rem'], buffer: [], stack: [] }),
         `.p-2-5rem-0-10rem {
   padding: 2px 5rem 0px 10rem;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Padding, { contents: ['0.25'], buffer: [], stack: [] }),
         `.p-025 {
   padding: 0.25px;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Margin, { contents: ['2'], buffer: [], stack: [] }),
         `.m-2 {
   margin: 2px;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Margin, { contents: ['2', '5'], buffer: [], stack: [] }),
         `.m-2-5 {
   margin: 2px 5px;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Margin, { contents: ['2', '5', '0', '10'], buffer: [], stack: [] }),
         `.m-2-5-0-10 {
   margin: 2px 5px 0px 10px;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Margin, { contents: ['0.25'], buffer: [], stack: [] }),
         `.m-025 {
   margin: 0.25px;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Margin, { contents: ['50%', '25ch'], buffer: [], stack: [] }),
         `.m-50-25ch {
   margin: 50% 25ch;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Margin, { contents: ['!', '50%', '25ch'], buffer: [], stack: [] }),
         `.m-_important_-50-25ch {
   margin: 50% 25ch !important;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Border, { contents: ['white', '2', 'solid'], buffer: [], stack: [] }),
@@ -301,20 +202,20 @@ describe('transform', () => {
   border: solid;
   border-color: white;
   border-width: 2px;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Border, { contents: ['2'], buffer: [], stack: [] }),
         `.border-2 {
   border-width: 2px;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Border, { contents: ['dashed', 'black'], buffer: [], stack: [] }),
         `.border-dashed-black {
   border: dashed;
   border-color: black;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Border, { contents: ['10', 'dashed', 'black'], buffer: [], stack: [] }),
@@ -322,100 +223,100 @@ describe('transform', () => {
   border: dashed;
   border-color: black;
   border-width: 10px;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Text, { contents: ['2rem', 'black'], buffer: [], stack: [] }),
         `.text-2rem-black {
   color: black;
   font-size: 2rem;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Text, { contents: ['2rem'], buffer: [], stack: [] }),
         `.text-2rem {
   font-size: 2rem;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Text, { contents: ['arial'], buffer: [], stack: [] }),
         `.text-arial {
   font-family: 'Arial', sans-serif;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Text, { contents: ['roboto'], buffer: [], stack: [] }),
         `.text-roboto {
   font-family: 'Roboto', sans-serif;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Background, { contents: ['#000000'], buffer: [], stack: [] }),
         `.bg-000000 {
   background-color: #000000;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Background, { contents: ['#000000'], buffer: [], stack: ['dark'] }),
         `.dark .bg-000000-dark {
   background-color: #000000;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Background, { contents: ['rgb-255-255-255'], buffer: [], stack: [] }),
         `.bg-rgb-255-255-255 {
   background-color: rgb(255, 255, 255);
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Background, { contents: ['rgba-255-255-255-0.5'], buffer: [], stack: [] }),
         `.bg-rgba-255-255-255-05 {
   background-color: rgba(255, 255, 255, 0.5);
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Background, { contents: ['hsl-0-100%-50%'], buffer: [], stack: [] }),
         `.bg-hsl-0-100-50 {
   background-color: hsl(0, 100%, 50%);
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Background, { contents: ['hsla-0-100%-50%-0.5'], buffer: [], stack: [] }),
         `.bg-hsla-0-100-50-05 {
   background-color: hsla(0, 100%, 50%, 0.5);
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Background, { contents: ['--primary-color'], buffer: [], stack: [] }),
         `.bg---primary-color {
   background-color: var(--primary-color);
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Background, { contents: ['#000001', 'cover'], buffer: [], stack: [] }),
         `.bg-000001-cover {
   background-color: #000001;
   background-size: cover;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Background, { contents: ['/test.png'], buffer: [], stack: [] }),
         `.bg-testpng {
   background-image: url("/test.png");
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Background, { contents: ['/foo.png', 'auto'], buffer: [], stack: [] }),
         `.bg-foopng-auto {
   background-image: url("/foo.png");
   background-size: auto;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Background, { contents: ['transparent'], buffer: [], stack: [] }),
         `.bg-transparent {
   background-color: transparent;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['row', 'grow'], buffer: [], stack: [] }),
@@ -423,7 +324,7 @@ describe('transform', () => {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['row', 'v-center', 'h-center'], buffer: [], stack: [] }),
@@ -432,7 +333,7 @@ describe('transform', () => {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['row', 'v-stretch', 'h-flex-start'], buffer: [], stack: [] }),
@@ -441,7 +342,7 @@ describe('transform', () => {
   flex-direction: row;
   justify-content: flex-start;
   align-items: stretch;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['col-reverse', 'grow-none'], buffer: [], stack: [] }),
@@ -449,7 +350,7 @@ describe('transform', () => {
   display: flex;
   flex-direction: column-reverse;
   flex-grow: 0;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['col-reverse', 'grow-none', 'gap-2rem'], buffer: [], stack: [] }),
@@ -458,182 +359,182 @@ describe('transform', () => {
   flex-direction: column-reverse;
   flex-grow: 0;
   gap: 2rem;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['wrap'], buffer: [], stack: [] }),
         `.flex-wrap {
   display: flex;
   flex-wrap: wrap;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['nowrap'], buffer: [], stack: [] }),
         `.flex-nowrap {
   display: flex;
   flex-wrap: nowrap;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['wrap-reverse'], buffer: [], stack: [] }),
         `.flex-wrap-reverse {
   display: flex;
   flex-wrap: wrap-reverse;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['?', 'flex-1'], buffer: [], stack: [] }),
         `.flex-_none_-flex-1 {
   flex: 1 1 0%;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['flex-1'], buffer: [], stack: [] }),
         `.flex-flex-1 {
   display: flex;
   flex: 1 1 0%;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Width, { contents: ['100%'], buffer: [], stack: [] }),
         `.w-100 {
   width: 100%;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Width, { contents: ['max', '50vw'], buffer: [], stack: [] }),
         `.w-max-50vw {
   max-width: 50vw;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Width, { contents: ['100dvw'], buffer: [], stack: [] }),
         `.w-100dvw {
   width: 100dvw;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Height, { contents: ['300'], buffer: [], stack: [] }),
         `.h-300 {
   height: 300px;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Height, { contents: ['300px'], buffer: [], stack: [] }),
         `.h-300px {
   height: 300px;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Height, { contents: ['min', '100vh'], buffer: [], stack: [] }),
         `.h-min-100vh {
   min-height: 100vh;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Height, { contents: ['max', '10rem'], buffer: [], stack: [] }),
         `.h-max-10rem {
   max-height: 10rem;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Position, { contents: ['absolute'], buffer: [], stack: [] }),
         `.pos-absolute {
   position: absolute;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Position, { contents: ['sticky', 'left-2rem'], buffer: [], stack: [] }),
         `.pos-sticky-left-2rem {
   position: sticky;
   left: 2rem;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Position, { contents: ['relative', 'right-0'], buffer: [], stack: [] }),
         `.pos-relative-right-0 {
   position: relative;
   right: 0;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Position, { contents: ['!', 'sticky', 'left-2rem'], buffer: [], stack: [] }),
         `.pos-_important_-sticky-left-2rem {
   position: sticky !important;
   left: 2rem !important;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Scroll, { contents: ['hidden'], buffer: [], stack: [] }),
         `.scroll-hidden {
   overflow: hidden;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Scroll, { contents: ['x', 'auto'], buffer: [], stack: [] }),
         `.scroll-x-auto {
   overflow-x: auto;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Scroll, { contents: ['y', 'visible'], buffer: [], stack: [] }),
         `.scroll-y-visible {
   overflow-y: visible;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Scroll, { contents: [], buffer: [], stack: [] }),
         `.scroll {
   overflow: scroll;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Scroll, { contents: ['x'], buffer: [], stack: [] }),
         `.scroll-x {
   overflow-x: scroll;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Cursor, { contents: ['pointer'], buffer: [], stack: [] }),
         `.cursor-pointer {
   cursor: pointer;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Cursor, { contents: ['none'], buffer: [], stack: [] }),
         `.cursor-none {
   cursor: none;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Float, { contents: ['right'], buffer: [], stack: [] }),
         `.float-right {
   float: right;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.ZIndex, { contents: ['5'], buffer: [], stack: [] }),
         `.z-5 {
   z-index: 5;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Display, { contents: ['none'], buffer: [], stack: [] }),
         `.display-none {
   display: none;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Rounded, { contents: ['1rem'], buffer: [], stack: [] }),
         `.rounded-1rem {
   border-radius: 1rem;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Rounded, { contents: ['25px', '2rem'], buffer: [], stack: [] }),
         `.rounded-25px-2rem {
   border-radius: 25px 2rem;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Rounded, { contents: ['25px', '2rem'], buffer: ['.rounded-10'], stack: ['xl'] }),
@@ -641,7 +542,7 @@ describe('transform', () => {
 .rounded-10 {
   border-radius: 25px 2rem;
 }
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Shadow, { contents: ['black'], buffer: [], stack: [] }),
@@ -649,7 +550,7 @@ describe('transform', () => {
   box-shadow: 5px 5px 5px 0px black;
   -webkit-box-shadow: 5px 5px 5px 0px black;
   -moz-box-shadow: 5px 5px 5px 0px black;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Shadow, { contents: ['h-10', 'v-10'], buffer: [], stack: [] }),
@@ -657,7 +558,7 @@ describe('transform', () => {
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Shadow, { contents: ['inset', 'h-10', 'v-10'], buffer: [], stack: [] }),
@@ -665,28 +566,13 @@ describe('transform', () => {
   box-shadow: inset 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: inset 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: inset 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
-}`
+}`,
       ],
-      [
-        resolveCSS(UnunuraIdentifier.Reset, { contents: ['meyer'], buffer: [], stack: [] }),
-        NULLABLE
-      ],
-      [
-        resolveCSS(UnunuraIdentifier.Reset, { contents: ['novout'], buffer: [], stack: [] }),
-        NULLABLE
-      ],
-      [
-        resolveCSS(UnunuraIdentifier.Margin, { contents: ['2', '10', '5'], buffer: [], stack: [] }),
-        NULLABLE
-      ],
-      [
-        resolveCSS(UnunuraIdentifier.Padding, { contents: ['2', '10', '5'], buffer: [], stack: [] }),
-        NULLABLE
-      ],
-      [
-        resolveCSS('wrong' as any, { contents: ['foo', 'baz', 'bar'], buffer: [], stack: [] }),
-        NULLABLE
-      ],
+      [resolveCSS(UnunuraIdentifier.Reset, { contents: ['meyer'], buffer: [], stack: [] }), NULLABLE],
+      [resolveCSS(UnunuraIdentifier.Reset, { contents: ['novout'], buffer: [], stack: [] }), NULLABLE],
+      [resolveCSS(UnunuraIdentifier.Margin, { contents: ['2', '10', '5'], buffer: [], stack: [] }), NULLABLE],
+      [resolveCSS(UnunuraIdentifier.Padding, { contents: ['2', '10', '5'], buffer: [], stack: [] }), NULLABLE],
+      [resolveCSS('wrong' as any, { contents: ['foo', 'baz', 'bar'], buffer: [], stack: [] }), NULLABLE],
     ]
 
     for (const [cl, result] of targets) {
@@ -700,19 +586,19 @@ describe('transform', () => {
         resolveCSS(UnunuraIdentifier.Cursor, { contents: ['none'], buffer: [], stack: ['dark'] }),
         `.dark .cursor-none-dark {
   cursor: none;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Padding, { contents: ['5rem'], buffer: [], stack: ['sepia'] }),
         `.sepia .p-5rem-sepia {
   padding: 5rem;
-}`
+}`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Rounded, { contents: ['2rem'], buffer: [], stack: ['light'] }),
         `.light .rounded-2rem-light {
   border-radius: 2rem;
-}`
+}`,
       ],
     ]
 
@@ -724,14 +610,16 @@ describe('transform', () => {
   it('should generate correct classes from raw context', () => {
     const targets = [
       [
-        generateUniqueClass(['m','10'], { contents: [], buffer: [], stack: [] }), `.m-10 {
+        generateUniqueClass(['m', '10'], { contents: [], buffer: [], stack: [] }),
+        `.m-10 {
   margin: 10px;
-}`
+}`,
       ],
       [
-        generateMultipleClass(['m', '0 10 0 0'], { contents: [], buffer: [], stack: [] }), `.m-0-10-0-0 {
+        generateMultipleClass(['m', '0 10 0 0'], { contents: [], buffer: [], stack: [] }),
+        `.m-0-10-0-0 {
   margin: 0px 10px 0px 0px;
-}`
+}`,
       ],
     ]
 
@@ -744,8 +632,8 @@ describe('transform', () => {
 describe('css', () => {
   it('should get a resources from raw html', () => {
     const targets = [
-  [
-    generateCSSResources(`<div class="p:10 bg:black">
+      [
+        generateCSSResources(`<div class="p:10 bg:black">
   <div class="border[white]" />
 </div>
 `),
@@ -758,17 +646,19 @@ describe('css', () => {
 .border-white {
   border-color: white;
 }
-`],
-  [
-    generateCSSResources(`<div class="bg:/local_image.png" />
+`,
+      ],
+      [
+        generateCSSResources(`<div class="bg:/local_image.png" />
   `),
         `.bg-local-imagepng {
   background-image: url("/local_image.png");
 }
-`],
-[
-  generateCSSResources(`<div class="bg:white dark(bg:red) md(dark(bg:blue))" />`),
-  `.bg-white {
+`,
+      ],
+      [
+        generateCSSResources(`<div class="bg:white dark(bg:red) md(dark(bg:blue))" />`),
+        `.bg-white {
   background-color: white;
 }
 .dark .bg-red-dark {
@@ -779,12 +669,12 @@ describe('css', () => {
   background-color: blue;
 }
 }
-`
-],
-  [
-    generateCSSResources(`<div class="bg:/other_image.png md(bg:/local_image.png)" />
+`,
+      ],
+      [
+        generateCSSResources(`<div class="bg:/other_image.png md(bg:/local_image.png)" />
   `),
-  `.bg-other-imagepng {
+        `.bg-other-imagepng {
   background-image: url("/other_image.png");
 }
 @media (min-width: 768px) {
@@ -792,17 +682,30 @@ describe('css', () => {
   background-image: url("/local_image.png");
 }
 }
-`],
-  [getGlobals(['<template><div class="m[10 0 0 0] cursor:pointer reset:novout p[10 0 0 0]" /></template>']), NOVOUT_RESET_CSS()],
-  [getGlobals(['<template><div class="reset:meyer" /></template>']), MEYER_RESET_CSS()],
-  [resolveIdentifierInCSS(UnunuraIdentifier.Text), 'font'],
-  [resolveIdentifierInCSS(UnunuraIdentifier.Flexbox), 'flex'],
-  [resolveTitleCssClass(UnunuraIdentifier.Margin, { contents: ['15', '0', '10', '0'], buffer: [], stack: [] }), '.m-15-0-10-0'],
-  [resolveTitleCssClass(UnunuraIdentifier.Flexbox, { contents: ['flex-1'], buffer: [], stack: [] }), '.flex-flex-1'],
-  [resolveTitleCssClass(UnunuraIdentifier.Background, { contents: ['rgba-255-255-255-0.3)'], buffer: [], stack: [] }), '.bg-rgba-255-255-255-03'],
-  [resolveTitleCssClass(UnunuraIdentifier.Background, { contents: ['#FF0000'], buffer: [], stack: [] }), '.bg-ff0000'],
-  [resolveTitleCssClass(UnunuraIdentifier.Background, { contents: ['/local_image.png'], buffer: [], stack: [] }), '.bg-local-imagepng']
-]
+`,
+      ],
+      [
+        getGlobals(['<template><div class="m[10 0 0 0] cursor:pointer reset:novout p[10 0 0 0]" /></template>']),
+        NOVOUT_RESET_CSS(),
+      ],
+      [getGlobals(['<template><div class="reset:meyer" /></template>']), MEYER_RESET_CSS()],
+      [resolveIdentifierInCSS(UnunuraIdentifier.Text), 'font'],
+      [resolveIdentifierInCSS(UnunuraIdentifier.Flexbox), 'flex'],
+      [
+        resolveTitleCssClass(UnunuraIdentifier.Margin, { contents: ['15', '0', '10', '0'], buffer: [], stack: [] }),
+        '.m-15-0-10-0',
+      ],
+      [resolveTitleCssClass(UnunuraIdentifier.Flexbox, { contents: ['flex-1'], buffer: [], stack: [] }), '.flex-flex-1'],
+      [
+        resolveTitleCssClass(UnunuraIdentifier.Background, { contents: ['rgba-255-255-255-0.3)'], buffer: [], stack: [] }),
+        '.bg-rgba-255-255-255-03',
+      ],
+      [resolveTitleCssClass(UnunuraIdentifier.Background, { contents: ['#FF0000'], buffer: [], stack: [] }), '.bg-ff0000'],
+      [
+        resolveTitleCssClass(UnunuraIdentifier.Background, { contents: ['/local_image.png'], buffer: [], stack: [] }),
+        '.bg-local-imagepng',
+      ],
+    ]
 
     for (const [raw, result] of targets) {
       expect(raw).toStrictEqual(result)
@@ -813,7 +716,8 @@ describe('css', () => {
 describe('purge', () => {
   it('should purge or not css generated files', () => {
     const targets = [
-      [purgeCSS(`.bg-#000000 {
+      [
+        purgeCSS(`.bg-#000000 {
   background-color: #000000;
 }
 .p-10 {
@@ -821,29 +725,45 @@ describe('purge', () => {
 }
 .bg-#000000 {
   background-color: #000000;
-}`), `.bg-#000000 {
+}`),
+        `.bg-#000000 {
   background-color: #000000;
 }
 .p-10 {
   padding: 10px;
-}`],
-  [purgeCSS(`.bg-#000000 {
+}`,
+      ],
+      [
+        purgeCSS(`.bg-#000000 {
   background-color: #000000;
 }
 .p-35 {
   padding: 35px;
-}`), `.bg-#000000 {
+}`),
+        `.bg-#000000 {
   background-color: #000000;
 }
 .p-35 {
   padding: 35px;
-}`], [purgeCSS(`a wrong css file`), `.
-a wrong css file`], [purgeOnlyCssClassTitle(`.text-base {
+}`,
+      ],
+      [
+        purgeCSS(`a wrong css file`),
+        `.
+a wrong css file`,
+      ],
+      [
+        purgeOnlyCssClassTitle(`.text-base {
   font-size: 1rem;
-}`), 'text-base'],
-  [purgeOnlyCssClassTitle(`.border-white {
+}`),
+        'text-base',
+      ],
+      [
+        purgeOnlyCssClassTitle(`.border-white {
     border-color: white;
-  }`), 'border-white']
+  }`),
+        'border-white',
+      ],
     ]
 
     for (const [raw, result] of targets) {
