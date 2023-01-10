@@ -1,4 +1,4 @@
-export const randomizer = (target?: string, length: number = 3) => {
+export const randomizer = (target?: string, length: number = 2) => {
   const characters = target ?? 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
   let result = ''
