@@ -9,6 +9,7 @@ import {
   UnunuraGenerateContext,
 } from 'ununura-shared'
 import { purgeOnlyCssClassTitle } from './purge'
+import { randomizeClassKey } from './randomizer'
 import {
   getResourceText,
   getResourceBorder,
@@ -26,8 +27,8 @@ import {
 } from './resources'
 import { TemplateClassResponsive } from './template'
 
-export const resolveTitleToClassName = (t: string) => {
-  return t
+export const resolveTitleToClassName = (title: string) => {
+  const normalized = title
     .replace(/[.%\s]/gi, '') // defaults
     .replace(/[,_\s]/gi, '-')
     .replace(/[():#/\s]/gi, '')
@@ -35,6 +36,8 @@ export const resolveTitleToClassName = (t: string) => {
     .replaceAll('?', '_none_') // globals
     .replaceAll('!', '_important_')
     .toLowerCase()
+
+  return randomizeClassKey(normalized)
 }
 
 export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string => {

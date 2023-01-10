@@ -11,7 +11,7 @@ A different form to interpreter Atomic CSS focused on vite ecosystem.
 
 - 0kb default injected css;
 - [Fontaine](https://github.com/danielroe/fontaine) integrated;
-- No configuration files / full-reload / directives / presets;
+- No directives / presets;
 - Only class-raw based;
 - Dynamic identifiers (rules) with unique/multiple engine;
 - Nullable options/classes;

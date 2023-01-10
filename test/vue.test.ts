@@ -1,7 +1,11 @@
 import { generateCSSResources, UnunuraVueSFCFile } from "ununura-engine";
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 
 describe('resolvers', () => {
+  beforeEach(() => {
+    Math.random = () => -1
+  })
+
   it('should transform correct sfc', () => {
     const targets = [
       [

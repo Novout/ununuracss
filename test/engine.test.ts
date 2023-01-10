@@ -2,10 +2,14 @@ import { getGlobals } from "packages/engine/src/globals";
 import { purgeCSS, purgeOnlyCssClassTitle } from "packages/engine/src/purge";
 import { getSupportedInteger } from "packages/engine/src/support";
 import { lex, classesFromRawHtml, resolveTitleCssClass, resolveCSS, generateUniqueClass, generateMultipleClass, generateCSSResources, scan, UnunuraGlobalGenerate, resolveIdentifierInCSS } from "ununura-engine";
-import { ANTIALIASED_RESET_CSS, isKey, MEYER_RESET_CSS, NOVOUT_RESET_CSS, NULLABLE, UnunuraIdentifier } from "ununura-shared";
-import { describe, expect, it } from "vitest";
+import { isKey, MEYER_RESET_CSS, NOVOUT_RESET_CSS, NULLABLE, UnunuraIdentifier } from "ununura-shared";
+import { beforeEach, describe, expect, it } from "vitest";
 
 describe('lexer', () => {
+  beforeEach(() => {
+    Math.random = () => -1
+  })
+
   it('should lex a css class', () => {
     const targets = [
       [
