@@ -231,67 +231,67 @@ describe('transform', () => {
   it('should get css class', () => {
     const targets = [
       [
-        resolveCSS(UnunuraIdentifier.Padding, ['2']),
+        resolveCSS(UnunuraIdentifier.Padding, { contents: ['2'], buffer: [], stack: [] }),
         `.p-2 {
   padding: 2px;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Padding, ['2', '5']),
+        resolveCSS(UnunuraIdentifier.Padding, { contents: ['2', '5'], buffer: [], stack: [] }),
         `.p-2-5 {
   padding: 2px 5px;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Padding, ['2', '5rem', '0', '10rem']),
+        resolveCSS(UnunuraIdentifier.Padding, { contents: ['2', '5rem', '0', '10rem'], buffer: [], stack: [] }),
         `.p-2-5rem-0-10rem {
   padding: 2px 5rem 0px 10rem;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Padding, ['0.25']),
+        resolveCSS(UnunuraIdentifier.Padding, { contents: ['0.25'], buffer: [], stack: [] }),
         `.p-025 {
   padding: 0.25px;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Margin, ['2']),
+        resolveCSS(UnunuraIdentifier.Margin, { contents: ['2'], buffer: [], stack: [] }),
         `.m-2 {
   margin: 2px;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Margin, ['2', '5']),
+        resolveCSS(UnunuraIdentifier.Margin, { contents: ['2', '5'], buffer: [], stack: [] }),
         `.m-2-5 {
   margin: 2px 5px;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Margin, ['2', '5', '0', '10']),
+        resolveCSS(UnunuraIdentifier.Margin, { contents: ['2', '5', '0', '10'], buffer: [], stack: [] }),
         `.m-2-5-0-10 {
   margin: 2px 5px 0px 10px;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Margin, ['0.25']),
+        resolveCSS(UnunuraIdentifier.Margin, { contents: ['0.25'], buffer: [], stack: [] }),
         `.m-025 {
   margin: 0.25px;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Margin, ['50%', '25ch']),
+        resolveCSS(UnunuraIdentifier.Margin, { contents: ['50%', '25ch'], buffer: [], stack: [] }),
         `.m-50-25ch {
   margin: 50% 25ch;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Margin, ['!', '50%', '25ch']),
+        resolveCSS(UnunuraIdentifier.Margin, { contents: ['!', '50%', '25ch'], buffer: [], stack: [] }),
         `.m-_important_-50-25ch {
   margin: 50% 25ch !important;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Border, ['white', '2', 'solid']),
+        resolveCSS(UnunuraIdentifier.Border, { contents: ['white', '2', 'solid'], buffer: [], stack: [] }),
         `.border-white-2-solid {
   border: solid;
   border-color: white;
@@ -299,20 +299,20 @@ describe('transform', () => {
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Border, ['2']),
+        resolveCSS(UnunuraIdentifier.Border, { contents: ['2'], buffer: [], stack: [] }),
         `.border-2 {
   border-width: 2px;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Border, ['dashed', 'black']),
+        resolveCSS(UnunuraIdentifier.Border, { contents: ['dashed', 'black'], buffer: [], stack: [] }),
         `.border-dashed-black {
   border: dashed;
   border-color: black;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Border, ['10', 'dashed', 'black']),
+        resolveCSS(UnunuraIdentifier.Border, { contents: ['10', 'dashed', 'black'], buffer: [], stack: [] }),
         `.border-10-dashed-black {
   border: dashed;
   border-color: black;
@@ -320,106 +320,100 @@ describe('transform', () => {
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Text, ['2rem', 'black']),
+        resolveCSS(UnunuraIdentifier.Text, { contents: ['2rem', 'black'], buffer: [], stack: [] }),
         `.text-2rem-black {
   color: black;
   font-size: 2rem;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Text, ['2rem']),
+        resolveCSS(UnunuraIdentifier.Text, { contents: ['2rem'], buffer: [], stack: [] }),
         `.text-2rem {
   font-size: 2rem;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Text, ['arial']),
+        resolveCSS(UnunuraIdentifier.Text, { contents: ['arial'], buffer: [], stack: [] }),
         `.text-arial {
   font-family: 'Arial', sans-serif;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Text, ['roboto']),
+        resolveCSS(UnunuraIdentifier.Text, { contents: ['roboto'], buffer: [], stack: [] }),
         `.text-roboto {
   font-family: 'Roboto', sans-serif;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Background, ['#000000']),
+        resolveCSS(UnunuraIdentifier.Background, { contents: ['#000000'], buffer: [], stack: [] }),
         `.bg-000000 {
   background-color: #000000;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Background, ['#000000'], ['dark']),
+        resolveCSS(UnunuraIdentifier.Background, { contents: ['#000000'], buffer: [], stack: ['dark'] }),
         `.dark .bg-000000-dark {
   background-color: #000000;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Background, ['rgb-255-255-255']),
+        resolveCSS(UnunuraIdentifier.Background, { contents: ['rgb-255-255-255'], buffer: [], stack: [] }),
         `.bg-rgb-255-255-255 {
   background-color: rgb(255, 255, 255);
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Background, ['rgba-255-255-255-0.5']),
+        resolveCSS(UnunuraIdentifier.Background, { contents: ['rgba-255-255-255-0.5'], buffer: [], stack: [] }),
         `.bg-rgba-255-255-255-05 {
   background-color: rgba(255, 255, 255, 0.5);
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Background, ['hsl-0-100%-50%']),
+        resolveCSS(UnunuraIdentifier.Background, { contents: ['hsl-0-100%-50%'], buffer: [], stack: [] }),
         `.bg-hsl-0-100-50 {
   background-color: hsl(0, 100%, 50%);
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Background, ['hsla-0-100%-50%-0.5']),
+        resolveCSS(UnunuraIdentifier.Background, { contents: ['hsla-0-100%-50%-0.5'], buffer: [], stack: [] }),
         `.bg-hsla-0-100-50-05 {
   background-color: hsla(0, 100%, 50%, 0.5);
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Background, ['--primary-color']),
+        resolveCSS(UnunuraIdentifier.Background, { contents: ['--primary-color'], buffer: [], stack: [] }),
         `.bg---primary-color {
   background-color: var(--primary-color);
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Background, ['#000001', 'cover']),
+        resolveCSS(UnunuraIdentifier.Background, { contents: ['#000001', 'cover'], buffer: [], stack: [] }),
         `.bg-000001-cover {
   background-color: #000001;
   background-size: cover;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Background, ['/test.png']),
+        resolveCSS(UnunuraIdentifier.Background, { contents: ['/test.png'], buffer: [], stack: [] }),
         `.bg-testpng {
   background-image: url("/test.png");
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Background, ['/foo.png', 'auto']),
+        resolveCSS(UnunuraIdentifier.Background, { contents: ['/foo.png', 'auto'], buffer: [], stack: [] }),
         `.bg-foopng-auto {
   background-image: url("/foo.png");
   background-size: auto;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Background, ['https://foo/bar.png']),
-        `.bg-httpsfoobarpng {
-  background-image: url("https://foo/bar.png");
-}`
-      ],
-      [
-        resolveCSS(UnunuraIdentifier.Background, ['transparent']),
+        resolveCSS(UnunuraIdentifier.Background, { contents: ['transparent'], buffer: [], stack: [] }),
         `.bg-transparent {
   background-color: transparent;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Flexbox, ['row', 'grow']),
+        resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['row', 'grow'], buffer: [], stack: [] }),
         `.flex-row-grow {
   display: flex;
   flex-direction: row;
@@ -427,7 +421,7 @@ describe('transform', () => {
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Flexbox, ['row', 'v-center', 'h-center']),
+        resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['row', 'v-center', 'h-center'], buffer: [], stack: [] }),
         `.flex-row-v-center-h-center {
   display: flex;
   flex-direction: row;
@@ -436,7 +430,7 @@ describe('transform', () => {
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Flexbox, ['row', 'v-stretch', 'h-flex-start']),
+        resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['row', 'v-stretch', 'h-flex-start'], buffer: [], stack: [] }),
         `.flex-row-v-stretch-h-flex-start {
   display: flex;
   flex-direction: row;
@@ -445,7 +439,7 @@ describe('transform', () => {
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Flexbox, ['col-reverse', 'grow-none']),
+        resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['col-reverse', 'grow-none'], buffer: [], stack: [] }),
         `.flex-col-reverse-grow-none {
   display: flex;
   flex-direction: column-reverse;
@@ -453,7 +447,7 @@ describe('transform', () => {
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Flexbox, ['col-reverse', 'grow-none', 'gap-2rem']),
+        resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['col-reverse', 'grow-none', 'gap-2rem'], buffer: [], stack: [] }),
         `.flex-col-reverse-grow-none-gap-2rem {
   display: flex;
   flex-direction: column-reverse;
@@ -462,182 +456,182 @@ describe('transform', () => {
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Flexbox, ['wrap']),
+        resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['wrap'], buffer: [], stack: [] }),
         `.flex-wrap {
   display: flex;
   flex-wrap: wrap;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Flexbox, ['nowrap']),
+        resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['nowrap'], buffer: [], stack: [] }),
         `.flex-nowrap {
   display: flex;
   flex-wrap: nowrap;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Flexbox, ['wrap-reverse']),
+        resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['wrap-reverse'], buffer: [], stack: [] }),
         `.flex-wrap-reverse {
   display: flex;
   flex-wrap: wrap-reverse;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Flexbox, ['?', 'flex-1']),
+        resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['?', 'flex-1'], buffer: [], stack: [] }),
         `.flex-_none_-flex-1 {
   flex: 1 1 0%;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Flexbox, ['flex-1']),
+        resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['flex-1'], buffer: [], stack: [] }),
         `.flex-flex-1 {
   display: flex;
   flex: 1 1 0%;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Width, ['100%']),
+        resolveCSS(UnunuraIdentifier.Width, { contents: ['100%'], buffer: [], stack: [] }),
         `.w-100 {
   width: 100%;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Width, ['max', '50vw']),
+        resolveCSS(UnunuraIdentifier.Width, { contents: ['max', '50vw'], buffer: [], stack: [] }),
         `.w-max-50vw {
   max-width: 50vw;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Width, ['100dvw']),
+        resolveCSS(UnunuraIdentifier.Width, { contents: ['100dvw'], buffer: [], stack: [] }),
         `.w-100dvw {
   width: 100dvw;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Height, ['300']),
+        resolveCSS(UnunuraIdentifier.Height, { contents: ['300'], buffer: [], stack: [] }),
         `.h-300 {
   height: 300px;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Height, ['300px']),
+        resolveCSS(UnunuraIdentifier.Height, { contents: ['300px'], buffer: [], stack: [] }),
         `.h-300px {
   height: 300px;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Height, ['min', '100vh']),
+        resolveCSS(UnunuraIdentifier.Height, { contents: ['min', '100vh'], buffer: [], stack: [] }),
         `.h-min-100vh {
   min-height: 100vh;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Height, ['max', '10rem']),
+        resolveCSS(UnunuraIdentifier.Height, { contents: ['max', '10rem'], buffer: [], stack: [] }),
         `.h-max-10rem {
   max-height: 10rem;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Position, ['absolute']),
+        resolveCSS(UnunuraIdentifier.Position, { contents: ['absolute'], buffer: [], stack: [] }),
         `.pos-absolute {
   position: absolute;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Position, ['sticky', 'left-2rem']),
+        resolveCSS(UnunuraIdentifier.Position, { contents: ['sticky', 'left-2rem'], buffer: [], stack: [] }),
         `.pos-sticky-left-2rem {
   position: sticky;
   left: 2rem;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Position, ['relative', 'right-0']),
+        resolveCSS(UnunuraIdentifier.Position, { contents: ['relative', 'right-0'], buffer: [], stack: [] }),
         `.pos-relative-right-0 {
   position: relative;
   right: 0;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Position, ['!', 'sticky', 'left-2rem']),
+        resolveCSS(UnunuraIdentifier.Position, { contents: ['!', 'sticky', 'left-2rem'], buffer: [], stack: [] }),
         `.pos-_important_-sticky-left-2rem {
   position: sticky !important;
   left: 2rem !important;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Scroll, ['hidden']),
+        resolveCSS(UnunuraIdentifier.Scroll, { contents: ['hidden'], buffer: [], stack: [] }),
         `.scroll-hidden {
   overflow: hidden;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Scroll, ['x', 'auto']),
+        resolveCSS(UnunuraIdentifier.Scroll, { contents: ['x', 'auto'], buffer: [], stack: [] }),
         `.scroll-x-auto {
   overflow-x: auto;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Scroll, ['y', 'visible']),
+        resolveCSS(UnunuraIdentifier.Scroll, { contents: ['y', 'visible'], buffer: [], stack: [] }),
         `.scroll-y-visible {
   overflow-y: visible;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Scroll, []),
+        resolveCSS(UnunuraIdentifier.Scroll, { contents: [], buffer: [], stack: [] }),
         `.scroll {
   overflow: scroll;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Scroll, ['x']),
+        resolveCSS(UnunuraIdentifier.Scroll, { contents: ['x'], buffer: [], stack: [] }),
         `.scroll-x {
   overflow-x: scroll;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Cursor, ['pointer']),
+        resolveCSS(UnunuraIdentifier.Cursor, { contents: ['pointer'], buffer: [], stack: [] }),
         `.cursor-pointer {
   cursor: pointer;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Cursor, ['none']),
+        resolveCSS(UnunuraIdentifier.Cursor, { contents: ['none'], buffer: [], stack: [] }),
         `.cursor-none {
   cursor: none;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Float, ['right']),
+        resolveCSS(UnunuraIdentifier.Float, { contents: ['right'], buffer: [], stack: [] }),
         `.float-right {
   float: right;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.ZIndex, ['5']),
+        resolveCSS(UnunuraIdentifier.ZIndex, { contents: ['5'], buffer: [], stack: [] }),
         `.z-5 {
   z-index: 5;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Display, ['none']),
+        resolveCSS(UnunuraIdentifier.Display, { contents: ['none'], buffer: [], stack: [] }),
         `.display-none {
   display: none;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Rounded, ['1rem']),
+        resolveCSS(UnunuraIdentifier.Rounded, { contents: ['1rem'], buffer: [], stack: [] }),
         `.rounded-1rem {
   border-radius: 1rem;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Rounded, ['25px', '2rem']),
+        resolveCSS(UnunuraIdentifier.Rounded, { contents: ['25px', '2rem'], buffer: [], stack: [] }),
         `.rounded-25px-2rem {
   border-radius: 25px 2rem;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Rounded, ['25px', '2rem'], ['xl']),
+        resolveCSS(UnunuraIdentifier.Rounded, { contents: ['25px', '2rem'], buffer: [], stack: ['xl'] }),
         `@media (min-width: 1536px) {
 .rounded-25px-2rem {
   border-radius: 25px 2rem;
@@ -645,7 +639,7 @@ describe('transform', () => {
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Shadow, ['black']),
+        resolveCSS(UnunuraIdentifier.Shadow, { contents: ['black'], buffer: [], stack: [] }),
         `.shadow-black {
   box-shadow: 5px 5px 5px 0px black;
   -webkit-box-shadow: 5px 5px 5px 0px black;
@@ -653,7 +647,7 @@ describe('transform', () => {
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Shadow, ['h-10', 'v-10']),
+        resolveCSS(UnunuraIdentifier.Shadow, { contents: ['h-10', 'v-10'], buffer: [], stack: [] }),
         `.shadow-h-10-v-10 {
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
@@ -661,7 +655,7 @@ describe('transform', () => {
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Shadow, ['inset', 'h-10', 'v-10']),
+        resolveCSS(UnunuraIdentifier.Shadow, { contents: ['inset', 'h-10', 'v-10'], buffer: [], stack: [] }),
         `.shadow-inset-h-10-v-10 {
   box-shadow: inset 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: inset 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
@@ -669,12 +663,12 @@ describe('transform', () => {
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Reset, ['antialiased']),
+        resolveCSS(UnunuraIdentifier.Reset, { contents: ['antialiased'], buffer: [], stack: [] }),
         `* {
 ${ANTIALIASED_RESET_CSS()}}`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Reset, ['meyer']),
+        resolveCSS(UnunuraIdentifier.Reset, { contents: ['meyer'], buffer: [], stack: [] }),
         `/* http://meyerweb.com/eric/tools/css/reset/ 
   v2.0 | 20110126
   License: none (public domain)
@@ -726,7 +720,7 @@ table {
 `
       ],
       [
-        resolveCSS(UnunuraIdentifier.Reset, ['novout']),
+        resolveCSS(UnunuraIdentifier.Reset, { contents: ['novout'], buffer: [], stack: [] }),
         `* {
   padding: 0;
   margin: 0;
@@ -743,15 +737,15 @@ table {
 `
       ],
       [
-        resolveCSS(UnunuraIdentifier.Margin, ['2', '10', '5']),
+        resolveCSS(UnunuraIdentifier.Margin, { contents: ['2', '10', '5'], buffer: [], stack: [] }),
         NULLABLE
       ],
       [
-        resolveCSS(UnunuraIdentifier.Padding, ['2', '10', '5']),
+        resolveCSS(UnunuraIdentifier.Padding, { contents: ['2', '10', '5'], buffer: [], stack: [] }),
         NULLABLE
       ],
       [
-        resolveCSS('wrong' as any, ['foo', 'bar', 'baz']),
+        resolveCSS('wrong' as any, { contents: ['foo', 'baz', 'bar'], buffer: [], stack: [] }),
         NULLABLE
       ],
     ]
@@ -764,19 +758,19 @@ table {
   it('should get css class in theme context', () => {
     const targets = [
       [
-        resolveCSS(UnunuraIdentifier.Cursor, ['none'], ['dark']),
+        resolveCSS(UnunuraIdentifier.Cursor, { contents: ['none'], buffer: [], stack: ['dark'] }),
         `.dark .cursor-none-dark {
   cursor: none;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Padding, ['5rem'], ['sepia']),
+        resolveCSS(UnunuraIdentifier.Padding, { contents: ['5rem'], buffer: [], stack: ['sepia'] }),
         `.sepia .p-5rem-sepia {
   padding: 5rem;
 }`
       ],
       [
-        resolveCSS(UnunuraIdentifier.Rounded, ['2rem'], ['light']),
+        resolveCSS(UnunuraIdentifier.Rounded, { contents: ['2rem'], buffer: [], stack: ['light'] }),
         `.light .rounded-2rem-light {
   border-radius: 2rem;
 }`
@@ -791,12 +785,12 @@ table {
   it('should generate correct classes from raw context', () => {
     const targets = [
       [
-        generateUniqueClass(['m','10']), `.m-10 {
+        generateUniqueClass(['m','10'], { contents: [], buffer: [], stack: [] }), `.m-10 {
   margin: 10px;
 }`
       ],
       [
-        generateMultipleClass(['m', '0 10 0 0']), `.m-0-10-0-0 {
+        generateMultipleClass(['m', '0 10 0 0'], { contents: [], buffer: [], stack: [] }), `.m-0-10-0-0 {
   margin: 0px 10px 0px 0px;
 }`
       ],
@@ -847,11 +841,11 @@ describe('css', () => {
 `],
   [resolveIdentifierInCSS(UnunuraIdentifier.Text), 'font'],
   [resolveIdentifierInCSS(UnunuraIdentifier.Flexbox), 'flex'],
-  [resolveTitleCssClass(UnunuraIdentifier.Margin, ['15', '0', '10', '0']), '.m-15-0-10-0'],
-  [resolveTitleCssClass(UnunuraIdentifier.Flexbox, ['flex-1']), '.flex-flex-1'],
-  [resolveTitleCssClass(UnunuraIdentifier.Background, ['rgba-255-255-255-0.3)']), '.bg-rgba-255-255-255-03'],
-  [resolveTitleCssClass(UnunuraIdentifier.Background, ['#FF0000']), '.bg-ff0000'],
-  [resolveTitleCssClass(UnunuraIdentifier.Background, ['/local_image.png']), '.bg-local-imagepng']
+  [resolveTitleCssClass(UnunuraIdentifier.Margin, { contents: ['15', '0', '10', '0'], buffer: [], stack: [] }), '.m-15-0-10-0'],
+  [resolveTitleCssClass(UnunuraIdentifier.Flexbox, { contents: ['flex-1'], buffer: [], stack: [] }), '.flex-flex-1'],
+  [resolveTitleCssClass(UnunuraIdentifier.Background, { contents: ['rgba-255-255-255-0.3)'], buffer: [], stack: [] }), '.bg-rgba-255-255-255-03'],
+  [resolveTitleCssClass(UnunuraIdentifier.Background, { contents: ['#FF0000'], buffer: [], stack: [] }), '.bg-ff0000'],
+  [resolveTitleCssClass(UnunuraIdentifier.Background, { contents: ['/local_image.png'], buffer: [], stack: [] }), '.bg-local-imagepng']
 ]
 
     for (const [raw, result] of targets) {

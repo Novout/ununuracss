@@ -2,9 +2,9 @@ import {
   UnunuraIdentifier,
   NULLABLE,
   Nullable,
-  UnunuraContextualizeStack,
   isResponsiveContextIdentifier,
   UnunuraContextualizeResponsive,
+  UnunuraGenerateContext,
 } from 'ununura-shared'
 import {
   getResourceText,
@@ -74,48 +74,48 @@ export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string =>
   }
 }
 
-export const resolveCSS = (identifier: UnunuraIdentifier, contents: string[], context?: UnunuraContextualizeStack): string => {
+export const resolveCSS = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {
   switch (identifier) {
     case UnunuraIdentifier.Margin:
     case UnunuraIdentifier.Padding:
     case UnunuraIdentifier.Rounded:
-      return getResourceSpreadValues(identifier, contents, context)
+      return getResourceSpreadValues(identifier, ctx)
     case UnunuraIdentifier.Height:
     case UnunuraIdentifier.Width:
-      return getResourceWidthOrHeight(identifier, contents, context)
+      return getResourceWidthOrHeight(identifier, ctx)
     case UnunuraIdentifier.Background:
-      return getResourceBackground(identifier, contents, context)
+      return getResourceBackground(identifier, ctx)
     case UnunuraIdentifier.Text:
-      return getResourceText(identifier, contents, context)
+      return getResourceText(identifier, ctx)
     case UnunuraIdentifier.Border:
-      return getResourceBorder(identifier, contents, context)
+      return getResourceBorder(identifier, ctx)
     case UnunuraIdentifier.Flexbox:
-      return getResourceFlex(identifier, contents, context)
+      return getResourceFlex(identifier, ctx)
     case UnunuraIdentifier.Position:
-      return getResourcePosition(identifier, contents, context)
+      return getResourcePosition(identifier, ctx)
     case UnunuraIdentifier.Scroll:
-      return getResourceScroll(identifier, contents, context)
+      return getResourceScroll(identifier, ctx)
     case UnunuraIdentifier.Reset:
-      return getResourceReset(identifier, contents, context)
+      return getResourceReset(identifier, ctx)
     case UnunuraIdentifier.Shadow:
-      return getResourceShadow(identifier, contents, context)
+      return getResourceShadow(identifier, ctx)
     case UnunuraIdentifier.Cursor:
-      return getResourceCursor(identifier, contents, context)
+      return getResourceCursor(identifier, ctx)
     case UnunuraIdentifier.ZIndex:
-      return getResourceZIndex(identifier, contents, context)
+      return getResourceZIndex(identifier, ctx)
     case UnunuraIdentifier.Display:
-      return getResourceDisplay(identifier, contents, context)
+      return getResourceDisplay(identifier, ctx)
     case UnunuraIdentifier.Float:
-      return getResourceFloat(identifier, contents, context)
+      return getResourceFloat(identifier, ctx)
     default:
       return NULLABLE
   }
 }
 
-export const resolveTitleCssClass = (identifier: UnunuraIdentifier, contents: string[], context?: UnunuraContextualizeStack) => {
-  const asTheme = context?.find((c) => c === 'dark' || c === 'light' || c === 'sepia')
+export const resolveTitleCssClass = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext) => {
+  const asTheme = ctx.stack?.find((c) => c === 'dark' || c === 'light' || c === 'sepia')
 
-  let setter = contents.reduce(
+  let setter = ctx.contents.reduce(
     (sum, acc) => (sum += `-${resolveTitleToClassName(acc)}`),
     (asTheme ? `.${asTheme} ` : '') + `.${identifier}`
   )
@@ -124,19 +124,14 @@ export const resolveTitleCssClass = (identifier: UnunuraIdentifier, contents: st
   return setter
 }
 
-export const resolveCssClass = (
-  identifier: UnunuraIdentifier,
-  contents: string[],
-  setter: string,
-  context?: UnunuraContextualizeStack
-): Nullable<string> => {
-  const title = resolveTitleCssClass(identifier, contents, context)
+export const resolveCssClass = (identifier: UnunuraIdentifier, setter: string, ctx: UnunuraGenerateContext): Nullable<string> => {
+  const title = resolveTitleCssClass(identifier, ctx)
 
   if (!setter.trim()) return NULLABLE
 
   const cl = `${title} {${setter}}`
 
-  const asResponsive = context?.find((c) => isResponsiveContextIdentifier(c))
+  const asResponsive = ctx.stack?.find((c) => isResponsiveContextIdentifier(c))
 
   if (asResponsive) return TemplateClassResponsive(asResponsive as UnunuraContextualizeResponsive, cl)
 

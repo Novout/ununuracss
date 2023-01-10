@@ -39,12 +39,12 @@ export const classesFromRawHtml = (html: string): string[] => {
 }
 
 export const generateCss = (keys: string[]): string => {
-  const css = []
-
   let prev_unique: Option<string> = undefined
   let prev_multiple: Option<string> = undefined
   let prev_common_identifier: Option<string> = undefined
   let prev_context_identifier: Option<UnunuraContextualize> = undefined
+
+  const buffer: string[] = []
   const context_stack: UnunuraContextualizeStack = []
 
   for (const key of keys) {
@@ -71,8 +71,22 @@ export const generateCss = (keys: string[]): string => {
       context_stack.pop()
     } else {
       if (!isEnd) {
-        if (prev_unique && prev_common_identifier) css.push(generateUniqueClass([prev_common_identifier, key], context_stack))
-        if (prev_multiple && prev_common_identifier) css.push(generateMultipleClass([prev_common_identifier, key], context_stack))
+        if (prev_unique && prev_common_identifier)
+          buffer.push(
+            generateUniqueClass([prev_common_identifier, key], {
+              stack: context_stack,
+              buffer,
+              contents: [],
+            })
+          )
+        if (prev_multiple && prev_common_identifier)
+          buffer.push(
+            generateMultipleClass([prev_common_identifier, key], {
+              stack: context_stack,
+              buffer,
+              contents: [],
+            })
+          )
       }
 
       prev_unique = undefined
@@ -81,5 +95,5 @@ export const generateCss = (keys: string[]): string => {
     }
   }
 
-  return css.reduce((acc, key) => (acc += `${key}\n`), '')
+  return buffer.reduce((acc, key) => (acc += `${key}\n`), '')
 }
