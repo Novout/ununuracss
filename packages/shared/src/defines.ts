@@ -1,4 +1,4 @@
-import { UnunuraContextualizeResponsive } from './enums'
+import { UnunuraContextualizeResponsive } from './types'
 
 export const ANTIALIASED_RESET_CSS = () => `  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -1,7 +1,7 @@
 import { NULLABLE } from './constants'
 import { browserFonts, googleFonts } from './defines'
-import { UnunuraContextualizeResponsive, UnunuraGlobals, UnunuraIdentifier, UnunuraKeys } from './enums'
-import { Option } from './types'
+import { UnunuraGlobals, UnunuraIdentifier, UnunuraKeys } from './enums'
+import { Option, UnunuraContextualizeResponsive } from './types'
 
 export const isHex = (i: string): boolean => /^#[0-9a-fA-F]{6}/i.test(i)
 export const isNumber = (i: string): boolean => /[-]{0,1}[\d]*[.]{0,1}[\d]+/i.test(i)
