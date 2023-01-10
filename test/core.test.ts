@@ -827,6 +827,21 @@ describe('css', () => {
   background-image: url("/local_image.png");
 }
 `],
+[
+  generateCSSResources(`<div class="bg:white dark(bg:red) md(dark(bg:blue))" />`),
+  `.bg-white {
+  background-color: white;
+}
+.dark .bg-red-dark {
+  background-color: red;
+}
+@media (min-width: 768px) {
+.dark .bg-red-dark {
+  background-color: blue;
+}
+}
+`
+],
   [
     generateCSSResources(`<div class="bg:/other_image.png md(bg:/local_image.png)" />
   `),

@@ -119,8 +119,14 @@ export const resolveTitleCssClass = (identifier: UnunuraIdentifier, ctx: Ununura
   const asTheme = ctx.stack?.find((c) => isThemeContextIdentifier(c))
 
   const asResponsive = ctx.stack?.find((c) => isResponsiveContextIdentifier(c))
-  const buffered = asResponsive ? ctx.buffer?.find((c) => purgeOnlyCssClassTitle(c).startsWith(identifier)) : undefined
+  const buffered =
+    asResponsive && asTheme
+      ? ctx.buffer?.find((c) => c.startsWith(`.${asTheme} .${identifier}`))
+      : asResponsive
+      ? ctx.buffer?.find((c) => purgeOnlyCssClassTitle(c).startsWith(identifier))
+      : undefined
 
+  if (asResponsive && asTheme && !buffered) return NULLABLE
   if (asResponsive && !buffered) return NULLABLE
 
   let setter = !asResponsive
@@ -128,8 +134,8 @@ export const resolveTitleCssClass = (identifier: UnunuraIdentifier, ctx: Ununura
         (sum, acc) => (sum += `-${resolveTitleToClassName(acc)}`),
         (asTheme ? `.${asTheme} ` : '') + `.${identifier}`
       )
-    : (asTheme ? `.${asTheme} ` : '') + `.${purgeOnlyCssClassTitle(buffered as string)}`
-  setter += asTheme ? `-${asTheme}` : ''
+    : (asTheme && !asResponsive ? `.${asTheme} ` : '') + `.${purgeOnlyCssClassTitle(buffered as string)}`
+  setter += asTheme && !asResponsive ? `-${asTheme}` : ''
 
   return setter
 }
