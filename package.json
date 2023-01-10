@@ -16,7 +16,8 @@
     "patch": "generi log patch",
     "minor": "generi log minor",
     "major": "generi log major",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prepublish": "pnpm run build"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
