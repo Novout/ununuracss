@@ -1,4 +1,4 @@
-import { getGlobals } from 'packages/engine/src/globals'
+import { getGlobalReset, getGlobals } from 'packages/engine/src/globals'
 import { purgeCSS, purgeOnlyCssClassTitle } from 'packages/engine/src/purge'
 import { getSupportedInteger } from 'packages/engine/src/support'
 import {
@@ -95,6 +95,41 @@ describe('lexer', () => {
           ')',
         ],
       ],
+      [
+        lex('md(hover(dark(xl(active(light(xl(focus(sepia(bg:rgba-0-0-0-0.1)))))))))'),
+        [
+          'md',
+          '(',
+          'hover',
+          '(',
+          'dark',
+          '(',
+          'xl',
+          '(',
+          'active',
+          '(',
+          'light',
+          '(',
+          'xl',
+          '(',
+          'focus',
+          '(',
+          'sepia',
+          '(',
+          'bg',
+          ':',
+          'rgba-0-0-0-0.1',
+          ')',
+          ')',
+          ')',
+          ')',
+          ')',
+          ')',
+          ')',
+          ')',
+          ')',
+        ],
+      ],
     ]
 
     for (const [lex, result] of targets) {
@@ -161,6 +196,12 @@ describe('transform', () => {
 }`,
       ],
       [
+        resolveCSS(UnunuraIdentifier.Padding, { contents: ['0.25'], buffer: [], stack: ['hover'] }),
+        `.p-025:hover {
+  padding: 0.25px;
+}`,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Margin, { contents: ['2'], buffer: [], stack: [] }),
         `.m-2 {
   margin: 2px;
@@ -197,6 +238,12 @@ describe('transform', () => {
 }`,
       ],
       [
+        resolveCSS(UnunuraIdentifier.Margin, { contents: ['!', '50%', '25ch'], buffer: [], stack: ['focus'] }),
+        `.m-_important_-50-25ch:focus {
+  margin: 50% 25ch !important;
+}`,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Border, { contents: ['white', '2', 'solid'], buffer: [], stack: [] }),
         `.border-white-2-solid {
   border: solid;
@@ -220,6 +267,14 @@ describe('transform', () => {
       [
         resolveCSS(UnunuraIdentifier.Border, { contents: ['10', 'dashed', 'black'], buffer: [], stack: [] }),
         `.border-10-dashed-black {
+  border: dashed;
+  border-color: black;
+  border-width: 10px;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Border, { contents: ['10', 'dashed', 'black'], buffer: [], stack: ['active'] }),
+        `.border-10-dashed-black:active {
   border: dashed;
   border-color: black;
   border-width: 10px;
@@ -495,6 +550,12 @@ describe('transform', () => {
 }`,
       ],
       [
+        resolveCSS(UnunuraIdentifier.Scroll, { contents: ['x'], buffer: [], stack: ['focus'] }),
+        `.scroll-x:focus {
+  overflow-x: scroll;
+}`,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Cursor, { contents: ['pointer'], buffer: [], stack: [] }),
         `.cursor-pointer {
   cursor: pointer;
@@ -689,6 +750,10 @@ describe('css', () => {
         NOVOUT_RESET_CSS(),
       ],
       [getGlobals(['<template><div class="reset:meyer" /></template>']), MEYER_RESET_CSS()],
+      [getGlobalReset('reset:novout'), NOVOUT_RESET_CSS()],
+      [getGlobalReset('reset:meyer'), MEYER_RESET_CSS()],
+      [getGlobalReset('reset:foo'), ''],
+      [getGlobalReset(), ''],
       [resolveIdentifierInCSS(UnunuraIdentifier.Text), 'font'],
       [resolveIdentifierInCSS(UnunuraIdentifier.Flexbox), 'flex'],
       [

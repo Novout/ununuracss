@@ -37,8 +37,7 @@ import { lex } from './lexer'
 import { resolveCSS, resolveCssClass, resolveIdentifierInCSS } from './resolvers'
 import { validateSpreadAllResource } from './validate'
 
-export const generateMultipleClass = (key: [string, string], ctx: UnunuraGenerateContext) => {
-  const [identifier, content] = key
+export const generateMultipleClass = ([identifier, content]: [string, string], ctx: UnunuraGenerateContext) => {
   const contents = content.split(' ')
 
   ctx.contents.push(...contents)
@@ -46,9 +45,7 @@ export const generateMultipleClass = (key: [string, string], ctx: UnunuraGenerat
   return resolveCSS(identifier as UnunuraIdentifier, ctx)
 }
 
-export const generateUniqueClass = (key: [string, string], ctx: UnunuraGenerateContext) => {
-  const [identifier, content] = key
-
+export const generateUniqueClass = ([identifier, content]: [string, string], ctx: UnunuraGenerateContext) => {
   ctx.contents.push(content)
 
   return resolveCSS(identifier as UnunuraIdentifier, ctx)

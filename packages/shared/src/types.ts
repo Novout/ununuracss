@@ -9,7 +9,8 @@ export type VueSFC = string
 export type UnunuraBounce = 'padding' | 'margin' | 'border' | 'text' | 'background' | 'flex' | 'grid'
 export type UnunuraContextualizeTheme = 'light' | 'dark' | 'sepia'
 export type UnunuraContextualizeResponsive = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-export type UnunuraContextualize = UnunuraContextualizeTheme | UnunuraContextualizeResponsive
+export type UnunuraContextualizePseudoClasses = 'hover' | 'focus' | 'active'
+export type UnunuraContextualize = UnunuraContextualizeTheme | UnunuraContextualizeResponsive | UnunuraContextualizePseudoClasses
 export type UnunuraContextualizeStack = UnunuraContextualize[]
 
 // CSS Supports

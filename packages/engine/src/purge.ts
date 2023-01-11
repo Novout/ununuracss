@@ -20,4 +20,5 @@ export const purgeOnlyCssClassTitle = (css: string): string => {
     .map((v) => v.trim())
     .join(' ')
     .replace(/(.dark .|.light .|.sepia .)/, ' ')
+    .replace(/(:hover|:active|:focus)/, '')
 }

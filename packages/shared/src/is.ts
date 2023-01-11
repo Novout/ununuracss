@@ -1,7 +1,7 @@
 import { NULLABLE } from './constants'
 import { browserFonts, googleFonts } from './defines'
 import { UnunuraGlobals, UnunuraIdentifier, UnunuraKeys } from './enums'
-import { Option, UnunuraContextualizeResponsive } from './types'
+import { Option, UnunuraContextualizePseudoClasses, UnunuraContextualizeResponsive } from './types'
 
 export const isHex = (i: string): boolean => /^#[0-9a-fA-F]{6}/i.test(i)
 export const isNumber = (i: string): boolean => /[-]{0,1}[\d]*[.]{0,1}[\d]+/i.test(i)
@@ -249,10 +249,14 @@ export const isContextCloseKey = (key: string) => key === UnunuraKeys.SpecificCo
 export const isContextKey = (key: string) => isUniqueKey(key) || isOpenMultipleKey(key) || isCloseMultipleKey(key)
 
 export const isKey = (char: string): boolean => Object.values(UnunuraKeys).some((key) => key === char)
+export const isGlobal = (str: string): Option<string> => Object.values(UnunuraGlobals).find((key) => str.startsWith(key))
+
 export const isThemeContextIdentifier = (str: string) => ['dark', 'light', 'sepia'].find((key) => key === str)
 export const isResponsiveContextIdentifier = (str: string): Option<UnunuraContextualizeResponsive> =>
-  ['xs', 'sm', 'md', 'lg', 'xl']!.find((key) => key === str) as Option<UnunuraContextualizeResponsive>
-export const isContextIdentifier = (str: string) => isThemeContextIdentifier(str) || isResponsiveContextIdentifier(str)
+  ['xs', 'sm', 'md', 'lg', 'xl']?.find((key) => key === str) as Option<UnunuraContextualizeResponsive>
+export const isPseudoClassContextIdentifier = (str: string): Option<UnunuraContextualizePseudoClasses> =>
+  ['hover', 'focus', 'active']?.find((key) => key === str) as Option<UnunuraContextualizePseudoClasses>
+export const isContextIdentifier = (str: string) =>
+  isThemeContextIdentifier(str) || isResponsiveContextIdentifier(str) || isPseudoClassContextIdentifier(str)
 export const isCommonIdentifier = (str: string) => Object.values(UnunuraIdentifier).some((key) => key === str)
 export const isIdentifier = (str: string) => isCommonIdentifier(str) || isContextIdentifier(str)
-export const isGlobal = (str: string): Option<string> => Object.values(UnunuraGlobals).find((key) => str.startsWith(key))

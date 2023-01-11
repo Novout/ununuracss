@@ -7,6 +7,7 @@ import {
   isThemeContextIdentifier,
   UnunuraContextualizeResponsive,
   UnunuraGenerateContext,
+  isPseudoClassContextIdentifier,
 } from 'ununura-shared'
 import { purgeOnlyCssClassTitle } from './purge'
 import { randomizeClassKey } from './randomizer'
@@ -149,7 +150,8 @@ export const resolveCssClass = (identifier: UnunuraIdentifier, setter: string, c
 
   if (!setter.trim()) return NULLABLE
 
-  const cl = `${title} {${setter}}`
+  const asPseudoClass = ctx.stack?.find((c) => isPseudoClassContextIdentifier(c))
+  const cl = `${title}${asPseudoClass ? `:${asPseudoClass}` : ''} {${setter}}`
 
   const asResponsive = ctx.stack?.find((c) => isResponsiveContextIdentifier(c))
 
