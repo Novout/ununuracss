@@ -3,6 +3,7 @@ import { browserFonts, googleFonts } from './defines'
 import { UnunuraGlobals, UnunuraIdentifier, UnunuraKeys } from './enums'
 import { Option, UnunuraContextualizePseudoClasses, UnunuraContextualizeResponsive } from './types'
 
+export const isDefaultCentralize = (i: string): boolean => ['center', 'left', 'right', 'justify'].some((c) => i === c)
 export const isHex = (i: string): boolean => /^#[0-9a-fA-F]{6}/i.test(i)
 export const isNumber = (i: string): boolean => /[-]{0,1}[\d]*[.]{0,1}[\d]+/i.test(i)
 export const isVueFile = (i: string) => /\.(vue)$/.test(i)
@@ -260,3 +261,11 @@ export const isContextIdentifier = (str: string) =>
   isThemeContextIdentifier(str) || isResponsiveContextIdentifier(str) || isPseudoClassContextIdentifier(str)
 export const isCommonIdentifier = (str: string) => Object.values(UnunuraIdentifier).some((key) => key === str)
 export const isIdentifier = (str: string) => isCommonIdentifier(str) || isContextIdentifier(str)
+
+export const isTransitionProperty = (i: string): boolean =>
+  ['all', 'none', 'background', 'color', 'transform'].some((c) => i === c)
+
+export const isTransitionTimingFunction = (i: string): boolean =>
+  ['ease', 'ease-in', 'ease-out', 'ease-in-out', 'linear', 'step-start', 'step-end'].some((c) => i === c)
+export const isTypographyUnderline = (i: string): boolean => ['no-underline', 'underline'].some((c) => i === c)
+export const isTypographyOverflow = (i: string): boolean => ['clip', 'ellipsis'].some((c) => i === c)

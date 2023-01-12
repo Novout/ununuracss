@@ -9,3 +9,7 @@ export const validateSpreadAllResource = (resources: string[]): string[] => {
 
   return normalize
 }
+
+export const validateTimersUnit = (resource: string) => {
+  return resource.endsWith('ms') || resource.endsWith('s')
+}

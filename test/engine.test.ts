@@ -586,6 +586,73 @@ describe('transform', () => {
 }`,
       ],
       [
+        resolveCSS(UnunuraIdentifier.Transition, {
+          contents: ['delay-200ms', 'duration-1s', 'none', 'ease-in'],
+          buffer: [],
+          stack: [],
+        }),
+        `.tr-delay-200ms-duration-1s-none-ease-in {
+  transition-delay: 200ms;
+  transition-duration: 1s;
+  transition-property: none;
+  transition-timing-function: ease-in;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Typography, { contents: ['indent-5'], buffer: [], stack: [] }),
+        `.typo-indent-5 {
+  text-indent: 5;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Typography, { contents: ['lspacing-5px'], buffer: [], stack: [] }),
+        `.typo-lspacing-5px {
+  letter-spacing: 5px;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Typography, { contents: ['wspacing-5px'], buffer: [], stack: [] }),
+        `.typo-wspacing-5px {
+  word-spacing: 5px;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Typography, { contents: ['line-30px'], buffer: [], stack: [] }),
+        `.typo-line-30px {
+  line-height: 30px;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Typography, { contents: ['center'], buffer: [], stack: [] }),
+        `.typo-center {
+  text-align: center;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Typography, { contents: ['underline'], buffer: [], stack: [] }),
+        `.typo-underline {
+  text-decoration: underline;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Typography, { contents: ['clip'], buffer: [], stack: [] }),
+        `.typo-clip {
+  text-overflow: clip;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Typography, { contents: ['space-pre'], buffer: [], stack: [] }),
+        `.typo-space-pre {
+  white-space: pre;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Typography, { contents: ['break-normal'], buffer: [], stack: [] }),
+        `.typo-break-normal {
+  word-break: normal;
+}`,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Rounded, { contents: ['1rem'], buffer: [], stack: [] }),
         `.rounded-1rem {
   border-radius: 1rem;
@@ -603,6 +670,18 @@ describe('transform', () => {
 .rounded-10 {
   border-radius: 25px 2rem;
 }
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Shadow, { contents: ['text', 'h-10', 'v-10', 'blur-30', 'black'], buffer: [], stack: [] }),
+        `.shadow-text-h-10-v-10-blur-30-black {
+  text-shadow: 10px 10px 30px black;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Shadow, { contents: ['text', 'h-10', 'v-10', 'black'], buffer: [], stack: [] }),
+        `.shadow-text-h-10-v-10-black {
+  text-shadow: 10px 10px black;
 }`,
       ],
       [

@@ -16,6 +16,8 @@ export enum UnunuraIdentifier {
   ZIndex = 'z',
   Display = 'display',
   Float = 'float',
+  Transition = 'tr',
+  Typography = 'typo',
 }
 
 export enum UnunuraGlobals {

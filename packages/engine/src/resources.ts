@@ -8,6 +8,11 @@ import {
   findResourceInStart,
   isSlashImage,
   UnunuraGenerateContext,
+  isTransitionProperty,
+  isTransitionTimingFunction,
+  isDefaultCentralize,
+  isTypographyUnderline,
+  isTypographyOverflow,
 } from 'ununura-shared'
 import { classesFromRawHtml, generateCss } from './ast'
 import {
@@ -261,20 +266,33 @@ export const getResourceShadow = (
   const radius = findResourceInStart(ctx.contents, ['radius-'], { onlyValue: true })
   const inset = findResource(ctx.contents, ['inset'])
 
-  const colorResolved = isNullable(color) ? 'rgba(0, 0, 0, 0.5)' : color
-  const horizontalResolved = isNullable(horizontal) ? '5px' : horizontal + 'px'
-  const verticalResolved = isNullable(vertical) ? '5px' : vertical + 'px'
-  const blurResolved = isNullable(blur) ? '5px' : blur + 'px'
-  const radiusResolved = isNullable(radius) ? '0px' : radius + 'px'
-
-  const value = `${
-    !isNullable(inset) ? `${inset} ` : ''
-  }${horizontalResolved} ${verticalResolved} ${blurResolved} ${radiusResolved} ${colorResolved};\n`
+  const isTextCase = ctx.contents.find((c) => c === 'text')
 
   let setter = setterHead(ctx)
-  setter += `  box-shadow: ${value}`
-  setter += `  -webkit-box-shadow: ${value}`
-  setter += `  -moz-box-shadow: ${value}`
+  if (isTextCase) {
+    const colorResolved = isNullable(color) ? 'black' : color
+    const horizontalResolved = isNullable(horizontal) ? '' : horizontal + 'px '
+    const verticalResolved = isNullable(vertical) ? '' : vertical + 'px '
+    const blurResolved = isNullable(blur) ? '' : blur + 'px '
+
+    const value = `${horizontalResolved}${verticalResolved}${blurResolved}${colorResolved};\n`
+
+    setter += `  text-shadow: ${value}`
+  } else {
+    const colorResolved = isNullable(color) ? 'rgba(0, 0, 0, 0.5)' : color
+    const horizontalResolved = isNullable(horizontal) ? '5px' : horizontal + 'px'
+    const verticalResolved = isNullable(vertical) ? '5px' : vertical + 'px'
+    const blurResolved = isNullable(blur) ? '5px' : blur + 'px'
+    const radiusResolved = isNullable(radius) ? '0px' : radius + 'px'
+
+    const value = `${
+      !isNullable(inset) ? `${inset} ` : ''
+    }${horizontalResolved} ${verticalResolved} ${blurResolved} ${radiusResolved} ${colorResolved};\n`
+
+    setter += `  box-shadow: ${value}`
+    setter += `  -webkit-box-shadow: ${value}`
+    setter += `  -moz-box-shadow: ${value}`
+  }
 
   return resolveCssClass(identifier, setter, ctx)
 }
@@ -332,6 +350,52 @@ export const getResourceFlex = (
   setter += setterRow(gap, `gap: ${gap.split('-')[1]}`, ctx.contents)
   setter += setterRow(horizontal, `justify-content: ${horizontal}`, ctx.contents)
   setter += setterRow(vertical, `align-items: ${vertical}`, ctx.contents)
+
+  return resolveCssClass(identifier, setter, ctx)
+}
+
+export const getResourceTypography = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {
+  const indent = findResourceInStart(ctx.contents, ['indent-'], { onlyValue: true })
+
+  // TODO: resolve uppercase
+  const letterSpacing = findResourceInStart(ctx.contents, ['lspacing-'], { onlyValue: true })
+  const wordSpacing = findResourceInStart(ctx.contents, ['wspacing-'], { onlyValue: true })
+  const line = findResourceInStart(ctx.contents, ['line-'], { onlyValue: true })
+  const align = ctx.contents.find((c) => isDefaultCentralize(c))
+  const decoration = ctx.contents.find((c) => isTypographyUnderline(c))
+  const overflow = ctx.contents.find((c) => isTypographyOverflow(c))
+  const space = findResourceInStart(ctx.contents, ['space-'], { onlyValue: true })
+  const _break = findResourceInStart(ctx.contents, ['break-'], { onlyValue: true })
+
+  const inCss = resolveIdentifierInCSS(identifier)
+
+  let setter = setterHead(ctx)
+  setter += setterRow(indent, `${inCss}-indent: ${indent}`, ctx.contents)
+  setter += setterRow(letterSpacing, `letter-spacing: ${letterSpacing}`, ctx.contents)
+  setter += setterRow(wordSpacing, `word-spacing: ${wordSpacing}`, ctx.contents)
+  setter += setterRow(line, `line-height: ${line}`, ctx.contents)
+  setter += setterRow(align, `${inCss}-align: ${align}`, ctx.contents)
+  setter += setterRow(decoration, `${inCss}-decoration: ${decoration}`, ctx.contents)
+  setter += setterRow(overflow, `${inCss}-overflow: ${overflow}`, ctx.contents)
+  setter += setterRow(space, `white-space: ${space}`, ctx.contents)
+  setter += setterRow(_break, `word-break: ${_break}`, ctx.contents)
+
+  return resolveCssClass(identifier, setter, ctx)
+}
+
+export const getResourceTransition = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {
+  const delay = findResourceInStart(ctx.contents, ['delay-'], { onlyValue: true, validate: 'timer' })
+  const transition = findResourceInStart(ctx.contents, ['duration-'], { onlyValue: true, validate: 'timer' })
+  const property = ctx.contents.find((c) => isTransitionProperty(c))
+  const timing = ctx.contents.find((c) => isTransitionTimingFunction(c))
+
+  const inCss = resolveIdentifierInCSS(identifier)
+
+  let setter = setterHead(ctx)
+  setter += setterRow(delay, `${inCss}-delay: ${delay}`, ctx.contents)
+  setter += setterRow(transition, `${inCss}-duration: ${transition}`, ctx.contents)
+  setter += setterRow(delay, `${inCss}-property: ${property}`, ctx.contents)
+  setter += setterRow(timing, `${inCss}-timing-function: ${timing}`, ctx.contents)
 
   return resolveCssClass(identifier, setter, ctx)
 }

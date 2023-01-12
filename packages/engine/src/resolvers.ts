@@ -25,6 +25,8 @@ import {
   getResourceFloat,
   getResourceDisplay,
   getResourceZIndex,
+  getResourceTransition,
+  getResourceTypography,
 } from './resources'
 import { TemplateClassResponsive } from './template'
 
@@ -77,6 +79,10 @@ export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string =>
       return 'display'
     case UnunuraIdentifier.Float:
       return 'float'
+    case UnunuraIdentifier.Typography:
+      return 'text'
+    case UnunuraIdentifier.Transition:
+      return 'transition'
   }
 }
 
@@ -111,6 +117,10 @@ export const resolveCSS = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateCo
       return getResourceDisplay(identifier, ctx)
     case UnunuraIdentifier.Float:
       return getResourceFloat(identifier, ctx)
+    case UnunuraIdentifier.Transition:
+      return getResourceTransition(identifier, ctx)
+    case UnunuraIdentifier.Typography:
+      return getResourceTypography(identifier, ctx)
     case UnunuraIdentifier.Reset: //global
       return NULLABLE
     default:
