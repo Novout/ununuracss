@@ -13,6 +13,7 @@ import {
   isDefaultCentralize,
   isTypographyUnderline,
   isTypographyOverflow,
+  isTypographyTransform,
 } from 'ununura-shared'
 import { classesFromRawHtml, generateCss } from './ast'
 import {
@@ -357,13 +358,13 @@ export const getResourceFlex = (
 export const getResourceTypography = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {
   const indent = findResourceInStart(ctx.contents, ['indent-'], { onlyValue: true })
 
-  // TODO: resolve uppercase
   const letterSpacing = findResourceInStart(ctx.contents, ['lspacing-'], { onlyValue: true })
   const wordSpacing = findResourceInStart(ctx.contents, ['wspacing-'], { onlyValue: true })
   const line = findResourceInStart(ctx.contents, ['line-'], { onlyValue: true })
   const align = ctx.contents.find((c) => isDefaultCentralize(c))
   const decoration = ctx.contents.find((c) => isTypographyUnderline(c))
   const overflow = ctx.contents.find((c) => isTypographyOverflow(c))
+  const transform = ctx.contents.find((c) => isTypographyTransform(c))
   const space = findResourceInStart(ctx.contents, ['space-'], { onlyValue: true })
   const _break = findResourceInStart(ctx.contents, ['break-'], { onlyValue: true })
 
@@ -377,6 +378,7 @@ export const getResourceTypography = (identifier: UnunuraIdentifier, ctx: Ununur
   setter += setterRow(align, `${inCss}-align: ${align}`, ctx.contents)
   setter += setterRow(decoration, `${inCss}-decoration: ${decoration}`, ctx.contents)
   setter += setterRow(overflow, `${inCss}-overflow: ${overflow}`, ctx.contents)
+  setter += setterRow(transform, `${inCss}-transform: ${transform}`, ctx.contents)
   setter += setterRow(space, `white-space: ${space}`, ctx.contents)
   setter += setterRow(_break, `word-break: ${_break}`, ctx.contents)
 

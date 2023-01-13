@@ -269,3 +269,4 @@ export const isTransitionTimingFunction = (i: string): boolean =>
   ['ease', 'ease-in', 'ease-out', 'ease-in-out', 'linear', 'step-start', 'step-end'].some((c) => i === c)
 export const isTypographyUnderline = (i: string): boolean => ['no-underline', 'underline'].some((c) => i === c)
 export const isTypographyOverflow = (i: string): boolean => ['clip', 'ellipsis'].some((c) => i === c)
+export const isTypographyTransform = (i: string): boolean => ['uppercase', 'lowercase', 'capitalize'].some((c) => i === c)

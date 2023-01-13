@@ -620,6 +620,18 @@ describe('transform', () => {
   it('should get css inline class', () => {
     const targets = [
       [
+        resolveCSS(UnunuraIdentifier.Typography, { contents: ['uppercase'], buffer: [], stack: [] }),
+        `.typo-uppercase {
+  text-transform: uppercase;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Typography, { contents: ['capitalize'], buffer: [], stack: [] }),
+        `.typo-capitalize {
+  text-transform: capitalize;
+}`,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Typography, { contents: ['indent-5'], buffer: [], stack: [] }),
         `.typo-indent-5 {
   text-indent: 5;
