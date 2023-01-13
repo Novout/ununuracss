@@ -4,7 +4,7 @@ importers:
 
   .:
     specifiers:
-      '@sveltejs/vite-plugin-svelte': ^2.0.0
+      '@sveltejs/vite-plugin-svelte': ^2.0.2
       '@tsconfig/svelte': ^3.0.0
       '@vitejs/plugin-vue': ^4.0.0
       '@vitest/coverage-c8': ^0.26.2
