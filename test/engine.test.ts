@@ -586,18 +586,39 @@ describe('transform', () => {
 }`,
       ],
       [
-        resolveCSS(UnunuraIdentifier.Transition, {
-          contents: ['delay-200ms', 'duration-1s', 'none', 'ease-in'],
-          buffer: [],
-          stack: [],
-        }),
-        `.tr-delay-200ms-duration-1s-none-ease-in {
-  transition-delay: 200ms;
-  transition-duration: 1s;
-  transition-property: none;
-  transition-timing-function: ease-in;
+        resolveCSS(UnunuraIdentifier.Rounded, { contents: ['1rem'], buffer: [], stack: [] }),
+        `.rounded-1rem {
+  border-radius: 1rem;
 }`,
       ],
+      [
+        resolveCSS(UnunuraIdentifier.Rounded, { contents: ['25px', '2rem'], buffer: [], stack: [] }),
+        `.rounded-25px-2rem {
+  border-radius: 25px 2rem;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Rounded, { contents: ['25px', '2rem'], buffer: ['.rounded-10'], stack: ['xl'] }),
+        `@media (min-width: 1536px) {
+.rounded-10 {
+  border-radius: 25px 2rem;
+}
+}`,
+      ],
+      [resolveCSS(UnunuraIdentifier.Reset, { contents: ['meyer'], buffer: [], stack: [] }), NULLABLE],
+      [resolveCSS(UnunuraIdentifier.Reset, { contents: ['novout'], buffer: [], stack: [] }), NULLABLE],
+      [resolveCSS(UnunuraIdentifier.Margin, { contents: ['2', '10', '5'], buffer: [], stack: [] }), NULLABLE],
+      [resolveCSS(UnunuraIdentifier.Padding, { contents: ['2', '10', '5'], buffer: [], stack: [] }), NULLABLE],
+      [resolveCSS('wrong' as any, { contents: ['foo', 'baz', 'bar'], buffer: [], stack: [] }), NULLABLE],
+    ]
+
+    for (const [cl, result] of targets) {
+      expect(cl).toStrictEqual(result)
+    }
+  })
+
+  it('should get css inline class', () => {
+    const targets = [
       [
         resolveCSS(UnunuraIdentifier.Typography, { contents: ['indent-5'], buffer: [], stack: [] }),
         `.typo-indent-5 {
@@ -653,23 +674,21 @@ describe('transform', () => {
 }`,
       ],
       [
-        resolveCSS(UnunuraIdentifier.Rounded, { contents: ['1rem'], buffer: [], stack: [] }),
-        `.rounded-1rem {
-  border-radius: 1rem;
+        resolveCSS(UnunuraIdentifier.Transform, { contents: ['rotateX-90deg'], buffer: [], stack: [] }),
+        `.tf-rotatex-90deg {
+  transform: rotateX(90deg);
 }`,
       ],
       [
-        resolveCSS(UnunuraIdentifier.Rounded, { contents: ['25px', '2rem'], buffer: [], stack: [] }),
-        `.rounded-25px-2rem {
-  border-radius: 25px 2rem;
+        resolveCSS(UnunuraIdentifier.Transform, { contents: ['skewX-30deg'], buffer: [], stack: [] }),
+        `.tf-skewx-30deg {
+  transform: skewX(30deg);
 }`,
       ],
       [
-        resolveCSS(UnunuraIdentifier.Rounded, { contents: ['25px', '2rem'], buffer: ['.rounded-10'], stack: ['xl'] }),
-        `@media (min-width: 1536px) {
-.rounded-10 {
-  border-radius: 25px 2rem;
-}
+        resolveCSS(UnunuraIdentifier.Transform, { contents: ['rotateX-90deg', 'skewX-30deg'], buffer: [], stack: [] }),
+        `.tf-rotatex-90deg-skewx-30deg {
+  transform: rotateX(90deg) skewX(30deg);
 }`,
       ],
       [
@@ -708,15 +727,23 @@ describe('transform', () => {
   -moz-box-shadow: inset 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
 }`,
       ],
-      [resolveCSS(UnunuraIdentifier.Reset, { contents: ['meyer'], buffer: [], stack: [] }), NULLABLE],
-      [resolveCSS(UnunuraIdentifier.Reset, { contents: ['novout'], buffer: [], stack: [] }), NULLABLE],
-      [resolveCSS(UnunuraIdentifier.Margin, { contents: ['2', '10', '5'], buffer: [], stack: [] }), NULLABLE],
-      [resolveCSS(UnunuraIdentifier.Padding, { contents: ['2', '10', '5'], buffer: [], stack: [] }), NULLABLE],
-      [resolveCSS('wrong' as any, { contents: ['foo', 'baz', 'bar'], buffer: [], stack: [] }), NULLABLE],
+      [
+        resolveCSS(UnunuraIdentifier.Transition, {
+          contents: ['delay-200ms', 'duration-1s', 'none', 'ease-in'],
+          buffer: [],
+          stack: [],
+        }),
+        `.tr-delay-200ms-duration-1s-none-ease-in {
+  transition-delay: 200ms;
+  transition-duration: 1s;
+  transition-property: none;
+  transition-timing-function: ease-in;
+}`,
+      ],
     ]
 
-    for (const [cl, result] of targets) {
-      expect(cl).toStrictEqual(result)
+    for (const [css, result] of targets) {
+      expect(css).toStrictEqual(result)
     }
   })
 

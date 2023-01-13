@@ -27,6 +27,7 @@ import {
   getResourceZIndex,
   getResourceTransition,
   getResourceTypography,
+  getResourceTransform,
 } from './resources'
 import { TemplateClassResponsive } from './template'
 
@@ -83,6 +84,8 @@ export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string =>
       return 'text'
     case UnunuraIdentifier.Transition:
       return 'transition'
+    case UnunuraIdentifier.Transform:
+      return 'transform'
   }
 }
 
@@ -119,6 +122,8 @@ export const resolveCSS = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateCo
       return getResourceFloat(identifier, ctx)
     case UnunuraIdentifier.Transition:
       return getResourceTransition(identifier, ctx)
+    case UnunuraIdentifier.Transform:
+      return getResourceTransform(identifier, ctx)
     case UnunuraIdentifier.Typography:
       return getResourceTypography(identifier, ctx)
     case UnunuraIdentifier.Reset: //global

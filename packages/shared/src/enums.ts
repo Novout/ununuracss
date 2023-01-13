@@ -17,6 +17,7 @@ export enum UnunuraIdentifier {
   Display = 'display',
   Float = 'float',
   Transition = 'tr',
+  Transform = 'tf',
   Typography = 'typo',
 }
 

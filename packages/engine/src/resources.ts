@@ -394,8 +394,45 @@ export const getResourceTransition = (identifier: UnunuraIdentifier, ctx: Ununur
   let setter = setterHead(ctx)
   setter += setterRow(delay, `${inCss}-delay: ${delay}`, ctx.contents)
   setter += setterRow(transition, `${inCss}-duration: ${transition}`, ctx.contents)
-  setter += setterRow(delay, `${inCss}-property: ${property}`, ctx.contents)
+  setter += setterRow(property, `${inCss}-property: ${property}`, ctx.contents)
   setter += setterRow(timing, `${inCss}-timing-function: ${timing}`, ctx.contents)
+
+  return resolveCssClass(identifier, setter, ctx)
+}
+
+export const getResourceTransform = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {
+  const rotate = findResourceInStart(ctx.contents, ['rotate-'], { onlyValue: true })
+  const rotateX = findResourceInStart(ctx.contents, ['rotateX-'], { onlyValue: true })
+  const rotateY = findResourceInStart(ctx.contents, ['rotateY-'], { onlyValue: true })
+  const rotateZ = findResourceInStart(ctx.contents, ['rotateZ-'], { onlyValue: true })
+  const translateX = findResourceInStart(ctx.contents, ['translateX-'], { onlyValue: true })
+  const translateY = findResourceInStart(ctx.contents, ['translateY-'], { onlyValue: true })
+  const translateZ = findResourceInStart(ctx.contents, ['translateZ-'], { onlyValue: true })
+  const scaleX = findResourceInStart(ctx.contents, ['scaleX-'], { onlyValue: true })
+  const scaleY = findResourceInStart(ctx.contents, ['scaleY-'], { onlyValue: true })
+  const scaleZ = findResourceInStart(ctx.contents, ['scaleZ-'], { onlyValue: true })
+  const skewX = findResourceInStart(ctx.contents, ['skewX-'], { onlyValue: true })
+  const skewY = findResourceInStart(ctx.contents, ['skewY-'], { onlyValue: true })
+  const perspective = findResourceInStart(ctx.contents, ['perspective-'], { onlyValue: true })
+
+  const inCss = resolveIdentifierInCSS(identifier)
+
+  let setter = setterHead(ctx)
+  setter += `  ${inCss}: `
+  setter += !isNullable(rotate) ? `rotate(${rotate}) ` : ''
+  setter += !isNullable(rotateX) ? `rotateX(${rotateX}) ` : ''
+  setter += !isNullable(rotateY) ? `rotateY(${rotateY}) ` : ''
+  setter += !isNullable(rotateZ) ? `rotateZ(${rotateZ}) ` : ''
+  setter += !isNullable(translateX) ? `translateX(${translateX}) ` : ''
+  setter += !isNullable(translateY) ? `translateY(${translateY}) ` : ''
+  setter += !isNullable(translateZ) ? `translateZ(${translateZ}) ` : ''
+  setter += !isNullable(scaleX) ? `scaleX(${scaleX}) ` : ''
+  setter += !isNullable(scaleY) ? `scaleY(${scaleY}) ` : ''
+  setter += !isNullable(scaleZ) ? `scaleZ(${scaleZ}) ` : ''
+  setter += !isNullable(skewX) ? `skewX(${skewX}) ` : ''
+  setter += !isNullable(skewY) ? `skewY(${skewY}) ` : ''
+  setter += !isNullable(perspective) ? `perspective(${perspective}) ` : ''
+  setter = setter.trimEnd() + ';\n'
 
   return resolveCssClass(identifier, setter, ctx)
 }
