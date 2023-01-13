@@ -3,7 +3,7 @@
   "scripts": {
     "demo:nuxt": "nuxt dev",
     "generate:nuxt": "nuxt generate",
-    "preview:nuxt": "nuxt build && nuxt preview",
+    "preview:nuxt": "nuxt build && nuxt preview --port 4000",
     "nuxtprepare": "nuxt prepare"
   },
   "devDependencies": {

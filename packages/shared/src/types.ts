@@ -4,7 +4,7 @@ export type CSSInject = string
 
 // TODO: <template>${string}</template>
 export type VueSFC = string
-
+export type SvelteSFC = string
 // Ununura Internals
 export type UnunuraBounce = 'padding' | 'margin' | 'border' | 'text' | 'background' | 'flex' | 'grid'
 export type UnunuraContextualizeTheme = 'light' | 'dark' | 'sepia'

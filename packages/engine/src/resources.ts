@@ -265,6 +265,7 @@ export const getResourceShadow = (
   const vertical = findResourceInStart(ctx.contents, ['v-'], { onlyValue: true })
   const blur = findResourceInStart(ctx.contents, ['blur-'], { onlyValue: true })
   const radius = findResourceInStart(ctx.contents, ['radius-'], { onlyValue: true })
+  const none = findResource(ctx.contents, ['none'])
   const inset = findResource(ctx.contents, ['inset'])
 
   const isTextCase = ctx.contents.find((c) => c === 'text')
@@ -278,7 +279,7 @@ export const getResourceShadow = (
 
     const value = `${horizontalResolved}${verticalResolved}${blurResolved}${colorResolved};\n`
 
-    setter += `  text-shadow: ${value}`
+    setter += `  text-shadow: ${!isNullable(none) ? 'none;\n' : value}`
   } else {
     const colorResolved = isNullable(color) ? 'rgba(0, 0, 0, 0.5)' : color
     const horizontalResolved = isNullable(horizontal) ? '5px' : horizontal + 'px'
@@ -290,9 +291,9 @@ export const getResourceShadow = (
       !isNullable(inset) ? `${inset} ` : ''
     }${horizontalResolved} ${verticalResolved} ${blurResolved} ${radiusResolved} ${colorResolved};\n`
 
-    setter += `  box-shadow: ${value}`
-    setter += `  -webkit-box-shadow: ${value}`
-    setter += `  -moz-box-shadow: ${value}`
+    setter += `  box-shadow: ${!isNullable(none) ? 'none;\n' : value}`
+    setter += `  -webkit-box-shadow: ${!isNullable(none) ? 'none;\n' : value}`
+    setter += `  -moz-box-shadow: ${!isNullable(none) ? 'none;\n' : value}`
   }
 
   return resolveCssClass(identifier, setter, ctx)

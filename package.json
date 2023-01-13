@@ -11,8 +11,10 @@
     "test:dev": "vitest",
     "demo:vue": "pnpm build && pnpm -r --filter=./examples/* run demo:vue",
     "demo:nuxt": "pnpm build && pnpm -r --filter=./examples/* run demo:nuxt",
+    "demo:svelte": "pnpm build && pnpm -r --filter=./examples/* run demo:svelte",
     "preview:vue": "pnpm build && pnpm -r --filter=./examples/* run preview:vue",
     "preview:nuxt": "pnpm build && pnpm -r --filter=./examples/* run preview:nuxt",
+    "preview:svelte": "pnpm build && pnpm -r --filter=./examples/* run preview:svelte",
     "patch": "generi log patch",
     "minor": "generi log minor",
     "major": "generi log major",
@@ -20,6 +22,12 @@
     "prepublish": "pnpm run build"
   },
   "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^2.0.2",
+    "@tsconfig/svelte": "^3.0.0",
+    "svelte": "^3.54.0",
+    "svelte-check": "^2.10.0",
+    "tslib": "^2.4.1",
+    "vite": "^4.0.0",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitest/coverage-c8": "^0.26.2",
     "concurrently": "^7.6.0",

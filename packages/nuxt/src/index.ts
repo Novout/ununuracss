@@ -1,6 +1,6 @@
 import { addPluginTemplate, defineNuxtModule, isNuxt2 } from '@nuxt/kit'
 import type { NuxtPlugin } from '@nuxt/schema'
-import ununura from 'ununura'
+import { ununura } from 'ununura'
 
 export default defineNuxtModule({
   meta: {

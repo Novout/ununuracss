@@ -1,0 +1,12 @@
+{
+  "name": "vite-svelte-demo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "demo:svelte": "vite --port 3000",
+    "preview:svelte": "vite build && vite preview --port 5000"
+  },
+  "dependencies": {
+    "ununura": "workspace:*"
+  }
+}
