@@ -2,22 +2,27 @@ import { MEYER_RESET_CSS, NOVOUT_RESET_CSS } from 'ununura-shared'
 import { classesFromRawHtml } from './ast'
 
 export const getGlobals = (files?: string[]) => {
-  const globals = files?.reduce((sum, file) => (sum += classesFromRawHtml(file)), '')?.split(' ')
-  const asReset = globals?.find((c) => c.startsWith('reset'))
+  const buffer: string[] = []
+
+  files?.forEach((file) => {
+    const raw = classesFromRawHtml(file)
+
+    buffer.push(...raw)
+  })
+
+  const bufferReduced = buffer?.reduce((sum, i) => (sum += `${i} `), '') ?? ''
 
   let setter = ''
-  setter += asReset ? getGlobalReset(asReset) : ''
+  setter += getGlobalReset(bufferReduced)
 
   return setter
 }
 
-export const getGlobalReset = (reset?: string): string => {
-  if (!reset) return ''
+export const getGlobalReset = (raw?: string): string => {
+  if (!raw) return ''
 
-  const [_, target] = reset.split(':')
-
-  const novoutReset = target === 'novout'
-  const meyerReset = target === 'meyer'
+  const novoutReset = raw.includes('reset:novout')
+  const meyerReset = raw.includes('reset:meyer')
 
   if (novoutReset) return NOVOUT_RESET_CSS()
   if (meyerReset) return MEYER_RESET_CSS()

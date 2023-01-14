@@ -1,4 +1,4 @@
-import { generateCSSResources, UnunuraVueSFCFile } from 'ununura-engine'
+import { generateCSSResources, UnunuraScopedSFCFile } from 'ununura-engine'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 describe('resolvers', () => {
@@ -47,7 +47,8 @@ describe('resolvers', () => {
   it('should set new sfc', () => {
     const targets = [
       [
-        UnunuraVueSFCFile(`<template>
+        UnunuraScopedSFCFile(
+          `<template>
   <div class="reset:novout flex[col wrap] w[100%] dark(w[50%])">
     <div class="m[0 10 0 0] p:20 border[5 yellow] pos[absolute right-0 left-0]">
       a some test
@@ -55,7 +56,9 @@ describe('resolvers', () => {
     <p>m[0 10 0 0]</p>
   </div>
   <div />
-</template>`),
+</template>`,
+          'vue'
+        ),
         `<template>
   <div class="flex-col-wrap w-100 w-50-dark">
     <div class="m-0-10-0-0 p-20 border-5-yellow pos-absolute-right-0-left-0">
