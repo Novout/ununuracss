@@ -7,6 +7,7 @@ export const isDefaultCentralize = (i: string): boolean => ['center', 'left', 'r
 export const isHex = (i: string): boolean => /^#[0-9a-fA-F]{6}/i.test(i)
 export const isNumber = (i: string): boolean => /[-]{0,1}[\d]*[.]{0,1}[\d]+/i.test(i)
 export const isVueFile = (i: string) => /\.(vue)$/.test(i)
+export const isScopedSFCFile = (i: string) => isVueFile(i) || isSvelteFile(i)
 export const isSvelteFile = (i: string) => /\.(svelte)$/.test(i)
 export const isCSSColor = (i: string): boolean =>
   [

@@ -14,7 +14,7 @@ export const UnunuraGlobalGenerate = async (options?: UnunuraCoreOptions): Promi
   return getGlobals(files)
 }
 
-export const UnunuraVueSFCFile = (sfc: VueSFC): CSSInject => {
+export const UnunuraScopedSFCFile = (sfc: VueSFC | SvelteSFC, type: 'vue' | 'svelte'): CSSInject => {
   const scopedBuffer: string[] = []
   const raw = classesFromRawHtml(sfc)
 
@@ -33,27 +33,5 @@ export const UnunuraVueSFCFile = (sfc: VueSFC): CSSInject => {
 
   const bufferRaw = scopedBuffer.reduce((acc, css) => (acc += `${css}\n`))
 
-  return `${_code}\n\n<style scoped>\n${bufferRaw.trimEnd()}\n</style>`
-}
-
-export const UnunuraSvelteSFCFile = (sfc: SvelteSFC): CSSInject => {
-  const scopedBuffer: string[] = []
-  const raw = classesFromRawHtml(sfc)
-
-  let _code = sfc
-
-  raw.forEach((classTitle) => {
-    const generated = generateCss(lex(classTitle)).replace(/__NULLABLE__\n/, '')
-
-    const resolvedClassTitle = purgeOnlyCssClassTitle(generated)
-    _code = _code.replaceAll(classTitle, resolvedClassTitle)
-
-    scopedBuffer.push(generated)
-  })
-
-  if (scopedBuffer.length === 0) return sfc
-
-  const bufferRaw = scopedBuffer.reduce((acc, css) => (acc += `${css}\n`))
-
-  return `${_code}\n\n<style>\n${bufferRaw.trimEnd()}\n</style>`
+  return `${_code}\n\n<style${type === 'vue' ? ' scoped' : ''}>\n${bufferRaw.trimEnd()}\n</style>`
 }
