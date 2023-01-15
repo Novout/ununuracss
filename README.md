@@ -1,4 +1,4 @@
-# (WIP) UnunuraCSS
+# UnunuraCSS
 
 A different form to interpreter Atomic CSS focused on vite ecosystem.
 
@@ -9,13 +9,15 @@ A different form to interpreter Atomic CSS focused on vite ecosystem.
 
 ## Features
 
-- 0kb default injected css;
+- Supports [Vue](./packages/vite/README.md), [Nuxt](./packages/nuxt/README.md) and [Svelte](./packages/vite/README.md);
+- 0kb default injected .css;
+- Only scoped;
+- Class-raw based;
 - [Fontaine](https://github.com/danielroe/fontaine) integrated;
 - No directives / presets;
-- Only class-raw based;
 - Dynamic identifiers (rules) with unique/multiple engine;
 - Nullable options/classes;
-- External contexts integrated (fonts/public files...).
+- External contexts (fonts/public files...).
 
 ## Motivation
 
@@ -23,90 +25,128 @@ Reading how [UnoCSS](https://github.com/unocss/unocss) was designed, he had the 
 
 **ATTENTION!** UnunuraCSS was not designed for medium-large projects that require standardized resources.
 
-## Example with Vue
-
-`pnpm add -D ununura`
-
-```ts
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import { ununura } from 'ununura'
-
-export default defineConfig({
-  plugins: [vue(), ununura()],
-})
-```
-
-## Example with Svelte
-
-`pnpm add -D ununura`
-
-> Insert the ununura plugin in first position
-
-```ts
-import { defineConfig } from 'vite'
-import { svelte } from '@sveltejs/vite-plugin-svelte'
-import { ununura } from 'ununura'
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [ununura(), svelte()],
-})
-
-```
-
-## Example with Nuxt
-
-`pnpm add -D ununura-nuxt`
-
-```ts
-export default defineNuxtConfig({
-  modules: ['ununura-nuxt'],
-})
-```
-
-## Template Example
+## Simple Example
 
 ```html
 <template>
   <main class="reset:meyer">
-    <div class="flex[col h-center v-center] bg:black w:100% h:100vh text[arial white 2rem 700]">Hello UnunuraCSS!</div>
+    <div class="flex[col h-center v-center] p[top 2rem] m[0 10] bg:black w:100% h:100vh text[arial white 2rem 700]">Hello UnunuraCSS!</div>
   </main>
 </template>
 ```
 
-> ATTENTION! Insert 'ununura.css' in your svelte/vue entrypoint.
+## Structure
 
-## Syntax
+#### Single Resources
 
-### Unique Resource Examples
+`context?(...<identifier>:<resource>)`
 
-`text:arial`
+`text:1.5rem`
 
-`text:xl`
+`text:1.5rem md(text:1.5rem)`
 
-`p:0.25rem`
+#### Multiple Resources
 
-`m:5`
+`context?(...<identifier>[<...resources>])`
 
-`border:2`
+`text[arial 1.5rem #FF00FF 500]`
 
-`bg:white`
+`text[1.5rem 500] dark(text[arial 1.5rem #FF00FF 500] hover(text[roboto 1.5rem rgba-255-255-255.05 500]))`
 
-`bg:/image_in_public_file.png`
+### Identifiers
 
-### Multiple Resource Examples
+Identifiers are reserved names that will create a class from the content (resources) passed before a white space. Because they are reserved names, it is recommended `not to use external classes with the name of one of the identifiers`.
 
-`text[arial lg #FF00FF]`
+```html
+// Correct
+<div class="foo bar text:white baz" />
 
-`text[yellow bold]`
+// WRONG!
+<div class="text-class bar text:white baz" />
+```
 
-`p[0 10.5rem]`
+### Resources
 
-`m[10 2rem 0 0]`
+Resources are generic names that will be resolved by identifier given the need or existence of validation. If the resource is not valid for the identifier in question, the resource will be ignored.
 
-`border[1 solid --css-var-color]`
+#### Supporters
 
-`bg[rgba-255-255-0-0.5 bold]`
+Each identifier handles, through the supports, a way of interpreting what is described in a unique and simple way. For example, you can pass the color to an identifier in several ways:
 
-`bg[/image_in_public_file.jpeg cover]`
+`text:yellow` CSS Default Colors
+
+`text:#FF0000` HEX
+
+`text:rgb-255-255-255` RGB
+
+`text:rgba-255-255-255-0.5` RGBA
+
+`text:hsl-30%-0-60%` HSL
+
+`text:hsla-30%-0-60%-0.5` HSLA
+
+`text:--primary-color` CSS Variables
+
+`text:transparent` Transparent
+
+#### Globals
+
+Any resource can receive `globals`, genetic resources that interfere with identifier resolution
+
+- ! Important: Applies `!important` in all resources
+
+`text[! red]` -> `color: red !important;`
+
+- ? None: Remove all implicit resources from identifier
+
+`flex[? flex-1]` -> Removes `display: flex;`
+
+#### Nullable
+
+Any identifier and resource set that cannot be resolved (wrong) is treated as null and removed in the final transformation. This model facilitates the handling of errors by the template and asks the user to follow the proposed pattern.
+
+```html
+<div class="text:15px" /> -> <div class="text-15px" />
+
+<div class="text:15pxxx" /> -> <div class="" />
+```
+
+#### Purge Titles
+
+Ununura accepts any character type and transforms whatever is necessary to be compatible with the css specification. For example, you can pass url or path to `background-url` natively:
+
+`bg:/foo.png` /public vite folder
+
+`bg://foo.jpeg` https url (not insert https:)
+
+### Context
+
+Context is way for applying context without directly interfering with what is resolved by identifiers, suffixing or prefixing the class as needed. For example, the context `dark` will always apply `.dark .resolved-class-here`, regardless of the created class. Contexts are treated internally as a stack and only the first case found of specific context type is considered (i.e. md(xl(class-here)) will be considered as just `md(class-here)`) because md and xl are part of the same context (responsiveness).\
+
+> ATTENTION! Globals need to be last in the class as they use identifiers without any context to generate their classes. Example:
+
+```html
+// Correct
+<div class="cursor:pointer md(cursor:none)" />
+
+// WRONG!
+<div class="md(cursor:none) cursor:pointer" />
+```
+
+#### Responsive
+
+`xs | md | lg | xl`
+
+`w:100% md(w:500px)`
+
+#### Theme
+
+`dark | light | sepia`
+
+`text:black dark(text:#CCCCCC)`
+
+#### Pseudo-Class
+
+`hover | active | focus | link | etc..`
+
+`bg:gray hover(bg:none border[2 black solid])`
