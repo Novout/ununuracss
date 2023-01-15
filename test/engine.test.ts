@@ -14,13 +14,9 @@ import {
   resolveIdentifierInCSS,
 } from 'ununura-engine'
 import { isKey, MEYER_RESET_CSS, NOVOUT_RESET_CSS, NULLABLE, UnunuraIdentifier } from 'ununura-shared'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 describe('lexer', () => {
-  beforeEach(() => {
-    Math.random = () => -1
-  })
-
   it('should lex a css class', () => {
     const targets = [
       [

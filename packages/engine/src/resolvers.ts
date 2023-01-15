@@ -10,7 +10,6 @@ import {
   isPseudoClassContextIdentifier,
 } from 'ununura-shared'
 import { purgeOnlyCssClassTitle } from './purge'
-import { randomizeClassKey } from './randomizer'
 import {
   getResourceText,
   getResourceBorder,
@@ -42,7 +41,7 @@ export const resolveTitleToClassName = (title: string) => {
     .replaceAll('!', '_important_')
     .toLowerCase()
 
-  return randomizeClassKey(normalized)
+  return normalized
 }
 
 export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string => {

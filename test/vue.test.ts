@@ -2,10 +2,6 @@ import { generateCSSResources, UnunuraScopedSFCFile } from 'ununura-engine'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 describe('resolvers', () => {
-  beforeEach(() => {
-    Math.random = () => -1
-  })
-
   it('should transform correct sfc', () => {
     const targets = [
       [
