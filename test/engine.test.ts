@@ -196,6 +196,18 @@ describe('transform', () => {
 }`,
       ],
       [
+        resolveCSS(UnunuraIdentifier.Padding, { contents: ['left', '30px'], buffer: [], stack: [] }),
+        `.p-left-30px {
+  padding-left: 30px;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Padding, { contents: ['b', '30px'], buffer: [], stack: [] }),
+        `.p-b-30px {
+  padding-bottom: 30px;
+}`,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Padding, { contents: ['0.25'], buffer: [], stack: ['hover'] }),
         `.p-025:hover {
   padding: 0.25px;
@@ -229,6 +241,18 @@ describe('transform', () => {
         resolveCSS(UnunuraIdentifier.Margin, { contents: ['50%', '25ch'], buffer: [], stack: [] }),
         `.m-50-25ch {
   margin: 50% 25ch;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Margin, { contents: ['top', '2rem'], buffer: [], stack: [] }),
+        `.m-top-2rem {
+  margin-top: 2rem;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Margin, { contents: ['t', '2rem'], buffer: [], stack: [] }),
+        `.m-t-2rem {
+  margin-top: 2rem;
 }`,
       ],
       [

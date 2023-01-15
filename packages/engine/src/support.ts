@@ -1,4 +1,5 @@
 import {
+  findResource,
   findResourceInStart,
   isCSSColor,
   isCursor,
@@ -18,6 +19,7 @@ import {
   Nullable,
   NULLABLE,
 } from 'ununura-shared'
+import { m } from 'vitest/dist/index-1cfc7f58'
 
 export const getSupportedMinOrMax = (contents: string[]): Nullable<string> => {
   const min = contents.find((c) => c === 'min')
@@ -71,6 +73,19 @@ export const getSupportedColor = (contents: string[]): Nullable<string> => {
     CSSVarColorResolved ??
     TransparentColor ??
     NULLABLE
+  )
+}
+
+export const getSupportedDirection = (contents: string[]) => {
+  const direction = findResource(contents, ['t', 'top', 'left', 'l', 'right', 'r', 'bottom', 'b'])
+
+  return (
+    {
+      t: 'top',
+      l: 'left',
+      b: 'bottom',
+      r: 'right',
+    }[direction] || direction
   )
 }
 

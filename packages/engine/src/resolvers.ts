@@ -14,7 +14,6 @@ import { randomizeClassKey } from './randomizer'
 import {
   getResourceText,
   getResourceBorder,
-  getResourceSpreadValues,
   getResourceFlex,
   getResourceWidthOrHeight,
   getResourceBackground,
@@ -28,6 +27,8 @@ import {
   getResourceTransition,
   getResourceTypography,
   getResourceTransform,
+  getResourceRounded,
+  getResourcePaddingOrMargin,
 } from './resources'
 import { TemplateClassResponsive } from './template'
 
@@ -93,8 +94,9 @@ export const resolveCSS = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateCo
   switch (identifier) {
     case UnunuraIdentifier.Margin:
     case UnunuraIdentifier.Padding:
+      return getResourcePaddingOrMargin(identifier, ctx)
     case UnunuraIdentifier.Rounded:
-      return getResourceSpreadValues(identifier, ctx)
+      return getResourceRounded(identifier, ctx)
     case UnunuraIdentifier.Height:
     case UnunuraIdentifier.Width:
       return getResourceWidthOrHeight(identifier, ctx)

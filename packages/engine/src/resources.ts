@@ -19,6 +19,7 @@ import { classesFromRawHtml, generateCss } from './ast'
 import {
   getSupportedColor,
   getSupportedCursor,
+  getSupportedDirection,
   getSupportedFlexDirection,
   getSupportedFlexGap,
   getSupportedFlexGrow,
@@ -81,7 +82,30 @@ export const generateCSSResources = (raw: string) => {
   }, '')
 }
 
-export const getResourceSpreadValues = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {
+export const getResourcePaddingOrMargin = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {
+  const values = validateSpreadAllResource(ctx.contents)
+
+  const direction = getSupportedDirection(ctx.contents)
+  const size = getSupportedNumber(ctx.contents)
+
+  const inCss = resolveIdentifierInCSS(identifier)
+
+  let setter = setterHead(ctx)
+
+  if (!isNullable(direction) && !isNullable(size)) {
+    setter += setterRow(direction, `${inCss}-${direction}: ${size}`, ctx.contents)
+  } else {
+    if (values.length === 0) return NULLABLE
+
+    const spread = `${inCss}:${values.reduce((sum, acc) => (sum += ` ${getSupportedNumber([acc])}`), '')}`
+
+    setter += setterRow('' as any, spread, ctx.contents)
+  }
+
+  return resolveCssClass(identifier, setter, ctx)
+}
+
+export const getResourceRounded = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {
   const values = validateSpreadAllResource(ctx.contents)
 
   if (values.length === 0) return NULLABLE
