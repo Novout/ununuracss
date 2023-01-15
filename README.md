@@ -9,10 +9,11 @@ A different form to interpreter Atomic CSS focused on vite ecosystem.
 
 ## Features
 
-- Supports [Vue](./packages/vite/README.md), [Nuxt](./packages/nuxt/README.md) and [Svelte](./packages/vite/README.md);
+- [Vue](./packages/vite/README.md), [Nuxt](./packages/nuxt/README.md) and [Svelte](./packages/vite/README.md);
 - 0kb default injected .css;
 - Only scoped;
 - Class-raw based;
+- Native purge;
 - [Fontaine](https://github.com/danielroe/fontaine) integrated;
 - No directives / presets;
 - Dynamic identifiers (rules) with unique/multiple engine;
@@ -30,7 +31,9 @@ Reading how [UnoCSS](https://github.com/unocss/unocss) was designed, he had the 
 ```html
 <template>
   <main class="reset:meyer">
-    <div class="flex[col h-center v-center] p[top 2rem] m[0 10] bg:black w:100% h:100vh text[arial white 2rem 700]">Hello UnunuraCSS!</div>
+    <div class="flex[col h-center v-center] border[2 white solid] p[top 2rem] m[0 10] bg:black w:100% h:100vh">
+      <p class="text[arial white 2rem 700]">Hello UnunuraCSS!</p>
+    </div>
   </main>
 </template>
 ```
@@ -55,7 +58,7 @@ Reading how [UnoCSS](https://github.com/unocss/unocss) was designed, he had the 
 
 ### Identifiers
 
-Identifiers are reserved names that will create a class from the content (resources) passed before a white space. Because they are reserved names, it is recommended `not to use external classes with the name of one of the identifiers`.
+Identifiers are reserved names that will create a class from the content (resources) passed before a white space. Because they are reserved names, it is recommended `not to use external classes with the name of one of the identifiers`. Find the list of identifiers by [clicking here.](./packages/shared/src/enums.ts)
 
 ```html
 // Correct
@@ -64,6 +67,14 @@ Identifiers are reserved names that will create a class from the content (resour
 // WRONG!
 <div class="text-class bar text:white baz" />
 ```
+
+#### Reset
+
+The `reset` identifier does not create a class, but rather inserts a bunch of classes globally. Example:
+
+`<div class="reset:meyer" />` -> [Meyer Reset CSS](https://meyerweb.com/eric/tools/css/reset/)
+
+`<div class="reset:novout" />` -> [Ununura Creator Reset CSS](./packages/shared/src/defines.ts)
 
 ### Resources
 
@@ -91,7 +102,7 @@ Each identifier handles, through the supports, a way of interpreting what is des
 
 #### Globals
 
-Any resource can receive `globals`, genetic resources that interfere with identifier resolution
+Any resource can receive `globals`, generic resources that interfere with identifier resolution
 
 - ! Important: Applies `!important` in all resources
 
@@ -121,7 +132,7 @@ Ununura accepts any character type and transforms whatever is necessary to be co
 
 ### Context
 
-Context is way for applying context without directly interfering with what is resolved by identifiers, suffixing or prefixing the class as needed. For example, the context `dark` will always apply `.dark .resolved-class-here`, regardless of the created class. Contexts are treated internally as a stack and only the first case found of specific context type is considered (i.e. md(xl(class-here)) will be considered as just `md(class-here)`) because md and xl are part of the same context (responsiveness).\
+Context is way for applying context without directly interfering with what is resolved by identifiers, suffixing or prefixing the class as needed. For example, the context `dark` will always apply `.dark .resolved-class-here`, regardless of the created class. Contexts are treated internally as a stack and only the first case found of specific context type is considered (i.e. md(xl(class-here)) will be considered as just md(class-here) because md and xl are part of the same context (responsiveness)).
 
 > ATTENTION! Globals need to be last in the class as they use identifiers without any context to generate their classes. Example:
 

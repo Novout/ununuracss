@@ -30,3 +30,5 @@ export default defineConfig({
 ```
 
 > ATTENTION! Insert 'ununura.css' in your svelte/vue entrypoint.
+
+> ATTENTION! Uses `type: module` in `package.json`
