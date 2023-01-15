@@ -1,3 +1,5 @@
+import { pseudoClass } from 'ununura-shared'
+
 export const purgeCSS = (buffer: string) => {
   return (
     '.' +
@@ -11,7 +13,7 @@ export const purgeCSS = (buffer: string) => {
 }
 
 export const purgeOnlyCssClassTitle = (css: string): string => {
-  return `\n${css}`
+  let def = `\n${css}`
     .split('\n.')
     .filter(Boolean)
     .join('{')
@@ -20,5 +22,8 @@ export const purgeOnlyCssClassTitle = (css: string): string => {
     .map((v) => v.trim())
     .join(' ')
     .replace(/(.dark .|.light .|.sepia .)/, ' ')
-    .replace(/(:hover|:active|:focus)/, '')
+
+  pseudoClass.forEach((cl) => def.replaceAll(`:${cl}`, ''))
+
+  return def
 }

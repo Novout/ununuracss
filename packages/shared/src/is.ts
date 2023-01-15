@@ -1,5 +1,5 @@
 import { NULLABLE } from './constants'
-import { browserFonts, googleFonts } from './defines'
+import { browserFonts, googleFonts, pseudoClass } from './defines'
 import { UnunuraGlobals, UnunuraIdentifier, UnunuraKeys } from './enums'
 import { Option, UnunuraContextualizePseudoClasses, UnunuraContextualizeResponsive } from './types'
 
@@ -258,30 +258,7 @@ export const isThemeContextIdentifier = (str: string) => ['dark', 'light', 'sepi
 export const isResponsiveContextIdentifier = (str: string): Option<UnunuraContextualizeResponsive> =>
   ['xs', 'sm', 'md', 'lg', 'xl']?.find((key) => key === str) as Option<UnunuraContextualizeResponsive>
 export const isPseudoClassContextIdentifier = (str: string): Option<UnunuraContextualizePseudoClasses> =>
-  [
-    'hover',
-    'focus',
-    'active',
-    'checked',
-    'disabled',
-    'empty',
-    'enabled',
-    'first-child',
-    'first-of-type',
-    'in-range',
-    'invalid',
-    'last-child',
-    'last-of-type',
-    'link',
-    'only-child',
-    'optional',
-    'out-of-range',
-    'read-only',
-    'read-write',
-    'required',
-    'valid',
-    'visited',
-  ]?.find((key) => key === str) as Option<UnunuraContextualizePseudoClasses>
+  pseudoClass?.find((key) => key === str) as Option<UnunuraContextualizePseudoClasses>
 export const isContextIdentifier = (str: string) =>
   isThemeContextIdentifier(str) || isResponsiveContextIdentifier(str) || isPseudoClassContextIdentifier(str)
 export const isCommonIdentifier = (str: string) => Object.values(UnunuraIdentifier).some((key) => key === str)

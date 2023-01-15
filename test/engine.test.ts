@@ -208,12 +208,6 @@ describe('transform', () => {
 }`,
       ],
       [
-        resolveCSS(UnunuraIdentifier.Padding, { contents: ['0.25'], buffer: [], stack: ['hover'] }),
-        `.p-025:hover {
-  padding: 0.25px;
-}`,
-      ],
-      [
         resolveCSS(UnunuraIdentifier.Margin, { contents: ['2'], buffer: [], stack: [] }),
         `.m-2 {
   margin: 2px;
@@ -810,6 +804,33 @@ describe('transform', () => {
     }
   })
 
+  it('should get css class in raw context', () => {
+    const targets = [
+      [
+        resolveCSS(UnunuraIdentifier.Cursor, { contents: ['none'], buffer: [], stack: ['hover'] }),
+        `.cursor-none:hover {
+  cursor: none;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Padding, { contents: ['5rem'], buffer: [], stack: ['link'] }),
+        `.p-5rem:link {
+  padding: 5rem;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Rounded, { contents: ['2rem'], buffer: [], stack: ['valid'] }),
+        `.rounded-2rem:valid {
+  border-radius: 2rem;
+}`,
+      ],
+    ]
+
+    for (const [css, result] of targets) {
+      expect(css).toStrictEqual(result)
+    }
+  })
+
   it('should generate correct classes from raw context', () => {
     const targets = [
       [
@@ -903,6 +924,7 @@ describe('css', () => {
         '.m-15-0-10-0',
       ],
       [resolveTitleCssClass(UnunuraIdentifier.Flexbox, { contents: ['flex-1'], buffer: [], stack: [] }), '.flex-flex-1'],
+      [resolveTitleCssClass(UnunuraIdentifier.Flexbox, { contents: ['flex-1'], buffer: [], stack: ['hover'] }), '.flex-flex-1'],
       [
         resolveTitleCssClass(UnunuraIdentifier.Background, { contents: ['rgba-255-255-255-0.3)'], buffer: [], stack: [] }),
         '.bg-rgba-255-255-255-03',

@@ -69,6 +69,31 @@ table {
 }
 `
 
+export const pseudoClass = [
+  'hover',
+  'focus',
+  'active',
+  'checked',
+  'disabled',
+  'empty',
+  'enabled',
+  'first-child',
+  'first-of-type',
+  'in-range',
+  'invalid',
+  'last-child',
+  'last-of-type',
+  'link',
+  'only-child',
+  'optional',
+  'out-of-range',
+  'read-only',
+  'read-write',
+  'required',
+  'valid',
+  'visited',
+]
+
 export const browserFonts = [
   'Arial',
   'Arial Black',
