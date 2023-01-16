@@ -582,6 +582,18 @@ describe('transform', () => {
 }`,
       ],
       [
+        resolveCSS(UnunuraIdentifier.Cursor, { contents: ['events-auto'], buffer: [], stack: [] }),
+        `.cursor-events-auto {
+  pointer-events: auto;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Cursor, { contents: ['events-none'], buffer: [], stack: [] }),
+        `.cursor-events-none {
+  pointer-events: none;
+}`,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Float, { contents: ['right'], buffer: [], stack: [] }),
         `.float-right {
   float: right;

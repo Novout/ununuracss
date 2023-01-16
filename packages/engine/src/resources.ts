@@ -329,9 +329,11 @@ export const getResourceCursor = (
   ctx: UnunuraGenerateContext
 ): string => {
   const cursor = getSupportedCursor(ctx.contents)
+  const events = findResourceInStart(ctx.contents, ['events-'], { onlyValue: true })
 
   let setter = setterHead(ctx)
   setter += setterRow(cursor, `cursor: ${cursor}`, ctx.contents)
+  setter += setterRow(events, `pointer-events: ${events}`, ctx.contents)
 
   return resolveCssClass(identifier, setter, ctx)
 }
