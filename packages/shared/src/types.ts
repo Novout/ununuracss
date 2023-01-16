@@ -6,6 +6,7 @@ export type CSSInject = string
 export type VueSFC = string
 export type SvelteSFC = string
 export type JSXSFC = string
+export type SFC = VueSFC | SvelteSFC | JSXSFC
 // Ununura Internals
 export type UnunuraBounce = 'padding' | 'margin' | 'border' | 'text' | 'background' | 'flex' | 'grid'
 export type UnunuraContextualizeTheme = 'light' | 'dark' | 'sepia'

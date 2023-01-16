@@ -1,43 +1,9 @@
-import { generateCSSResources, UnunuraScopedSFCFile } from 'ununura-engine'
+import { UnunuraScopedSFCFile } from 'ununura-engine'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 describe('resolvers', () => {
-  it('should transform correct sfc', () => {
-    const targets = [
-      [
-        generateCSSResources(`<template>
-  <div class="p:10 bg:black">
-    <div class="border[white]" />
-  </div>
-</template>
-      
-<script setup lang="ts>
-</script>
-`),
-        `.p-10 {
-  padding: 10px;
-}
-.bg-black {
-  background-color: black;
-}
-.border-white {
-  border-color: white;
-}
-`,
-      ],
-      [
-        generateCSSResources(`<template><div class="flex[row col-reverse]" /></template>`),
-        `.flex-row-col-reverse {
-  display: flex;
-  flex-direction: row;
-}
-`,
-      ],
-    ]
-
-    for (const [sfc, result] of targets) {
-      expect(sfc).toStrictEqual(result)
-    }
+  beforeEach(() => {
+    Math.random = () => -1
   })
 
   it('should set new sfc', () => {

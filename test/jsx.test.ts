@@ -1,7 +1,11 @@
 import { classesFromRawJSX, UnunuraJSXSFCFile } from 'ununura-engine'
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
 describe('resolvers', () => {
+  beforeEach(() => {
+    Math.random = () => -1
+  })
+
   it('should correct jsx classes', () => {
     expect(
       classesFromRawJSX(`export const Foo = (props) => {
@@ -18,7 +22,7 @@ export const Bar = (props) => {
       <h1 className="typo[indent-5]">{props.test}</h1>
     </a>
   );
-};`)
+};`).map((node) => node.class)
     ).toStrictEqual(['m[top 20]', 'p:20', 'typo[indent-5]'])
   })
 

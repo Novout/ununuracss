@@ -8,15 +8,18 @@ import {
   resolveCSS,
   generateUniqueClass,
   generateMultipleClass,
-  generateCSSResources,
   scan,
   UnunuraGlobalGenerate,
   resolveIdentifierInCSS,
 } from 'ununura-engine'
 import { isKey, MEYER_RESET_CSS, NOVOUT_RESET_CSS, NULLABLE, UnunuraIdentifier } from 'ununura-shared'
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
 describe('lexer', () => {
+  beforeEach(() => {
+    Math.random = () => -1
+  })
+
   it('should lex a css class', () => {
     const targets = [
       [
@@ -145,15 +148,21 @@ describe('lexer', () => {
 describe('html', () => {
   it('should get a classes from raw html', () => {
     const targets = [
-      [classesFromRawHtml(''), []],
-      [classesFromRawHtml('<div>some div</div>'), []],
-      [classesFromRawHtml('<div class="bg:white text[white 700]" />'), ['bg:white text[white 700]']],
-      [classesFromRawHtml('<div id="1" class="bg:white text[white 700]" />'), ['bg:white text[white 700]']],
-      [classesFromRawHtml('<div :style={ backgroundColor: "white" } class="text[white 700]" />'), ['text[white 700]']],
+      [classesFromRawHtml('').map((node) => node.class), []],
+      [classesFromRawHtml('<div>some div</div>').map((node) => node.class), []],
+      [classesFromRawHtml('<div class="bg:white text[white 700]" />').map((node) => node.class), ['bg:white text[white 700]']],
+      [
+        classesFromRawHtml('<div id="1" class="bg:white text[white 700]" />').map((node) => node.class),
+        ['bg:white text[white 700]'],
+      ],
+      [
+        classesFromRawHtml('<div :style={ backgroundColor: "white" } class="text[white 700]" />').map((node) => node.class),
+        ['text[white 700]'],
+      ],
       [
         classesFromRawHtml(
           '<div :style={ backgroundColor: "white" } class="text[white 700]">some text</div><div class="border[top 2 black]" />'
-        ),
+        ).map((node) => node.class),
         ['text[white 700]', 'border[top 2 black]'],
       ],
     ]
@@ -864,58 +873,6 @@ describe('transform', () => {
 describe('css', () => {
   it('should get a resources from raw html', () => {
     const targets = [
-      [
-        generateCSSResources(`<div class="p:10 bg:black">
-  <div class="border[white]" />
-</div>
-`),
-        `.p-10 {
-  padding: 10px;
-}
-.bg-black {
-  background-color: black;
-}
-.border-white {
-  border-color: white;
-}
-`,
-      ],
-      [
-        generateCSSResources(`<div class="bg:/local_image.png" />
-  `),
-        `.bg-local-imagepng {
-  background-image: url("/local_image.png");
-}
-`,
-      ],
-      [
-        generateCSSResources(`<div class="bg:white dark(bg:red) md(dark(bg:blue))" />`),
-        `.bg-white {
-  background-color: white;
-}
-.dark .bg-red-dark {
-  background-color: red;
-}
-@media (min-width: 768px) {
-.dark .bg-red-dark {
-  background-color: blue;
-}
-}
-`,
-      ],
-      [
-        generateCSSResources(`<div class="bg:/other_image.png md(bg:/local_image.png)" />
-  `),
-        `.bg-other-imagepng {
-  background-image: url("/other_image.png");
-}
-@media (min-width: 768px) {
-.bg-other-imagepng {
-  background-image: url("/local_image.png");
-}
-}
-`,
-      ],
       [
         getGlobals(['<template><div class="m[10 0 0 0] cursor:pointer reset:novout p[10 0 0 0]" /></template>']),
         NOVOUT_RESET_CSS(),

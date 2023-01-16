@@ -5,9 +5,9 @@ export const getGlobals = (files?: string[]) => {
   const buffer: string[] = []
 
   files?.forEach((file) => {
-    const raw = classesFromRawHtml(file)
+    const classes = classesFromRawHtml(file).map((node) => node.class)
 
-    buffer.push(...raw)
+    buffer.push(...classes)
   })
 
   const bufferReduced = buffer?.reduce((sum, i) => (sum += `${i} `), '') ?? ''

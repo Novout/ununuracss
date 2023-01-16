@@ -15,7 +15,6 @@ import {
   isTypographyOverflow,
   isTypographyTransform,
 } from 'ununura-shared'
-import { classesFromRawHtml, generateCss } from './ast'
 import {
   getSupportedColor,
   getSupportedCursor,
@@ -40,7 +39,6 @@ import {
   getSupportedScrollDirection,
   getSupportedStandardFlex,
 } from './support'
-import { lex } from './lexer'
 import { resolveCSS, resolveCssClass, resolveIdentifierInCSS } from './resolvers'
 import { validateSpreadAllResource } from './validate'
 
@@ -70,16 +68,6 @@ export const setterRow = (item: Option<string> = undefined, valid: string, conte
   const asImportant = getSupportedGlobalImportant(contents)
 
   return !isNullable(item) ? `  ${valid}${!isNullable(asImportant) ? ' !important' : ''};\n` : ''
-}
-
-export const generateCSSResources = (raw: string) => {
-  const ast = classesFromRawHtml(raw)
-
-  return ast.reduce((acc, cl) => {
-    const generated = generateCss(lex(cl))
-
-    return (acc += generated)
-  }, '')
 }
 
 export const getResourcePaddingOrMargin = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {

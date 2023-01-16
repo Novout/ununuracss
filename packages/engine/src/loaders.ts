@@ -7,10 +7,8 @@ import {
   SvelteSFC,
   JSXSFC,
 } from 'ununura-shared'
-import { classesFromRawHtml, classesFromRawJSX, generateCss } from './ast'
+import { classesFromRawHtml, classesFromRawJSX, generateCssFromNodes } from './ast'
 import { scan } from './scanner'
-import { lex } from './lexer'
-import { purgeOnlyCssClassTitle } from './purge'
 import { getGlobals } from './globals'
 
 export const UnunuraGlobalGenerate = async (options?: UnunuraCoreOptions): Promise<CSSInject> => {
@@ -23,38 +21,21 @@ export const UnunuraGlobalGenerate = async (options?: UnunuraCoreOptions): Promi
 }
 
 export const UnunuraScopedSFCFile = (sfc: VueSFC | SvelteSFC, type: 'vue' | 'svelte'): CSSInject => {
-  const scopedBuffer: string[] = []
-  const raw = classesFromRawHtml(sfc)
+  const nodes = classesFromRawHtml(sfc)
 
-  let _code = sfc
+  const { code, css } = generateCssFromNodes(nodes, sfc)
 
-  raw.forEach((classTitle) => {
-    const generated = generateCss(lex(classTitle)).replace(/__NULLABLE__\n/, '')
+  if (css.length === 0) return sfc
 
-    const resolvedClassTitle = purgeOnlyCssClassTitle(generated)
-    _code = _code.replaceAll(classTitle, resolvedClassTitle)
+  const bufferRaw = css.reduce((acc, css) => (acc += `${css}\n`))
 
-    scopedBuffer.push(generated)
-  })
-
-  if (scopedBuffer.length === 0) return sfc
-
-  const bufferRaw = scopedBuffer.reduce((acc, css) => (acc += `${css}\n`))
-
-  return `${_code}\n\n<style${type === 'vue' ? ' scoped' : ''}>\n${bufferRaw.trimEnd()}\n</style>`
+  return `${code}\n\n<style${type === 'vue' ? ' scoped' : ''}>\n${bufferRaw.trimEnd()}\n</style>`
 }
 
 export const UnunuraJSXSFCFile = (sfc: JSXSFC): CSSInject => {
-  const raw = classesFromRawJSX(sfc)
+  const nodes = classesFromRawJSX(sfc)
 
-  let _code = sfc
+  const { code } = generateCssFromNodes(nodes, sfc)
 
-  raw.forEach((classTitle) => {
-    const generated = generateCss(lex(classTitle)).replace(/__NULLABLE__\n/, '')
-
-    const resolvedClassTitle = purgeOnlyCssClassTitle(generated)
-    _code = _code.replaceAll(classTitle, resolvedClassTitle)
-  })
-
-  return _code
+  return code
 }

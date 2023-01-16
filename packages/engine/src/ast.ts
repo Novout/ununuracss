@@ -13,12 +13,16 @@ import {
   isContextCloseKey,
   isContextIdentifier as isContextIdentifierKey,
   UnunuraContextualizeStack,
+  UnunuraASTNode,
+  SFC,
 } from 'ununura-shared'
 import { generateMultipleClass, generateUniqueClass } from './resources'
+import { lex } from './lexer'
+import { purgeOnlyCssClassTitle } from './purge'
 
-export const classesFromRawHtml = (html: string): string[] => {
+export const classesFromRawHtml = (html: string): UnunuraASTNode[] => {
   const tree = fromHtml(html, { fragment: true })
-  const classes: string[] = []
+  const classes: UnunuraASTNode[] = []
 
   const ast = (children: Content[]): void => {
     children.forEach((node) => {
@@ -27,7 +31,13 @@ export const classesFromRawHtml = (html: string): string[] => {
 
         const target: Option<string> = (node.properties?.className as string[])?.join(' ')
 
-        if (target) classes.push(target)
+        if (target) {
+          classes.push({
+            tag: node.tagName,
+            class: target,
+            position: node.position as any,
+          })
+        }
 
         if (node.children) ast(node.children)
       }
@@ -39,14 +49,23 @@ export const classesFromRawHtml = (html: string): string[] => {
   return classes
 }
 
-export const classesFromRawJSX = (jsx: string): string[] => {
+export const classesFromRawJSX = (jsx: string): UnunuraASTNode[] => {
   const tree = jsxParse(jsx)
-  const classes: string[] = []
+  const classes: UnunuraASTNode[] = []
 
   const ast = (current: Node): void => {
     const cls = current.attributes.filter(({ name }) => name === 'className' || name === 'class')
 
-    if (cls?.length > 0) classes.push(...cls.map((cl) => cl.value as string))
+    if (cls?.length > 0)
+      classes.push(
+        ...cls.map((cl) => {
+          return {
+            tag: cl.name as string,
+            class: cl.value as string,
+            position: cl.position as any,
+          }
+        })
+      )
 
     if (current.children) current.children.forEach((target) => ast(target))
   }
@@ -60,7 +79,23 @@ export const classesFromRawJSX = (jsx: string): string[] => {
   return classes
 }
 
-export const generateCss = (keys: string[]): string => {
+export const generateCssFromNodes = (nodes: UnunuraASTNode[], sfc: SFC) => {
+  let _code = sfc
+  const cssBuffer: string[] = []
+
+  nodes.forEach((node) => {
+    const generated = generateCss(lex(node.class), node).replace(/__NULLABLE__\n/, '')
+
+    const resolvedClassTitle = purgeOnlyCssClassTitle(generated)
+    _code = _code.replaceAll(node.class, resolvedClassTitle)
+
+    cssBuffer.push(generated)
+  })
+
+  return { code: _code, css: cssBuffer }
+}
+
+export const generateCss = (keys: string[], node: UnunuraASTNode): string => {
   let prev_unique: Option<string> = undefined
   let prev_multiple: Option<string> = undefined
   let prev_common_identifier: Option<string> = undefined
@@ -99,6 +134,7 @@ export const generateCss = (keys: string[]): string => {
               stack: context_stack,
               buffer,
               contents: [],
+              node,
             })
           )
         if (prev_multiple && prev_common_identifier)
@@ -107,6 +143,7 @@ export const generateCss = (keys: string[]): string => {
               stack: context_stack,
               buffer,
               contents: [],
+              node,
             })
           )
       }

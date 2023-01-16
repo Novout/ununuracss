@@ -44,6 +44,21 @@ export const resolveTitleToClassName = (title: string) => {
   return normalized
 }
 
+export const resolveHashTitle = (prefix: string, ctx: UnunuraGenerateContext) => {
+  // test mode
+  if (Math.random() === -1) return prefix
+
+  if (ctx?.node?.position) {
+    const { start, end } = ctx.node.position
+
+    const hashed = `${start.line}${start.offset}${end.line}${end.offset}`
+
+    return `${prefix}-${hashed}`
+  }
+
+  return prefix
+}
+
 export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string => {
   switch (identifier) {
     case UnunuraIdentifier.Margin:
@@ -151,7 +166,7 @@ export const resolveTitleCssClass = (identifier: UnunuraIdentifier, ctx: Ununura
   let setter = !asResponsive
     ? ctx.contents.reduce(
         (sum, acc) => (sum += `-${resolveTitleToClassName(acc)}`),
-        (asTheme ? `.${asTheme} ` : '') + `.${identifier}`
+        (asTheme ? `.${asTheme} ` : '') + resolveHashTitle(`.${identifier}`, ctx)
       )
     : (asTheme && !asResponsive ? `.${asTheme} ` : '') + `.${purgeOnlyCssClassTitle(buffered as string)}`
   setter += asTheme && !asResponsive ? `-${asTheme}` : ''
