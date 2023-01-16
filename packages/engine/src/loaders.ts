@@ -1,5 +1,13 @@
-import { CSSInject, UnunuraCoreOptions, STANDARD_EXCLUDE_SCAN, STANDARD_INCLUDE_SCAN, VueSFC, SvelteSFC } from 'ununura-shared'
-import { classesFromRawHtml, generateCss } from './ast'
+import {
+  CSSInject,
+  UnunuraCoreOptions,
+  STANDARD_EXCLUDE_SCAN,
+  STANDARD_INCLUDE_SCAN,
+  VueSFC,
+  SvelteSFC,
+  JSXSFC,
+} from 'ununura-shared'
+import { classesFromRawHtml, classesFromRawJSX, generateCss } from './ast'
 import { scan } from './scanner'
 import { lex } from './lexer'
 import { purgeOnlyCssClassTitle } from './purge'
@@ -34,4 +42,19 @@ export const UnunuraScopedSFCFile = (sfc: VueSFC | SvelteSFC, type: 'vue' | 'sve
   const bufferRaw = scopedBuffer.reduce((acc, css) => (acc += `${css}\n`))
 
   return `${_code}\n\n<style${type === 'vue' ? ' scoped' : ''}>\n${bufferRaw.trimEnd()}\n</style>`
+}
+
+export const UnunuraJSXSFCFile = (sfc: JSXSFC): CSSInject => {
+  const raw = classesFromRawJSX(sfc)
+
+  let _code = sfc
+
+  raw.forEach((classTitle) => {
+    const generated = generateCss(lex(classTitle)).replace(/__NULLABLE__\n/, '')
+
+    const resolvedClassTitle = purgeOnlyCssClassTitle(generated)
+    _code = _code.replaceAll(classTitle, resolvedClassTitle)
+  })
+
+  return _code
 }

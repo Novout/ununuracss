@@ -1,6 +1,12 @@
 import type { Plugin } from 'vite'
-import { UnunuraGlobalGenerate, UnunuraScopedSFCFile } from 'ununura-engine'
-import { isVueFile, VIRTUAL_CSS_INJECT_FILENAME, RESOLVED_VIRTUAL_CSS_INJECT_FILENAME, isSvelteFile } from 'ununura-shared'
+import { UnunuraGlobalGenerate, UnunuraJSXSFCFile, UnunuraScopedSFCFile } from 'ununura-engine'
+import {
+  isVueFile,
+  VIRTUAL_CSS_INJECT_FILENAME,
+  RESOLVED_VIRTUAL_CSS_INJECT_FILENAME,
+  isSvelteFile,
+  isJSXFile,
+} from 'ununura-shared'
 import { reloadServer } from '../hot'
 import { validForUpdate } from '../support'
 
@@ -15,6 +21,10 @@ export default (): Plugin => {
 
       if (isSvelteFile(id)) {
         return UnunuraScopedSFCFile(code, 'svelte')
+      }
+
+      if (isJSXFile(id)) {
+        return UnunuraJSXSFCFile(code)
       }
     },
     resolveId(id) {

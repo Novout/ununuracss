@@ -1,6 +1,7 @@
 import { Content } from 'hast'
 import { fromHtml } from 'hast-util-from-html'
 import { Root } from 'hast-util-from-html/lib'
+import { Node, parse as jsxParse } from 'babel-jsx-to-ast-fragmented'
 import {
   isUniqueKey,
   isCloseMultipleKey,
@@ -34,6 +35,27 @@ export const classesFromRawHtml = (html: string): string[] => {
   }
 
   ast(tree.children)
+
+  return classes
+}
+
+export const classesFromRawJSX = (jsx: string): string[] => {
+  const tree = jsxParse(jsx)
+  const classes: string[] = []
+
+  const ast = (current: Node): void => {
+    const cls = current.attributes.filter(({ name }) => name === 'className' || name === 'class')
+
+    if (cls?.length > 0) classes.push(...cls.map((cl) => cl.value as string))
+
+    if (current.children) current.children.forEach((target) => ast(target))
+  }
+
+  tree.forEach((fn) => {
+    fn.forEach((el) => {
+      ast(el)
+    })
+  })
 
   return classes
 }

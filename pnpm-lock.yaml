@@ -8,6 +8,7 @@ importers:
       '@tsconfig/svelte': ^3.0.0
       '@vitejs/plugin-vue': ^4.0.0
       '@vitest/coverage-c8': ^0.26.2
+      babel-jsx-to-ast-fragmented: ^0.1.0
       concurrently: ^7.6.0
       execa: ^6.1.0
       fast-glob: ^3.2.12
@@ -33,6 +34,7 @@ importers:
       '@tsconfig/svelte': 3.0.0
       '@vitejs/plugin-vue': 4.0.0_vite@4.0.4+vue@3.2.45
       '@vitest/coverage-c8': 0.26.3
+      babel-jsx-to-ast-fragmented: 0.1.0
       concurrently: 7.6.0
       execa: 6.1.0
       fast-glob: 3.2.12
@@ -2720,6 +2722,12 @@ packages:
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
+    dev: true
+
+  /babel-jsx-to-ast-fragmented/0.1.0:
+    resolution: {integrity: sha512-CbYFUvutGdONhpeYmH91aXtwEnuLXWsfGmFsttbmzsjQ1Qik7dfx8dw9CXFXwRB2MCKbaAYJVLJDE4MhdnRJ/Q==}
+    dependencies:
+      '@babel/parser': 7.20.7
     dev: true
 
   /balanced-match/1.0.2:
