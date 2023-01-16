@@ -29,7 +29,8 @@ export const Bar = (props) => {
   it('should set new sfc', () => {
     const targets = [
       [
-        UnunuraJSXSFCFile(`export const Foo = (props) => {
+        UnunuraJSXSFCFile(
+          `export const Foo = (props) => {
   return (
     <div className="m[top 20]">
       <h1>{props.test}</h1>
@@ -43,7 +44,9 @@ export const Bar = (props) => {
       <h1 className="typo[indent-5]">{props.test}</h1>
     </a>
   );
-};`),
+};`,
+          ''
+        ),
         `export const Foo = (props) => {
   return (
     <div className="m-top-20">
