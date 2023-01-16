@@ -10,6 +10,7 @@ export interface UnunuraGenerateContext {
   buffer: string[]
   contents: string[]
   node?: UnunuraASTNode
+  filename?: string
 }
 
 export interface UnunuraASTNode {

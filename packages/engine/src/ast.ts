@@ -79,12 +79,12 @@ export const classesFromRawJSX = (jsx: string): UnunuraASTNode[] => {
   return classes
 }
 
-export const generateCssFromNodes = (nodes: UnunuraASTNode[], sfc: SFC) => {
+export const generateCssFromNodes = (nodes: UnunuraASTNode[], sfc: SFC, filename: string) => {
   let _code = sfc
   const cssBuffer: string[] = []
 
   nodes.forEach((node) => {
-    const generated = generateCss(lex(node.class), node).replace(/__NULLABLE__\n/, '')
+    const generated = generateCss(lex(node.class), node, filename).replace(/__NULLABLE__\n/, '')
 
     const resolvedClassTitle = purgeOnlyCssClassTitle(generated)
     _code = _code.replaceAll(node.class, resolvedClassTitle)
@@ -95,7 +95,7 @@ export const generateCssFromNodes = (nodes: UnunuraASTNode[], sfc: SFC) => {
   return { code: _code, css: cssBuffer }
 }
 
-export const generateCss = (keys: string[], node: UnunuraASTNode): string => {
+export const generateCss = (keys: string[], node: UnunuraASTNode, filename: string): string => {
   let prev_unique: Option<string> = undefined
   let prev_multiple: Option<string> = undefined
   let prev_common_identifier: Option<string> = undefined
@@ -135,6 +135,7 @@ export const generateCss = (keys: string[], node: UnunuraASTNode): string => {
               buffer,
               contents: [],
               node,
+              filename,
             })
           )
         if (prev_multiple && prev_common_identifier)
@@ -144,6 +145,7 @@ export const generateCss = (keys: string[], node: UnunuraASTNode): string => {
               buffer,
               contents: [],
               node,
+              filename,
             })
           )
       }

@@ -53,7 +53,7 @@ export const resolveHashTitle = (prefix: string, ctx: UnunuraGenerateContext) =>
 
     const hashed = `${start.line}${start.offset}${end.line}${end.offset}`
 
-    return `${prefix}-${hashed}`
+    return `${prefix}-${hashed}-${ctx.filename ? resolveTitleToClassName(ctx.filename) : ''}`
   }
 
   return prefix

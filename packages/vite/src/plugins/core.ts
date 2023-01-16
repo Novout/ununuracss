@@ -9,22 +9,25 @@ import {
 } from 'ununura-shared'
 import { reloadServer } from '../hot'
 import { validForUpdate } from '../support'
+import { getFilename } from '../transform'
 
 export default (): Plugin => {
   return {
     name: 'ununuracss:core',
     enforce: 'pre',
     transform(code, id) {
+      const filename = getFilename(id)
+
       if (isVueFile(id)) {
-        return UnunuraScopedSFCFile(code, 'vue')
+        return UnunuraScopedSFCFile(code, 'vue', filename)
       }
 
       if (isSvelteFile(id)) {
-        return UnunuraScopedSFCFile(code, 'svelte')
+        return UnunuraScopedSFCFile(code, 'svelte', filename)
       }
 
       if (isJSXFile(id)) {
-        return UnunuraJSXSFCFile(code)
+        return UnunuraJSXSFCFile(code, filename)
       }
     },
     resolveId(id) {

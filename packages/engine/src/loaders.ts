@@ -20,10 +20,10 @@ export const UnunuraGlobalGenerate = async (options?: UnunuraCoreOptions): Promi
   return getGlobals(files)
 }
 
-export const UnunuraScopedSFCFile = (sfc: VueSFC | SvelteSFC, type: 'vue' | 'svelte'): CSSInject => {
+export const UnunuraScopedSFCFile = (sfc: VueSFC | SvelteSFC, type: 'vue' | 'svelte', filename: string): CSSInject => {
   const nodes = classesFromRawHtml(sfc)
 
-  const { code, css } = generateCssFromNodes(nodes, sfc)
+  const { code, css } = generateCssFromNodes(nodes, sfc, filename)
 
   if (css.length === 0) return sfc
 
@@ -32,10 +32,10 @@ export const UnunuraScopedSFCFile = (sfc: VueSFC | SvelteSFC, type: 'vue' | 'sve
   return `${code}\n\n<style${type === 'vue' ? ' scoped' : ''}>\n${bufferRaw.trimEnd()}\n</style>`
 }
 
-export const UnunuraJSXSFCFile = (sfc: JSXSFC): CSSInject => {
+export const UnunuraJSXSFCFile = (sfc: JSXSFC, filename: string): CSSInject => {
   const nodes = classesFromRawJSX(sfc)
 
-  const { code } = generateCssFromNodes(nodes, sfc)
+  const { code } = generateCssFromNodes(nodes, sfc, filename)
 
   return code
 }
