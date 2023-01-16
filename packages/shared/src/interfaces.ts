@@ -3,6 +3,7 @@ import { UnunuraContextualizeStack } from './types'
 export interface UnunuraCoreOptions {
   include?: string[]
   exclude?: string[]
+  jsx?: boolean
 }
 
 export interface UnunuraGenerateContext {
@@ -20,4 +21,14 @@ export interface UnunuraASTNode {
     start: { line: number; column: number; offset: number }
     end: { line: number; column: number; offset: number }
   }
+}
+
+export interface UnunuraScannerFile {
+  raw: string
+  path: string
+  filename: string
+}
+
+export interface UnunuraViteOptions {
+  jsx?: boolean
 }

@@ -29,3 +29,5 @@ export const findResourceInStart = (
 
   return resource
 }
+
+export const getFilename = (id: string) => id.substring(id.lastIndexOf('/') + 1)

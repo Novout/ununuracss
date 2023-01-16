@@ -11,7 +11,7 @@ A different form to interpreter Atomic CSS focused on vite ecosystem.
 
 - [Vue](./packages/vite/README.md), [Nuxt](./packages/nuxt/README.md) and [Svelte](./packages/vite/README.md);
 - 0kb default injected .css;
-- Only scoped;
+- Only scoped and native jsx-scoped;
 - Class-raw based;
 - Native purge;
 - [Fontaine](https://github.com/danielroe/fontaine) integrated;

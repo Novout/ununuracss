@@ -6,6 +6,7 @@ import {
   VueSFC,
   SvelteSFC,
   JSXSFC,
+  isJSXFile,
 } from 'ununura-shared'
 import { classesFromRawHtml, classesFromRawJSX, generateCssFromNodes } from './ast'
 import { scan } from './scanner'
@@ -17,7 +18,18 @@ export const UnunuraGlobalGenerate = async (options?: UnunuraCoreOptions): Promi
     exclude: options?.exclude ?? STANDARD_EXCLUDE_SCAN,
   })
 
-  return getGlobals(files)
+  const globals = getGlobals(files.map((file) => file.raw))
+
+  if (!options?.jsx) return globals
+
+  return files.reduce((acc, file) => {
+    if (!isJSXFile(file.path)) return acc
+
+    const nodes = classesFromRawHtml(file.raw)
+    const { css } = generateCssFromNodes(nodes, file.raw, file.filename)
+
+    return (acc += css)
+  }, globals)
 }
 
 export const UnunuraScopedSFCFile = (sfc: VueSFC | SvelteSFC, type: 'vue' | 'svelte', filename: string): CSSInject => {

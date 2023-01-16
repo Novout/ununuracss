@@ -6,12 +6,13 @@ import {
   RESOLVED_VIRTUAL_CSS_INJECT_FILENAME,
   isSvelteFile,
   isJSXFile,
+  getFilename,
+  UnunuraViteOptions,
 } from 'ununura-shared'
 import { reloadServer } from '../hot'
 import { validForUpdate } from '../support'
-import { getFilename } from '../transform'
 
-export default (): Plugin => {
+export default (options?: UnunuraViteOptions): Plugin => {
   return {
     name: 'ununuracss:core',
     enforce: 'pre',
@@ -35,7 +36,7 @@ export default (): Plugin => {
     },
     async load(id) {
       if (id === RESOLVED_VIRTUAL_CSS_INJECT_FILENAME) {
-        const code = await UnunuraGlobalGenerate()
+        const code = await UnunuraGlobalGenerate({ jsx: options?.jsx })
 
         return { code }
       }
