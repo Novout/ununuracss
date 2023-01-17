@@ -70,13 +70,13 @@ export const classesFromRawJSX = (jsx: string): UnunuraASTNode[] => {
     if (current.children) current.children.forEach((target) => ast(target))
   }
 
-  tree.forEach((fn) => {
-    fn.forEach((el) => {
+  tree?.forEach((fn) => {
+    fn?.forEach((el) => {
       ast(el)
     })
   })
 
-  return classes
+  return classes ?? []
 }
 
 export const generateCssFromNodes = (nodes: UnunuraASTNode[], sfc: SFC, filename: string) => {

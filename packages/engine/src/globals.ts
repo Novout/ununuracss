@@ -1,15 +1,15 @@
-import { MEYER_RESET_CSS, NOVOUT_RESET_CSS, REACT_ENTRYPOINT_FN, UnunuraViteOptions } from 'ununura-shared'
+import { isJSXEntryFile, MEYER_RESET_CSS, NOVOUT_RESET_CSS, UnunuraScannerFile, UnunuraViteOptions } from 'ununura-shared'
 import { classesFromRawHtml, classesFromRawJSX } from './ast'
 
-export const getGlobals = (files: string[], options?: UnunuraViteOptions) => {
+export const getGlobals = (files: UnunuraScannerFile[], options?: UnunuraViteOptions) => {
   const buffer: string[] = []
 
   files?.forEach((file) => {
-    if (options?.jsx && options.jsxIgnoreEntryFile && file.includes(REACT_ENTRYPOINT_FN)) return
+    if (options?.jsx && options.jsxIgnoreEntryFile && isJSXEntryFile(file.filename)) return
 
     const classes = options?.jsx
-      ? classesFromRawJSX(file).map((node) => node.class)
-      : classesFromRawHtml(file).map((node) => node.class)
+      ? classesFromRawJSX(file.raw).map((node) => node.class)
+      : classesFromRawHtml(file.raw).map((node) => node.class)
 
     buffer.push(...classes)
   })

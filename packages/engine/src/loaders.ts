@@ -12,13 +12,16 @@ import { classesFromRawHtml, classesFromRawJSX, generateCssFromNodes } from './a
 import { scan } from './scanner'
 import { getGlobals } from './globals'
 
-export const UnunuraGlobalGenerateJSXRecursive = (files: UnunuraScannerFile[], initial: string = '') => {
-  const reduced = files.reduce((acc, file) => {
-    const nodes = classesFromRawHtml(file.raw)
-    const { css } = generateCssFromNodes(nodes, file.raw, file.filename)
+export const UnunuraGlobalGenerateJSXReduced = (files: UnunuraScannerFile[], initial: string = '') => {
+  const reduced =
+    files?.reduce((acc, file) => {
+      // TODO: JSX AST Rework ExportedNamedFunctions in common syntax -> export function ...
+      // const nodes = classesFromRawJSX(file.raw)
+      const nodes = classesFromRawHtml(file.raw)
+      const { css } = generateCssFromNodes(nodes, file.raw, file.filename)
 
-    return (acc += `${css.reduce((acc, cl) => (acc += cl))}`)
-  }, initial)
+      return (acc += `${css.reduce((acc, cl) => (acc += cl), '')}`)
+    }, initial) ?? []
 
   return reduced
 }
@@ -29,14 +32,11 @@ export const UnunuraGlobalGenerate = async (options?: UnunuraCoreOptions): Promi
     exclude: options?.exclude ?? STANDARD_EXCLUDE_SCAN,
   })
 
-  const globals = getGlobals(
-    files.map((file) => file.raw),
-    options
-  )
+  const globals = getGlobals(files, options)
 
   if (!options?.jsx) return globals
 
-  return UnunuraGlobalGenerateJSXRecursive(files, globals)
+  return UnunuraGlobalGenerateJSXReduced(files, globals)
 }
 
 export const UnunuraScopedSFCFile = (sfc: VueSFC | SvelteSFC, type: 'vue' | 'svelte', filename: string): CSSInject => {

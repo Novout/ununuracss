@@ -9,7 +9,7 @@ A different form to interpreter Atomic CSS focused on vite ecosystem.
 
 ## Features
 
-- [Vue](./packages/vite/README.md), [React/Vue-JSX](./packages/vite/README.md), [Nuxt](./packages/nuxt/README.md) and [Svelte](./packages/vite/README.md);
+- [Vue](./packages/vite/README.md), [React/Preact/Vue-JSX](./packages/vite/README.md), [Nuxt](./packages/nuxt/README.md) and [Svelte](./packages/vite/README.md);
 - 0kb default injected .css;
 - Only scoped and native jsx-scoped;
 - Class-raw based;

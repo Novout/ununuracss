@@ -1,0 +1,13 @@
+{
+  "name": "vite-preact-demo",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "demo:preact": "vite --port 3000",
+    "preview:preact": "vite build && vite preview --port 5000"
+  },
+  "dependencies": {
+    "ununura": "workspace:*"
+  }
+}

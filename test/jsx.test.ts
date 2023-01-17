@@ -1,4 +1,4 @@
-import { classesFromRawJSX, UnunuraGlobalGenerateJSXRecursive, UnunuraJSXSFCFile } from 'ununura-engine'
+import { classesFromRawJSX, UnunuraJSXSFCFile } from 'ununura-engine'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 describe('resolvers', () => {
