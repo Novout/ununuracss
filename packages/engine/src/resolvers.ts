@@ -49,9 +49,9 @@ export const resolveHashTitle = (prefix: string, ctx: UnunuraGenerateContext) =>
   if (Math.random() === -1) return prefix
 
   if (ctx?.node?.position) {
-    const { start, end } = ctx.node.position
+    const { start } = ctx.node.position
 
-    const hashed = `${start.line}${start.offset}${end.line}${end.offset}`
+    const hashed = `${start.line}`
 
     return `${prefix}-${hashed}-${ctx.filename ? resolveTitleToClassName(ctx.filename) : ''}`
   }

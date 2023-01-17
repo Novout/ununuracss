@@ -10,6 +10,7 @@ export const isVueFile = (i: string) => /\.(vue)$/.test(i)
 export const isSvelteFile = (i: string) => /\.(svelte)$/.test(i)
 export const isScopedSFCFile = (i: string) => isVueFile(i) || isSvelteFile(i)
 export const isJSXFile = (i: string) => /\.(jsx|tsx)$/.test(i)
+export const isJSXEntryFile = (i: string) => i.match(/main.(jsx|tsx)/)
 export const isCSSColor = (i: string): boolean =>
   [
     'AliceBlue',

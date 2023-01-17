@@ -1,34 +1,28 @@
-## Example with Vue
+## Example with Vite
 
 `pnpm add -D ununura`
 
 ```ts
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import { ununura } from 'ununura'
-
-export default defineConfig({
-  plugins: [vue(), ununura()],
-})
+// in your framework entrypoint
+import 'ununura.css'
 ```
-
-## Example with Svelte
-
-`pnpm add -D ununura`
-
-> Insert the ununura plugin in first position
 
 ```ts
-import { defineConfig } from 'vite'
-import { svelte } from '@sveltejs/vite-plugin-svelte'
+// Insert ununura plugin in first position
 import { ununura } from 'ununura'
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [ununura(), svelte()],
+  plugins: [ununura(), framework_plugin()],
 })
 ```
-
-> ATTENTION! Insert 'ununura.css' in your svelte/vue entrypoint.
 
 > ATTENTION! Uses `type: module` in `package.json`
+
+### JSX
+
+To use JSX (whether in React or Vue-JSX), enter the following option:
+```ts
+export default defineConfig({
+  plugins: [ununura({ jsx: true })],
+})
+```

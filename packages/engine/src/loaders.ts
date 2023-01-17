@@ -6,11 +6,22 @@ import {
   VueSFC,
   SvelteSFC,
   JSXSFC,
-  isJSXFile,
+  UnunuraScannerFile,
 } from 'ununura-shared'
 import { classesFromRawHtml, classesFromRawJSX, generateCssFromNodes } from './ast'
 import { scan } from './scanner'
 import { getGlobals } from './globals'
+
+export const UnunuraGlobalGenerateJSXRecursive = (files: UnunuraScannerFile[], initial: string = '') => {
+  const reduced = files.reduce((acc, file) => {
+    const nodes = classesFromRawHtml(file.raw)
+    const { css } = generateCssFromNodes(nodes, file.raw, file.filename)
+
+    return (acc += `${css.reduce((acc, cl) => (acc += cl))}`)
+  }, initial)
+
+  return reduced
+}
 
 export const UnunuraGlobalGenerate = async (options?: UnunuraCoreOptions): Promise<CSSInject> => {
   const files = await scan({
@@ -18,18 +29,14 @@ export const UnunuraGlobalGenerate = async (options?: UnunuraCoreOptions): Promi
     exclude: options?.exclude ?? STANDARD_EXCLUDE_SCAN,
   })
 
-  const globals = getGlobals(files.map((file) => file.raw))
+  const globals = getGlobals(
+    files.map((file) => file.raw),
+    options
+  )
 
   if (!options?.jsx) return globals
 
-  return files.reduce((acc, file) => {
-    if (!isJSXFile(file.path)) return acc
-
-    const nodes = classesFromRawHtml(file.raw)
-    const { css } = generateCssFromNodes(nodes, file.raw, file.filename)
-
-    return (acc += css)
-  }, globals)
+  return UnunuraGlobalGenerateJSXRecursive(files, globals)
 }
 
 export const UnunuraScopedSFCFile = (sfc: VueSFC | SvelteSFC, type: 'vue' | 'svelte', filename: string): CSSInject => {

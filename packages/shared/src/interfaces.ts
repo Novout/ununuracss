@@ -1,11 +1,5 @@
 import { UnunuraContextualizeStack } from './types'
 
-export interface UnunuraCoreOptions {
-  include?: string[]
-  exclude?: string[]
-  jsx?: boolean
-}
-
 export interface UnunuraGenerateContext {
   stack: UnunuraContextualizeStack
   buffer: string[]
@@ -31,4 +25,10 @@ export interface UnunuraScannerFile {
 
 export interface UnunuraViteOptions {
   jsx?: boolean
+  jsxIgnoreEntryFile?: boolean
+}
+
+export interface UnunuraCoreOptions extends UnunuraViteOptions {
+  include?: string[]
+  exclude?: string[]
 }

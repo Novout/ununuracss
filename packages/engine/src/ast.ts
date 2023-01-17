@@ -92,7 +92,7 @@ export const generateCssFromNodes = (nodes: UnunuraASTNode[], sfc: SFC, filename
     cssBuffer.push(generated)
   })
 
-  return { code: _code, css: cssBuffer }
+  return { code: cssBuffer.length > 0 ? _code : sfc, css: cssBuffer }
 }
 
 export const generateCss = (keys: string[], node: UnunuraASTNode, filename: string): string => {
