@@ -28,7 +28,8 @@
   ],
   "scripts": {
     "dev": "tsup --watch",
-    "build": "tsup"
+    "build": "tsup",
+    "build:minify": "tsup --minify"
   },
   "dependencies": {
     "@nuxt/kit": "^3.0.0",

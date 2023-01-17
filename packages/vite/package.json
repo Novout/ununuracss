@@ -27,7 +27,8 @@
   ],
   "scripts": {
     "dev": "tsup --watch",
-    "build": "tsup"
+    "build": "tsup",
+    "build:minify": "tsup --minify"
   },
   "peerDependencies": {
     "vite": "^3.0.0-0 || ^4.0.0"

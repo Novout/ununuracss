@@ -21,7 +21,7 @@
     "minor": "generi log minor",
     "major": "generi log major",
     "prepare": "husky install",
-    "prepublish": "pnpm run build"
+    "prepublish": "lerna run build:minify"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.0.2",

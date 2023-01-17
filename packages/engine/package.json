@@ -30,7 +30,8 @@
   ],
   "scripts": {
     "dev": "tsup --watch",
-    "build": "tsup"
+    "build": "tsup",
+    "build:minify": "tsup --minify"
   },
   "dependencies": {
     "ununura-shared": "workspace:*"
