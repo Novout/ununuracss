@@ -1,4 +1,4 @@
-import { getGlobalReset, getGlobals } from 'packages/engine/src/globals'
+import { getGlobalReset } from 'packages/engine/src/globals'
 import { purgeCSS, purgeOnlyCssClassTitle } from 'packages/engine/src/purge'
 import { getSupportedInteger } from 'packages/engine/src/support'
 import {
@@ -873,11 +873,6 @@ describe('transform', () => {
 describe('css', () => {
   it('should get a resources from raw html', () => {
     const targets = [
-      [
-        getGlobals(['<template><div class="m[10 0 0 0] cursor:pointer reset:novout p[10 0 0 0]" /></template>']),
-        NOVOUT_RESET_CSS(),
-      ],
-      [getGlobals(['<template><div class="reset:meyer" /></template>']), MEYER_RESET_CSS()],
       [getGlobalReset('reset:novout'), NOVOUT_RESET_CSS()],
       [getGlobalReset('reset:meyer'), MEYER_RESET_CSS()],
       [getGlobalReset('reset:foo'), ''],

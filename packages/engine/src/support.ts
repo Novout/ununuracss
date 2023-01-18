@@ -19,7 +19,6 @@ import {
   Nullable,
   NULLABLE,
 } from 'ununura-shared'
-import { m } from 'vitest/dist/index-1cfc7f58'
 
 export const getSupportedMinOrMax = (contents: string[]): Nullable<string> => {
   const min = contents.find((c) => c === 'min')
