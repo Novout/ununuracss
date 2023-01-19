@@ -162,11 +162,32 @@ export const getSupportedFlexGap = (contents: string[]): Nullable<string> => {
 }
 
 export const getSupportedFlexVertical = (contents: string[]): Nullable<string> => {
-  return contents.find((c) => isFlexVertical(c)) ?? NULLABLE
+  const asFlex = contents.find((c) => isFlexVertical(c)) ?? NULLABLE
+  const asFlexResolved = !isNullable(asFlex) ? asFlex.replace('v-', '') : NULLABLE
+
+  const normalized =
+    {
+      start: 'flex-start',
+      end: 'flex-end',
+    }[asFlexResolved] || asFlexResolved
+
+  return normalized
 }
 
 export const getSupportedFlexHorizontal = (contents: string[]): Nullable<string> => {
-  return contents.find((c) => isFlexHorizontal(c)) ?? NULLABLE
+  const asFlex = contents.find((c) => isFlexHorizontal(c)) ?? NULLABLE
+  const asFlexResolved = !isNullable(asFlex) ? asFlex.replace('h-', '') : NULLABLE
+
+  const normalized =
+    {
+      start: 'flex-start',
+      end: 'flex-end',
+      between: 'space-between',
+      around: 'space-around',
+      evenly: 'space-evenly',
+    }[asFlexResolved] || asFlexResolved
+
+  return normalized
 }
 
 export const getSupportedScrollDirection = (contents: string[]): Nullable<string> => {

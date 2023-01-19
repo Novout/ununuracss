@@ -166,11 +166,9 @@ export const isDefaultFont = (i: string): boolean => [...browserFonts].some((c) 
 export const isGoogleFont = (i: string) => [...googleFonts].some((d) => i.toLowerCase() === d.toLowerCase())
 export const isImageSize = (i: string) => ['auto', 'cover', 'contain'].some((d) => i.toLowerCase() === d.toLowerCase())
 export const isFlexHorizontal = (i: string) =>
-  ['flex-start', 'flex-end', 'center', 'space-between', 'space-around', 'space-evenly', 'initial', 'inherit'].some(
-    (d) => i === `h-${d}`
-  )
+  ['start', 'end', 'center', 'between', 'around', 'evenly', 'initial', 'inherit'].some((d) => i === `h-${d}`)
 export const isFlexVertical = (i: string) =>
-  ['stretch', 'center', 'flex-start', 'flex-end', 'baseline', 'initial', 'inherit'].some((d) => i === `v-${d}`)
+  ['stretch', 'center', 'start', 'end', 'baseline', 'initial', 'inherit'].some((d) => i === `v-${d}`)
 export const isImageRepeat = (i: string) =>
   ['repeat', 'no-repeat', 'repeat-x', 'repeat-y', 'repeat-round', 'repeat-space'].some((d) => i.toLowerCase() === d.toLowerCase())
 export const isSlashImage = (i: string): boolean => i.startsWith('//')

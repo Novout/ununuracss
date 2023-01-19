@@ -414,12 +414,21 @@ describe('transform', () => {
 }`,
       ],
       [
-        resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['row', 'v-stretch', 'h-flex-start'], buffer: [], stack: [] }),
-        `.flex-row-v-stretch-h-flex-start {
+        resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['row', 'v-stretch', 'h-start'], buffer: [], stack: [] }),
+        `.flex-row-v-stretch-h-start {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: stretch;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['row', 'v-start', 'h-between'], buffer: [], stack: [] }),
+        `.flex-row-v-start-h-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
 }`,
       ],
       [
