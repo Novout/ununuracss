@@ -5,7 +5,7 @@
   "description": "A Simplified Atomic CSS Engine",
   "private": true,
   "scripts": {
-    "build": "lerna run build",
+    "build": "lerna run build:minify",
     "dev": "lerna run dev",
     "test": "vitest run --coverage",
     "test:dev": "vitest",
