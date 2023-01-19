@@ -175,6 +175,7 @@ export const isSlashImage = (i: string): boolean => i.startsWith('//')
 export const isHTTPSImage = (i: string): boolean => /(https?:\/\/.*\.(?:png|jpg|gif|jpe?g|tiff?|png|webp|bmp))/i.test(i)
 export const isImage = (i: string): boolean => /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(i)
 export const isBorderStyle = (i: string): boolean => ['solid', 'dotted', 'dashed'].some((c) => c === i)
+export const isOutlineStyle = (i: string): boolean => ['solid', 'dotted', 'dashed', 'double'].some((c) => c === i)
 export const isSizer = (i: string): boolean => ['xs', 'sm', 'base', 'lg', 'xl'].some((c) => c === i)
 export const isScroll = (i: string): boolean => ['scroll', 'hidden', 'auto', 'clip', 'visible'].some((c) => c === i)
 export const isCursor = (i: string): boolean =>

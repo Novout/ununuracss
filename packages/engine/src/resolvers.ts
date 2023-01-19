@@ -29,6 +29,7 @@ import {
   getResourceRounded,
   getResourcePaddingOrMargin,
   getResourceGrid,
+  getResourceOutline,
 } from './resources'
 import { TemplateClassResponsive, TemplateDefaultClass } from './template'
 
@@ -72,6 +73,8 @@ export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string =>
       return 'font'
     case UnunuraIdentifier.Border:
       return 'border'
+    case UnunuraIdentifier.Outline:
+      return 'outline'
     case UnunuraIdentifier.Flexbox:
       return 'flex'
     case UnunuraIdentifier.Grid:
@@ -123,6 +126,8 @@ export const resolveCSS = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateCo
       return getResourceText(identifier, ctx)
     case UnunuraIdentifier.Border:
       return getResourceBorder(identifier, ctx)
+    case UnunuraIdentifier.Outline:
+      return getResourceOutline(identifier, ctx)
     case UnunuraIdentifier.Flexbox:
       return getResourceFlex(identifier, ctx)
     case UnunuraIdentifier.Grid:

@@ -14,6 +14,7 @@ import {
   isTypographyUnderline,
   isTypographyOverflow,
   isTypographyTransform,
+  isOutlineStyle,
 } from 'ununura-shared'
 import {
   getSupportedColor,
@@ -168,6 +169,27 @@ export const getResourceBorder = (
   setter += setterRow(style, `${inCss}: ${style}`, ctx.contents)
   setter += setterRow(color, `${inCss}-color: ${color}`, ctx.contents)
   setter += setterRow(size, `${inCss}-width: ${size}`, ctx.contents)
+
+  return resolveCssClass(identifier, setter, ctx)
+}
+
+export const getResourceOutline = (
+  identifier: UnunuraIdentifier,
+
+  ctx: UnunuraGenerateContext
+): string => {
+  const size = getSupportedNumber(ctx.contents)
+  const style = ctx.contents.find((c) => isOutlineStyle(c)) ?? NULLABLE
+  const color = getSupportedColor(ctx.contents)
+  const offset = findResourceInStart(ctx.contents, ['offset-'], { onlyValue: true })
+
+  const inCss = resolveIdentifierInCSS(identifier)
+
+  let setter = setterHead(ctx)
+  setter += setterRow(style, `${inCss}: ${style}`, ctx.contents)
+  setter += setterRow(color, `${inCss}-color: ${color}`, ctx.contents)
+  setter += setterRow(size, `${inCss}-width: ${size}`, ctx.contents)
+  setter += setterRow(offset, `${inCss}-offset: ${offset}`, ctx.contents)
 
   return resolveCssClass(identifier, setter, ctx)
 }

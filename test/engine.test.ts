@@ -304,6 +304,14 @@ describe('transform', () => {
 }`,
       ],
       [
+        resolveCSS(UnunuraIdentifier.Outline, { contents: ['10', 'dashed', 'black'], buffer: [], stack: [] }),
+        `.outline-10-dashed-black {
+  outline: dashed;
+  outline-color: black;
+  outline-width: 10px;
+}`,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Text, { contents: ['2rem', 'black'], buffer: [], stack: [] }),
         `.text-2rem-black {
   color: black;

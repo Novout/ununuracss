@@ -4,6 +4,7 @@ export enum UnunuraIdentifier {
   Height = 'h',
   Width = 'w',
   Border = 'border',
+  Outline = 'outline',
   Text = 'text',
   Background = 'bg',
   Flexbox = 'flex',
