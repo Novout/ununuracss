@@ -7,6 +7,7 @@ export enum UnunuraIdentifier {
   Text = 'text',
   Background = 'bg',
   Flexbox = 'flex',
+  Grid = 'grid',
   Position = 'pos',
   Scroll = 'scroll',
   Reset = 'reset',

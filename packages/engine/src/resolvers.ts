@@ -28,6 +28,7 @@ import {
   getResourceTransform,
   getResourceRounded,
   getResourcePaddingOrMargin,
+  getResourceGrid,
 } from './resources'
 import { TemplateClassResponsive, TemplateDefaultClass } from './template'
 
@@ -73,6 +74,8 @@ export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string =>
       return 'border'
     case UnunuraIdentifier.Flexbox:
       return 'flex'
+    case UnunuraIdentifier.Grid:
+      return 'grid'
     case UnunuraIdentifier.Height:
       return 'height'
     case UnunuraIdentifier.Width:
@@ -122,6 +125,8 @@ export const resolveCSS = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateCo
       return getResourceBorder(identifier, ctx)
     case UnunuraIdentifier.Flexbox:
       return getResourceFlex(identifier, ctx)
+    case UnunuraIdentifier.Grid:
+      return getResourceGrid(identifier, ctx)
     case UnunuraIdentifier.Position:
       return getResourcePosition(identifier, ctx)
     case UnunuraIdentifier.Scroll:

@@ -369,7 +369,39 @@ export const getResourceFlex = (
   setter += setterRow(gap, `gap: ${gap.split('-')[1]}`, ctx.contents)
   setter += setterRow(horizontal, `justify-content: ${horizontal}`, ctx.contents)
   setter += setterRow(vertical, `align-items: ${vertical}`, ctx.contents)
-  setter += setterRow(shrink, `${inCss}-shrink: ${vertical}`, ctx.contents)
+  setter += setterRow(shrink, `${inCss}-shrink: ${shrink}`, ctx.contents)
+
+  return resolveCssClass(identifier, setter, ctx)
+}
+
+export const getResourceGrid = (
+  identifier: UnunuraIdentifier,
+
+  ctx: UnunuraGenerateContext
+): string => {
+  const cols = findResourceInStart(ctx.contents, ['cols-'], { onlyValue: true })
+  const rows = findResourceInStart(ctx.contents, ['rows-'], { onlyValue: true })
+  const colSpan = findResourceInStart(ctx.contents, ['Cspan-'], { onlyValue: true })
+  const rowSpan = findResourceInStart(ctx.contents, ['Wspan-'], { onlyValue: true })
+  const flow = findResourceInStart(ctx.contents, ['flow-'], { onlyValue: true })
+  const autoFlow = findResourceInStart(ctx.contents, ['Aflow-'], { onlyValue: true })
+  const gap = getSupportedFlexGap(ctx.contents)
+  const horizontal = getSupportedFlexHorizontal(ctx.contents).replace(/h-/, '')
+  const vertical = getSupportedFlexVertical(ctx.contents).replace(/v-/, '')
+
+  const inCss = resolveIdentifierInCSS(identifier)
+
+  let setter = setterHead(ctx, `display: ${inCss};`)
+  setter += setterRow(cols, `${inCss}-template-columns: repeat(${cols}, minmax(0, 1fr))`, ctx.contents)
+  setter += setterRow(rows, `${inCss}-template-rows: repeat(${rows}, minmax(0, 1fr))`, ctx.contents)
+  setter += setterRow(colSpan, `${inCss}-column: span ${colSpan} / span ${colSpan}`, ctx.contents)
+  setter += setterRow(rowSpan, `${inCss}-row: span ${rowSpan} / span ${rowSpan}`, ctx.contents)
+  // TODO: Find with >-< cases
+  setter += setterRow(flow, `${inCss}-auto-flow: ${flow}`, ctx.contents)
+  setter += setterRow(autoFlow, `${inCss}-auto-columns: ${autoFlow}`, ctx.contents)
+  setter += setterRow(gap, `gap: ${gap.split('-')[1]}`, ctx.contents)
+  setter += setterRow(horizontal, `justify-content: ${horizontal}`, ctx.contents)
+  setter += setterRow(vertical, `align-items: ${vertical}`, ctx.contents)
 
   return resolveCssClass(identifier, setter, ctx)
 }
