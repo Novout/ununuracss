@@ -34,7 +34,24 @@ export type UnunuraContextualizePseudoClasses =
   | 'required'
   | 'valid'
   | 'visited'
-export type UnunuraContextualize = UnunuraContextualizeTheme | UnunuraContextualizeResponsive | UnunuraContextualizePseudoClasses
+export type UnunuraContextualizePseudoElement =
+  | 'after'
+  | 'before'
+  | 'cue'
+  | 'first-letter'
+  | 'first-line'
+  | 'selection'
+  | 'slotted'
+  | 'backdrop'
+  | 'placeholder'
+  | 'marker'
+  | 'spelling-error'
+  | 'grammar-error'
+export type UnunuraContextualize =
+  | UnunuraContextualizeTheme
+  | UnunuraContextualizeResponsive
+  | UnunuraContextualizePseudoClasses
+  | UnunuraContextualizePseudoElement
 export type UnunuraContextualizeStack = UnunuraContextualize[]
 
 // CSS Supports

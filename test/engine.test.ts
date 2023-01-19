@@ -844,7 +844,7 @@ describe('transform', () => {
     }
   })
 
-  it('should get css class in raw context', () => {
+  it('should get css class in pseudo class context', () => {
     const targets = [
       [
         resolveCSS(UnunuraIdentifier.Cursor, { contents: ['none'], buffer: [], stack: ['hover'] }),
@@ -861,6 +861,39 @@ describe('transform', () => {
       [
         resolveCSS(UnunuraIdentifier.Rounded, { contents: ['2rem'], buffer: [], stack: ['valid'] }),
         `.rounded-2rem:valid {
+  border-radius: 2rem;
+}`,
+      ],
+    ]
+
+    for (const [css, result] of targets) {
+      expect(css).toStrictEqual(result)
+    }
+  })
+
+  it('should get css class in pseudo element context', () => {
+    const targets = [
+      [
+        resolveCSS(UnunuraIdentifier.Cursor, { contents: ['none'], buffer: [], stack: ['cue'] }),
+        `.cursor-none::cue {
+  cursor: none;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Cursor, { contents: ['none'], buffer: [], stack: ['selection'] }),
+        `.cursor-none::selection {
+  cursor: none;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Cursor, { contents: ['none'], buffer: [], stack: ['first-line'] }),
+        `.cursor-none::first-line {
+  cursor: none;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Rounded, { contents: ['2rem'], buffer: [], stack: ['selection', 'valid'] }),
+        `.rounded-2rem::selection {
   border-radius: 2rem;
 }`,
       ],

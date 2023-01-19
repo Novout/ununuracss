@@ -1,7 +1,12 @@
 import { NULLABLE } from './constants'
-import { browserFonts, googleFonts, pseudoClass } from './defines'
+import { browserFonts, googleFonts, pseudoClass, pseudoElement } from './defines'
 import { UnunuraGlobals, UnunuraIdentifier, UnunuraKeys } from './enums'
-import { Option, UnunuraContextualizePseudoClasses, UnunuraContextualizeResponsive } from './types'
+import {
+  Option,
+  UnunuraContextualizePseudoClasses,
+  UnunuraContextualizePseudoElement,
+  UnunuraContextualizeResponsive,
+} from './types'
 
 export const isDefaultCentralize = (i: string): boolean => ['center', 'left', 'right', 'justify'].some((c) => i === c)
 export const isHex = (i: string): boolean => /^#[0-9a-fA-F]{6}/i.test(i)
@@ -260,6 +265,8 @@ export const isResponsiveContextIdentifier = (str: string): Option<UnunuraContex
   ['xs', 'sm', 'md', 'lg', 'xl']?.find((key) => key === str) as Option<UnunuraContextualizeResponsive>
 export const isPseudoClassContextIdentifier = (str: string): Option<UnunuraContextualizePseudoClasses> =>
   pseudoClass?.find((key) => key === str) as Option<UnunuraContextualizePseudoClasses>
+export const isPseudoElementContextIdentifier = (str: string): Option<UnunuraContextualizePseudoElement> =>
+  pseudoElement?.find((key) => key === str) as Option<UnunuraContextualizePseudoElement>
 export const isContextIdentifier = (str: string) =>
   isThemeContextIdentifier(str) || isResponsiveContextIdentifier(str) || isPseudoClassContextIdentifier(str)
 export const isCommonIdentifier = (str: string) => Object.values(UnunuraIdentifier).some((key) => key === str)

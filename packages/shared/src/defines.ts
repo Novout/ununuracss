@@ -94,6 +94,21 @@ export const pseudoClass = [
   'visited',
 ]
 
+export const pseudoElement = [
+  'after',
+  'before',
+  'cue',
+  'first-letter',
+  'first-line',
+  'selection',
+  'slotted',
+  'backdrop',
+  'placeholder',
+  'marker',
+  'spelling-error',
+  'grammar-error',
+]
+
 export const browserFonts = [
   'Arial',
   'Arial Black',

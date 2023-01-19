@@ -8,6 +8,7 @@ import {
   UnunuraContextualizeResponsive,
   UnunuraGenerateContext,
   isPseudoClassContextIdentifier,
+  isPseudoElementContextIdentifier,
 } from 'ununura-shared'
 import { purgeOnlyCssClassTitle } from './purge'
 import {
@@ -192,8 +193,9 @@ export const resolveCssClass = (identifier: UnunuraIdentifier, setter: string, c
   if (!setter.trim()) return NULLABLE
 
   const asPseudoClass = ctx.stack?.find((c) => isPseudoClassContextIdentifier(c))
+  const asPseudoElement = ctx.stack?.find((c) => isPseudoElementContextIdentifier(c))
 
-  const head = `${title}${asPseudoClass ? `:${asPseudoClass}` : ''}`
+  const head = `${title}${asPseudoElement ? `::${asPseudoElement}` : asPseudoClass ? `:${asPseudoClass}` : ''}`
   const cl = TemplateDefaultClass(head, setter)
 
   const asResponsive = ctx.stack?.find((c) => isResponsiveContextIdentifier(c))
