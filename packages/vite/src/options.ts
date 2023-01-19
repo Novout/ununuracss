@@ -1,7 +1,7 @@
-import { UnunuraViteOptions } from 'ununura-shared'
+import { UnunuraOptions } from 'ununura-shared'
 
-export const resolvedViteOptions = (options: UnunuraViteOptions = {}) => {
-  let _options = {} as UnunuraViteOptions
+export const resolvedViteOptions = (options: UnunuraOptions = {}) => {
+  let _options = {} as UnunuraOptions
   _options.jsx = options?.jsx ?? false
   _options.jsxIgnoreEntryFile = options?.jsxIgnoreEntryFile ?? true
 

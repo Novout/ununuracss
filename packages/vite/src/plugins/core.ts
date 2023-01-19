@@ -7,15 +7,15 @@ import {
   isSvelteFile,
   isJSXFile,
   getFilename,
-  UnunuraViteOptions,
+  UnunuraOptions,
   isJSXEntryFile,
 } from 'ununura-shared'
 import { reloadServer } from '../hot'
 import { validForUpdate } from '../support'
 import { resolvedViteOptions } from '../options'
 
-export default (options?: UnunuraViteOptions): Plugin => {
-  const { jsx, jsxIgnoreEntryFile } = resolvedViteOptions(options)
+export default (options?: UnunuraOptions): Plugin => {
+  const ununura = resolvedViteOptions(options)
 
   return {
     name: 'ununuracss:core',
@@ -24,17 +24,17 @@ export default (options?: UnunuraViteOptions): Plugin => {
       const filename = getFilename(id)
 
       if (isVueFile(id)) {
-        return UnunuraScopedSFCFile(code, 'vue', filename)
+        return UnunuraScopedSFCFile(code, 'vue', filename, ununura)
       }
 
       if (isSvelteFile(id)) {
-        return UnunuraScopedSFCFile(code, 'svelte', filename)
+        return UnunuraScopedSFCFile(code, 'svelte', filename, ununura)
       }
 
-      if (isJSXFile(id) && jsx) {
-        if (jsxIgnoreEntryFile && isJSXEntryFile(id)) return null
+      if (isJSXFile(id) && ununura.jsx) {
+        if (ununura.jsxIgnoreEntryFile && isJSXEntryFile(id)) return null
 
-        return UnunuraJSXSFCFile(code, filename)
+        return UnunuraJSXSFCFile(code, filename, ununura)
       }
     },
     resolveId(id) {
@@ -42,7 +42,7 @@ export default (options?: UnunuraViteOptions): Plugin => {
     },
     async load(id) {
       if (id === RESOLVED_VIRTUAL_CSS_INJECT_FILENAME) {
-        const code = await UnunuraGlobalGenerate({ jsx, jsxIgnoreEntryFile })
+        const code = await UnunuraGlobalGenerate(ununura)
 
         return { code }
       }

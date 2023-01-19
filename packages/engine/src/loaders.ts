@@ -7,18 +7,19 @@ import {
   SvelteSFC,
   JSXSFC,
   UnunuraScannerFile,
+  UnunuraOptions,
 } from 'ununura-shared'
 import { classesFromRawHtml, classesFromRawJSX, generateCssFromNodes } from './ast'
 import { scan } from './scanner'
 import { getGlobals } from './globals'
 
-export const UnunuraGlobalGenerateJSXReduced = (files: UnunuraScannerFile[], initial: string = '') => {
+export const UnunuraGlobalGenerateJSXReduced = (files: UnunuraScannerFile[], initial: string = '', ununura: UnunuraOptions) => {
   const reduced =
     files?.reduce((acc, file) => {
       // TODO: JSX AST Rework ExportedNamedFunctions in common syntax -> export function ...
       // const nodes = classesFromRawJSX(file.raw)
       const nodes = classesFromRawHtml(file.raw)
-      const { css } = generateCssFromNodes(nodes, file.raw, file.filename)
+      const { css } = generateCssFromNodes(nodes, file.raw, file.filename, ununura)
 
       return (acc += `${css.reduce((acc, cl) => (acc += cl), '')}`)
     }, initial) ?? []
@@ -36,13 +37,18 @@ export const UnunuraGlobalGenerate = async (options?: UnunuraCoreOptions): Promi
 
   if (!options?.jsx) return globals
 
-  return UnunuraGlobalGenerateJSXReduced(files, globals)
+  return UnunuraGlobalGenerateJSXReduced(files, globals, options)
 }
 
-export const UnunuraScopedSFCFile = (sfc: VueSFC | SvelteSFC, type: 'vue' | 'svelte', filename: string): CSSInject => {
+export const UnunuraScopedSFCFile = (
+  sfc: VueSFC | SvelteSFC,
+  type: 'vue' | 'svelte',
+  filename: string,
+  ununura: UnunuraOptions
+): CSSInject => {
   const nodes = classesFromRawHtml(sfc)
 
-  const { code, css } = generateCssFromNodes(nodes, sfc, filename)
+  const { code, css } = generateCssFromNodes(nodes, sfc, filename, ununura)
 
   if (css.length === 0) return sfc
 
@@ -51,10 +57,10 @@ export const UnunuraScopedSFCFile = (sfc: VueSFC | SvelteSFC, type: 'vue' | 'sve
   return `${code}\n\n<style${type === 'vue' ? ' scoped' : ''}>\n${bufferRaw.trimEnd()}\n</style>`
 }
 
-export const UnunuraJSXSFCFile = (sfc: JSXSFC, filename: string): CSSInject => {
+export const UnunuraJSXSFCFile = (sfc: JSXSFC, filename: string, ununura: UnunuraOptions): CSSInject => {
   const nodes = classesFromRawJSX(sfc)
 
-  const { code } = generateCssFromNodes(nodes, sfc, filename)
+  const { code } = generateCssFromNodes(nodes, sfc, filename, ununura)
 
   return code
 }

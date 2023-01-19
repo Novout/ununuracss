@@ -6,6 +6,7 @@ export interface UnunuraGenerateContext {
   contents: string[]
   node?: UnunuraASTNode
   filename?: string
+  ununura?: UnunuraOptions
 }
 
 export interface UnunuraASTNode {
@@ -23,12 +24,12 @@ export interface UnunuraScannerFile {
   filename: string
 }
 
-export interface UnunuraViteOptions {
+export interface UnunuraOptions {
   jsx?: boolean
   jsxIgnoreEntryFile?: boolean
 }
 
-export interface UnunuraCoreOptions extends UnunuraViteOptions {
+export interface UnunuraCoreOptions extends UnunuraOptions {
   include?: string[]
   exclude?: string[]
 }

@@ -15,6 +15,7 @@ import {
   UnunuraContextualizeStack,
   UnunuraASTNode,
   SFC,
+  UnunuraOptions,
 } from 'ununura-shared'
 import { generateMultipleClass, generateUniqueClass } from './resources'
 import { lex } from './lexer'
@@ -79,12 +80,12 @@ export const classesFromRawJSX = (jsx: string): UnunuraASTNode[] => {
   return classes ?? []
 }
 
-export const generateCssFromNodes = (nodes: UnunuraASTNode[], sfc: SFC, filename: string) => {
+export const generateCssFromNodes = (nodes: UnunuraASTNode[], sfc: SFC, filename: string, ununura: UnunuraOptions) => {
   let _code = sfc
   const cssBuffer: string[] = []
 
   nodes.forEach((node) => {
-    const generated = generateCss(lex(node.class), node, filename).replace(/__NULLABLE__\n/, '')
+    const generated = generateCss(lex(node.class, ununura), node, filename, ununura).replace(/__NULLABLE__\n/, '')
 
     const resolvedClassTitle = purgeOnlyCssClassTitle(generated)
     _code = _code.replaceAll(node.class, resolvedClassTitle)
@@ -95,7 +96,7 @@ export const generateCssFromNodes = (nodes: UnunuraASTNode[], sfc: SFC, filename
   return { code: cssBuffer.length > 0 ? _code : sfc, css: cssBuffer }
 }
 
-export const generateCss = (keys: string[], node: UnunuraASTNode, filename: string): string => {
+export const generateCss = (keys: string[], node: UnunuraASTNode, filename: string, ununura: UnunuraOptions): string => {
   let prev_unique: Option<string> = undefined
   let prev_multiple: Option<string> = undefined
   let prev_common_identifier: Option<string> = undefined
@@ -136,6 +137,7 @@ export const generateCss = (keys: string[], node: UnunuraASTNode, filename: stri
               contents: [],
               node,
               filename,
+              ununura,
             })
           )
         if (prev_multiple && prev_common_identifier)
@@ -146,6 +148,7 @@ export const generateCss = (keys: string[], node: UnunuraASTNode, filename: stri
               contents: [],
               node,
               filename,
+              ununura,
             })
           )
       }

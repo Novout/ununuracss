@@ -1,6 +1,6 @@
-import { isIdentifier, isKey, Option, UnunuraKeys } from 'ununura-shared'
+import { isIdentifier, isKey, Option, UnunuraKeys, UnunuraOptions } from 'ununura-shared'
 
-export const lex = (raw: string): string[] => {
+export const lex = (raw: string, ununura?: UnunuraOptions): string[] => {
   const transformers: string[] = []
   const characters = [...raw]
 
