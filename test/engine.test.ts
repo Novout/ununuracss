@@ -476,6 +476,12 @@ describe('transform', () => {
 }`,
       ],
       [
+        resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['?', 'shrink-0'], buffer: [], stack: [] }),
+        `.flex-_none_-shrink-0 {
+  flex-shrink: 0;
+}`,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['flex-1'], buffer: [], stack: [] }),
         `.flex-flex-1 {
   display: flex;

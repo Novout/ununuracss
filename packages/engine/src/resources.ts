@@ -357,15 +357,19 @@ export const getResourceFlex = (
   const gap = getSupportedFlexGap(ctx.contents)
   const horizontal = getSupportedFlexHorizontal(ctx.contents).replace(/h-/, '')
   const vertical = getSupportedFlexVertical(ctx.contents).replace(/v-/, '')
+  const shrink = findResourceInStart(ctx.contents, ['shrink-'], { onlyValue: true })
+
+  const inCss = resolveIdentifierInCSS(identifier)
 
   let setter = setterHead(ctx, 'display: flex;')
-  setter += setterRow(direction, `${identifier}-direction: ${direction}`, ctx.contents)
-  setter += setterRow(grow, `${identifier}-grow: ${grow}`, ctx.contents)
-  setter += setterRow(wrap, `${identifier}-wrap: ${wrap}`, ctx.contents)
-  setter += setterRow(flex, `${identifier}: ${flex.split('-')[1]} ${flex.split('-')[1]} 0%`, ctx.contents)
+  setter += setterRow(direction, `${inCss}-direction: ${direction}`, ctx.contents)
+  setter += setterRow(grow, `${inCss}-grow: ${grow}`, ctx.contents)
+  setter += setterRow(wrap, `${inCss}-wrap: ${wrap}`, ctx.contents)
+  setter += setterRow(flex, `${inCss}: ${flex.split('-')[1]} ${flex.split('-')[1]} 0%`, ctx.contents)
   setter += setterRow(gap, `gap: ${gap.split('-')[1]}`, ctx.contents)
   setter += setterRow(horizontal, `justify-content: ${horizontal}`, ctx.contents)
   setter += setterRow(vertical, `align-items: ${vertical}`, ctx.contents)
+  setter += setterRow(shrink, `${inCss}-shrink: ${vertical}`, ctx.contents)
 
   return resolveCssClass(identifier, setter, ctx)
 }
