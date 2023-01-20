@@ -22,7 +22,7 @@ describe.concurrent('scoped resolvers', () => {
 </template>`,
           'vue',
           '',
-          {} as any
+          { scoped: true } as any
         ),
         `<template>
   <div class="flex-col-wrap w-100 w-50-dark">
@@ -84,7 +84,7 @@ describe.concurrent('scoped resolvers', () => {
 </template>`,
           'vue',
           '',
-          {} as any
+          { scoped: true } as any
         ),
         `<template>
 <main class="">
