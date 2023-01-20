@@ -1,4 +1,4 @@
-import { pseudoClass } from 'ununura-shared'
+import { pseudoClass, pseudoElement } from 'ununura-shared'
 
 export const purgeCSS = (buffer: string) => {
   return (
@@ -24,6 +24,7 @@ export const purgeOnlyCssClassTitle = (css: string): string => {
     .replace(/(.dark .|.light .|.sepia .)/, ' ')
 
   pseudoClass.forEach((cl) => def.replaceAll(`:${cl}`, ''))
+  pseudoElement.forEach((cl) => def.replaceAll(`::${cl}`, ''))
 
   return def
 }
