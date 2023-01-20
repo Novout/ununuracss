@@ -162,6 +162,12 @@ Context is way for applying context without directly interfering with what is re
 
 `bg:gray hover(bg:none border[2 black solid])`
 
+### Pseudo-Element
+
+`after | before | cue | etc..`
+
+`bg:gray cue(bg:none border[2 black solid])`
+
 ## Only-Scoped
 
 By default, all classes are generated with a unique sequence of characters being: 
@@ -177,3 +183,19 @@ This model was adopted to avoid selector conflicts (mainly @media), being scoped
 ### JSX-All-Scoped
 
 As in some frameworks we don't have something similar to the `<style>` or `<style scoped>` tag (or a build-in alternative of the framework itself for scoped), the css generated for JSX consists of encompassing it entirely in a single file (ununura.css) using the advantage of titles unique described earlier.
+
+## Options
+
+The options are inserted by the Vite Ununura plugin.
+
+### Presets
+
+Shorten classes using a single key, for example:
+
+```ts
+ununura({
+  presets: [
+    ['btn', 'cursor:pointer p[1rem 2.5rem] bg:purple text:white']
+  ]
+})
+```
