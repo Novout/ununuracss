@@ -12,11 +12,8 @@ import {
 } from 'ununura-shared'
 import { reloadServer } from '../hot'
 import { validForUpdate } from '../support'
-import { resolvedViteOptions } from '../options'
 
-export default (options?: UnunuraOptions): Plugin => {
-  const ununura = resolvedViteOptions(options)
-
+export default (ununura: UnunuraOptions): Plugin => {
   return {
     name: 'ununuracss:core',
     enforce: 'pre',

@@ -136,6 +136,30 @@ describe('lexer', () => {
     }
   })
 
+  it('should lex presets option in css class', () => {
+    const targets = [
+      [
+        lex('btn border:10 text:10', { presets: [['btn', 'cursor:pointer p[1rem 2.5rem]']] }),
+        ['cursor', ':', 'pointer', 'p', '[', '1rem 2.5rem', ']', 'border', ':', '10', 'text', ':', '10'],
+      ],
+      [lex('btn border:10 text:10', { presets: [] }), ['border', ':', '10', 'text', ':', '10']],
+      [lex('border:10 text:10', { presets: [] }), ['border', ':', '10', 'text', ':', '10']],
+      [
+        lex('btn other-preset', {
+          presets: [
+            ['btn', 'cursor:pointer p[1rem 2.5rem]'],
+            ['other-preset', 'border:10 text:10'],
+          ],
+        }),
+        ['cursor', ':', 'pointer', 'p', '[', '1rem 2.5rem', ']', 'border', ':', '10', 'text', ':', '10'],
+      ],
+    ]
+
+    for (const [lex, result] of targets) {
+      expect(lex).toStrictEqual(result)
+    }
+  })
+
   it('should not get a key', () => {
     expect(isKey(' ')).toBeFalsy()
   })

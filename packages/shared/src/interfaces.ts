@@ -27,6 +27,7 @@ export interface UnunuraScannerFile {
 export interface UnunuraOptions {
   jsx?: boolean
   jsxIgnoreEntryFile?: boolean
+  presets?: [string, string][]
 }
 
 export interface UnunuraCoreOptions extends UnunuraOptions {

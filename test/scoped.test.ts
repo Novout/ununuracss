@@ -20,7 +20,8 @@ describe('resolvers', () => {
   <div />
 </template>`,
           'vue',
-          ''
+          '',
+          {}
         ),
         `<template>
   <div class="flex-col-wrap w-100 w-50-dark">
@@ -81,7 +82,8 @@ describe('resolvers', () => {
   </main>
 </template>`,
           'vue',
-          ''
+          '',
+          {}
         ),
         `<template>
 <main class="">
