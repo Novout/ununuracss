@@ -511,3 +511,29 @@ export const getResourceTransform = (identifier: UnunuraIdentifier, ctx: Ununura
 
   return resolveCssClass(identifier, setter, ctx)
 }
+
+export const getResourceFilter = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {
+  const backdrop = findResource(ctx.contents, ['backdrop'])
+  const blur = findResourceInStart(ctx.contents, ['blur-'], { onlyValue: true })
+  const contrast = findResourceInStart(ctx.contents, ['contrast-'], { onlyValue: true })
+  const grayscale = findResourceInStart(ctx.contents, ['grayscale-'], { onlyValue: true })
+  const hue = findResourceInStart(ctx.contents, ['hue-'], { onlyValue: true })
+  const invert = findResourceInStart(ctx.contents, ['invert-'], { onlyValue: true })
+  const saturate = findResourceInStart(ctx.contents, ['saturate-'], { onlyValue: true })
+  const sepia = findResourceInStart(ctx.contents, ['sepia-'], { onlyValue: true })
+
+  const inCss = resolveIdentifierInCSS(identifier)
+
+  let setter = setterHead(ctx)
+  setter += !isNullable(backdrop) ? `  backdrop-${inCss}: ` : `  ${inCss}: `
+  setter += !isNullable(blur) ? `blur(${blur}) ` : ''
+  setter += !isNullable(contrast) ? `contrast(${contrast}) ` : ''
+  setter += !isNullable(grayscale) ? `grayscale(${grayscale}) ` : ''
+  setter += !isNullable(hue) ? `hue-rotate(${hue}) ` : ''
+  setter += !isNullable(invert) ? `invert(${invert}) ` : ''
+  setter += !isNullable(saturate) ? `saturate(${saturate}) ` : ''
+  setter += !isNullable(sepia) ? `sepia(${sepia}) ` : ''
+  setter = setter.trimEnd() + ';\n'
+
+  return resolveCssClass(identifier, setter, ctx)
+}

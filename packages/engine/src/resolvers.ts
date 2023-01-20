@@ -31,6 +31,7 @@ import {
   getResourcePaddingOrMargin,
   getResourceGrid,
   getResourceOutline,
+  getResourceFilter,
 } from './resources'
 import { TemplateClassResponsive, TemplateDefaultClass } from './template'
 
@@ -108,6 +109,8 @@ export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string =>
       return 'transition'
     case UnunuraIdentifier.Transform:
       return 'transform'
+    case UnunuraIdentifier.Filter:
+      return 'filter'
   }
 }
 
@@ -153,6 +156,8 @@ export const resolveCSS = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateCo
       return getResourceTransform(identifier, ctx)
     case UnunuraIdentifier.Typography:
       return getResourceTypography(identifier, ctx)
+    case UnunuraIdentifier.Filter:
+      return getResourceFilter(identifier, ctx)
     case UnunuraIdentifier.Reset: //global
       return NULLABLE
     default:

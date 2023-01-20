@@ -21,6 +21,7 @@ export enum UnunuraIdentifier {
   Transition = 'tr',
   Transform = 'tf',
   Typography = 'typo',
+  Filter = 'filter',
 }
 
 export enum UnunuraGlobals {

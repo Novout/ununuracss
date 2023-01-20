@@ -804,6 +804,38 @@ describe('transform', () => {
 }`,
       ],
       [
+        resolveCSS(UnunuraIdentifier.Filter, { contents: ['blur-4px'], buffer: [], stack: [] }),
+        `.filter-blur-4px {
+  filter: blur(4px);
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Filter, { contents: ['backdrop', 'blur-4px'], buffer: [], stack: [] }),
+        `.filter-backdrop-blur-4px {
+  backdrop-filter: blur(4px);
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Filter, {
+          contents: ['blur-4px', 'contrast-1', 'hue-30deg', 'grayscale-50%', 'invert-50%', 'saturate-1', 'sepia-50%'],
+          buffer: [],
+          stack: [],
+        }),
+        `.filter-blur-4px-contrast-1-hue-30deg-grayscale-50-invert-50-saturate-1-sepia-50 {
+  filter: blur(4px) contrast(1) grayscale(50%) hue-rotate(30deg) invert(50%) saturate(1) sepia(50%);
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Filter, {
+          contents: ['backdrop', 'blur-4px', 'contrast-1', 'hue-30deg', 'grayscale-50%', 'invert-50%', 'saturate-1', 'sepia-50%'],
+          buffer: [],
+          stack: [],
+        }),
+        `.filter-backdrop-blur-4px-contrast-1-hue-30deg-grayscale-50-invert-50-saturate-1-sepia-50 {
+  backdrop-filter: blur(4px) contrast(1) grayscale(50%) hue-rotate(30deg) invert(50%) saturate(1) sepia(50%);
+}`,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Shadow, { contents: ['black'], buffer: [], stack: [] }),
         `.shadow-black {
   box-shadow: 5px 5px 5px 0px black;
