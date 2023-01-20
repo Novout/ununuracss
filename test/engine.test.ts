@@ -23,22 +23,28 @@ describe.concurrent('lexer', () => {
   it('should lex a css class', () => {
     const targets = [
       [
-        lex('bg:#909090 m[0 0 10 0] border:10 text:10'),
+        lex('bg:#909090 m[0 0 10 0] border:10 text:10', {} as any),
         ['bg', ':', '#909090', 'm', '[', '0 0 10 0', ']', 'border', ':', '10', 'text', ':', '10'],
       ],
-      [lex('border[5 yellow]'), ['border', '[', '5 yellow', ']']],
-      [lex('text[white 500 2] m[0 0 10 0] p:10'), ['text', '[', 'white 500 2', ']', 'm', '[', '0 0 10 0', ']', 'p', ':', '10']],
-      [lex('bg:white m[0 0 10 0] p:10'), ['bg', ':', 'white', 'm', '[', '0 0 10 0', ']', 'p', ':', '10']],
+      [lex('border[5 yellow]', {} as any), ['border', '[', '5 yellow', ']']],
       [
-        lex('text:roboto text[white xl 900] border[2 #050505 dashed rounded]'),
+        lex('text[white 500 2] m[0 0 10 0] p:10', {} as any),
+        ['text', '[', 'white 500 2', ']', 'm', '[', '0 0 10 0', ']', 'p', ':', '10'],
+      ],
+      [lex('bg:white m[0 0 10 0] p:10', {} as any), ['bg', ':', 'white', 'm', '[', '0 0 10 0', ']', 'p', ':', '10']],
+      [
+        lex('text:roboto text[white xl 900] border[2 #050505 dashed rounded]', {} as any),
         ['text', ':', 'roboto', 'text', '[', 'white xl 900', ']', 'border', '[', '2 #050505 dashed rounded', ']'],
       ],
-      [lex('external-class foo bar baz border[5 yellow] foo bar baz'), ['border', '[', '5 yellow', ']']],
-      [lex('external-class foo p:10 bar baz border[5 yellow] foo bar baz'), ['p', ':', '10', 'border', '[', '5 yellow', ']']],
-      [lex('bar baz border[5 yellow] external-class foo'), ['border', '[', '5 yellow', ']']],
-      [lex('bg://i.imgur.com/XyZvY.png'), ['bg', ':', '//i.imgur.com/XyZvY.png']],
+      [lex('external-class foo bar baz border[5 yellow] foo bar baz', {} as any), ['border', '[', '5 yellow', ']']],
       [
-        lex('bg:white md(m[0 0 10 0] p:10) dark(text:white bg:black)'),
+        lex('external-class foo p:10 bar baz border[5 yellow] foo bar baz', {} as any),
+        ['p', ':', '10', 'border', '[', '5 yellow', ']'],
+      ],
+      [lex('bar baz border[5 yellow] external-class foo', {} as any), ['border', '[', '5 yellow', ']']],
+      [lex('bg://i.imgur.com/XyZvY.png', {} as any), ['bg', ':', '//i.imgur.com/XyZvY.png']],
+      [
+        lex('bg:white md(m[0 0 10 0] p:10) dark(text:white bg:black)', {} as any),
         [
           'bg',
           ':',
@@ -65,7 +71,7 @@ describe.concurrent('lexer', () => {
         ],
       ],
       [
-        lex('bg:white text:black dark(md(m[0 0 10 0] p:10) text:white bg:black)'),
+        lex('bg:white text:black dark(md(m[0 0 10 0] p:10) text:white bg:black)', {} as any),
         [
           'bg',
           ':',
@@ -95,7 +101,7 @@ describe.concurrent('lexer', () => {
         ],
       ],
       [
-        lex('md(hover(dark(xl(active(light(xl(focus(sepia(bg:rgba-0-0-0-0.1)))))))))'),
+        lex('md(hover(dark(xl(active(light(xl(focus(sepia(bg:rgba-0-0-0-0.1)))))))))', {} as any),
         [
           'md',
           '(',
@@ -139,18 +145,18 @@ describe.concurrent('lexer', () => {
   it('should lex presets option in css class', () => {
     const targets = [
       [
-        lex('btn border:10 text:10', { presets: [['btn', 'cursor:pointer p[1rem 2.5rem]']] }),
+        lex('btn border:10 text:10', { presets: [['btn', 'cursor:pointer p[1rem 2.5rem]']] } as any),
         ['cursor', ':', 'pointer', 'p', '[', '1rem 2.5rem', ']', 'border', ':', '10', 'text', ':', '10'],
       ],
-      [lex('btn border:10 text:10', { presets: [] }), ['border', ':', '10', 'text', ':', '10']],
-      [lex('border:10 text:10', { presets: [] }), ['border', ':', '10', 'text', ':', '10']],
+      [lex('btn border:10 text:10', { presets: [] } as any), ['border', ':', '10', 'text', ':', '10']],
+      [lex('border:10 text:10', { presets: [] } as any), ['border', ':', '10', 'text', ':', '10']],
       [
         lex('btn other-preset', {
           presets: [
             ['btn', 'cursor:pointer p[1rem 2.5rem]'],
             ['other-preset', 'border:10 text:10'],
           ],
-        }),
+        } as any),
         ['cursor', ':', 'pointer', 'p', '[', '1rem 2.5rem', ']', 'border', ':', '10', 'text', ':', '10'],
       ],
     ]
@@ -1057,8 +1063,8 @@ describe.concurrent('support', () => {
 describe.concurrent('fs', () => {
   it('should ignore files', async () => {
     const targets = [
-      [scan({ include: ['**/*.xyz'], exclude: [] }), []],
-      [UnunuraGlobalGenerate({ include: ['**/*.xyz'], exclude: [] }), ''],
+      [scan({ include: ['**/*.xyz'], exclude: [] } as any), []],
+      [UnunuraGlobalGenerate({ include: ['**/*.xyz'], exclude: [] } as any), ''],
     ]
 
     for (const [raw, result] of targets) {

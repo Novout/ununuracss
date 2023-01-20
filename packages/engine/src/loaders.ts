@@ -27,7 +27,7 @@ export const UnunuraGlobalGenerateJSXReduced = (files: UnunuraScannerFile[], ini
   return reduced
 }
 
-export const UnunuraGlobalGenerate = async (options?: UnunuraCoreOptions): Promise<CSSInject> => {
+export const UnunuraGlobalGenerate = async (options: UnunuraCoreOptions): Promise<CSSInject> => {
   const files = await scan({
     include: options?.include ?? STANDARD_INCLUDE_SCAN,
     exclude: options?.exclude ?? STANDARD_EXCLUDE_SCAN,
@@ -35,7 +35,7 @@ export const UnunuraGlobalGenerate = async (options?: UnunuraCoreOptions): Promi
 
   const globals = getGlobals(files, options)
 
-  if (!options?.jsx) return globals
+  if (!options?.jsx && options?.scoped) return globals
 
   return UnunuraGlobalGenerateJSXReduced(files, globals, options)
 }
@@ -53,6 +53,8 @@ export const UnunuraScopedSFCFile = (
   if (css.length === 0) return sfc
 
   const bufferRaw = css.reduce((acc, css) => (acc += `${css}\n`))
+
+  if (ununura.scoped) return code
 
   return `${code}\n\n<style${type === 'vue' ? ' scoped' : ''}>\n${bufferRaw.trimEnd()}\n</style>`
 }

@@ -1,4 +1,5 @@
 import { UnunuraScopedSFCFile } from 'ununura-engine'
+import { UnunuraResolvableOptions } from 'ununura-shared'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 describe.concurrent('scoped resolvers', () => {
@@ -21,7 +22,7 @@ describe.concurrent('scoped resolvers', () => {
 </template>`,
           'vue',
           '',
-          {}
+          {} as any
         ),
         `<template>
   <div class="flex-col-wrap w-100 w-50-dark">
@@ -83,7 +84,7 @@ describe.concurrent('scoped resolvers', () => {
 </template>`,
           'vue',
           '',
-          {}
+          {} as any
         ),
         `<template>
 <main class="">

@@ -24,10 +24,18 @@ export interface UnunuraScannerFile {
   filename: string
 }
 
-export interface UnunuraOptions {
+export interface UnunuraResolvableOptions {
+  presets?: [string, string][]
   jsx?: boolean
   jsxIgnoreEntryFile?: boolean
-  presets?: [string, string][]
+  scoped?: boolean
+}
+
+export interface UnunuraOptions {
+  presets: [string, string][]
+  jsx: boolean
+  jsxIgnoreEntryFile: boolean
+  scoped: boolean
 }
 
 export interface UnunuraCoreOptions extends UnunuraOptions {

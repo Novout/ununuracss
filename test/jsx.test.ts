@@ -46,7 +46,7 @@ export const Bar = (props) => {
   );
 };`,
           '',
-          {}
+          {} as any
         ),
         `export const Foo = (props) => {
   return (
