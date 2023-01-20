@@ -1,7 +1,7 @@
 import { UnunuraScopedSFCFile } from 'ununura-engine'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-describe('resolvers', () => {
+describe.concurrent('scoped resolvers', () => {
   beforeEach(() => {
     Math.random = () => -1
   })

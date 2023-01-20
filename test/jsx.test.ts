@@ -1,7 +1,7 @@
 import { classesFromRawJSX, UnunuraJSXSFCFile } from 'ununura-engine'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-describe('resolvers', () => {
+describe.concurrent('jsx resolvers', () => {
   beforeEach(() => {
     Math.random = () => -1
   })
@@ -45,7 +45,8 @@ export const Bar = (props) => {
     </a>
   );
 };`,
-          ''
+          '',
+          {}
         ),
         `export const Foo = (props) => {
   return (

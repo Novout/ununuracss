@@ -15,7 +15,7 @@ import {
 import { isKey, MEYER_RESET_CSS, NOVOUT_RESET_CSS, NULLABLE, UnunuraIdentifier } from 'ununura-shared'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-describe('lexer', () => {
+describe.concurrent('lexer', () => {
   beforeEach(() => {
     Math.random = () => -1
   })
@@ -169,7 +169,7 @@ describe('lexer', () => {
   })
 })
 
-describe('html', () => {
+describe.concurrent('html', () => {
   it('should get a classes from raw html', () => {
     const targets = [
       [classesFromRawHtml('').map((node) => node.class), []],
@@ -950,7 +950,7 @@ describe('transform', () => {
   })
 })
 
-describe('css', () => {
+describe.concurrent('css', () => {
   it('should get a resources from raw html', () => {
     const targets = [
       [getGlobalReset('reset:novout'), NOVOUT_RESET_CSS()],
@@ -982,7 +982,7 @@ describe('css', () => {
   })
 })
 
-describe('purge', () => {
+describe.concurrent('purge', () => {
   it('should purge or not css generated files', () => {
     const targets = [
       [
@@ -1041,7 +1041,7 @@ a wrong css file`,
   })
 })
 
-describe('support', () => {
+describe.concurrent('support', () => {
   it('should get correct value', () => {
     const targets = [
       [getSupportedInteger(['400']), '400'],
@@ -1054,7 +1054,7 @@ describe('support', () => {
   })
 })
 
-describe('fs', () => {
+describe.concurrent('fs', () => {
   it('should ignore files', async () => {
     const targets = [
       [scan({ include: ['**/*.xyz'], exclude: [] }), []],
