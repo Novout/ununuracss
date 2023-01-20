@@ -1,7 +1,7 @@
-import { isJSXEntryFile, MEYER_RESET_CSS, NOVOUT_RESET_CSS, UnunuraScannerFile, UnunuraViteOptions } from 'ununura-shared'
+import { isJSXEntryFile, MEYER_RESET_CSS, NOVOUT_RESET_CSS, UnunuraResolvableOptions, UnunuraScannerFile } from 'ununura-shared'
 import { classesFromRawHtml, classesFromRawJSX } from './ast'
 
-export const getGlobals = (files: UnunuraScannerFile[], options?: UnunuraViteOptions) => {
+export const getGlobals = (files: UnunuraScannerFile[], options?: UnunuraResolvableOptions) => {
   const buffer: string[] = []
 
   files?.forEach((file) => {

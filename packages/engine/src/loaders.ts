@@ -17,7 +17,7 @@ export const UnunuraGlobalGenerateJSXReduced = (files: UnunuraScannerFile[], ini
   const reduced =
     files?.reduce((acc, file) => {
       // TODO: JSX AST Rework ExportedNamedFunctions in common syntax -> export function ...
-      // const nodes = classesFromRawJSX(file.raw)
+      // const nodes = !options.scoped && !options.jsx ?  classesFromRawHtml(file.raw) : classesFromRawJSX(file.raw)
       const nodes = classesFromRawHtml(file.raw)
       const { css } = generateCssFromNodes(nodes, file.raw, file.filename, ununura)
 
@@ -54,7 +54,7 @@ export const UnunuraScopedSFCFile = (
 
   const bufferRaw = css.reduce((acc, css) => (acc += `${css}\n`))
 
-  if (ununura.scoped) return code
+  if (!ununura.scoped) return code
 
   return `${code}\n\n<style${type === 'vue' ? ' scoped' : ''}>\n${bufferRaw.trimEnd()}\n</style>`
 }
