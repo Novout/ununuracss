@@ -1,23 +1,24 @@
 import { addPluginTemplate, defineNuxtModule, isNuxt2 } from '@nuxt/kit'
 import type { NuxtPlugin } from '@nuxt/schema'
 import { ununura } from 'ununura'
+import { UnunuraResolvableOptions } from 'ununura-shared'
 
 export default defineNuxtModule({
   meta: {
-    name: 'ununuracss',
-    configKey: 'ununuracss',
+    name: 'ununura',
+    configKey: 'ununura',
   },
-  async setup(_, nuxt) {
+  async setup(options, nuxt) {
     const exportTemplate = isNuxt2() ? 'export default () => {}' : 'export default defineNuxtPlugin(() => {})'
 
     addPluginTemplate({
-      filename: 'ununuracss.mjs',
+      filename: 'ununura.mjs',
       getContents: () => "import 'ununura.css'\n" + exportTemplate,
     })
 
     if (isNuxt2()) {
       nuxt.hook('app:resolve', (config) => {
-        const plugin: NuxtPlugin = { src: 'ununuracss.mjs', mode: 'client' }
+        const plugin: NuxtPlugin = { src: 'ununura.mjs', mode: 'client' }
         if (config.plugins) config.plugins.push(plugin)
         else config.plugins = [plugin]
       })
@@ -25,7 +26,16 @@ export default defineNuxtModule({
 
     nuxt.hook('vite:extend', ({ config }) => {
       config.plugins = config.plugins || []
-      config.plugins.unshift(...ununura())
+      config.plugins.unshift(...ununura(options))
     })
   },
 })
+
+declare module '@nuxt/schema' {
+  interface NuxtConfig {
+    ununura?: UnunuraResolvableOptions
+  }
+  interface NuxtOptions {
+    ununura?: UnunuraResolvableOptions
+  }
+}

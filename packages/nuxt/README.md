@@ -4,6 +4,19 @@
 
 ```ts
 export default defineNuxtConfig({
-  modules: ['ununura-nuxt'],
+  modules: [
+    'ununura-nuxt'
+  ],
+  ununura: {
+    /* Options here
+    extend: {  
+      supporters: { 
+        colors: [
+          ['primary', '#00FF00']
+        ]
+      }
+    }
+  }
+  */
 })
 ```
