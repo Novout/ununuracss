@@ -1024,6 +1024,23 @@ describe('transform', () => {
   font-family: 'Roboto', sans-serif;
 }`,
       ],
+      [
+        resolveCSS(UnunuraIdentifier.Text, {
+          contents: ['primary', 'roboto', 'md'],
+          buffer: [],
+          stack: [],
+          ununura: {
+            extend: {
+              supporters: { colors: [['primary', '#00FF00']], fontFamily: [['roboto', 'Roboto']], fontSize: [['md', '1.5rem']] },
+            },
+          } as any,
+        }),
+        `.text-primary-roboto-md {
+  color: #00FF00;
+  font-size: 1.5rem;
+  font-family: 'Roboto', sans-serif;
+}`,
+      ],
     ]
 
     for (const [css, result] of targets) {

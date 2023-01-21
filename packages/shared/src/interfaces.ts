@@ -27,6 +27,7 @@ export interface UnunuraScannerFile {
 export interface UnunuraExtendSupporters {
   colors?: ArrTuple<string>
   fontFamily?: ArrTuple<string>
+  fontSize?: ArrTuple<string>
 }
 
 export interface UnunuraExtend {

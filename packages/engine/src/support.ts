@@ -20,6 +20,7 @@ import {
   NULLABLE,
   UnunuraGenerateContext,
 } from 'ununura-shared'
+import { getExtendedSupporterColor, getExtendedSupporterFontFamily, getExtendedSupporterFontSize } from './externals'
 
 export const getSupportedMinOrMax = (contents: string[]): Nullable<string> => {
   const min = contents.find((c) => c === 'min')
@@ -28,14 +29,14 @@ export const getSupportedMinOrMax = (contents: string[]): Nullable<string> => {
   return min ?? max ?? NULLABLE
 }
 
-export const getSupportedColor = ({ contents, ununura }: UnunuraGenerateContext): Nullable<string> => {
-  const HEXColor = contents.find((c) => isHex(c))
-  const CSSColor = contents.find((c) => isCSSColor(c))
+export const getSupportedColor = (ctx: UnunuraGenerateContext): Nullable<string> => {
+  const HEXColor = ctx.contents.find((c) => isHex(c))
+  const CSSColor = ctx.contents.find((c) => isCSSColor(c))
 
-  const RGBColor = findResourceInStart(contents, ['rgb-'], { onlySpreadValue: true })
-  const RGBAColor = findResourceInStart(contents, ['rgba-'], { onlySpreadValue: true })
-  const HSLColor = findResourceInStart(contents, ['hsl-'], { onlySpreadValue: true })
-  const HSLAColor = findResourceInStart(contents, ['hsla-'], { onlySpreadValue: true })
+  const RGBColor = findResourceInStart(ctx.contents, ['rgb-'], { onlySpreadValue: true })
+  const RGBAColor = findResourceInStart(ctx.contents, ['rgba-'], { onlySpreadValue: true })
+  const HSLColor = findResourceInStart(ctx.contents, ['hsl-'], { onlySpreadValue: true })
+  const HSLAColor = findResourceInStart(ctx.contents, ['hsla-'], { onlySpreadValue: true })
 
   const RGBColorResolved = !isNullable(RGBColor)
     ? `rgb(${RGBColor.split('-')
@@ -58,14 +59,13 @@ export const getSupportedColor = ({ contents, ununura }: UnunuraGenerateContext)
         .slice(0, -2)})`
     : undefined
 
-  const CSSVar = findResourceInStart(contents, ['--'])
+  const CSSVar = findResourceInStart(ctx.contents, ['--'])
   const CSSVarColorResolved = !isNullable(CSSVar) ? `var(${CSSVar})` : undefined
 
-  const TransparentColor = contents.find((c) => c === 'transparent')
-  const CurrentColor = contents.find((c) => c === 'currentColor')
+  const TransparentColor = ctx.contents.find((c) => c === 'transparent')
+  const CurrentColor = ctx.contents.find((c) => c === 'currentColor')
 
-  const ExternalColor = ununura?.extend?.supporters?.colors?.find(([key]) => contents.some((v) => v === key))
-  const ExternalColorResolved = ExternalColor ? ExternalColor[1] : undefined
+  const ExternalColor = getExtendedSupporterColor(ctx)
 
   return (
     HEXColor ??
@@ -77,7 +77,7 @@ export const getSupportedColor = ({ contents, ununura }: UnunuraGenerateContext)
     CSSVarColorResolved ??
     TransparentColor ??
     CurrentColor ??
-    ExternalColorResolved ??
+    ExternalColor ??
     NULLABLE
   )
 }
@@ -110,15 +110,13 @@ export const getSupportedImageRepeat = (contents: string[]): Nullable<string> =>
   return contents.find((c) => isImageRepeat(c)) ?? NULLABLE
 }
 
-export const getSupportedFont = ({ contents, ununura }: UnunuraGenerateContext): Nullable<string> => {
-  const GenericFont = contents.find((c) => isDefaultFont(c))
+export const getSupportedFont = (ctx: UnunuraGenerateContext): Nullable<string> => {
+  const ExternalFont = getExtendedSupporterFontFamily(ctx)
 
+  const GenericFont = ctx.contents.find((c) => isDefaultFont(c))
   const GenericFontResolved = GenericFont ? GenericFont?.charAt(0).toUpperCase() + GenericFont?.slice(1) : undefined
 
-  const ExternalFont = ununura?.extend?.supporters?.fontFamily?.find(([key]) => contents.some((v) => v === key))
-  const ExternalFontResolved = ExternalFont ? ExternalFont[1] : undefined
-
-  return GenericFontResolved ?? ExternalFontResolved ?? NULLABLE
+  return ExternalFont ?? GenericFontResolved ?? NULLABLE
 }
 
 export const getSupportedFontWeight = (contents: string[]): Nullable<string> => {
@@ -219,6 +217,13 @@ export const getSupportedNumber = (contents: string[]): Nullable<string> => {
   const defSet = def?.endsWith('px') ? def : def ? `${def}px` : undefined
 
   return suffixed ?? defSet ?? NULLABLE
+}
+
+export const getSupportedFontSize = (ctx: UnunuraGenerateContext): Nullable<string> => {
+  const external = getExtendedSupporterFontSize(ctx)
+  const number = getSupportedNumber(ctx.contents)
+
+  return external ?? number ?? NULLABLE
 }
 
 export const getSupportedInteger = (contents: string[]): Nullable<string> => {

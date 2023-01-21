@@ -27,6 +27,7 @@ import {
   getSupportedFlexVertical,
   getSupportedFlexWrap,
   getSupportedFont,
+  getSupportedFontSize,
   getSupportedFontWeight,
   getSupportedGlobalImportant,
   getSupportedGlobalNone,
@@ -341,7 +342,7 @@ export const getResourceText = (
   ctx: UnunuraGenerateContext
 ): string => {
   const color = getSupportedColor(ctx)
-  const fontSize = getSupportedNumber(ctx.contents)
+  const fontSize = getSupportedFontSize(ctx)
   const fontFamily = getSupportedFont(ctx)
   const fontWeight = getSupportedFontWeight(ctx.contents)
 
