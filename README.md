@@ -211,6 +211,9 @@ ununura({
       colors: [
         ['primary', '#00FF00']
       ], 
+      fontSize: [
+        ['lg', '1.5rem']
+      ],
       fontFamily: [
         ['roboto', 'Roboto']
       ]
@@ -218,7 +221,7 @@ ununura({
   }
 })
 
-// class="text[primary roboto] typo[indent-1rem]..."
+// class="text[primary lg roboto] typo[indent-1rem]..."
 ```
 
 > **ATTENTION!** Make sure you are entering a name that does not conflict with the default settings.
