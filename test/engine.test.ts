@@ -142,19 +142,19 @@ describe.concurrent('lexer', () => {
     }
   })
 
-  it('should lex presets option in css class', () => {
+  it('should lex defines option in css class', () => {
     const targets = [
       [
-        lex('btn border:10 text:10', { presets: [['btn', 'cursor:pointer p[1rem 2.5rem]']] } as any),
+        lex('btn border:10 text:10', { defines: [['btn', 'cursor:pointer p[1rem 2.5rem]']] } as any),
         ['cursor', ':', 'pointer', 'p', '[', '1rem 2.5rem', ']', 'border', ':', '10', 'text', ':', '10'],
       ],
-      [lex('btn border:10 text:10', { presets: [] } as any), ['border', ':', '10', 'text', ':', '10']],
-      [lex('border:10 text:10', { presets: [] } as any), ['border', ':', '10', 'text', ':', '10']],
+      [lex('btn border:10 text:10', { defines: [] } as any), ['border', ':', '10', 'text', ':', '10']],
+      [lex('border:10 text:10', { defines: [] } as any), ['border', ':', '10', 'text', ':', '10']],
       [
-        lex('btn other-preset', {
-          presets: [
+        lex('btn other-define', {
+          defines: [
             ['btn', 'cursor:pointer p[1rem 2.5rem]'],
-            ['other-preset', 'border:10 text:10'],
+            ['other-define', 'border:10 text:10'],
           ],
         } as any),
         ['cursor', ':', 'pointer', 'p', '[', '1rem 2.5rem', ']', 'border', ':', '10', 'text', ':', '10'],

@@ -1,9 +1,9 @@
 import { isIdentifier, isKey, Option, UnunuraKeys, UnunuraOptions } from 'ununura-shared'
-import { enforcePresetsInLexer } from './externals'
+import { enforceDefinesInLexer } from './externals'
 
 export const lex = (raw: string, ununura: UnunuraOptions): string[] => {
   const transformers: string[] = []
-  const characters = [...enforcePresetsInLexer(raw, ununura)]
+  const characters = [...enforceDefinesInLexer(raw, ununura)]
 
   let identifier: string = ''
   let actually_key: Option<UnunuraKeys> = undefined

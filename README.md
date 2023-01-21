@@ -194,7 +194,7 @@ Shorten classes using a single key, for example:
 
 ```ts
 ununura({
-  presets: [
+  defines: [
     ['btn', 'cursor:pointer p[1rem 2.5rem] bg:purple text:white']
   ]
 })
