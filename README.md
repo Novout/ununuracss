@@ -188,7 +188,7 @@ As in some frameworks we don't have something similar to the `<style>` or `<styl
 
 The options are inserted by the Vite Ununura plugin.
 
-### Presets
+### Defines
 
 Shorten classes using a single key, for example:
 
