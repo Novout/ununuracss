@@ -77,7 +77,7 @@ describe.concurrent('scoped resolvers', () => {
       class="dark(p[t 2rem]) m[2rem 0 0 0] text[roboto #333333 1.25rem 200] dark(text[roboto #AAAAAA 1.25rem 200])">
         A Vue 3 + Vite demo.</p>
       <button @click="onClick"
-        class="bg:rgba-0-0-0-0.1 shadow[v-5 h-0 blur-20 radius-1 rgba-255-255-0-0.05] dark(text[#EEEEEE roboto 700 1.1rem]) text[#111111 roboto 700 1.1rem] p[1rem 2rem 1rem 2rem] m[3rem 0 0 0] cursor:pointer rounded:0.75rem">Github</button>
+        class="bg:rgba-0-0-0-0.1 shadow[v-5 h-0 blur-20 radius-1 rgba-255-255-0-0.05] dark(text[#EEEEEE roboto 700 1.1rem]) text[#111111 roboto 700 1.1rem] p[1rem 2rem 1rem 2rem] m[3rem 0 0 0] rounded:0.75rem">Github</button>
       </section>
     </div>
   </main>
@@ -98,7 +98,7 @@ describe.concurrent('scoped resolvers', () => {
       class="dark .p-t-2rem -2rem-0-0-0 text-roboto-333333-125rem-200 dark .text-roboto-aaaaaa-125rem-200-dark">
         A Vue 3 + Vite demo.</p>
       <button @click="onClick"
-        class="bg-rgba-0-0-0-01 shadow-v-5-h-0-blur-20-radius-1-rgba-255-255-0-005 text-eeeeee-roboto-700-11rem-dark text-111111-roboto-700-11rem p-1rem-2rem-1rem-2rem m-3rem-0-0-0 cursor-pointer rounded-075rem">Github</button>
+        class="bg-rgba-0-0-0-01 shadow-v-5-h-0-blur-20-radius-1-rgba-255-255-0-005 text-eeeeee-roboto-700-11rem-dark text-111111-roboto-700-11rem p-1rem-2rem-1rem-2rem m-3rem-0-0-0 rounded-075rem">Github</button>
       </section>
     </div>
   </main>
@@ -189,9 +189,6 @@ describe.concurrent('scoped resolvers', () => {
 }
 .m-3rem-0-0-0 {
   margin: 3rem 0px 0px 0px;
-}
-.cursor-pointer {
-  cursor: pointer;
 }
 .rounded-075rem {
   border-radius: 0.75rem;

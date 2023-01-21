@@ -36,9 +36,11 @@ import {
   getSupportedInteger,
   getSupportedMinOrMax,
   getSupportedNumber,
+  getSupportedResize,
   getSupportedScroll,
   getSupportedScrollDirection,
   getSupportedStandardFlex,
+  getSupportedTouch,
 } from './support'
 import { resolveCSS, resolveCssClass, resolveIdentifierInCSS } from './resolvers'
 import { validateSpreadAllResource } from './validate'
@@ -333,21 +335,6 @@ export const getResourceShadow = (
   return resolveCssClass(identifier, setter, ctx)
 }
 
-export const getResourceCursor = (
-  identifier: UnunuraIdentifier,
-
-  ctx: UnunuraGenerateContext
-): string => {
-  const cursor = getSupportedCursor(ctx.contents)
-  const events = findResourceInStart(ctx.contents, ['events-'], { onlyValue: true })
-
-  let setter = setterHead(ctx)
-  setter += setterRow(cursor, `cursor: ${cursor}`, ctx.contents)
-  setter += setterRow(events, `pointer-events: ${events}`, ctx.contents)
-
-  return resolveCssClass(identifier, setter, ctx)
-}
-
 export const getResourceText = (
   identifier: UnunuraIdentifier,
 
@@ -534,6 +521,29 @@ export const getResourceFilter = (identifier: UnunuraIdentifier, ctx: UnunuraGen
   setter += !isNullable(saturate) ? `saturate(${saturate}) ` : ''
   setter += !isNullable(sepia) ? `sepia(${sepia}) ` : ''
   setter = setter.trimEnd() + ';\n'
+
+  return resolveCssClass(identifier, setter, ctx)
+}
+
+export const getResourceStyle = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {
+  const accent = findResourceInStart(ctx.contents, ['accent-'], { onlyValue: true, supporter: getSupportedColor })
+  const appearance = findResource(ctx.contents, ['appearance', 'appearance-none'])
+  const events = findResourceInStart(ctx.contents, ['events-'], { onlyValue: true })
+  const resize = getSupportedResize(ctx.contents)
+  const cursor = findResourceInStart(ctx.contents, ['cursor-'], { onlyValue: true, supporter: getSupportedCursor })
+  const touch = findResourceInStart(ctx.contents, ['touch-'], { onlyValue: true, supporter: getSupportedTouch })
+  const scroll = findResourceInStart(ctx.contents, ['scroll-'], { onlyValue: true })
+  const select = findResourceInStart(ctx.contents, ['select-'], { onlyValue: true })
+
+  let setter = setterHead(ctx)
+  setter += setterRow(accent, `accent-color: ${accent}`, ctx.contents)
+  setter += setterRow(appearance, `appearance: none`, ctx.contents)
+  setter += setterRow(cursor, `cursor: ${cursor}`, ctx.contents)
+  setter += setterRow(touch, `touch-action: ${touch}`, ctx.contents)
+  setter += setterRow(events, `pointer-events: ${events}`, ctx.contents)
+  setter += setterRow(resize, `resize: ${resize}`, ctx.contents)
+  setter += setterRow(scroll, `scroll-behavior: ${scroll}`, ctx.contents)
+  setter += setterRow(select, `user-select: ${select}`, ctx.contents)
 
   return resolveCssClass(identifier, setter, ctx)
 }

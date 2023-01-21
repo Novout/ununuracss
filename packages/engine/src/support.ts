@@ -16,6 +16,7 @@ import {
   isNumberSuffix,
   isScroll,
   isSlashImage,
+  isTouch,
   Nullable,
   NULLABLE,
 } from 'ununura-shared'
@@ -61,6 +62,7 @@ export const getSupportedColor = (contents: string[]): Nullable<string> => {
   const CSSVarColorResolved = !isNullable(CSSVar) ? `var(${CSSVar})` : undefined
 
   const TransparentColor = contents.find((c) => c === 'transparent')
+  const CurrentColor = contents.find((c) => c === 'currentColor')
 
   return (
     HEXColor ??
@@ -71,6 +73,7 @@ export const getSupportedColor = (contents: string[]): Nullable<string> => {
     HSLAColorResolved ??
     CSSVarColorResolved ??
     TransparentColor ??
+    CurrentColor ??
     NULLABLE
   )
 }
@@ -229,4 +232,22 @@ export const getSupportedGlobalImportant = (contents: string[]): Nullable<string
 
 export const getSupportedCursor = (contents: string[]): Nullable<string> => {
   return contents.find((c) => isCursor(c)) ?? NULLABLE
+}
+
+export const getSupportedTouch = (contents: string[]): Nullable<string> => {
+  return contents.find((c) => isTouch(c)) ?? NULLABLE
+}
+
+export const getSupportedResize = (contents: string[]): Nullable<string> => {
+  const x = contents.find((c) => c === 'resize-x')
+  const y = contents.find((c) => c === 'resize-y')
+  const def = contents.find((c) => c === 'resize')
+  const none = contents.find((c) => c === 'resize-none')
+
+  const resolvedX = x ? 'horizontal' : undefined
+  const resolvedY = y ? 'vertical' : undefined
+  const resolvedDef = def ? 'both' : undefined
+  const resolvedNone = none ? 'none' : undefined
+
+  return resolvedX ?? resolvedY ?? resolvedDef ?? resolvedNone ?? NULLABLE
 }

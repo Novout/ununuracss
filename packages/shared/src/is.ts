@@ -222,6 +222,10 @@ export const isCursor = (i: string): boolean =>
     'zoom-in',
     'zoom-out',
   ].some((c) => c === i)
+export const isTouch = (i: string): boolean =>
+  ['auto', 'none', 'pan-x', 'pan-left', 'pan-right', 'pan-y', 'pan-up', 'pan-down', 'pinch-down', 'manipulation'].some(
+    (c) => c === i
+  )
 export const isNumberSuffix = (i: string): boolean =>
   [
     'cm',

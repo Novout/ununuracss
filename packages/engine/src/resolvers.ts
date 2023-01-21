@@ -20,7 +20,6 @@ import {
   getResourcePosition,
   getResourceScroll,
   getResourceShadow,
-  getResourceCursor,
   getResourceFloat,
   getResourceDisplay,
   getResourceZIndex,
@@ -32,6 +31,7 @@ import {
   getResourceGrid,
   getResourceOutline,
   getResourceFilter,
+  getResourceStyle,
 } from './resources'
 import { TemplateClassResponsive, TemplateDefaultClass } from './template'
 
@@ -93,8 +93,6 @@ export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string =>
       return 'reset'
     case UnunuraIdentifier.Shadow:
       return 'shadow'
-    case UnunuraIdentifier.Cursor:
-      return 'cursor'
     case UnunuraIdentifier.Rounded:
       return 'border-radius'
     case UnunuraIdentifier.ZIndex:
@@ -111,6 +109,8 @@ export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string =>
       return 'transform'
     case UnunuraIdentifier.Filter:
       return 'filter'
+    case UnunuraIdentifier.Style:
+      return 'style'
   }
 }
 
@@ -142,8 +142,6 @@ export const resolveCSS = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateCo
       return getResourceScroll(identifier, ctx)
     case UnunuraIdentifier.Shadow:
       return getResourceShadow(identifier, ctx)
-    case UnunuraIdentifier.Cursor:
-      return getResourceCursor(identifier, ctx)
     case UnunuraIdentifier.ZIndex:
       return getResourceZIndex(identifier, ctx)
     case UnunuraIdentifier.Display:
@@ -156,6 +154,8 @@ export const resolveCSS = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateCo
       return getResourceTransform(identifier, ctx)
     case UnunuraIdentifier.Typography:
       return getResourceTypography(identifier, ctx)
+    case UnunuraIdentifier.Style:
+      return getResourceStyle(identifier, ctx)
     case UnunuraIdentifier.Filter:
       return getResourceFilter(identifier, ctx)
     case UnunuraIdentifier.Reset: //global

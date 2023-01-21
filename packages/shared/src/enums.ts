@@ -12,7 +12,6 @@ export enum UnunuraIdentifier {
   Position = 'pos',
   Scroll = 'scroll',
   Reset = 'reset',
-  Cursor = 'cursor',
   Shadow = 'shadow',
   Rounded = 'rounded',
   ZIndex = 'z',
@@ -22,6 +21,7 @@ export enum UnunuraIdentifier {
   Transform = 'tf',
   Typography = 'typo',
   Filter = 'filter',
+  Style = 'style',
 }
 
 export enum UnunuraGlobals {

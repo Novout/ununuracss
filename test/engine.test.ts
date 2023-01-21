@@ -145,19 +145,19 @@ describe.concurrent('lexer', () => {
   it('should lex defines option in css class', () => {
     const targets = [
       [
-        lex('btn border:10 text:10', { defines: [['btn', 'cursor:pointer p[1rem 2.5rem]']] } as any),
-        ['cursor', ':', 'pointer', 'p', '[', '1rem 2.5rem', ']', 'border', ':', '10', 'text', ':', '10'],
+        lex('btn border:10 text:10', { defines: [['btn', 'style[cursor-pointer] p[1rem 2.5rem]']] } as any),
+        ['style', '[', 'cursor-pointer', ']', 'p', '[', '1rem 2.5rem', ']', 'border', ':', '10', 'text', ':', '10'],
       ],
       [lex('btn border:10 text:10', { defines: [] } as any), ['border', ':', '10', 'text', ':', '10']],
       [lex('border:10 text:10', { defines: [] } as any), ['border', ':', '10', 'text', ':', '10']],
       [
         lex('btn other-define', {
           defines: [
-            ['btn', 'cursor:pointer p[1rem 2.5rem]'],
+            ['btn', 'style[cursor-pointer] p[1rem 2.5rem]'],
             ['other-define', 'border:10 text:10'],
           ],
         } as any),
-        ['cursor', ':', 'pointer', 'p', '[', '1rem 2.5rem', ']', 'border', ':', '10', 'text', ':', '10'],
+        ['style', '[', 'cursor-pointer', ']', 'p', '[', '1rem 2.5rem', ']', 'border', ':', '10', 'text', ':', '10'],
       ],
     ]
 
@@ -632,30 +632,6 @@ describe('transform', () => {
 }`,
       ],
       [
-        resolveCSS(UnunuraIdentifier.Cursor, { contents: ['pointer'], buffer: [], stack: [] }),
-        `.cursor-pointer {
-  cursor: pointer;
-}`,
-      ],
-      [
-        resolveCSS(UnunuraIdentifier.Cursor, { contents: ['none'], buffer: [], stack: [] }),
-        `.cursor-none {
-  cursor: none;
-}`,
-      ],
-      [
-        resolveCSS(UnunuraIdentifier.Cursor, { contents: ['events-auto'], buffer: [], stack: [] }),
-        `.cursor-events-auto {
-  pointer-events: auto;
-}`,
-      ],
-      [
-        resolveCSS(UnunuraIdentifier.Cursor, { contents: ['events-none'], buffer: [], stack: [] }),
-        `.cursor-events-none {
-  pointer-events: none;
-}`,
-      ],
-      [
         resolveCSS(UnunuraIdentifier.Float, { contents: ['right'], buffer: [], stack: [] }),
         `.float-right {
   float: right;
@@ -836,6 +812,38 @@ describe('transform', () => {
 }`,
       ],
       [
+        resolveCSS(UnunuraIdentifier.Style, { contents: ['cursor-pointer'], buffer: [], stack: [] }),
+        `.style-cursor-pointer {
+  cursor: pointer;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Style, {
+          contents: [
+            'accent-#FF00FF',
+            'appearance',
+            'cursor-pointer',
+            'events-none',
+            'resize-none',
+            'touch-auto',
+            'scroll-smooth',
+            'select-text',
+          ],
+          buffer: [],
+          stack: [],
+        }),
+        `.style-accent-ff00ff-appearance-cursor-pointer-events-none-resize-none-touch-auto-scroll-smooth-select-text {
+  accent-color: #FF00FF;
+  appearance: none;
+  cursor: pointer;
+  touch-action: auto;
+  pointer-events: none;
+  resize: none;
+  scroll-behavior: smooth;
+  user-select: text;
+}`,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Shadow, { contents: ['black'], buffer: [], stack: [] }),
         `.shadow-black {
   box-shadow: 5px 5px 5px 0px black;
@@ -882,12 +890,6 @@ describe('transform', () => {
   it('should get css class in theme context', () => {
     const targets = [
       [
-        resolveCSS(UnunuraIdentifier.Cursor, { contents: ['none'], buffer: [], stack: ['dark'] }),
-        `.dark .cursor-none-dark {
-  cursor: none;
-}`,
-      ],
-      [
         resolveCSS(UnunuraIdentifier.Padding, { contents: ['5rem'], buffer: [], stack: ['sepia'] }),
         `.sepia .p-5rem-sepia {
   padding: 5rem;
@@ -908,12 +910,6 @@ describe('transform', () => {
 
   it('should get css class in pseudo class context', () => {
     const targets = [
-      [
-        resolveCSS(UnunuraIdentifier.Cursor, { contents: ['none'], buffer: [], stack: ['hover'] }),
-        `.cursor-none:hover {
-  cursor: none;
-}`,
-      ],
       [
         resolveCSS(UnunuraIdentifier.Padding, { contents: ['5rem'], buffer: [], stack: ['link'] }),
         `.p-5rem:link {
@@ -936,20 +932,20 @@ describe('transform', () => {
   it('should get css class in pseudo element context', () => {
     const targets = [
       [
-        resolveCSS(UnunuraIdentifier.Cursor, { contents: ['none'], buffer: [], stack: ['cue'] }),
-        `.cursor-none::cue {
+        resolveCSS(UnunuraIdentifier.Style, { contents: ['cursor-none'], buffer: [], stack: ['cue'] }),
+        `.style-cursor-none::cue {
   cursor: none;
 }`,
       ],
       [
-        resolveCSS(UnunuraIdentifier.Cursor, { contents: ['none'], buffer: [], stack: ['selection'] }),
-        `.cursor-none::selection {
+        resolveCSS(UnunuraIdentifier.Style, { contents: ['cursor-none'], buffer: [], stack: ['selection'] }),
+        `.style-cursor-none::selection {
   cursor: none;
 }`,
       ],
       [
-        resolveCSS(UnunuraIdentifier.Cursor, { contents: ['none'], buffer: [], stack: ['first-line'] }),
-        `.cursor-none::first-line {
+        resolveCSS(UnunuraIdentifier.Style, { contents: ['cursor-none'], buffer: [], stack: ['first-line'] }),
+        `.style-cursor-none::first-line {
   cursor: none;
 }`,
       ],
