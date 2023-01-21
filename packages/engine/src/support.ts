@@ -6,7 +6,6 @@ import {
   isDefaultFont,
   isFlexHorizontal,
   isFlexVertical,
-  isGoogleFont,
   isHex,
   isImage,
   isImageRepeat,
@@ -19,6 +18,7 @@ import {
   isTouch,
   Nullable,
   NULLABLE,
+  UnunuraGenerateContext,
 } from 'ununura-shared'
 
 export const getSupportedMinOrMax = (contents: string[]): Nullable<string> => {
@@ -28,7 +28,7 @@ export const getSupportedMinOrMax = (contents: string[]): Nullable<string> => {
   return min ?? max ?? NULLABLE
 }
 
-export const getSupportedColor = (contents: string[]): Nullable<string> => {
+export const getSupportedColor = ({ contents, ununura }: UnunuraGenerateContext): Nullable<string> => {
   const HEXColor = contents.find((c) => isHex(c))
   const CSSColor = contents.find((c) => isCSSColor(c))
 
@@ -64,6 +64,9 @@ export const getSupportedColor = (contents: string[]): Nullable<string> => {
   const TransparentColor = contents.find((c) => c === 'transparent')
   const CurrentColor = contents.find((c) => c === 'currentColor')
 
+  const ExternalColor = ununura?.extend?.supporters?.colors?.find(([key]) => contents.some((v) => v === key))
+  const ExternalColorResolved = ExternalColor ? ExternalColor[1] : undefined
+
   return (
     HEXColor ??
     CSSColor ??
@@ -74,6 +77,7 @@ export const getSupportedColor = (contents: string[]): Nullable<string> => {
     CSSVarColorResolved ??
     TransparentColor ??
     CurrentColor ??
+    ExternalColorResolved ??
     NULLABLE
   )
 }
@@ -106,16 +110,15 @@ export const getSupportedImageRepeat = (contents: string[]): Nullable<string> =>
   return contents.find((c) => isImageRepeat(c)) ?? NULLABLE
 }
 
-export const getSupportedFont = (contents: string[]): Nullable<string> => {
+export const getSupportedFont = ({ contents, ununura }: UnunuraGenerateContext): Nullable<string> => {
   const GenericFont = contents.find((c) => isDefaultFont(c))
 
-  // TODO: Dynamic google font search with fonts[google <font-here>] resource
-  const GoogleFont = contents.find((c) => isGoogleFont(c))
-
-  const GoogleFontResolved = GoogleFont ? GoogleFont?.charAt(0).toUpperCase() + GoogleFont?.slice(1) : undefined
   const GenericFontResolved = GenericFont ? GenericFont?.charAt(0).toUpperCase() + GenericFont?.slice(1) : undefined
 
-  return GoogleFontResolved ?? GenericFontResolved ?? NULLABLE
+  const ExternalFont = ununura?.extend?.supporters?.fontFamily?.find(([key]) => contents.some((v) => v === key))
+  const ExternalFontResolved = ExternalFont ? ExternalFont[1] : undefined
+
+  return GenericFontResolved ?? ExternalFontResolved ?? NULLABLE
 }
 
 export const getSupportedFontWeight = (contents: string[]): Nullable<string> => {
@@ -230,11 +233,11 @@ export const getSupportedGlobalImportant = (contents: string[]): Nullable<string
   return contents.find((c) => c === '!') ?? NULLABLE
 }
 
-export const getSupportedCursor = (contents: string[]): Nullable<string> => {
+export const getSupportedCursor = ({ contents }: UnunuraGenerateContext): Nullable<string> => {
   return contents.find((c) => isCursor(c)) ?? NULLABLE
 }
 
-export const getSupportedTouch = (contents: string[]): Nullable<string> => {
+export const getSupportedTouch = ({ contents }: UnunuraGenerateContext): Nullable<string> => {
   return contents.find((c) => isTouch(c)) ?? NULLABLE
 }
 

@@ -163,7 +163,7 @@ export const getResourceBorder = (
 ): string => {
   const size = getSupportedNumber(ctx.contents)
   const style = ctx.contents.find((c) => isBorderStyle(c)) ?? NULLABLE
-  const color = getSupportedColor(ctx.contents)
+  const color = getSupportedColor(ctx)
 
   const inCss = resolveIdentifierInCSS(identifier)
 
@@ -182,7 +182,7 @@ export const getResourceOutline = (
 ): string => {
   const size = getSupportedNumber(ctx.contents)
   const style = ctx.contents.find((c) => isOutlineStyle(c)) ?? NULLABLE
-  const color = getSupportedColor(ctx.contents)
+  const color = getSupportedColor(ctx)
   const offset = findResourceInStart(ctx.contents, ['offset-'], { onlyValue: true })
 
   const inCss = resolveIdentifierInCSS(identifier)
@@ -201,7 +201,7 @@ export const getResourceBackground = (
 
   ctx: UnunuraGenerateContext
 ): string => {
-  const color = getSupportedColor(ctx.contents)
+  const color = getSupportedColor(ctx)
   const image = getSupportedImage(ctx.contents)
   const size = getSupportedImageSize(ctx.contents)
   const repeat = getSupportedImageRepeat(ctx.contents)
@@ -296,7 +296,7 @@ export const getResourceShadow = (
 
   ctx: UnunuraGenerateContext
 ): string => {
-  const color = getSupportedColor(ctx.contents)
+  const color = getSupportedColor(ctx)
   const horizontal = findResourceInStart(ctx.contents, ['h-'], { onlyValue: true })
   const vertical = findResourceInStart(ctx.contents, ['v-'], { onlyValue: true })
   const blur = findResourceInStart(ctx.contents, ['blur-'], { onlyValue: true })
@@ -340,9 +340,9 @@ export const getResourceText = (
 
   ctx: UnunuraGenerateContext
 ): string => {
-  const color = getSupportedColor(ctx.contents)
+  const color = getSupportedColor(ctx)
   const fontSize = getSupportedNumber(ctx.contents)
-  const fontFamily = getSupportedFont(ctx.contents)
+  const fontFamily = getSupportedFont(ctx)
   const fontWeight = getSupportedFontWeight(ctx.contents)
 
   let setter = setterHead(ctx)

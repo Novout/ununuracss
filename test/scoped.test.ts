@@ -71,13 +71,13 @@ describe.concurrent('scoped resolvers', () => {
     class="flex:col bg:--background-color-d dark(bg:--background-color-l) h[min 100vh] p[0 0 0 5rem] bg[/vue.png cover]">
   <section>
   <p
-    class="text[roboto #111111 4rem 700] shadow[text v-5 h-5 radius-30] dark(text[roboto #EEEEEE 4rem 700]) p[10rem 0 0 0]">
+    class="text[arial #111111 4rem 700] shadow[text v-5 h-5 radius-30] dark(text[arial #EEEEEE 4rem 700]) p[10rem 0 0 0]">
       Hello UnunuraCSS!</p>
     <p
-      class="dark(p[t 2rem]) m[2rem 0 0 0] text[roboto #333333 1.25rem 200] dark(text[roboto #AAAAAA 1.25rem 200])">
+      class="dark(p[t 2rem]) m[2rem 0 0 0] text[arial #333333 1.25rem 200] dark(text[arial #AAAAAA 1.25rem 200])">
         A Vue 3 + Vite demo.</p>
       <button @click="onClick"
-        class="bg:rgba-0-0-0-0.1 shadow[v-5 h-0 blur-20 radius-1 rgba-255-255-0-0.05] dark(text[#EEEEEE roboto 700 1.1rem]) text[#111111 roboto 700 1.1rem] p[1rem 2rem 1rem 2rem] m[3rem 0 0 0] rounded:0.75rem">Github</button>
+        class="bg:rgba-0-0-0-0.1 shadow[v-5 h-0 blur-20 radius-1 rgba-255-255-0-0.05] dark(text[#EEEEEE arial 700 1.1rem]) text[#111111 arial 700 1.1rem] p[1rem 2rem 1rem 2rem] m[3rem 0 0 0] rounded:0.75rem">Github</button>
       </section>
     </div>
   </main>
@@ -92,13 +92,13 @@ describe.concurrent('scoped resolvers', () => {
     class="flex-col bg---background-color-d bg---background-color-l-dark h-min-100vh p-0-0-0-5rem bg-vuepng-cover">
   <section>
   <p
-    class="text-roboto-111111-4rem-700 shadow-text-v-5-h-5-radius-30 text-roboto-eeeeee-4rem-700-dark p-10rem-0-0-0">
+    class="text-arial-111111-4rem-700 shadow-text-v-5-h-5-radius-30 text-arial-eeeeee-4rem-700-dark p-10rem-0-0-0">
       Hello UnunuraCSS!</p>
     <p
-      class="dark .p-t-2rem -2rem-0-0-0 text-roboto-333333-125rem-200 dark .text-roboto-aaaaaa-125rem-200-dark">
+      class="dark .p-t-2rem -2rem-0-0-0 text-arial-333333-125rem-200 dark .text-arial-aaaaaa-125rem-200-dark">
         A Vue 3 + Vite demo.</p>
       <button @click="onClick"
-        class="bg-rgba-0-0-0-01 shadow-v-5-h-0-blur-20-radius-1-rgba-255-255-0-005 text-eeeeee-roboto-700-11rem-dark text-111111-roboto-700-11rem p-1rem-2rem-1rem-2rem m-3rem-0-0-0 rounded-075rem">Github</button>
+        class="bg-rgba-0-0-0-01 shadow-v-5-h-0-blur-20-radius-1-rgba-255-255-0-005 text-eeeeee-arial-700-11rem-dark text-111111-arial-700-11rem p-1rem-2rem-1rem-2rem m-3rem-0-0-0 rounded-075rem">Github</button>
       </section>
     </div>
   </main>
@@ -126,20 +126,20 @@ describe.concurrent('scoped resolvers', () => {
   background-size: cover;
 }
 
-.text-roboto-111111-4rem-700 {
+.text-arial-111111-4rem-700 {
   color: #111111;
   font-size: 4rem;
   font-weight: 700;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Arial', sans-serif;
 }
 .shadow-text-v-5-h-5-radius-30 {
   text-shadow: 5px 5px black;
 }
-.dark .text-roboto-eeeeee-4rem-700-dark {
+.dark .text-arial-eeeeee-4rem-700-dark {
   color: #EEEEEE;
   font-size: 4rem;
   font-weight: 700;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Arial', sans-serif;
 }
 .p-10rem-0-0-0 {
   padding: 10rem 0px 0px 0px;
@@ -151,17 +151,17 @@ describe.concurrent('scoped resolvers', () => {
 .m-2rem-0-0-0 {
   margin: 2rem 0px 0px 0px;
 }
-.text-roboto-333333-125rem-200 {
+.text-arial-333333-125rem-200 {
   color: #333333;
   font-size: 1.25rem;
   font-weight: 200;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Arial', sans-serif;
 }
-.dark .text-roboto-aaaaaa-125rem-200-dark {
+.dark .text-arial-aaaaaa-125rem-200-dark {
   color: #AAAAAA;
   font-size: 1.25rem;
   font-weight: 200;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Arial', sans-serif;
 }
 
 .bg-rgba-0-0-0-01 {
@@ -172,17 +172,17 @@ describe.concurrent('scoped resolvers', () => {
   -webkit-box-shadow: 0px 5px 20px 1px rgba(255, 255, 0, 0.05);
   -moz-box-shadow: 0px 5px 20px 1px rgba(255, 255, 0, 0.05);
 }
-.dark .text-eeeeee-roboto-700-11rem-dark {
+.dark .text-eeeeee-arial-700-11rem-dark {
   color: #EEEEEE;
   font-size: 1.1rem;
   font-weight: 700;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Arial', sans-serif;
 }
-.text-111111-roboto-700-11rem {
+.text-111111-arial-700-11rem {
   color: #111111;
   font-size: 1.1rem;
   font-weight: 700;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Arial', sans-serif;
 }
 .p-1rem-2rem-1rem-2rem {
   padding: 1rem 2rem 1rem 2rem;

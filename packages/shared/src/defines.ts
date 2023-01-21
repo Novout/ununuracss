@@ -171,22 +171,6 @@ export const browserFonts = [
   'Yu Gothic',
 ]
 
-export const googleFonts = [
-  'Roboto',
-  'Lato',
-  'OpenSans',
-  'Oswald',
-  'Poppins',
-  'Raleway',
-  'Montserrat',
-  'Inter',
-  'Ubuntu',
-  'Mukta',
-  'Nunito',
-  'Rubik',
-  'Lora',
-]
-
 export const UNUNURA_RESPONSIVE = (target: UnunuraContextualizeResponsive): string => {
   return {
     xs: '538px',

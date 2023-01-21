@@ -13,7 +13,7 @@ A different form to interpreter Atomic CSS focused on vite ecosystem.
 - 0kb default injected .css;
 - Only scoped and native jsx-scoped;
 - Class-raw based;
-- Native purge;
+- Extend API;
 - [Fontaine](https://github.com/danielroe/fontaine) integrated;
 - No directives / presets;
 - Dynamic identifiers (rules) with unique/multiple engine;
@@ -23,8 +23,6 @@ A different form to interpreter Atomic CSS focused on vite ecosystem.
 ## Motivation
 
 Reading how [UnoCSS](https://github.com/unocss/unocss) was designed, he had the idea of ​​building an engine without presets that automatically understands the needs of the application complete context. 
-
-**ATTENTION!** UnunuraCSS was not designed for medium-large projects that require standardized resources.
 
 ## Simple Example
 
@@ -138,10 +136,10 @@ Context is way for applying context without directly interfering with what is re
 
 ```html
 // Correct
-<div class="cursor:pointer md(cursor:none)" />
+<div class="text:white md(text:red)" />
 
 // WRONG!
-<div class="md(cursor:none) cursor:pointer" />
+<div class="md(text:red) text:white" />
 ```
 
 ### Responsive
@@ -195,7 +193,32 @@ Shorten classes using a single key, for example:
 ```ts
 ununura({
   defines: [
-    ['btn', 'cursor:pointer p[1rem 2.5rem] bg:purple text:white']
+    ['btn', 'style:cursor-pointer p[1rem 2.5rem] rounded:0.5rem bg:purple text:white']
   ]
 })
+
+// class="btn m[bottom 2rem]..."
 ```
+
+### Extend
+
+Extend default settings for special customizations.
+
+```ts
+ununura({
+  extend: {  
+    supporters: { 
+      colors: [
+        ['primary', '#00FF00']
+      ], 
+      fontFamily: [
+        ['roboto', 'Roboto']
+      ]
+    }
+  }
+})
+
+// class="text[primary roboto] typo[indent-1rem]..."
+```
+
+> **ATTENTION!** Make sure you are entering a name that does not conflict with the default settings.

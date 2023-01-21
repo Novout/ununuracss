@@ -33,8 +33,8 @@ describe.concurrent('lexer', () => {
       ],
       [lex('bg:white m[0 0 10 0] p:10', {} as any), ['bg', ':', 'white', 'm', '[', '0 0 10 0', ']', 'p', ':', '10']],
       [
-        lex('text:roboto text[white xl 900] border[2 #050505 dashed rounded]', {} as any),
-        ['text', ':', 'roboto', 'text', '[', 'white xl 900', ']', 'border', '[', '2 #050505 dashed rounded', ']'],
+        lex('text:arial text[white xl 900] border[2 #050505 dashed rounded]', {} as any),
+        ['text', ':', 'arial', 'text', '[', 'white xl 900', ']', 'border', '[', '2 #050505 dashed rounded', ']'],
       ],
       [lex('external-class foo bar baz border[5 yellow] foo bar baz', {} as any), ['border', '[', '5 yellow', ']']],
       [
@@ -358,12 +358,6 @@ describe('transform', () => {
         resolveCSS(UnunuraIdentifier.Text, { contents: ['arial'], buffer: [], stack: [] }),
         `.text-arial {
   font-family: 'Arial', sans-serif;
-}`,
-      ],
-      [
-        resolveCSS(UnunuraIdentifier.Text, { contents: ['roboto'], buffer: [], stack: [] }),
-        `.text-roboto {
-  font-family: 'Roboto', sans-serif;
 }`,
       ],
       [
@@ -974,6 +968,60 @@ describe('transform', () => {
         generateMultipleClass(['m', '0 10 0 0'], { contents: [], buffer: [], stack: [] }),
         `.m-0-10-0-0 {
   margin: 0px 10px 0px 0px;
+}`,
+      ],
+    ]
+
+    for (const [css, result] of targets) {
+      expect(css).toStrictEqual(result)
+    }
+  })
+
+  it('should get css class with ununura external options', () => {
+    const targets = [
+      [
+        resolveCSS(UnunuraIdentifier.Text, {
+          contents: ['primary'],
+          buffer: [],
+          stack: [],
+          ununura: { extend: { supporters: { colors: [['primary', '#00FF00']] } } } as any,
+        }),
+        `.text-primary {
+  color: #00FF00;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Text, {
+          contents: ['primary'],
+          buffer: [],
+          stack: [],
+          ununura: { extend: { supporters: { colors: [['primary', 'rgba(255, 255, 255, 0.1)']] } } } as any,
+        }),
+        `.text-primary {
+  color: rgba(255, 255, 255, 0.1);
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Text, {
+          contents: ['roboto'],
+          buffer: [],
+          stack: [],
+          ununura: { extend: { supporters: { fontFamily: [['roboto', 'Roboto']] } } } as any,
+        }),
+        `.text-roboto {
+  font-family: 'Roboto', sans-serif;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Text, {
+          contents: ['primary', 'roboto'],
+          buffer: [],
+          stack: [],
+          ununura: { extend: { supporters: { colors: [['primary', '#00FF00']], fontFamily: [['roboto', 'Roboto']] } } } as any,
+        }),
+        `.text-primary-roboto {
+  color: #00FF00;
+  font-family: 'Roboto', sans-serif;
 }`,
       ],
     ]

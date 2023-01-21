@@ -1,4 +1,4 @@
-import { UnunuraContextualizeStack } from './types'
+import { UnunuraContextualizeStack, ArrTuple } from './types'
 
 export interface UnunuraGenerateContext {
   stack: UnunuraContextualizeStack
@@ -24,18 +24,29 @@ export interface UnunuraScannerFile {
   filename: string
 }
 
+export interface UnunuraExtendSupporters {
+  colors?: ArrTuple<string>
+  fontFamily?: ArrTuple<string>
+}
+
+export interface UnunuraExtend {
+  supporters?: UnunuraExtendSupporters
+}
+
 export interface UnunuraResolvableOptions {
-  defines?: [string, string][]
+  defines?: ArrTuple<string>
   jsx?: boolean
   jsxIgnoreEntryFile?: boolean
   scoped?: boolean
+  extend?: UnunuraExtend
 }
 
 export interface UnunuraOptions {
-  defines: [string, string][]
+  defines: ArrTuple<string>
   jsx: boolean
   jsxIgnoreEntryFile: boolean
   scoped: boolean
+  extend: UnunuraExtend
 }
 
 export interface UnunuraCoreOptions extends UnunuraOptions {

@@ -1,5 +1,5 @@
 import { NULLABLE } from './constants'
-import { browserFonts, googleFonts, pseudoClass, pseudoElement } from './defines'
+import { browserFonts, pseudoClass, pseudoElement } from './defines'
 import { UnunuraGlobals, UnunuraIdentifier, UnunuraKeys } from './enums'
 import {
   Option,
@@ -168,7 +168,6 @@ export const isCSSColor = (i: string): boolean =>
     'YellowGreen',
   ].some((c) => c.toLowerCase() === i.toLowerCase())
 export const isDefaultFont = (i: string): boolean => [...browserFonts].some((c) => c.toLowerCase() === i.toLowerCase())
-export const isGoogleFont = (i: string) => [...googleFonts].some((d) => i.toLowerCase() === d.toLowerCase())
 export const isImageSize = (i: string) => ['auto', 'cover', 'contain'].some((d) => i.toLowerCase() === d.toLowerCase())
 export const isFlexHorizontal = (i: string) =>
   ['start', 'end', 'center', 'between', 'around', 'evenly', 'initial', 'inherit'].some((d) => i === `h-${d}`)

@@ -1,7 +1,6 @@
 import { validateTimersUnit } from 'packages/engine/src/validate'
-import { getSupportedColor } from 'ununura-engine'
 import { NULLABLE } from './constants'
-import { isNullable } from './is'
+import { UnunuraGenerateContext } from './interfaces'
 import { Nullable } from './types'
 
 export const findResource = (contents: string[], target: string[]) =>
@@ -14,7 +13,7 @@ export const findResourceInStart = (
     onlyValue?: boolean
     onlySpreadValue?: boolean
     validate?: 'timer'
-    supporter?: (contents: string[]) => Nullable<string>
+    supporter?: (contents: UnunuraGenerateContext) => Nullable<string>
   }
 ): string => {
   const resource = contents.find((t) => target.some((v) => t.startsWith(v)))
@@ -22,7 +21,7 @@ export const findResourceInStart = (
   if (!resource) return NULLABLE
   const splitted = resource.split('-')[1]
 
-  if (options?.supporter) return options?.supporter([splitted])
+  if (options?.supporter) return options?.supporter({ contents: [splitted], stack: [], buffer: [] })
 
   if (options?.onlyValue) return splitted
   if (options?.onlySpreadValue) {

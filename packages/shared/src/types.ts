@@ -1,12 +1,17 @@
+// Generics
 export type Option<T> = T | undefined
 export type Nullable<T> = T | '__NULLABLE__'
-export type CSSInject = string
+export type CSSInject<T extends string | Promise<string> = string> = T
+export type ArrTuple<T extends string | number> = [T, T][]
 
-// TODO: <template>${string}</template>
+// SFC's
+// TODO: <template>${string}</template><script scoped>${string}</script>
 export type VueSFC = string
+// TODO: <template>${string}</template><script>${string}</script>
 export type SvelteSFC = string
 export type JSXSFC = string
 export type SFC = VueSFC | SvelteSFC | JSXSFC
+
 // Ununura Internals
 export type UnunuraBounce = 'padding' | 'margin' | 'border' | 'text' | 'background' | 'flex' | 'grid'
 export type UnunuraContextualizeTheme = 'light' | 'dark' | 'sepia'
