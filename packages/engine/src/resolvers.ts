@@ -40,6 +40,7 @@ export const resolveTitleToClassName = (title: string) => {
     .replace(/[.%\s]/gi, '') // defaults
     .replace(/[,_\s]/gi, '-')
     .replace(/[():#/\s]/gi, '')
+    .replace(/[[]\s]/gi, '')
     .replace(/ /gi, '')
     .replaceAll('?', '_none_') // globals
     .replaceAll('!', '_important_')
