@@ -311,6 +311,12 @@ describe('transform', () => {
 }`,
       ],
       [
+        resolveCSS(UnunuraIdentifier.Border, { contents: ['t', '2'], buffer: [], stack: [] }),
+        `.border-t-2 {
+  border-top-width: 2px;
+}`,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Border, { contents: ['dashed', 'black'], buffer: [], stack: [] }),
         `.border-dashed-black {
   border: dashed;
@@ -331,6 +337,14 @@ describe('transform', () => {
   border: dashed;
   border-color: black;
   border-width: 10px;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Border, { contents: ['left', '10', 'dashed', 'black'], buffer: [], stack: ['active'] }),
+        `.border-left-10-dashed-black:active {
+  border: dashed;
+  border-color: black;
+  border-left-width: 10px;
 }`,
       ],
       [

@@ -143,10 +143,10 @@ export const getResourcePosition = (
 ): string => {
   const base = findResource(ctx.contents, ['static', 'relative', 'fixed', 'absolute', 'sticky'])
 
-  const left = findResourceInStart(ctx.contents, ['left-'])
-  const right = findResourceInStart(ctx.contents, ['right-'])
-  const top = findResourceInStart(ctx.contents, ['top-'])
-  const bottom = findResourceInStart(ctx.contents, ['bottom-'])
+  const left = findResourceInStart(ctx.contents, ['left-', 'l-'])
+  const right = findResourceInStart(ctx.contents, ['right-', 'r-'])
+  const top = findResourceInStart(ctx.contents, ['top-', 't-'])
+  const bottom = findResourceInStart(ctx.contents, ['bottom-', 'b-'])
 
   if (!base) return NULLABLE
 
@@ -165,6 +165,7 @@ export const getResourceBorder = (
 
   ctx: UnunuraGenerateContext
 ): string => {
+  const direction = getSupportedDirection(ctx.contents)
   const size = getSupportedNumber(ctx)
   const style = ctx.contents.find((c) => isBorderStyle(c)) ?? NULLABLE
   const color = getSupportedColor(ctx)
@@ -174,7 +175,7 @@ export const getResourceBorder = (
   let setter = setterHead(ctx)
   setter += setterRow(style, `${inCss}: ${style}`, ctx.contents)
   setter += setterRow(color, `${inCss}-color: ${color}`, ctx.contents)
-  setter += setterRow(size, `${inCss}-width: ${size}`, ctx.contents)
+  setter += setterRow(size, `${inCss}-${!isNullable(direction) ? `${direction}-` : ''}width: ${size}`, ctx.contents)
 
   return resolveCssClass(identifier, setter, ctx)
 }
