@@ -722,7 +722,7 @@ describe('transform', () => {
       [
         resolveCSS(UnunuraIdentifier.Typography, { contents: ['underline'], buffer: [], stack: [] }),
         `.typo-underline {
-  text-decoration: underline;
+  text-decoration-line: underline;
 }`,
       ],
       [
