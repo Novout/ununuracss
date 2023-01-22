@@ -734,9 +734,9 @@ describe('transform', () => {
 }`,
       ],
       [
-        resolveCSS(UnunuraIdentifier.Typography, { contents: ['underline'], buffer: [], stack: [] }),
-        `.typo-underline {
-  text-decoration-line: underline;
+        resolveCSS(UnunuraIdentifier.Typography, { contents: ['decoration-none'], buffer: [], stack: [] }),
+        `.typo-decoration-none {
+  text-decoration: none;
 }`,
       ],
       [
