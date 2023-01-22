@@ -23,8 +23,14 @@ export const purgeOnlyCssClassTitle = (css: string): string => {
     .join(' ')
     .replace(/(.dark .|.light .|.sepia .)/, ' ')
 
-  pseudoClass.forEach((cl) => def.replaceAll(`:${cl}`, ''))
-  pseudoElement.forEach((cl) => def.replaceAll(`::${cl}`, ''))
+  pseudoClass.forEach((cl) => {
+    def = def.replaceAll(`:${cl}`, '')
+    def = def.replaceAll(`-${cl}`, '')
+  })
+  pseudoElement.forEach((cl) => {
+    def = def.replaceAll(`-${cl}`, '')
+    def = def.replaceAll(`::${cl}`, '')
+  })
 
   return def
 }
