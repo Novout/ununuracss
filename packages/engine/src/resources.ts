@@ -78,7 +78,7 @@ export const getResourcePaddingOrMargin = (identifier: UnunuraIdentifier, ctx: U
   const values = validateSpreadAllResource(ctx.contents)
 
   const direction = getSupportedDirection(ctx.contents)
-  const size = getSupportedNumber(ctx.contents)
+  const size = getSupportedNumber(ctx)
 
   const inCss = resolveIdentifierInCSS(identifier)
 
@@ -89,7 +89,10 @@ export const getResourcePaddingOrMargin = (identifier: UnunuraIdentifier, ctx: U
   } else {
     if (values.length === 0) return NULLABLE
 
-    const spread = `${inCss}:${values.reduce((sum, acc) => (sum += ` ${getSupportedNumber([acc])}`), '')}`
+    const spread = `${inCss}:${values.reduce(
+      (sum, acc) => (sum += ` ${getSupportedNumber({ contents: [acc], stack: [], buffer: [] })}`),
+      ''
+    )}`
 
     setter += setterRow('' as any, spread, ctx.contents)
   }
@@ -105,7 +108,7 @@ export const getResourceRounded = (identifier: UnunuraIdentifier, ctx: UnunuraGe
   let setter = setterHead(ctx)
 
   const spread = `${resolveIdentifierInCSS(identifier)}:${values.reduce(
-    (sum, acc) => (sum += ` ${getSupportedNumber([acc])}`),
+    (sum, acc) => (sum += ` ${getSupportedNumber({ contents: [acc], stack: [], buffer: [] })}`),
     ''
   )}`
 
@@ -115,7 +118,7 @@ export const getResourceRounded = (identifier: UnunuraIdentifier, ctx: UnunuraGe
 }
 
 export const getResourceWidthOrHeight = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {
-  const size = getSupportedNumber(ctx.contents)
+  const size = getSupportedNumber(ctx)
   const ranged = getSupportedMinOrMax(ctx.contents)
 
   const inCss = resolveIdentifierInCSS(identifier)
@@ -162,7 +165,7 @@ export const getResourceBorder = (
 
   ctx: UnunuraGenerateContext
 ): string => {
-  const size = getSupportedNumber(ctx.contents)
+  const size = getSupportedNumber(ctx)
   const style = ctx.contents.find((c) => isBorderStyle(c)) ?? NULLABLE
   const color = getSupportedColor(ctx)
 
@@ -181,7 +184,7 @@ export const getResourceOutline = (
 
   ctx: UnunuraGenerateContext
 ): string => {
-  const size = getSupportedNumber(ctx.contents)
+  const size = getSupportedNumber(ctx)
   const style = ctx.contents.find((c) => isOutlineStyle(c)) ?? NULLABLE
   const color = getSupportedColor(ctx)
   const offset = findResourceInStart(ctx.contents, ['offset-'], { onlyValue: true })

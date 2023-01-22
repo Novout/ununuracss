@@ -1006,7 +1006,7 @@ describe('transform', () => {
           contents: ['roboto'],
           buffer: [],
           stack: [],
-          ununura: { extend: { supporters: { fontFamily: [['roboto', 'Roboto']] } } } as any,
+          ununura: { extend: { supporters: { fonts: [['roboto', 'Roboto']] } } } as any,
         }),
         `.text-roboto {
   font-family: 'Roboto', sans-serif;
@@ -1017,7 +1017,7 @@ describe('transform', () => {
           contents: ['primary', 'roboto'],
           buffer: [],
           stack: [],
-          ununura: { extend: { supporters: { colors: [['primary', '#00FF00']], fontFamily: [['roboto', 'Roboto']] } } } as any,
+          ununura: { extend: { supporters: { colors: [['primary', '#00FF00']], fonts: [['roboto', 'Roboto']] } } } as any,
         }),
         `.text-primary-roboto {
   color: #00FF00;
@@ -1031,7 +1031,7 @@ describe('transform', () => {
           stack: [],
           ununura: {
             extend: {
-              supporters: { colors: [['primary', '#00FF00']], fontFamily: [['roboto', 'Roboto']], fontSize: [['md', '1.5rem']] },
+              supporters: { colors: [['primary', '#00FF00']], fonts: [['roboto', 'Roboto']], units: [['md', '1.5rem']] },
             },
           } as any,
         }),

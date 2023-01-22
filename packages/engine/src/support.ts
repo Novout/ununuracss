@@ -20,7 +20,7 @@ import {
   NULLABLE,
   UnunuraGenerateContext,
 } from 'ununura-shared'
-import { getExtendedSupporterColor, getExtendedSupporterFontFamily, getExtendedSupporterFontSize } from './externals'
+import { getExtendedSupporterColor, getExtendedSupporterFontFamily, getExtendedSupporterUnits } from './externals'
 
 export const getSupportedMinOrMax = (contents: string[]): Nullable<string> => {
   const min = contents.find((c) => c === 'min')
@@ -210,20 +210,21 @@ export const getSupportedScroll = (contents: string[]): string => {
   return contents.find((c) => isScroll(c)) ?? 'scroll'
 }
 
-export const getSupportedNumber = (contents: string[]): Nullable<string> => {
-  const suffixed = contents.find((c) => isNumberSuffix(c) && isNumber(c[0]))
+export const getSupportedNumber = (ctx: UnunuraGenerateContext): Nullable<string> => {
+  const extended = getExtendedSupporterUnits(ctx)
 
-  const def = contents.find((c) => isNumber(c) && isNumber(c[0]))
+  const suffixed = ctx.contents.find((c) => isNumberSuffix(c) && isNumber(c[0]))
+
+  const def = ctx.contents.find((c) => isNumber(c) && isNumber(c[0]))
   const defSet = def?.endsWith('px') ? def : def ? `${def}px` : undefined
 
-  return suffixed ?? defSet ?? NULLABLE
+  return extended ?? suffixed ?? defSet ?? NULLABLE
 }
 
 export const getSupportedFontSize = (ctx: UnunuraGenerateContext): Nullable<string> => {
-  const external = getExtendedSupporterFontSize(ctx)
-  const number = getSupportedNumber(ctx.contents)
+  const number = getSupportedNumber(ctx)
 
-  return external ?? number ?? NULLABLE
+  return number ?? NULLABLE
 }
 
 export const getSupportedInteger = (contents: string[]): Nullable<string> => {
