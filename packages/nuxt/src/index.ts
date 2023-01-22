@@ -8,6 +8,10 @@ export default defineNuxtModule({
     name: 'ununura',
     configKey: 'ununura',
   },
+  defaults: {
+    // because vue&scoped files recursive nitro reload
+    scoped: false,
+  } as UnunuraResolvableOptions,
   async setup(options, nuxt) {
     const exportTemplate = isNuxt2() ? 'export default () => {}' : 'export default defineNuxtPlugin(() => {})'
 
