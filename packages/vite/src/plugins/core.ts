@@ -46,7 +46,7 @@ export default (ununura: UnunuraOptions): Plugin => {
     },
     async handleHotUpdate({ server, file }) {
       if (validForUpdate(file)) {
-        await reloadServer(server)
+        await reloadServer(server, ununura)
       }
     },
   }

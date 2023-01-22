@@ -40,6 +40,7 @@ export interface UnunuraResolvableOptions {
   jsxIgnoreEntryFile?: boolean
   scoped?: boolean
   extend?: UnunuraExtend
+  specialEnvironment?: 'vite' | 'nitro'
 }
 
 export interface UnunuraOptions {
@@ -48,6 +49,7 @@ export interface UnunuraOptions {
   jsxIgnoreEntryFile: boolean
   scoped: boolean
   extend: UnunuraExtend
+  specialEnvironment: 'vite' | 'nitro'
 }
 
 export interface UnunuraCoreOptions extends UnunuraOptions {

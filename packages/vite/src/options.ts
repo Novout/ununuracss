@@ -7,6 +7,7 @@ export const resolvedViteOptions = (options: UnunuraResolvableOptions = {}): Unu
   _options.jsxIgnoreEntryFile = options?.jsxIgnoreEntryFile ?? true
   _options.scoped = options?.scoped ?? true
   _options.extend = options?.extend ?? {}
+  _options.specialEnvironment = options?.specialEnvironment ?? 'vite'
 
   return _options
 }
