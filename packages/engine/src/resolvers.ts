@@ -37,7 +37,8 @@ import { TemplateClassResponsive, TemplateDefaultClass } from './template'
 
 export const resolveTitleToClassName = (title: string) => {
   const normalized = title
-    .replace(/(.vue|.svelte|.jsx|.tsx)/, '')
+    .replaceAll('[', '')
+    .replaceAll(']', '')
     .replace(/[.%\s]/gi, '') // defaults
     .replace(/[,_\s]/gi, '-')
     .replace(/[():#/\s]/gi, '')
@@ -56,7 +57,9 @@ export const resolveHashTitle = (prefix: string, ctx: UnunuraGenerateContext) =>
   if (ctx?.node?.position) {
     const { start } = ctx.node.position
 
-    return `${prefix}-${start.line}-${ctx.filename ? resolveTitleToClassName(ctx.filename) : ''}`
+    return `${prefix}-${start.line}-${
+      ctx.filename ? resolveTitleToClassName(ctx.filename.replace(/(.vue|.svelte|.jsx|.tsx)/, '')) : ''
+    }`
   }
 
   return prefix
