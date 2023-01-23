@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [
     vue(),
     ununura({
+      simplifyTitles: true,
       extend: {
         supporters: {
           fonts: [

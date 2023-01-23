@@ -42,6 +42,7 @@ export interface UnunuraResolvableOptions {
   extend?: UnunuraExtend
   specialEnvironment?: 'vite' | 'nitro'
   applyAutoprefixer?: boolean
+  simplifyTitles?: boolean
 }
 
 export interface UnunuraOptions {
@@ -52,6 +53,7 @@ export interface UnunuraOptions {
   extend: UnunuraExtend
   specialEnvironment: 'vite' | 'nitro'
   applyAutoprefixer: boolean
+  simplifyTitles: boolean
 }
 
 export interface UnunuraCoreOptions extends UnunuraOptions {

@@ -40,8 +40,8 @@ export const resolveTitleToClassName = (title: string) => {
     .replace(/[.%\s]/gi, '') // defaults
     .replace(/[,_\s]/gi, '-')
     .replace(/[():#/\s]/gi, '')
-    .replace(/[[]\s]/gi, '')
     .replace(/ /gi, '')
+    .replace(/(vue|svelte|jsx|tsx)/gi, '')
     .replaceAll('?', '_none_') // globals
     .replaceAll('!', '_important_')
     .toLowerCase()
@@ -56,9 +56,7 @@ export const resolveHashTitle = (prefix: string, ctx: UnunuraGenerateContext) =>
   if (ctx?.node?.position) {
     const { start } = ctx.node.position
 
-    const hashed = `${start.line}`
-
-    return `${prefix}-${hashed}-${ctx.filename ? resolveTitleToClassName(ctx.filename) : ''}`
+    return `${prefix}-${start.line}-${ctx.filename ? resolveTitleToClassName(ctx.filename) : ''}`
   }
 
   return prefix
@@ -182,7 +180,7 @@ export const resolveTitleCssClass = (identifier: UnunuraIdentifier, ctx: Ununura
 
   let setter = !asResponsive
     ? ctx.contents.reduce(
-        (sum, acc) => (sum += `-${resolveTitleToClassName(acc)}`),
+        (sum, acc) => (sum += ctx.ununura?.simplifyTitles ? `` : `-${resolveTitleToClassName(acc)}`),
         (asTheme ? `.${asTheme} ` : '') + resolveHashTitle(`.${identifier}`, ctx)
       )
     : (asTheme && !asResponsive ? `.${asTheme} ` : '') + `.${purgeOnlyCssClassTitle(buffered as string)}`
