@@ -10,7 +10,6 @@ import {
   UnunuraGenerateContext,
   isTransitionProperty,
   isTransitionTimingFunction,
-  isDefaultCentralize,
   isTypographyOverflow,
   isTypographyTransform,
   isOutlineStyle,
@@ -172,8 +171,8 @@ export const getResourceBorder = (
   const inCss = resolveIdentifierInCSS(identifier)
 
   let setter = setterHead(ctx)
-  setter += setterRow(style, `${inCss}: ${style}`, ctx.contents)
-  setter += setterRow(color, `${inCss}-color: ${color}`, ctx.contents)
+  setter += setterRow(style, `${inCss}${!isNullable(direction) ? `-${direction}` : ''}: ${style}`, ctx.contents)
+  setter += setterRow(color, `${inCss}${!isNullable(direction) ? `-${direction}` : ''}-color: ${color}`, ctx.contents)
   setter += setterRow(size, `${inCss}-${!isNullable(direction) ? `${direction}-` : ''}width: ${size}`, ctx.contents)
 
   return resolveCssClass(identifier, setter, ctx)
@@ -425,7 +424,6 @@ export const getResourceTypography = (identifier: UnunuraIdentifier, ctx: Ununur
   const letterSpacing = findResourceInStart(ctx.contents, ['lspacing-'], { onlyValue: true })
   const wordSpacing = findResourceInStart(ctx.contents, ['wspacing-'], { onlyValue: true })
   const line = findResourceInStart(ctx.contents, ['line-'], { onlyValue: true })
-  const align = ctx.contents.find((c) => isDefaultCentralize(c))
   const decoration = findResourceInStart(ctx.contents, ['decoration-'], { onlyValue: true })
   const overflow = ctx.contents.find((c) => isTypographyOverflow(c))
   const transform = ctx.contents.find((c) => isTypographyTransform(c))
@@ -440,7 +438,6 @@ export const getResourceTypography = (identifier: UnunuraIdentifier, ctx: Ununur
   setter += setterRow(letterSpacing, `letter-spacing: ${letterSpacing}`, ctx.contents)
   setter += setterRow(wordSpacing, `word-spacing: ${wordSpacing}`, ctx.contents)
   setter += setterRow(line, `line-height: ${line}`, ctx.contents)
-  setter += setterRow(align, `${inCss}-align: ${align}`, ctx.contents)
   setter += setterRow(decoration, `${inCss}-decoration: ${decoration}`, ctx.contents)
   setter += setterRow(overflow, `${inCss}-overflow: ${overflow}`, ctx.contents)
   setter += setterRow(transform, `${inCss}-transform: ${transform}`, ctx.contents)

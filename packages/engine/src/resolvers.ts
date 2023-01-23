@@ -37,11 +37,11 @@ import { TemplateClassResponsive, TemplateDefaultClass } from './template'
 
 export const resolveTitleToClassName = (title: string) => {
   const normalized = title
+    .replace(/(.vue|.svelte|.jsx|.tsx)/, '')
     .replace(/[.%\s]/gi, '') // defaults
     .replace(/[,_\s]/gi, '-')
     .replace(/[():#/\s]/gi, '')
     .replace(/ /gi, '')
-    .replace(/(vue|svelte|jsx|tsx)/gi, '')
     .replaceAll('?', '_none_') // globals
     .replaceAll('!', '_important_')
     .toLowerCase()

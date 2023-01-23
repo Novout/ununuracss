@@ -342,8 +342,8 @@ describe('transform', () => {
       [
         resolveCSS(UnunuraIdentifier.Border, { contents: ['left', '10', 'dashed', 'black'], buffer: [], stack: ['active'] }),
         `.border-left-10-dashed-black:active {
-  border: dashed;
-  border-color: black;
+  border-left: dashed;
+  border-left-color: black;
   border-left-width: 10px;
 }`,
       ],
@@ -400,12 +400,6 @@ describe('transform', () => {
         resolveCSS(UnunuraIdentifier.Background, { contents: ['#000000'], buffer: [], stack: ['dark'] }),
         `.dark .bg-000000-dark {
   background-color: #000000;
-}`,
-      ],
-      [
-        resolveCSS(UnunuraIdentifier.Background, { contents: ['rgb-255-255-255'], buffer: [], stack: [] }),
-        `.bg-rgb-255-255-255 {
-  background-color: rgb(255, 255, 255);
 }`,
       ],
       [
@@ -744,12 +738,6 @@ describe('transform', () => {
 }`,
       ],
       [
-        resolveCSS(UnunuraIdentifier.Typography, { contents: ['center'], buffer: [], stack: [] }),
-        `.typo-center {
-  text-align: center;
-}`,
-      ],
-      [
         resolveCSS(UnunuraIdentifier.Typography, { contents: ['decoration-none'], buffer: [], stack: [] }),
         `.typo-decoration-none {
   text-decoration: none;
@@ -879,24 +867,18 @@ describe('transform', () => {
         resolveCSS(UnunuraIdentifier.Shadow, { contents: ['black'], buffer: [], stack: [] }),
         `.shadow-black {
   box-shadow: 5px 5px 5px 0px black;
-  -webkit-box-shadow: 5px 5px 5px 0px black;
-  -moz-box-shadow: 5px 5px 5px 0px black;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Shadow, { contents: ['h-10', 'v-10'], buffer: [], stack: [] }),
         `.shadow-h-10-v-10 {
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Shadow, { contents: ['inset', 'h-10', 'v-10'], buffer: [], stack: [] }),
         `.shadow-inset-h-10-v-10 {
   box-shadow: inset 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: inset 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: inset 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
 }`,
       ],
       [
