@@ -342,14 +342,12 @@ export const getResourceText = (
   ctx: UnunuraGenerateContext
 ): string => {
   const color = getSupportedColor(ctx)
-  const align = findResource(ctx.contents, ['left', 'right', 'center', 'justify', 'initial', 'inherit'])
   const fontSize = getSupportedFontSize(ctx)
   const fontFamily = getSupportedFont(ctx)
   const fontWeight = getSupportedFontWeight(ctx.contents)
 
   let setter = setterHead(ctx)
   setter += setterRow(color, `color: ${color}`, ctx.contents)
-  setter += setterRow(align, `text-align: ${align}`, ctx.contents)
   setter += setterRow(fontSize, `font-size: ${fontSize}`, ctx.contents)
   setter += setterRow(fontWeight, `font-weight: ${fontWeight}`, ctx.contents)
   setter += setterRow(fontFamily, `font-family: '${fontFamily}', sans-serif`, ctx.contents)
@@ -429,6 +427,7 @@ export const getResourceTypography = (identifier: UnunuraIdentifier, ctx: Ununur
   const transform = ctx.contents.find((c) => isTypographyTransform(c))
   const space = findResourceInStart(ctx.contents, ['space-'], { onlyValue: true })
   const _break = findResourceInStart(ctx.contents, ['break-'], { onlyValue: true })
+  const align = findResource(ctx.contents, ['left', 'right', 'center', 'justify', 'initial', 'inherit'])
   const truncate = findResource(ctx.contents, ['truncate'])
 
   const inCss = resolveIdentifierInCSS(identifier)
@@ -443,6 +442,7 @@ export const getResourceTypography = (identifier: UnunuraIdentifier, ctx: Ununur
   setter += setterRow(transform, `${inCss}-transform: ${transform}`, ctx.contents)
   setter += setterRow(space, `white-space: ${space}`, ctx.contents)
   setter += setterRow(_break, `word-break: ${_break}`, ctx.contents)
+  setter += setterRow(align, `text-align: ${align}`, ctx.contents)
   setter += setterRow(truncate, `overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap`, ctx.contents)
 
   return resolveCssClass(identifier, setter, ctx)

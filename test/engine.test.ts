@@ -375,16 +375,9 @@ describe('transform', () => {
 }`,
       ],
       [
-        resolveCSS(UnunuraIdentifier.Text, { contents: ['center'], buffer: [], stack: [] }),
-        `.text-center {
-  text-align: center;
-}`,
-      ],
-      [
-        resolveCSS(UnunuraIdentifier.Text, { contents: ['arial', 'center', '#CC0000', '700'], buffer: [], stack: [] }),
-        `.text-arial-center-cc0000-700 {
+        resolveCSS(UnunuraIdentifier.Text, { contents: ['arial', '#CC0000', '700'], buffer: [], stack: [] }),
+        `.text-arial-cc0000-700 {
   color: #CC0000;
-  text-align: center;
   font-size: 700px;
   font-weight: 700;
   font-family: 'Arial', sans-serif;
@@ -705,6 +698,18 @@ describe('transform', () => {
         resolveCSS(UnunuraIdentifier.Typography, { contents: ['uppercase'], buffer: [], stack: [] }),
         `.typo-uppercase {
   text-transform: uppercase;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Typography, { contents: ['center'], buffer: [], stack: [] }),
+        `.typo-center {
+  text-align: center;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Typography, { contents: ['justify'], buffer: [], stack: [] }),
+        `.typo-justify {
+  text-align: justify;
 }`,
       ],
       [
