@@ -8,6 +8,7 @@ export const resolvedViteOptions = (options: UnunuraResolvableOptions = {}): Unu
   _options.scoped = options?.scoped ?? true
   _options.extend = options?.extend ?? {}
   _options.specialEnvironment = options?.specialEnvironment ?? 'vite'
+  _options.applyAutoprefixer = options?.applyAutoprefixer ?? true
 
   return _options
 }

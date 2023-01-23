@@ -332,8 +332,6 @@ export const getResourceShadow = (
     }${horizontalResolved} ${verticalResolved} ${blurResolved} ${radiusResolved} ${colorResolved};\n`
 
     setter += `  box-shadow: ${!isNullable(none) ? 'none;\n' : value}`
-    setter += `  -webkit-box-shadow: ${!isNullable(none) ? 'none;\n' : value}`
-    setter += `  -moz-box-shadow: ${!isNullable(none) ? 'none;\n' : value}`
   }
 
   return resolveCssClass(identifier, setter, ctx)

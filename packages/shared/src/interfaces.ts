@@ -41,6 +41,7 @@ export interface UnunuraResolvableOptions {
   scoped?: boolean
   extend?: UnunuraExtend
   specialEnvironment?: 'vite' | 'nitro'
+  applyAutoprefixer?: boolean
 }
 
 export interface UnunuraOptions {
@@ -50,6 +51,7 @@ export interface UnunuraOptions {
   scoped: boolean
   extend: UnunuraExtend
   specialEnvironment: 'vite' | 'nitro'
+  applyAutoprefixer: boolean
 }
 
 export interface UnunuraCoreOptions extends UnunuraOptions {

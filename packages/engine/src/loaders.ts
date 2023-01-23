@@ -12,6 +12,7 @@ import {
 import { classesFromRawHtml, classesFromRawJSX, generateCssFromNodes } from './ast'
 import { scan } from './scanner'
 import { getGlobals } from './globals'
+import { applyAutoprefixer } from './integrations'
 
 export const UnunuraGlobalGenerateJSXReduced = (files: UnunuraScannerFile[], initial: string = '', ununura: UnunuraOptions) => {
   const reduced =
@@ -37,15 +38,17 @@ export const UnunuraGlobalGenerate = async (options: UnunuraCoreOptions): Promis
 
   if (!options?.jsx && options?.scoped) return globals
 
-  return UnunuraGlobalGenerateJSXReduced(files, globals, options)
+  const reducedCss = UnunuraGlobalGenerateJSXReduced(files, globals, options)
+
+  return options.applyAutoprefixer ? await applyAutoprefixer(reducedCss) : reducedCss
 }
 
-export const UnunuraScopedSFCFile = (
+export const UnunuraScopedSFCFile = async (
   sfc: VueSFC | SvelteSFC,
   type: 'vue' | 'svelte',
   filename: string,
   ununura: UnunuraOptions
-): CSSInject => {
+): Promise<CSSInject> => {
   const nodes = classesFromRawHtml(sfc)
 
   const { code, css } = generateCssFromNodes(nodes, sfc, filename, ununura)
@@ -56,7 +59,9 @@ export const UnunuraScopedSFCFile = (
 
   if (!ununura.scoped) return code
 
-  return `${code}\n\n<style${type === 'vue' ? ' scoped' : ''}>\n${bufferRaw.trimEnd()}\n</style>`
+  const normalized = ununura.applyAutoprefixer ? await applyAutoprefixer(bufferRaw.trimEnd()) : bufferRaw.trimEnd()
+
+  return `${code}\n\n<style${type === 'vue' ? ' scoped' : ''}>\n${normalized}\n</style>`
 }
 
 export const UnunuraJSXSFCFile = (sfc: JSXSFC, filename: string, ununura: UnunuraOptions): CSSInject => {

@@ -17,15 +17,15 @@ export default (ununura: UnunuraOptions): Plugin => {
   return {
     name: 'ununuracss:core',
     enforce: 'pre',
-    transform(code, id) {
+    async transform(code, id) {
       const filename = getFilename(id)
 
       if (isVueFile(id)) {
-        return UnunuraScopedSFCFile(code, 'vue', filename, ununura)
+        return await UnunuraScopedSFCFile(code, 'vue', filename, ununura)
       }
 
       if (isSvelteFile(id)) {
-        return UnunuraScopedSFCFile(code, 'svelte', filename, ununura)
+        return await UnunuraScopedSFCFile(code, 'svelte', filename, ununura)
       }
 
       if (isJSXFile(id) && ununura.jsx) {

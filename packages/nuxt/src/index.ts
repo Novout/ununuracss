@@ -12,6 +12,7 @@ export default defineNuxtModule({
     // because vue&scoped files recursive in nitro reload
     scoped: false,
     specialEnvironment: 'nitro',
+    applyAutoprefixer: false,
   } as UnunuraResolvableOptions,
   async setup(options, nuxt) {
     const exportTemplate = isNuxt2() ? 'export default () => {}' : 'export default defineNuxtPlugin(() => {})'

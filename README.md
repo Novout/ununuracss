@@ -10,11 +10,11 @@ A different form to interpreter Atomic CSS focused on vite ecosystem.
 ## Features
 
 - [Vue](./packages/vite/README.md), [React/Preact/Vue-JSX](./packages/vite/README.md), [Nuxt](./packages/nuxt/README.md) and [Svelte](./packages/vite/README.md);
+- [Fontaine](https://github.com/danielroe/fontaine) and [PostCSS](https://postcss.org/) integrated;
 - 0kb default injected .css;
 - Only scoped and native jsx-scoped;
 - Class-raw based;
 - Extend API;
-- [Fontaine](https://github.com/danielroe/fontaine) integrated;
 - No directives / presets;
 - Dynamic identifiers (rules) with unique/multiple engine;
 - Nullable options/classes;

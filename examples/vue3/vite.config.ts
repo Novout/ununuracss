@@ -6,7 +6,16 @@ import inspect from 'vite-plugin-inspect'
 export default defineConfig({
   plugins: [
     vue(),
-    ununura(),
+    ununura({
+      extend: {
+        supporters: {
+          fonts: [
+            ['roboto', 'Roboto'],
+            ['lato', 'Lato']
+          ]
+        }
+      }
+    }),
     inspect()
   ],
 })
