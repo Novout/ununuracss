@@ -375,6 +375,22 @@ describe('transform', () => {
 }`,
       ],
       [
+        resolveCSS(UnunuraIdentifier.Text, { contents: ['center'], buffer: [], stack: [] }),
+        `.text-center {
+  text-align: center;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Text, { contents: ['arial', 'center', '#CC0000', '700'], buffer: [], stack: [] }),
+        `.text-arial-center-cc0000-700 {
+  color: #CC0000;
+  text-align: center;
+  font-size: 700px;
+  font-weight: 700;
+  font-family: 'Arial', sans-serif;
+}`,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Background, { contents: ['#000000'], buffer: [], stack: [] }),
         `.bg-000000 {
   background-color: #000000;
@@ -755,6 +771,14 @@ describe('transform', () => {
         resolveCSS(UnunuraIdentifier.Typography, { contents: ['break-normal'], buffer: [], stack: [] }),
         `.typo-break-normal {
   word-break: normal;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Typography, { contents: ['truncate'], buffer: [], stack: [] }),
+        `.typo-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }`,
       ],
       [
