@@ -1,0 +1,14 @@
+{
+  "name": "astro-demo",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "demo:astro": "astro dev",
+    "build": "astro build",
+    "preview:astro": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro-ununura": "workspace:*"
+  }
+}

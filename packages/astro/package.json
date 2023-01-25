@@ -1,0 +1,37 @@
+{
+  "name": "astro-ununura",
+  "version": "0.2.13",
+  "description": "A Atomic CSS Engine Integration for Astro.",
+  "author": "Novout",
+  "license": "MIT",
+  "homepage": "https://github.com/Novout/ununuracss",
+  "repository": "https://github.com/Novout/ununuracss",
+  "keywords": [
+    "astro-integration"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "build:minify": "tsup --minify"
+  },
+  "dependencies": {
+    "ununura": "workspace:*",
+    "ununura-engine": "workspace:*",
+    "ununura-shared": "workspace:*"
+  }
+}

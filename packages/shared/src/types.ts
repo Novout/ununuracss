@@ -10,7 +10,9 @@ export type VueSFC = string
 // TODO: <template>${string}</template><script>${string}</script>
 export type SvelteSFC = string
 export type JSXSFC = string
-export type SFC = VueSFC | SvelteSFC | JSXSFC
+export type AstroSFC = string
+export type SFC = VueSFC | SvelteSFC | JSXSFC | AstroSFC
+export type SFCType = 'vue' | 'svelte' | 'astro'
 
 // Ununura Internals
 export type UnunuraBounce = 'padding' | 'margin' | 'border' | 'text' | 'background' | 'flex' | 'grid'

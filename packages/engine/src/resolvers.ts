@@ -58,9 +58,11 @@ export const resolveHashTitle = (prefix: string, ctx: UnunuraGenerateContext) =>
   if (ctx?.node?.position) {
     const { start } = ctx.node.position
 
-    return `${prefix}-${start.line}-${
-      ctx.filename ? resolveTitleToClassName(ctx.filename.replace(/(.vue|.svelte|.jsx|.tsx)/, '')) : ''
+    const target = `${prefix}${!ctx.ununura?.forceIgnoreClassLineInTitles ? `-${start.line}` : ''}-${
+      ctx.filename ? resolveTitleToClassName(ctx.filename.replace(/(.vue|.svelte|.jsx|.tsx|.astro|.html)/, '')) : ''
     }`
+
+    return target
   }
 
   return prefix

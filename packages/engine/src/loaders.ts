@@ -8,13 +8,15 @@ import {
   JSXSFC,
   UnunuraScannerFile,
   UnunuraOptions,
+  AstroSFC,
+  SFCType,
 } from 'ununura-shared'
 import { classesFromRawHtml, classesFromRawJSX, generateCssFromNodes } from './ast'
 import { scan } from './scanner'
 import { getGlobals } from './globals'
 import { applyAutoprefixer } from './integrations'
 
-export const UnunuraGlobalGenerateJSXReduced = (files: UnunuraScannerFile[], initial: string = '', ununura: UnunuraOptions) => {
+export const UnunuraGlobalGenerateReduced = (files: UnunuraScannerFile[], initial: string = '', ununura: UnunuraOptions) => {
   const reduced =
     files?.reduce((acc, file) => {
       // TODO: JSX AST Rework ExportedNamedFunctions in common syntax -> export function ...
@@ -38,14 +40,14 @@ export const UnunuraGlobalGenerate = async (options: UnunuraCoreOptions): Promis
 
   if (!options?.jsx && options?.scoped) return globals
 
-  const reducedCss = UnunuraGlobalGenerateJSXReduced(files, globals, options)
+  const reducedCss = UnunuraGlobalGenerateReduced(files, globals, options)
 
   return options.applyAutoprefixer ? await applyAutoprefixer(reducedCss) : reducedCss
 }
 
 export const UnunuraScopedSFCFile = async (
-  sfc: VueSFC | SvelteSFC,
-  type: 'vue' | 'svelte',
+  sfc: VueSFC | SvelteSFC | AstroSFC,
+  type: SFCType,
   filename: string,
   ununura: UnunuraOptions
 ): Promise<CSSInject> => {

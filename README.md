@@ -9,7 +9,7 @@ A different form to interpreter Atomic CSS focused on vite ecosystem.
 
 ## Features
 
-- [Vue](./packages/vite/README.md), [React/Preact/Vue-JSX](./packages/vite/README.md), [Nuxt](./packages/nuxt/README.md) and [Svelte](./packages/vite/README.md);
+- [Vue](./packages/vite/README.md), [React/Preact/Vue-JSX](./packages/vite/README.md), [Nuxt](./packages/nuxt/README.md), [Astro](./packages/astro/README.md) and [Svelte](./packages/vite/README.md);
 - [Fontaine](https://github.com/danielroe/fontaine) and [PostCSS](https://postcss.org/) integrated;
 - 0kb default injected .css;
 - Only scoped and native jsx-scoped;
@@ -29,7 +29,7 @@ Reading how [UnoCSS](https://github.com/unocss/unocss) was designed, he had the 
 ```html
 <template>
   <main class="reset:meyer">
-    <div class="flex[col h-center v-center] border[2 white solid] p[top 2rem] m[0 10] bg:black w:100% h:100vh">
+    <div class="flex[col h-center v-center] border[2 white solid] bg:black w:100% h[min 100vh] scroll[y auto]">
       <p class="text[arial white 2rem 700]">Hello UnunuraCSS!</p>
     </div>
   </main>
@@ -211,17 +211,17 @@ ununura({
       colors: [
         ['primary', '#00FF00']
       ], 
-      fontSize: [
+      units: [
         ['lg', '1.5rem']
       ],
-      fontFamily: [
+      fonts: [
         ['roboto', 'Roboto']
       ]
     }
   }
 })
 
-// class="text[primary lg roboto] typo[indent-1rem]..."
+// class="text[primary lg roboto] typo[center indent-1rem]..."
 ```
 
 > **ATTENTION!** Make sure you are entering a name that does not conflict with the default settings.

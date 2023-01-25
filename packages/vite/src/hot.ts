@@ -5,7 +5,7 @@ export const reloadServer = async (server: ViteDevServer, options: UnunuraCoreOp
   const virtualModule = server.moduleGraph.getModuleById(RESOLVED_VIRTUAL_CSS_INJECT_FILENAME)
 
   if (virtualModule) {
-    if (options.specialEnvironment === 'vite') await server.restart()
+    if (options.specialEnvironment !== 'nitro') await server.restart()
     await server.reloadModule(virtualModule)
   }
 }

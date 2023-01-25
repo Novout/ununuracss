@@ -40,9 +40,11 @@ export interface UnunuraResolvableOptions {
   jsxIgnoreEntryFile?: boolean
   scoped?: boolean
   extend?: UnunuraExtend
-  specialEnvironment?: 'vite' | 'nitro'
+  specialEnvironment?: 'vite' | 'nitro' | 'astro'
   applyAutoprefixer?: boolean
   simplifyTitles?: boolean
+  forceIgnoreClassLineInTitles?: boolean
+  forceHydratedTemplate?: boolean
 }
 
 export interface UnunuraOptions {
@@ -51,9 +53,11 @@ export interface UnunuraOptions {
   jsxIgnoreEntryFile: boolean
   scoped: boolean
   extend: UnunuraExtend
-  specialEnvironment: 'vite' | 'nitro'
+  specialEnvironment: 'vite' | 'nitro' | 'astro'
   applyAutoprefixer: boolean
   simplifyTitles: boolean
+  forceIgnoreClassLineInTitles?: boolean
+  forceHydratedTemplate: boolean
 }
 
 export interface UnunuraCoreOptions extends UnunuraOptions {

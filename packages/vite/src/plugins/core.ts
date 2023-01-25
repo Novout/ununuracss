@@ -9,6 +9,7 @@ import {
   getFilename,
   UnunuraOptions,
   isJSXEntryFile,
+  isAstroFile,
 } from 'ununura-shared'
 import { reloadServer } from '../hot'
 import { validForUpdate } from '../support'
@@ -16,7 +17,7 @@ import { validForUpdate } from '../support'
 export default (ununura: UnunuraOptions): Plugin => {
   return {
     name: 'ununuracss:core',
-    enforce: 'pre',
+    enforce: ununura.forceHydratedTemplate ? 'post' : 'pre',
     async transform(code, id) {
       const filename = getFilename(id)
 
@@ -26,6 +27,10 @@ export default (ununura: UnunuraOptions): Plugin => {
 
       if (isSvelteFile(id)) {
         return await UnunuraScopedSFCFile(code, 'svelte', filename, ununura)
+      }
+
+      if (isAstroFile(id)) {
+        return await UnunuraScopedSFCFile(code, 'astro', filename, ununura)
       }
 
       if (isJSXFile(id) && ununura.jsx) {

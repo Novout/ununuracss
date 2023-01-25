@@ -10,6 +10,8 @@ export const resolvedViteOptions = (options: UnunuraResolvableOptions = {}): Unu
   _options.specialEnvironment = options?.specialEnvironment ?? 'vite'
   _options.applyAutoprefixer = options?.applyAutoprefixer ?? true
   _options.simplifyTitles = options?.simplifyTitles ?? false
+  _options.forceIgnoreClassLineInTitles = options?.forceIgnoreClassLineInTitles ?? false
+  _options.forceHydratedTemplate = options?.forceHydratedTemplate ?? false
 
   return _options
 }
