@@ -6,13 +6,10 @@ export const applyAutoprefixer = (rawCss: string): Promise<string> => {
     postcss([autoprefixer({ env: 'last 4 version', grid: 'autoplace', flexbox: true })])
       .process(rawCss, { from: 'ununura.css', to: 'ununura.map.css' })
       .then((result) => {
-        result.warnings().forEach((warn) => {
-          // console.warn(warn.toString())
-
-          rej(rawCss)
-        })
-
         res(result.css)
+      })
+      .catch(() => {
+        rej(rawCss)
       })
   })
 }
