@@ -1,6 +1,6 @@
 export default defineNuxtConfig({
   modules: [
-    'ununura-nuxt'
+    'nuxt-ununura'
   ],
   ununura: {
     extend: {  

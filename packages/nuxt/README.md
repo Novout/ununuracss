@@ -5,7 +5,7 @@
 ```ts
 export default defineNuxtConfig({
   modules: [
-    'ununura-nuxt'
+    'nuxt-ununura'
   ],
   ununura: {
     // Options here
