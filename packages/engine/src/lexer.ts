@@ -41,6 +41,8 @@ export const lex = (raw: string, ununura: UnunuraOptions): string[] => {
           actually_key = UnunuraKeys.MultipleContextClose
           transformers.push(UnunuraKeys.MultipleContextClose)
           ignorable = true
+          identifier = ''
+          is_unique_key = false
           break
         case UnunuraKeys.SpecificContextOpen:
           transformers.push(UnunuraKeys.SpecificContextOpen)
