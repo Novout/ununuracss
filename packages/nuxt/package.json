@@ -1,9 +1,10 @@
 {
-  "name": "ununura-nuxt",
+  "name": "nuxt-ununura",
   "version": "0.2.13",
-  "description": "Atomic CSS Engine.",
+  "description": "Atomic CSS Engine for Nuxt3",
   "author": "Novout",
   "license": "MIT",
+  "repository": "https://github.com/Novout/ununuracss",
   "homepage": "https://github.com/Novout/ununuracss",
   "keywords": [
     "ununuracss",

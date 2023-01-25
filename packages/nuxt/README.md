@@ -1,6 +1,6 @@
 ## Example with Nuxt
 
-`pnpm add -D ununura-nuxt`
+`pnpm add -D nuxt-ununura`
 
 ```ts
 export default defineNuxtConfig({
@@ -8,15 +8,7 @@ export default defineNuxtConfig({
     'ununura-nuxt'
   ],
   ununura: {
-    /* Options here
-    extend: {  
-      supporters: { 
-        colors: [
-          ['primary', '#00FF00']
-        ]
-      }
-    }
+    // Options here
   }
-  */
 })
 ```
