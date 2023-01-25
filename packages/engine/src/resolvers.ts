@@ -32,6 +32,7 @@ import {
   getResourceOutline,
   getResourceFilter,
   getResourceStyle,
+  getResourceGradient,
 } from './resources'
 import { TemplateClassResponsive, TemplateDefaultClass } from './template'
 
@@ -113,6 +114,8 @@ export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string =>
       return 'filter'
     case UnunuraIdentifier.Style:
       return 'style'
+    case UnunuraIdentifier.Gradient:
+      return 'gradient'
   }
 }
 
@@ -160,6 +163,8 @@ export const resolveCSS = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateCo
       return getResourceStyle(identifier, ctx)
     case UnunuraIdentifier.Filter:
       return getResourceFilter(identifier, ctx)
+    case UnunuraIdentifier.Gradient:
+      return getResourceGradient(identifier, ctx)
     case UnunuraIdentifier.Reset: //global
       return NULLABLE
     default:

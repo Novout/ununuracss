@@ -40,7 +40,8 @@ import {
   getSupportedTouch,
 } from './support'
 import { resolveCSS, resolveCssClass, resolveIdentifierInCSS } from './resolvers'
-import { validateSpreadAllResource } from './validate'
+import { validatePercentage, validateRGBA, validateSpreadAllResource } from './validate'
+import { RawRGBAToCssRGB } from './transformers'
 
 export const generateMultipleClass = ([identifier, content]: [string, string], ctx: UnunuraGenerateContext) => {
   const contents = content.split(' ')
@@ -544,6 +545,27 @@ export const getResourceStyle = (identifier: UnunuraIdentifier, ctx: UnunuraGene
   setter += setterRow(resize, `resize: ${resize}`, ctx.contents)
   setter += setterRow(scroll, `scroll-behavior: ${scroll}`, ctx.contents)
   setter += setterRow(select, `user-select: ${select}`, ctx.contents)
+
+  return resolveCssClass(identifier, setter, ctx)
+}
+
+export const getResourceGradient = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {
+  const [direction, ...colors] = ctx.contents
+
+  let setter = setterHead(ctx)
+  setter += setterRow(direction, `background: ${RawRGBAToCssRGB(colors[0])}`, ctx.contents)
+  setter += colors.reduce((acc, value, index, arr) => {
+    const isRGBA = validateRGBA(value)
+    const isPercentage = validatePercentage(value)
+    const isEndStage = index % 2 !== 0 && index + 1 !== arr.length
+
+    if (isRGBA) return (acc += ` ${RawRGBAToCssRGB(value)}${isEndStage ? ',' : ''}`)
+
+    if (isPercentage) return (acc += ` ${value}${isEndStage ? ',' : ''}`)
+
+    return acc
+  }, `  background: linear-gradient(${direction ?? '90deg'},`)
+  setter = setter.trimEnd() + ');\n'
 
   return resolveCssClass(identifier, setter, ctx)
 }

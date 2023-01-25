@@ -899,6 +899,17 @@ describe('transform', () => {
   transition-timing-function: ease-in;
 }`,
       ],
+      [
+        resolveCSS(UnunuraIdentifier.Gradient, {
+          contents: ['30deg', 'rgba-255-0-255-0.5', '0%', 'rgba-0-200-0-1', '100%'],
+          buffer: [],
+          stack: [],
+        }),
+        `.gradient-30deg-rgba-255-0-255-05-0-rgba-0-200-0-1-100 {
+  background: rgba(255, 0, 255, 0.5);
+  background: linear-gradient(30deg, rgba(255, 0, 255, 0.5) 0%, rgba(0, 200, 0, 1) 100%);
+}`,
+      ],
     ]
 
     for (const [css, result] of targets) {

@@ -13,3 +13,11 @@ export const validateSpreadAllResource = (resources: string[]): string[] => {
 export const validateTimersUnit = (resource: string) => {
   return resource.endsWith('ms') || resource.endsWith('s')
 }
+
+export const validatePercentage = (raw: string) => {
+  return raw.endsWith('%')
+}
+
+export const validateRGBA = (raw: string) => {
+  return raw.startsWith('rgba-')
+}

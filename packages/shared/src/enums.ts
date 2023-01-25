@@ -22,6 +22,7 @@ export enum UnunuraIdentifier {
   Typography = 'typo',
   Filter = 'filter',
   Style = 'style',
+  Gradient = 'gradient',
 }
 
 export enum UnunuraGlobals {
