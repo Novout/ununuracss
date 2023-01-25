@@ -157,14 +157,6 @@ export const getSupportedFlexWrap = (contents: string[]): Nullable<string> => {
   return Wrap ?? WrapReverse ?? WrapNone ?? NULLABLE
 }
 
-export const getSupportedStandardFlex = (contents: string[]): Nullable<string> => {
-  return contents.find((c) => c.startsWith('flex-')) ?? NULLABLE
-}
-
-export const getSupportedFlexGap = (contents: string[]): Nullable<string> => {
-  return contents.find((c) => c.startsWith('gap-')) ?? NULLABLE
-}
-
 export const getSupportedFlexVertical = (contents: string[]): Nullable<string> => {
   const asFlex = contents.find((c) => isFlexVertical(c)) ?? NULLABLE
   const asFlexResolved = !isNullable(asFlex) ? asFlex.replace('v-', '') : NULLABLE

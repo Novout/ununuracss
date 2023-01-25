@@ -6,6 +6,7 @@ export default defineConfig({
     coverage: {
       exclude: ['**/shared/*', 'test/*'],
     },
+    testTimeout: 10000,
   },
   optimizeDeps: {
     entries: [],

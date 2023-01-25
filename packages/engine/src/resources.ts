@@ -19,7 +19,6 @@ import {
   getSupportedCursor,
   getSupportedDirection,
   getSupportedFlexDirection,
-  getSupportedFlexGap,
   getSupportedFlexGrow,
   getSupportedFlexHorizontal,
   getSupportedFlexVertical,
@@ -38,7 +37,6 @@ import {
   getSupportedResize,
   getSupportedScroll,
   getSupportedScrollDirection,
-  getSupportedStandardFlex,
   getSupportedTouch,
 } from './support'
 import { resolveCSS, resolveCssClass, resolveIdentifierInCSS } from './resolvers'
@@ -363,8 +361,8 @@ export const getResourceFlex = (
   const direction = getSupportedFlexDirection(ctx.contents)
   const grow = getSupportedFlexGrow(ctx.contents)
   const wrap = getSupportedFlexWrap(ctx.contents)
-  const flex = getSupportedStandardFlex(ctx.contents)
-  const gap = getSupportedFlexGap(ctx.contents)
+  const flex = findResourceInStart(ctx.contents, ['flex-'], { onlyValue: true })
+  const gap = findResourceInStart(ctx.contents, ['gap-'], { onlyValue: true, supporter: getSupportedNumber })
   const horizontal = getSupportedFlexHorizontal(ctx.contents).replace(/h-/, '')
   const vertical = getSupportedFlexVertical(ctx.contents).replace(/v-/, '')
   const shrink = findResourceInStart(ctx.contents, ['shrink-'], { onlyValue: true })
@@ -375,8 +373,8 @@ export const getResourceFlex = (
   setter += setterRow(direction, `${inCss}-direction: ${direction}`, ctx.contents)
   setter += setterRow(grow, `${inCss}-grow: ${grow}`, ctx.contents)
   setter += setterRow(wrap, `${inCss}-wrap: ${wrap}`, ctx.contents)
-  setter += setterRow(flex, `${inCss}: ${flex.split('-')[1]} ${flex.split('-')[1]} 0%`, ctx.contents)
-  setter += setterRow(gap, `gap: ${gap.split('-')[1]}`, ctx.contents)
+  setter += setterRow(flex, `${inCss}: ${flex} ${flex} 0%`, ctx.contents)
+  setter += setterRow(gap, `gap: ${gap}`, ctx.contents)
   setter += setterRow(horizontal, `justify-content: ${horizontal}`, ctx.contents)
   setter += setterRow(vertical, `align-items: ${vertical}`, ctx.contents)
   setter += setterRow(shrink, `${inCss}-shrink: ${shrink}`, ctx.contents)
@@ -395,7 +393,7 @@ export const getResourceGrid = (
   const rowSpan = findResourceInStart(ctx.contents, ['Wspan-'], { onlyValue: true })
   const flow = findResourceInStart(ctx.contents, ['flow-'], { onlyValue: true })
   const autoFlow = findResourceInStart(ctx.contents, ['Aflow-'], { onlyValue: true })
-  const gap = getSupportedFlexGap(ctx.contents)
+  const gap = findResourceInStart(ctx.contents, ['gap-'], { onlyValue: true, supporter: getSupportedNumber })
   const horizontal = getSupportedFlexHorizontal(ctx.contents).replace(/h-/, '')
   const vertical = getSupportedFlexVertical(ctx.contents).replace(/v-/, '')
 
@@ -409,7 +407,7 @@ export const getResourceGrid = (
   // TODO: Find with >-< cases
   setter += setterRow(flow, `${inCss}-auto-flow: ${flow}`, ctx.contents)
   setter += setterRow(autoFlow, `${inCss}-auto-columns: ${autoFlow}`, ctx.contents)
-  setter += setterRow(gap, `gap: ${gap.split('-')[1]}`, ctx.contents)
+  setter += setterRow(gap, `gap: ${gap}`, ctx.contents)
   setter += setterRow(horizontal, `justify-content: ${horizontal}`, ctx.contents)
   setter += setterRow(vertical, `align-items: ${vertical}`, ctx.contents)
 
@@ -417,11 +415,10 @@ export const getResourceGrid = (
 }
 
 export const getResourceTypography = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {
-  const indent = findResourceInStart(ctx.contents, ['indent-'], { onlyValue: true })
-
-  const letterSpacing = findResourceInStart(ctx.contents, ['lspacing-'], { onlyValue: true })
-  const wordSpacing = findResourceInStart(ctx.contents, ['wspacing-'], { onlyValue: true })
-  const line = findResourceInStart(ctx.contents, ['line-'], { onlyValue: true })
+  const indent = findResourceInStart(ctx.contents, ['indent-'], { onlyValue: true, supporter: getSupportedNumber })
+  const letterSpacing = findResourceInStart(ctx.contents, ['letter-'], { onlyValue: true, supporter: getSupportedNumber })
+  const wordSpacing = findResourceInStart(ctx.contents, ['word-'], { onlyValue: true, supporter: getSupportedNumber })
+  const line = findResourceInStart(ctx.contents, ['line-'], { onlyValue: true, supporter: getSupportedNumber })
   const decoration = findResourceInStart(ctx.contents, ['decoration-'], { onlyValue: true })
   const overflow = ctx.contents.find((c) => isTypographyOverflow(c))
   const transform = ctx.contents.find((c) => isTypographyTransform(c))

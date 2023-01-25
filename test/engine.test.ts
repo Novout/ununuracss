@@ -721,18 +721,18 @@ describe('transform', () => {
       [
         resolveCSS(UnunuraIdentifier.Typography, { contents: ['indent-5'], buffer: [], stack: [] }),
         `.typo-indent-5 {
-  text-indent: 5;
+  text-indent: 5px;
 }`,
       ],
       [
-        resolveCSS(UnunuraIdentifier.Typography, { contents: ['lspacing-5px'], buffer: [], stack: [] }),
-        `.typo-lspacing-5px {
+        resolveCSS(UnunuraIdentifier.Typography, { contents: ['letter-5px'], buffer: [], stack: [] }),
+        `.typo-letter-5px {
   letter-spacing: 5px;
 }`,
       ],
       [
-        resolveCSS(UnunuraIdentifier.Typography, { contents: ['wspacing-5px'], buffer: [], stack: [] }),
-        `.typo-wspacing-5px {
+        resolveCSS(UnunuraIdentifier.Typography, { contents: ['word-5px'], buffer: [], stack: [] }),
+        `.typo-word-5px {
   word-spacing: 5px;
 }`,
       ],
