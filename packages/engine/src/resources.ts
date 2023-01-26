@@ -419,7 +419,7 @@ export const getResourceTypography = (identifier: UnunuraIdentifier, ctx: Ununur
   const indent = findResourceInStart(ctx.contents, ['indent-'], { onlyValue: true, supporter: getSupportedNumber })
   const letterSpacing = findResourceInStart(ctx.contents, ['letter-'], { onlyValue: true, supporter: getSupportedNumber })
   const wordSpacing = findResourceInStart(ctx.contents, ['word-'], { onlyValue: true, supporter: getSupportedNumber })
-  const line = findResourceInStart(ctx.contents, ['line-'], { onlyValue: true, supporter: getSupportedNumber })
+  const line = findResourceInStart(ctx.contents, ['line-', 'h-'], { onlyValue: true, supporter: getSupportedNumber })
   const decoration = findResourceInStart(ctx.contents, ['decoration-'], { onlyValue: true })
   const overflow = ctx.contents.find((c) => isTypographyOverflow(c))
   const transform = ctx.contents.find((c) => isTypographyTransform(c))

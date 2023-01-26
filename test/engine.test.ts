@@ -779,6 +779,12 @@ describe('transform', () => {
 }`,
       ],
       [
+        resolveCSS(UnunuraIdentifier.Typography, { contents: ['h-30px'], buffer: [], stack: [] }),
+        `.typo-h-30px {
+  line-height: 30px;
+}`,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Typography, { contents: ['decoration-none'], buffer: [], stack: [] }),
         `.typo-decoration-none {
   text-decoration: none;
