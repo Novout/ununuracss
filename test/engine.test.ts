@@ -946,6 +946,30 @@ describe('transform', () => {
   background: linear-gradient(30deg, rgba(255, 0, 255, 0.5) 0%, rgba(0, 200, 0, 1) 100%);
 }`,
       ],
+      [
+        resolveCSS(UnunuraIdentifier.Animation, {
+          contents: [
+            'name-splin',
+            'duration-2s',
+            'delay-0.2s',
+            'iteration-infinite',
+            'direction-alternate',
+            'timing-linear',
+            'fill-both',
+          ],
+          buffer: [],
+          stack: [],
+        }),
+        `.animation-name-splin-duration-2s-delay-02s-iteration-infinite-direction-alternate-timing-linear-fill-both {
+  animation-name: splin;
+  animation-duration: 2s;
+  animation-delay: 0.2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}`,
+      ],
     ]
 
     for (const [css, result] of targets) {

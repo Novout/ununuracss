@@ -1,4 +1,4 @@
-import { isNullable } from 'ununura-shared'
+import { isNullable, NULLABLE } from 'ununura-shared'
 import { Nullable } from 'ununura-shared'
 
 export const RawRGBAToCssRGB = (raw: string): Nullable<string> => {
@@ -9,5 +9,5 @@ export const RawRGBAToCssRGB = (raw: string): Nullable<string> => {
         .filter(Boolean)
         .reduce((acc, val) => (acc += `${val}, `), '')
         .slice(0, -2)})`
-    : '__NULLABLE__'
+    : NULLABLE
 }

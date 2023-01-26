@@ -23,6 +23,7 @@ export enum UnunuraIdentifier {
   Filter = 'filter',
   Style = 'style',
   Gradient = 'gradient',
+  Animation = 'animation',
 }
 
 export enum UnunuraGlobals {

@@ -569,3 +569,26 @@ export const getResourceGradient = (identifier: UnunuraIdentifier, ctx: UnunuraG
 
   return resolveCssClass(identifier, setter, ctx)
 }
+
+export const getResourceAnimation = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {
+  const name = findResourceInStart(ctx.contents, ['name-'], { onlyValue: true })
+  const duration = findResourceInStart(ctx.contents, ['duration-'], { onlyValue: true })
+  const delay = findResourceInStart(ctx.contents, ['delay-'], { onlyValue: true })
+  const iteration = findResourceInStart(ctx.contents, ['iteration-'], { onlyValue: true })
+  const direction = findResourceInStart(ctx.contents, ['direction-'], { onlyValue: true })
+  const timing = findResourceInStart(ctx.contents, ['timing-'], { onlyValue: true })
+  const fill = findResourceInStart(ctx.contents, ['fill-'], { onlyValue: true })
+
+  const inCss = resolveIdentifierInCSS(identifier)
+
+  let setter = setterHead(ctx)
+  setter += setterRow(name, `${inCss}-name: ${name}`, ctx.contents)
+  setter += setterRow(duration, `${inCss}-duration: ${duration}`, ctx.contents)
+  setter += setterRow(delay, `${inCss}-delay: ${delay}`, ctx.contents)
+  setter += setterRow(iteration, `${inCss}-iteration-count: ${iteration}`, ctx.contents)
+  setter += setterRow(direction, `${inCss}-direction: ${direction}`, ctx.contents)
+  setter += setterRow(timing, `${inCss}-timing-function: ${timing}`, ctx.contents)
+  setter += setterRow(fill, `${inCss}-fill-mode: ${fill}`, ctx.contents)
+
+  return resolveCssClass(identifier, setter, ctx)
+}
