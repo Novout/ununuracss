@@ -36,10 +36,10 @@ export interface UnunuraExtend {
 
 export interface UnunuraResolvableOptions {
   defines?: ArrTuple<string>
+  extend?: UnunuraExtend
   jsx?: boolean
   jsxIgnoreEntryFile?: boolean
-  scoped?: boolean
-  extend?: UnunuraExtend
+  scopedInTemplate?: boolean
   specialEnvironment?: 'vite' | 'nitro' | 'astro'
   applyAutoprefixer?: boolean
   simplifyTitles?: boolean
@@ -49,10 +49,10 @@ export interface UnunuraResolvableOptions {
 
 export interface UnunuraOptions {
   defines: ArrTuple<string>
+  extend: UnunuraExtend
   jsx: boolean
   jsxIgnoreEntryFile: boolean
-  scoped: boolean
-  extend: UnunuraExtend
+  scopedInTemplate: boolean
   specialEnvironment: 'vite' | 'nitro' | 'astro'
   applyAutoprefixer: boolean
   simplifyTitles: boolean

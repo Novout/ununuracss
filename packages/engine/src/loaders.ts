@@ -38,7 +38,7 @@ export const UnunuraGlobalGenerate = async (options: UnunuraCoreOptions): Promis
 
   const globals = getGlobals(files, options)
 
-  if (!options?.jsx && options?.scoped) return globals
+  if (!options?.jsx && options?.scopedInTemplate) return globals
 
   const reducedCss = UnunuraGlobalGenerateReduced(files, globals, options)
 
@@ -59,7 +59,7 @@ export const UnunuraScopedSFCFile = async (
 
   const bufferRaw = css.reduce((acc, css) => (acc += `${css}\n`))
 
-  if (!ununura.scoped) return code
+  if (!ununura.scopedInTemplate) return code
 
   const normalized = ununura.applyAutoprefixer ? await applyAutoprefixer(bufferRaw.trimEnd()) : bufferRaw.trimEnd()
 

@@ -10,7 +10,7 @@ export default defineNuxtModule({
   },
   defaults: {
     // because vue&scoped files recursive in nitro reload
-    scoped: false,
+    scopedInTemplate: false,
     specialEnvironment: 'nitro',
     applyAutoprefixer: false,
   } as UnunuraResolvableOptions,
