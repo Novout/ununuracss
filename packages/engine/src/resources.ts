@@ -347,7 +347,7 @@ export const getResourceText = (
 
   let setter = setterHead(ctx)
   setter += setterRow(color, `color: ${color}`, ctx.contents)
-  setter += setterRow(fontSize, `font-size: ${fontSize}`, ctx.contents)
+  if (fontSize !== fontWeight) setter += setterRow(fontSize, `font-size: ${fontSize}`, ctx.contents)
   setter += setterRow(fontWeight, `font-weight: ${fontWeight}`, ctx.contents)
   setter += setterRow(fontFamily, `font-family: '${fontFamily}', sans-serif`, ctx.contents)
 
