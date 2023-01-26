@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite --port 3000",
     "preview": "vite build && vite preview --port 4000",
-    "build": "vite build && vite preview --port 4000"
+    "build": "vite build"
   },
   "dependencies": {
     "three": "0.148.0"
