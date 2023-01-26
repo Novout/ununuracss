@@ -11,7 +11,7 @@
     "three": "0.148.0"
   },
   "devDependencies": {
-    "ununura": "0.3.0",
+    "ununura": "0.3.1",
     "@types/three": "0.148.1",
     "@vitejs/plugin-vue": "^4.0.0",
     "unplugin-vue-components": "0.22.12",

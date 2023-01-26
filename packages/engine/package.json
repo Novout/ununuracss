@@ -34,6 +34,8 @@
     "build:minify": "tsup --minify"
   },
   "dependencies": {
-    "ununura-shared": "workspace:*"
+    "ununura-shared": "workspace:*",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.21"
   }
 }
