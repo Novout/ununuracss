@@ -17,6 +17,7 @@
     "unplugin-vue-components": "0.22.12",
     "vite": "4.0.4",
     "vue-typical": "2.1.0",
+    "vue-router": "4.1.6",
     "vite-plugin-fonts": "0.7.0",
     "vue": "3.2.45"
   }
