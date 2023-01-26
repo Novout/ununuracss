@@ -817,6 +817,12 @@ describe('transform', () => {
 }`,
       ],
       [
+        resolveCSS(UnunuraIdentifier.Transform, { contents: ['rotateX--90deg'], buffer: [], stack: [] }),
+        `.tf-rotatex--90deg {
+  transform: rotateX(-90deg);
+}`,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Transform, { contents: ['skewX-30deg'], buffer: [], stack: [] }),
         `.tf-skewx-30deg {
   transform: skewX(30deg);

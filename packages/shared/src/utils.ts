@@ -19,7 +19,7 @@ export const findResourceInStart = (
   const resource = contents.find((t) => target.some((v) => t.startsWith(v)))
 
   if (!resource) return NULLABLE
-  const splitted = resource.split('-')[1]
+  const splitted = resource.substring(resource.indexOf('-') + 1)
 
   if (options?.supporter) return options?.supporter({ contents: [splitted], stack: [], buffer: [] })
 
