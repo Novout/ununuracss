@@ -8,15 +8,15 @@
     class="h[min 100vh] gradient[0deg rgba-0-0-0-0.1 0% rgba-100-100-100-0.15 100%] bg:#111111 w:100% flex[col v-center h-center] z:10"
   >
     <div class="flex[col gap-2rem] m[b 10rem]">
-      <h1 class="text[quick 1.3rem 700 #CCCCCC] typo[center letter-0.05em word-0.1em] z:20 md(text:2.2rem) lg(text:3rem)">
+      <h1 class="text[quick 1.35rem 700 #CCCCCC] typo[center letter-0.05em word-0.1em] z:20 md(text:2.2rem) lg(text:3rem)">
         A Real CSS Engine. Only Scoped.
       </h1>
-      <p class="text[quick 1rem 200 white] typo[center letter-0.05em word-0.1em] m[b 1rem] z:20 md(text:1.15rem)">
+      <p class="text[quick 1.05rem 200 white] typo[center letter-0.05em word-0.1em] m[b 1rem] z:20 md(text:1.15rem)">
         Ununura. Powered by Vite.
       </p>
     </div>
     <v-typical
-      class="h:10px text[rubik 1.05rem #888888 700] typo[center letter-0.05em] z:20 xs(text:1.2rem) md(text:1.8rem)"
+      class="h:10px text[rubik 1.1rem #888888 700] typo[center letter-0.05em] z:20 xs(text:1.2rem) md(text:1.8rem)"
       :steps="typical"
       :loop="Infinity"
       :wrapper="'p'"
