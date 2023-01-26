@@ -1,6 +1,6 @@
 {
   "name": "ununura-engine",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Atomic CSS Engine.",
   "author": "Novout",
   "license": "MIT",
@@ -34,8 +34,8 @@
     "build:minify": "tsup --minify"
   },
   "dependencies": {
-    "ununura-shared": "workspace:*",
     "autoprefixer": "^10.4.13",
-    "postcss": "^8.4.21"
+    "postcss": "^8.4.21",
+    "ununura-shared": "workspace:*"
   }
 }
