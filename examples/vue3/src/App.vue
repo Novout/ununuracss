@@ -1,6 +1,7 @@
 <template>
   <main class="reset:novout">
     <div
+      exactClassName="text:red"
       class="flex:col bg:--background-color-d dark(bg:--background-color-l) h[min 100vh] p[0 0 0 5rem] bg[/vue.png cover]">
       <section>
         <p

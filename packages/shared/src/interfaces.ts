@@ -39,6 +39,7 @@ export interface UnunuraResolvableOptions {
   extend?: UnunuraExtend
   jsx?: boolean
   jsxIgnoreEntryFile?: boolean
+  astAdapters?: string[]
   scopedInTemplate?: boolean
   specialEnvironment?: 'vite' | 'nitro' | 'astro'
   applyAutoprefixer?: boolean
@@ -52,6 +53,7 @@ export interface UnunuraOptions {
   extend: UnunuraExtend
   jsx: boolean
   jsxIgnoreEntryFile: boolean
+  astAdapters: string[]
   scopedInTemplate: boolean
   specialEnvironment: 'vite' | 'nitro' | 'astro'
   applyAutoprefixer: boolean

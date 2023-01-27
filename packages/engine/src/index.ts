@@ -1,3 +1,4 @@
+export * from './adapters'
 export * from './ast'
 export * from './externals'
 export * from './globals'

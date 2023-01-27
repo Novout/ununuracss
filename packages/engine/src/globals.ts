@@ -8,8 +8,8 @@ export const getGlobals = (files: UnunuraScannerFile[], options?: UnunuraResolva
     if (options?.jsx && options.jsxIgnoreEntryFile && isJSXEntryFile(file.filename)) return
 
     const classes = options?.jsx
-      ? classesFromRawJSX(file.raw).map((node) => node.class)
-      : classesFromRawHtml(file.raw).map((node) => node.class)
+      ? classesFromRawJSX(file.raw, options?.astAdapters).map((node) => node.class)
+      : classesFromRawHtml(file.raw, options?.astAdapters).map((node) => node.class)
 
     buffer.push(...classes)
   })

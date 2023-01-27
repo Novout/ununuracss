@@ -231,6 +231,12 @@ describe.concurrent('html', () => {
         ).map((node) => node.class),
         ['text[white 700]', 'border[top 2 black]'],
       ],
+      [
+        classesFromRawHtml('<div exactClassName="text[white 700]" class="bg:white" />', ['exactclassname']).map(
+          (node) => node.class
+        ),
+        ['text[white 700]', 'bg:white'],
+      ],
     ]
 
     for (const [raw, result] of targets) {

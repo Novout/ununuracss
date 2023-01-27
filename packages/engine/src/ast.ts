@@ -21,7 +21,7 @@ import { generateMultipleClass, generateUniqueClass } from './resources'
 import { lex } from './lexer'
 import { purgeOnlyCssClassTitle } from './purge'
 
-export const classesFromRawHtml = (html: string): UnunuraASTNode[] => {
+export const classesFromRawHtml = (html: string, adapters?: string[]): UnunuraASTNode[] => {
   const tree = fromHtml(html, { fragment: true })
   const classes: UnunuraASTNode[] = []
 
@@ -29,6 +29,16 @@ export const classesFromRawHtml = (html: string): UnunuraASTNode[] => {
     children.forEach((node) => {
       if (node.type === 'element') {
         if (node.tagName === 'template') ast((node.content as Root).children) // vue sfc
+
+        adapters?.forEach((adapter) => {
+          if (node.properties && node.properties[adapter]) {
+            classes.push({
+              tag: node.tagName,
+              class: node.properties[adapter] as string,
+              position: node.position as any,
+            })
+          }
+        })
 
         const target: Option<string> = (node.properties?.className as string[])?.join(' ')
 
@@ -50,12 +60,14 @@ export const classesFromRawHtml = (html: string): UnunuraASTNode[] => {
   return classes
 }
 
-export const classesFromRawJSX = (jsx: string): UnunuraASTNode[] => {
+export const classesFromRawJSX = (jsx: string, adapters?: string[]): UnunuraASTNode[] => {
   const tree = jsxParse(jsx)
   const classes: UnunuraASTNode[] = []
 
   const ast = (current: Node): void => {
-    const cls = current.attributes.filter(({ name }) => name === 'className' || name === 'class')
+    const cls = current.attributes.filter(
+      ({ name }) => adapters?.some((a) => a == name) || name === 'className' || name === 'class'
+    )
 
     if (cls?.length > 0)
       classes.push(

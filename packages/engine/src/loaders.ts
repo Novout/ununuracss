@@ -51,7 +51,7 @@ export const UnunuraScopedSFCFile = async (
   filename: string,
   ununura: UnunuraOptions
 ): Promise<CSSInject> => {
-  const nodes = classesFromRawHtml(sfc)
+  const nodes = classesFromRawHtml(sfc, ununura.astAdapters)
 
   const { code, css } = generateCssFromNodes(nodes, sfc, filename, ununura)
 
@@ -67,7 +67,7 @@ export const UnunuraScopedSFCFile = async (
 }
 
 export const UnunuraJSXSFCFile = (sfc: JSXSFC, filename: string, ununura: UnunuraOptions): CSSInject => {
-  const nodes = classesFromRawJSX(sfc)
+  const nodes = classesFromRawJSX(sfc, ununura.astAdapters)
 
   const { code } = generateCssFromNodes(nodes, sfc, filename, ununura)
 
