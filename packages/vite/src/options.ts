@@ -13,6 +13,7 @@ export const resolvedViteOptions = (options: UnunuraResolvableOptions = {}): Unu
     extend: options?.extend ?? {},
     specialEnvironment: options?.specialEnvironment ?? 'vite',
     applyAutoprefixer: options?.applyAutoprefixer ?? true,
+    overrideBrowserslist: options?.overrideBrowserslist ?? false,
     simplifyTitles: options?.simplifyTitles ?? false,
     forceIgnoreClassLineInTitles: options?.forceIgnoreClassLineInTitles ?? false,
     forceHydratedTemplate: options?.forceHydratedTemplate ?? false,

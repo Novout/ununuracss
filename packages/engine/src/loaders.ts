@@ -42,7 +42,7 @@ export const UnunuraGlobalGenerate = async (options: UnunuraCoreOptions): Promis
 
   const reducedCss = UnunuraGlobalGenerateReduced(files, globals, options)
 
-  return options.applyAutoprefixer ? await applyAutoprefixer(reducedCss) : reducedCss
+  return options.applyAutoprefixer ? await applyAutoprefixer(reducedCss, options) : reducedCss
 }
 
 export const UnunuraScopedSFCFile = async (
@@ -61,7 +61,7 @@ export const UnunuraScopedSFCFile = async (
 
   if (!ununura.scopedInTemplate) return code
 
-  const normalized = ununura.applyAutoprefixer ? await applyAutoprefixer(bufferRaw.trimEnd()) : bufferRaw.trimEnd()
+  const normalized = ununura.applyAutoprefixer ? await applyAutoprefixer(bufferRaw.trimEnd(), ununura) : bufferRaw.trimEnd()
 
   return `${code}\n\n<style${type === 'vue' ? ' scoped' : ''}>\n${normalized}\n</style>`
 }

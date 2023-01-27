@@ -44,6 +44,7 @@ export interface UnunuraResolvableOptions {
   specialEnvironment?: 'vite' | 'nitro' | 'astro'
   applyAutoprefixer?: boolean
   simplifyTitles?: boolean
+  overrideBrowserslist?: string[] | string | false
   forceIgnoreClassLineInTitles?: boolean
   forceHydratedTemplate?: boolean
 }
@@ -57,6 +58,7 @@ export interface UnunuraOptions {
   scopedInTemplate: boolean
   specialEnvironment: 'vite' | 'nitro' | 'astro'
   applyAutoprefixer: boolean
+  overrideBrowserslist: string[] | string | false
   simplifyTitles: boolean
   forceIgnoreClassLineInTitles?: boolean
   forceHydratedTemplate: boolean

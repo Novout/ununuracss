@@ -1,12 +1,21 @@
 import autoprefixer from 'autoprefixer'
 import postcss from 'postcss'
+import { UnunuraOptions } from 'ununura-shared'
 
-export const applyAutoprefixer = (rawCss: string): Promise<string> => {
-  return new Promise((res, rej) => {
-    postcss([autoprefixer({ env: 'last 4 version', grid: 'autoplace', flexbox: true })])
+export const applyAutoprefixer = (rawCss: string, { overrideBrowserslist }: UnunuraOptions): Promise<string> => {
+  return new Promise(async (res, rej) => {
+    postcss()
+      .use(
+        autoprefixer({
+          add: true,
+          grid: 'autoplace',
+          flexbox: true,
+          overrideBrowserslist: overrideBrowserslist ? overrideBrowserslist : ['last 4 version'],
+        })
+      )
       .process(rawCss, { from: 'ununura.css', to: 'ununura.map.css' })
-      .then((result) => {
-        res(result.css)
+      .then(({ css }) => {
+        res(css)
       })
       .catch(() => {
         rej(rawCss)
