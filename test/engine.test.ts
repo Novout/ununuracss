@@ -1,4 +1,4 @@
-import { getGlobalReset } from 'packages/engine/src/globals'
+import { getGlobalReset, getGlobals } from 'packages/engine/src/globals'
 import { purgeCSS, purgeOnlyCssClassTitle } from 'packages/engine/src/purge'
 import { getSupportedInteger } from 'packages/engine/src/support'
 import {
@@ -11,6 +11,7 @@ import {
   scan,
   UnunuraGlobalGenerate,
   resolveIdentifierInCSS,
+  UnunuraGlobalGenerateReduced,
 } from 'ununura-engine'
 import { isKey, MEYER_RESET_CSS, NOVOUT_RESET_CSS, NULLABLE, UnunuraIdentifier } from 'ununura-shared'
 import { beforeEach, describe, expect, it } from 'vitest'
@@ -1251,6 +1252,18 @@ a wrong css file`,
     for (const [raw, result] of targets) {
       expect(raw).toStrictEqual(result)
     }
+  })
+})
+
+describe.concurrent('globals', () => {
+  it('should get only global css', async () => {
+    const files = [{ raw: `<template><div class="reset:novout" /></template>`, path: 'path/to/test.vue', filename: 'test.vue' }]
+
+    const rawGlobals = getGlobals(files, {} as any)
+
+    const target = await UnunuraGlobalGenerateReduced(files, rawGlobals, { jsx: false, scopedInTemplate: true } as any)
+
+    expect(target).toStrictEqual(NOVOUT_RESET_CSS())
   })
 })
 

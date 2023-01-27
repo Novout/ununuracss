@@ -1,6 +1,6 @@
 import { UnunuraContextualizeResponsive } from './types'
 
-export const ANTIALIASED_RESET_CSS = () => `  -webkit-font-smoothing: antialiased;
+export const ANTIALIASED_RESET_CSS = () => `-webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 `
 
