@@ -10,6 +10,7 @@ describe.concurrent('autoprefixer', () => {
 
     expect(target).toBe(`.foo {
   display: -webkit-box;
+  display: -moz-box;
   display: -ms-flexbox;
   display: flex;
 }`)
