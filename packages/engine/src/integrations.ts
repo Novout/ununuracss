@@ -10,7 +10,7 @@ export const applyAutoprefixer = (rawCss: string, { overrideBrowserslist }: Unun
           add: true,
           grid: 'autoplace',
           flexbox: true,
-          overrideBrowserslist: overrideBrowserslist ? overrideBrowserslist : ['last 4 version'],
+          overrideBrowserslist: overrideBrowserslist ? overrideBrowserslist : ['> 1%, last 4 versions, Firefox > 7'],
         })
       )
       .process(rawCss, { from: 'ununura.css', to: 'ununura.map.css' })
