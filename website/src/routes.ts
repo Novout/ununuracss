@@ -5,10 +5,7 @@ const routes = [
   {
     path: '/docs',
     component: () => import('@/pages/Docs.vue'),
-    children: [
-      { path: 'why', component: () => import('@/pages/docs/DocsWhy.vue') },
-      { path: 'getting-start', component: () => import('@/pages/docs/DocsGettingStart.vue') },
-    ],
+    children: [{ path: 'why', component: () => import('@/pages/docs/vue/DocsWhy.vue') }],
   },
 ]
 

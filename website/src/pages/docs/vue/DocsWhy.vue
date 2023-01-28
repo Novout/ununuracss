@@ -1,3 +1,3 @@
 <template>
-  <p>aaaa</p>
+  <MdDocsWhy />
 </template>

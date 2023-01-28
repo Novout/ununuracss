@@ -1,0 +1,32 @@
+.markdown-body {
+}
+
+.markdown-body > h1 {
+  font-family: 'Rubik', sans-serif;
+  font-size: 3rem;
+  color: gray;
+  padding-bottom: 3rem;
+}
+
+.markdown-body > h2 {
+  font-family: 'Rubik', sans-serif;
+  font-size: 2.5rem;
+  color: gray;
+  padding-bottom: 1.5rem;
+}
+
+.markdown-body > h3 {
+  font-family: 'Rubik', sans-serif;
+  font-size: 2rem;
+  color: gray;
+  padding-bottom: 1.5rem;
+}
+
+.markdown-body > p {
+  font-family: 'Quicksand', sans-serif;
+  color: #dddddd;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  padding-bottom: 0.5rem;
+  line-height: 1.5em;
+}

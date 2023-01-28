@@ -1423,28 +1423,28 @@ unplugin@^1.0.1:
     webpack-sources "^3.2.3"
     webpack-virtual-modules "^0.5.0"
 
-ununura-engine@0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/ununura-engine/-/ununura-engine-0.3.1.tgz#f097c47f338ffed8458e28f8536d97ce9eba775c"
-  integrity sha512-1tv3v2pcWkoQ9AigkoBDcQwYk9UlW5SDee63rsuJCSXF3WnQEyKSlC6o5tQSaDJgk2D3VJajlAjn2h0UVrCOXw==
+ununura-engine@0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/ununura-engine/-/ununura-engine-0.3.5.tgz#f80c12e3484ffa67acd86393c68c09abaf80d01b"
+  integrity sha512-BaN5rqcAmoeac9w4GIlCNHIG4LLJ0tdEUQpn1/Ox7Og+lf8uchgPhZubP/5vCAzFtafcuW8G/LmF7KBsh7N9DQ==
   dependencies:
     autoprefixer "^10.4.13"
     postcss "^8.4.21"
-    ununura-shared "0.3.1"
+    ununura-shared "0.3.5"
 
-ununura-shared@0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/ununura-shared/-/ununura-shared-0.3.1.tgz#fa67aa1c94efe4b0f21b4d0afb096687e54dac07"
-  integrity sha512-4iG+bGCrxE52o2ZkkMqrGVCd6uy9EDicpVp7vOKQTZp9Q3yIp3G1JvK+BMXhvuuGWrRSAHKUdgH1QPEwyq/tMQ==
+ununura-shared@0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/ununura-shared/-/ununura-shared-0.3.5.tgz#7a64a1e54222dafedd7864aa6d256ada696fb543"
+  integrity sha512-9tkAFQ9W6A+eXvkEmtoPX/bUHW9zggwJ10u21OCVpYbxex7blBMgHabtM9iQYQRtgYeTZUILk0aANwQrp5AMlQ==
 
-ununura@0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/ununura/-/ununura-0.3.1.tgz#798936acdba78b671c7800af0e73f4da0d55f532"
-  integrity sha512-N1Fp+NgleaXwdfTJH7k00KOK2raaQb3cQDqMVJxCWNp4FaByWp8p3IBkXCnqpWMxctkLXXCvGiQ/hEYkcNV7Lw==
+ununura@0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/ununura/-/ununura-0.3.5.tgz#c8351e49bb06722dc4ecc531fbf042f999e45e5d"
+  integrity sha512-zp3uOqM6KOck0T8utCDAjTePbZVevfLjsQ4RnJzh7vLqV2vfs6vzG6pNTckV2+fkJiqAhke27qT0EDrkk1J04A==
   dependencies:
     fontaine "^0.2.3"
-    ununura-engine "0.3.1"
-    ununura-shared "0.3.1"
+    ununura-engine "0.3.5"
+    ununura-shared "0.3.5"
 
 update-browserslist-db@^1.0.9:
   version "1.0.10"
