@@ -12,7 +12,7 @@
     class="h[min 100vh] gradient[0deg rgba-0-0-0-0.2 0% rgba-100-100-100-0.15 100%] bg:#111111 w:100% flex:col z:10 md(flex:row)"
   >
     <Aside />
-    <div class="w:100% p:5rem">
+    <div class="w:90% p:3rem md(w:100% p:5rem)">
       <router-view />
     </div>
   </div>

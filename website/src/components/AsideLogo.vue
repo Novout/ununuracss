@@ -1,6 +1,6 @@
 <template>
   <div @click.prevent.stop="router.push('/')" class="flex[h-center v-center] style:cursor-pointer w:100% h:200px">
-    <div id="canvas" class="z:0 flex[h-center v-center] bg:transparent w:100% h:200px" />
+    <div id="canvas" class="z:0 flex[h-start v-start] bg:transparent w:100% h:200px md(flex:h-center)" />
   </div>
 </template>
 
@@ -14,7 +14,7 @@ const router = useRouter()
 onMounted(() => {
   const scene = new THREE.Scene()
   const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 100)
-  const renderer = new THREE.WebGLRenderer({ alpha: true })
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
 
   renderer.setSize(200, 200)
   document.querySelector('#canvas')?.appendChild(renderer.domElement)

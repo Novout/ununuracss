@@ -13,7 +13,7 @@ import { onMounted } from 'vue'
 onMounted(() => {
   const scene = new THREE.Scene()
   const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 100)
-  const renderer = new THREE.WebGLRenderer({ alpha: true })
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
 
   renderer.setSize(400, 400)
   document.querySelector('#canvas')?.appendChild(renderer.domElement)

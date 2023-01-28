@@ -1,13 +1,16 @@
-# Why
+# Why?
 
-Soon...
+Reading how [UnoCSS](https://github.com/unocss/unocss) was designed, the idea came up ​​building an engine without presets that automatically understands the needs of the application complete context. **Ununura** is a CSS Engine with the aim of providing greater readability and scalability by offering total decoupling of internal methods and easy adaptation for existing applications.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu metus tincidunt dolor laoreet congue sed vitae dui. Nulla tellus erat, aliquam at augue ac, ultrices rutrum nibh. Curabitur consequat, ex sit amet congue bibendum, lacus tellus pellentesque risus, ac elementum massa nibh non enim. Sed quis tellus augue.
+### Features
 
-## Lorem
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu metus tincidunt dolor laoreet congue sed vitae dui. Nulla tellus erat, aliquam at augue ac, ultrices rutrum nibh. Curabitur consequat, ex sit amet congue bibendum, lacus tellus pellentesque risus, ac elementum massa nibh non enim. Sed quis tellus augue.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu metus tincidunt dolor laoreet congue sed vitae dui. Nulla tellus erat, aliquam at augue ac, ultrices rutrum nibh. Curabitur consequat, ex sit amet congue bibendum, lacus tellus pellentesque risus, ac elementum massa nibh non enim. Sed quis tellus augue.
-
-### Lorem
+- [Vue](https://github.com/Novout/ununuracss/tree/main/packages/vite/README.md), [React/Preact/Vue-JSX](https://github.com/Novout/ununuracss/tree/main/packages/vite/README.md), [Nuxt](https://github.com/Novout/ununuracss/tree/main/packages/nuxt/README.md), [Astro](https://github.com/Novout/ununuracss/tree/main/packages/astro/README.md) and [Svelte](https://github.com/Novout/ununuracss/tree/main/packages/vite/README.md);
+- [Fontaine](https://github.com/danielroe/fontaine) and [PostCSS](https://postcss.org/) integrated;
+- 0kb default injected .css;
+- Only scoped and native JSX-scoped;
+- Class-raw based;
+- Extend API;
+- No directives / presets;
+- Dynamic identifiers (rules) with unique/multiple engine;
+- Nullable options/classes;
+- External contexts (fonts/public files...).
