@@ -2,6 +2,44 @@ body {
   overflow-x: hidden;
 }
 
+@keyframes light {
+  0% {
+    opacity: 1;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  11% {
+    opacity: 0.8;
+  }
+
+  12% {
+    opacity: 0.9;
+  }
+
+  13% {
+    opacity: 0.8;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  16% {
+    opacity: 0.8;
+  }
+
+  17% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;

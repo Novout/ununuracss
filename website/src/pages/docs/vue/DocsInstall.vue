@@ -1,3 +1,3 @@
 <template>
-  <MdDocsScoped />
+  <MdDocsInstall />
 </template>

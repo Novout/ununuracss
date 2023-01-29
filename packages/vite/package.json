@@ -4,7 +4,8 @@
   "description": "Atomic CSS Engine.",
   "author": "Novout",
   "license": "MIT",
-  "homepage": "https://github.com/Novout/ununuracss",
+  "homepage": "https://ununura.com",
+  "repository": "https://github.com/Novout/ununuracss",
   "keywords": [
     "ununura",
     "atomic-css",

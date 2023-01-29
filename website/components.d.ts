@@ -15,6 +15,8 @@ declare module '@vue/runtime-core' {
     IconArrow: typeof import('./src/components/icon/IconArrow.vue')['default']
     Logo: typeof import('./src/components/Logo.vue')['default']
     MdDocsAtomic: typeof import('./src/components/md/MdDocsAtomic.md')['default']
+    MdDocsInstall: typeof import('./src/components/md/MdDocsInstall.md')['default']
+    MdDocsOptions: typeof import('./src/components/md/MdDocsOptions.md')['default']
     MdDocsScoped: typeof import('./src/components/md/MdDocsScoped.md')['default']
     MdDocsWhy: typeof import('./src/components/md/MdDocsWhy.md')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

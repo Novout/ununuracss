@@ -1,3 +1,3 @@
 <template>
-  <MdDocsAtomic />
+  <MdDocsOptions />
 </template>

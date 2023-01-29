@@ -1,14 +1,13 @@
-.markdown-body {
-}
+.markdown-body {}
 
-.markdown-body > h1 {
+.markdown-body>h1 {
   font-family: 'Rubik', sans-serif;
   font-size: 3rem;
   color: gray;
   padding-bottom: 3rem;
 }
 
-.markdown-body > h2 {
+.markdown-body>h2 {
   font-family: 'Rubik', sans-serif;
   font-size: 2.5rem;
   color: gray;
@@ -20,7 +19,7 @@
   border-left-style: solid;
 }
 
-.markdown-body > h3 {
+.markdown-body>h3 {
   font-family: 'Rubik', sans-serif;
   font-size: 1.5rem;
   color: gray;
@@ -32,26 +31,26 @@
   border-left-style: solid;
 }
 
-.markdown-body > p {
+.markdown-body>p {
   font-family: 'Quicksand', sans-serif;
   color: #dddddd;
   font-weight: 500;
   letter-spacing: 0.05em;
   padding-bottom: 0.5rem;
   line-height: 1.5em;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   margin-top: 0.5rem;
 }
 
-.markdown-body > p > strong {
+.markdown-body>p>strong {
   font-weight: 700 !important;
 }
 
-.markdown-body > ul {
+.markdown-body>ul {
   padding: 1rem 0;
 }
 
-.markdown-body > ul > li {
+.markdown-body>ul>li {
   font-family: 'Quicksand', sans-serif;
   color: #dddddd;
   font-weight: 500;
@@ -62,7 +61,7 @@
   font-size: 1.15rem;
 }
 
-.markdown-body > p > a {
+.markdown-body>p>a {
   font-family: 'Quicksand', sans-serif;
   color: #dddddd;
   font-weight: 500;
@@ -71,7 +70,7 @@
   line-height: 1.5em;
 }
 
-.markdown-body > ul > li > a {
+.markdown-body>ul>li>a {
   font-family: 'Quicksand', sans-serif;
   color: #dddddd;
   font-weight: 700;
@@ -80,11 +79,92 @@
   line-height: 1.5em;
 }
 
-.markdown-body > p > a {
+.markdown-body>p>a {
   font-family: 'Quicksand', sans-serif;
   color: #dddddd;
   font-weight: 500;
   letter-spacing: 0.05em;
   padding-bottom: 0.5rem;
   line-height: 1.5em;
+}
+
+.markdown-body>blockquote {
+  background-color: #222;
+  color: #bbb;
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-family: 'Rubik', sans-serif;
+}
+
+pre {
+  font-family: 'Rubik', sans-serif;
+  background: #222;
+  white-space: pre;
+  word-wrap: break-word;
+  overflow: auto;
+  color: #bbb;
+  padding: 1rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  letter-spacing: 0.05em;
+  word-spacing: 0.1em;
+}
+
+pre.code {
+  margin: 20px 25px;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  position: relative;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .08);
+}
+
+pre.code label {
+  font-family: sans-serif;
+  font-weight: normal;
+  font-size: 13px;
+  color: #444;
+  position: absolute;
+  left: 1px;
+  top: 16px;
+  text-align: center;
+  width: 60px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
+}
+
+pre.code code {
+  font-family: "Inconsolata", "Monaco", "Consolas", "Andale Mono", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
+  display: block;
+  margin: 0 0 0 60px;
+  padding: 15px 16px 14px;
+  border-left: 1px solid #d9d9d9;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 19px;
+  color: #444;
+}
+
+pre::after {
+  content: "double click to selection";
+  padding: 0;
+  width: auto;
+  height: auto;
+  position: absolute;
+  right: 18px;
+  top: 14px;
+  font-size: 12px;
+  color: #aaa;
+  line-height: 20px;
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+pre:hover::after {
+  opacity: 0;
+  visibility: visible;
 }

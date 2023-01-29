@@ -7,8 +7,8 @@ const routes = [
     component: () => import('@/pages/Docs.vue'),
     children: [
       { path: 'why', component: () => import('@/pages/docs/vue/DocsWhy.vue') },
-      { path: 'atomic', component: () => import('@/pages/docs/vue/DocsAtomic.vue') },
-      { path: 'scoped', component: () => import('@/pages/docs/vue/DocsScoped.vue') },
+      { path: 'options', component: () => import('@/pages/docs/vue/DocsOptions.vue') },
+      { path: 'install', component: () => import('@/pages/docs/vue/DocsInstall.vue') },
     ],
   },
 ]
