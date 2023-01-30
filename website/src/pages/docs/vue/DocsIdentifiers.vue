@@ -1,0 +1,4 @@
+<template>
+  <MdDocsIdentifiers />
+  <VueIdentifiersList />
+</template>
