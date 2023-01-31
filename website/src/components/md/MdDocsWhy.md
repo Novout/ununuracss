@@ -7,10 +7,9 @@ Reading how [UnoCSS](https://github.com/unocss/unocss) was designed, the idea ca
 - [Vue](https://github.com/Novout/ununuracss/tree/main/packages/vite/README.md), [React/Preact/Vue-JSX](https://github.com/Novout/ununuracss/tree/main/packages/vite/README.md), [Nuxt](https://github.com/Novout/ununuracss/tree/main/packages/nuxt/README.md), [Astro](https://github.com/Novout/ununuracss/tree/main/packages/astro/README.md) and [Svelte](https://github.com/Novout/ununuracss/tree/main/packages/vite/README.md);
 - [Fontaine](https://github.com/danielroe/fontaine) and [PostCSS](https://postcss.org/) integrated;
 - 0kb default injected .css;
-- Only scoped and native JSX-scoped;
+- Only scoped and JSX-Scoped;
 - Class-raw based;
 - Extend API;
-- No directives / presets;
-- Dynamic identifiers (rules) with unique/multiple engine;
+- Dynamic identifiers with unique/multiple engine;
 - Nullable options/classes;
 - External contexts (fonts/public files...).
