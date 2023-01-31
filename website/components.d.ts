@@ -13,7 +13,6 @@ declare module '@vue/runtime-core' {
     AsideLogo: typeof import('./src/components/AsideLogo.vue')['default']
     IconArrow: typeof import('./src/components/icon/IconArrow.vue')['default']
     Logo: typeof import('./src/components/Logo.vue')['default']
-    MdDocsConcept: typeof import('./src/components/md/MdDocsConcept.md')['default']
     MdDocsConcepts: typeof import('./src/components/md/MdDocsConcepts.md')['default']
     MdDocsContexts: typeof import('./src/components/md/MdDocsContexts.md')['default']
     MdDocsGlobals: typeof import('./src/components/md/MdDocsGlobals.md')['default']
