@@ -1,19 +1,19 @@
 <template>
   <div class="flex[col gap-1rem] w:100% h[max 600px] scroll[y auto] text:#CCCCCC m[t 2rem]">
     <div
-      class="flex[col gap-2rem wrap] w:100% rounded:0.5rem p:1rem gradient[45deg rgba-255-255-255-0.025 0% rgba-255-255-255-0.1 100%] md(w:75%)"
+      class="flex[col gap-2rem wrap] w:100% rounded:0.5rem gradient[45deg rgba-255-255-255-0.025 0% rgba-255-255-255-0.1 100%] md(w:75%)"
       v-for="(item, lindex) in list" :key="lindex">
-      <h2 @click="item.open = !item.open" class="text[700 rubik white 1.15rem] w:100% style[cursor-pointer]">
+      <h2 @click="item.open = !item.open" class="text[700 rubik white 1.15rem] p:1rem w:100% style[cursor-pointer]">
         <span v-for="(key, tindex) in item.keys" :key="tindex"
-          class="text[700 rubik white 1rem] m[l 1rem] bg:rgba-255-255-255-0.02 text:#CCCCCC p[0.5rem 1rem] rounded:0.5rem">{{
+          class="text[700 rubik white 1rem] style[events-none select-none] m[l 1rem] bg:rgba-255-255-255-0.02 text:#CCCCCC p[0.5rem 1rem] rounded:0.5rem">{{
             key
           }}</span>
       </h2>
-      <div v-if="item.open" class="flex[col gap-1rem wrap] w:100% style[events-none]">
+      <div v-if="item.open" class="flex[col gap-1rem wrap] w:100%">
         <div class="text[quick 1.1rem 700] flex[row v-center h-between gap-2rem] w:100%"
           v-for="(resource, rindex) in item.resources" :key="rindex">
           <p
-            class="flex[? flex-1] typo:start text[! quick 1.1rem 700] gradient[45deg rgba-255-255-255-0.025 0% rgba-255-255-255-0.1 100%] rounded:0.25rem">
+            class="flex[? flex-1] p[l 1rem] typo:start text[! quick 1.1rem 700] gradient[45deg rgba-255-255-255-0.025 0% rgba-255-255-255-0.1 100%] rounded:0.25rem">
             {{ resource.inCss }}:
           </p>
           <p class="flex[? flex-1] typo[start]">

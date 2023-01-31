@@ -88,6 +88,10 @@
   line-height: 1.5em;
 }
 
+.markdown-body>ul>li>strong {
+  font-weight: 700 !important;
+}
+
 .markdown-body>p>a {
   font-family: 'Quicksand', sans-serif;
   color: #dddddd;

@@ -4,8 +4,8 @@ Reading how [UnoCSS](https://github.com/unocss/unocss) was designed, the idea ca
 
 ### Features
 
-- [Vue](https://github.com/Novout/ununuracss/tree/main/packages/vite/README.md), [React/Preact/Vue-JSX](https://github.com/Novout/ununuracss/tree/main/packages/vite/README.md), [Nuxt](https://github.com/Novout/ununuracss/tree/main/packages/nuxt/README.md), [Astro](https://github.com/Novout/ununuracss/tree/main/packages/astro/README.md) and [Svelte](https://github.com/Novout/ununuracss/tree/main/packages/vite/README.md);
-- [Fontaine](https://github.com/danielroe/fontaine) and [PostCSS](https://postcss.org/) integrated;
+- **Vue**, **React/Preact/Vue-JSX**, **Nuxt**, **Astro** and **Svelte**;
+- **Fontaine** and **PostCSS** integrated;
 - 0kb default injected .css;
 - Only scoped and JSX-Scoped;
 - Class-raw based;
