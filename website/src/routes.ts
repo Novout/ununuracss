@@ -16,6 +16,7 @@ const routes = [
       { path: 'contexts', component: () => import('@/pages/docs/vue/DocsContexts.vue') },
     ],
   },
+  { path: '/:pathMatch(.*)*', component: () => import('@/pages/404.vue') }
 ]
 
 export const router = createRouter({
