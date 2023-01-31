@@ -341,7 +341,7 @@ describe('transform', () => {
       ],
       [
         resolveCSS(UnunuraIdentifier.Border, { contents: ['white', '2', 'solid'], buffer: [], stack: [] }),
-        `.border-white-2-solid {
+        `.b-white-2-solid {
   border: solid;
   border-color: white;
   border-width: 2px;
@@ -349,26 +349,26 @@ describe('transform', () => {
       ],
       [
         resolveCSS(UnunuraIdentifier.Border, { contents: ['2'], buffer: [], stack: [] }),
-        `.border-2 {
+        `.b-2 {
   border-width: 2px;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Border, { contents: ['t', '2'], buffer: [], stack: [] }),
-        `.border-t-2 {
+        `.b-t-2 {
   border-top-width: 2px;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Border, { contents: ['dashed', 'black'], buffer: [], stack: [] }),
-        `.border-dashed-black {
+        `.b-dashed-black {
   border: dashed;
   border-color: black;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Border, { contents: ['10', 'dashed', 'black'], buffer: [], stack: [] }),
-        `.border-10-dashed-black {
+        `.b-10-dashed-black {
   border: dashed;
   border-color: black;
   border-width: 10px;
@@ -376,7 +376,7 @@ describe('transform', () => {
       ],
       [
         resolveCSS(UnunuraIdentifier.Border, { contents: ['10', 'dashed', 'black'], buffer: [], stack: ['active'] }),
-        `.border-10-dashed-black:active {
+        `.b-10-dashed-black:active {
   border: dashed;
   border-color: black;
   border-width: 10px;
@@ -384,7 +384,7 @@ describe('transform', () => {
       ],
       [
         resolveCSS(UnunuraIdentifier.Border, { contents: ['left', '10', 'dashed', 'black'], buffer: [], stack: ['active'] }),
-        `.border-left-10-dashed-black:active {
+        `.b-left-10-dashed-black:active {
   border-left: dashed;
   border-left-color: black;
   border-left-width: 10px;
@@ -392,7 +392,7 @@ describe('transform', () => {
       ],
       [
         resolveCSS(UnunuraIdentifier.Outline, { contents: ['10', 'dashed', 'black'], buffer: [], stack: [] }),
-        `.outline-10-dashed-black {
+        `.o-10-dashed-black {
   outline: dashed;
   outline-color: black;
   outline-width: 10px;
@@ -490,7 +490,7 @@ describe('transform', () => {
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['row', 'grow'], buffer: [], stack: [] }),
-        `.flex-row-grow {
+        `.f-row-grow {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
@@ -498,7 +498,7 @@ describe('transform', () => {
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['row', 'v-center', 'h-center'], buffer: [], stack: [] }),
-        `.flex-row-v-center-h-center {
+        `.f-row-v-center-h-center {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -507,7 +507,7 @@ describe('transform', () => {
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['row', 'v-stretch', 'h-start'], buffer: [], stack: [] }),
-        `.flex-row-v-stretch-h-start {
+        `.f-row-v-stretch-h-start {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -516,7 +516,7 @@ describe('transform', () => {
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['row', 'v-start', 'h-between'], buffer: [], stack: [] }),
-        `.flex-row-v-start-h-between {
+        `.f-row-v-start-h-between {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -525,7 +525,7 @@ describe('transform', () => {
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['col-reverse', 'grow-none'], buffer: [], stack: [] }),
-        `.flex-col-reverse-grow-none {
+        `.f-col-reverse-grow-none {
   display: flex;
   flex-direction: column-reverse;
   flex-grow: 0;
@@ -533,7 +533,7 @@ describe('transform', () => {
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['col-reverse', 'grow-none', 'gap-2rem'], buffer: [], stack: [] }),
-        `.flex-col-reverse-grow-none-gap-2rem {
+        `.f-col-reverse-grow-none-gap-2rem {
   display: flex;
   flex-direction: column-reverse;
   flex-grow: 0;
@@ -542,40 +542,40 @@ describe('transform', () => {
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['wrap'], buffer: [], stack: [] }),
-        `.flex-wrap {
+        `.f-wrap {
   display: flex;
   flex-wrap: wrap;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['nowrap'], buffer: [], stack: [] }),
-        `.flex-nowrap {
+        `.f-nowrap {
   display: flex;
   flex-wrap: nowrap;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['wrap-reverse'], buffer: [], stack: [] }),
-        `.flex-wrap-reverse {
+        `.f-wrap-reverse {
   display: flex;
   flex-wrap: wrap-reverse;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['?', 'flex-1'], buffer: [], stack: [] }),
-        `.flex-_none_-flex-1 {
+        `.f-_none_-flex-1 {
   flex: 1 1 0%;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['?', 'shrink-0'], buffer: [], stack: [] }),
-        `.flex-_none_-shrink-0 {
+        `.f-_none_-shrink-0 {
   flex-shrink: 0;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['flex-1'], buffer: [], stack: [] }),
-        `.flex-flex-1 {
+        `.f-flex-1 {
   display: flex;
   flex: 1 1 0%;
 }`,
@@ -651,43 +651,43 @@ describe('transform', () => {
       ],
       [
         resolveCSS(UnunuraIdentifier.Scroll, { contents: ['hidden'], buffer: [], stack: [] }),
-        `.scroll-hidden {
+        `.sc-hidden {
   overflow: hidden;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Scroll, { contents: ['x', 'auto'], buffer: [], stack: [] }),
-        `.scroll-x-auto {
+        `.sc-x-auto {
   overflow-x: auto;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Scroll, { contents: ['y', 'visible'], buffer: [], stack: [] }),
-        `.scroll-y-visible {
+        `.sc-y-visible {
   overflow-y: visible;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Scroll, { contents: [], buffer: [], stack: [] }),
-        `.scroll {
+        `.sc {
   overflow: scroll;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Scroll, { contents: ['x'], buffer: [], stack: [] }),
-        `.scroll-x {
+        `.sc-x {
   overflow-x: scroll;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Scroll, { contents: ['x'], buffer: [], stack: ['focus'] }),
-        `.scroll-x:focus {
+        `.sc-x:focus {
   overflow-x: scroll;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Float, { contents: ['right'], buffer: [], stack: [] }),
-        `.float-right {
+        `.fl-right {
   float: right;
 }`,
       ],
@@ -699,26 +699,26 @@ describe('transform', () => {
       ],
       [
         resolveCSS(UnunuraIdentifier.Display, { contents: ['none'], buffer: [], stack: [] }),
-        `.display-none {
+        `.d-none {
   display: none;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Rounded, { contents: ['1rem'], buffer: [], stack: [] }),
-        `.rounded-1rem {
+        `.r-1rem {
   border-radius: 1rem;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Rounded, { contents: ['25px', '2rem'], buffer: [], stack: [] }),
-        `.rounded-25px-2rem {
+        `.r-25px-2rem {
   border-radius: 25px 2rem;
 }`,
       ],
       [
-        resolveCSS(UnunuraIdentifier.Rounded, { contents: ['25px', '2rem'], buffer: ['.rounded-10'], stack: ['xl'] }),
+        resolveCSS(UnunuraIdentifier.Rounded, { contents: ['25px', '2rem'], buffer: ['.r-10'], stack: ['xl'] }),
         `@media (min-width: 1536px) {
-.rounded-10 {
+.r-10 {
   border-radius: 25px 2rem;
 }
 }`,
@@ -849,25 +849,25 @@ describe('transform', () => {
       ],
       [
         resolveCSS(UnunuraIdentifier.Shadow, { contents: ['text', 'h-10', 'v-10', 'blur-30', 'black'], buffer: [], stack: [] }),
-        `.shadow-text-h-10-v-10-blur-30-black {
+        `.sh-text-h-10-v-10-blur-30-black {
   text-shadow: 10px 10px 30px black;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Shadow, { contents: ['text', 'h-10', 'v-10', 'black'], buffer: [], stack: [] }),
-        `.shadow-text-h-10-v-10-black {
+        `.sh-text-h-10-v-10-black {
   text-shadow: 10px 10px black;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Filter, { contents: ['blur-4px'], buffer: [], stack: [] }),
-        `.filter-blur-4px {
+        `.fi-blur-4px {
   filter: blur(4px);
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Filter, { contents: ['backdrop', 'blur-4px'], buffer: [], stack: [] }),
-        `.filter-backdrop-blur-4px {
+        `.fi-backdrop-blur-4px {
   backdrop-filter: blur(4px);
 }`,
       ],
@@ -877,7 +877,7 @@ describe('transform', () => {
           buffer: [],
           stack: [],
         }),
-        `.filter-blur-4px-contrast-1-hue-30deg-grayscale-50-invert-50-saturate-1-sepia-50 {
+        `.fi-blur-4px-contrast-1-hue-30deg-grayscale-50-invert-50-saturate-1-sepia-50 {
   filter: blur(4px) contrast(1) grayscale(50%) hue-rotate(30deg) invert(50%) saturate(1) sepia(50%);
 }`,
       ],
@@ -887,13 +887,13 @@ describe('transform', () => {
           buffer: [],
           stack: [],
         }),
-        `.filter-backdrop-blur-4px-contrast-1-hue-30deg-grayscale-50-invert-50-saturate-1-sepia-50 {
+        `.fi-backdrop-blur-4px-contrast-1-hue-30deg-grayscale-50-invert-50-saturate-1-sepia-50 {
   backdrop-filter: blur(4px) contrast(1) grayscale(50%) hue-rotate(30deg) invert(50%) saturate(1) sepia(50%);
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Style, { contents: ['cursor-pointer'], buffer: [], stack: [] }),
-        `.style-cursor-pointer {
+        `.st-cursor-pointer {
   cursor: pointer;
 }`,
       ],
@@ -912,7 +912,7 @@ describe('transform', () => {
           buffer: [],
           stack: [],
         }),
-        `.style-accent-ff00ff-appearance-cursor-pointer-events-none-resize-none-touch-auto-scroll-smooth-select-text {
+        `.st-accent-ff00ff-appearance-cursor-pointer-events-none-resize-none-touch-auto-scroll-smooth-select-text {
   accent-color: #FF00FF;
   appearance: none;
   cursor: pointer;
@@ -925,19 +925,19 @@ describe('transform', () => {
       ],
       [
         resolveCSS(UnunuraIdentifier.Shadow, { contents: ['black'], buffer: [], stack: [] }),
-        `.shadow-black {
+        `.sh-black {
   box-shadow: 5px 5px 5px 0px black;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Shadow, { contents: ['h-10', 'v-10'], buffer: [], stack: [] }),
-        `.shadow-h-10-v-10 {
+        `.sh-h-10-v-10 {
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Shadow, { contents: ['inset', 'h-10', 'v-10'], buffer: [], stack: [] }),
-        `.shadow-inset-h-10-v-10 {
+        `.sh-inset-h-10-v-10 {
   box-shadow: inset 10px 10px 5px 0px rgba(0, 0, 0, 0.5);
 }`,
       ],
@@ -960,7 +960,7 @@ describe('transform', () => {
           buffer: [],
           stack: [],
         }),
-        `.gradient-30deg-rgba-255-0-255-05-0-rgba-0-200-0-1-100 {
+        `.gr-30deg-rgba-255-0-255-05-0-rgba-0-200-0-1-100 {
   background: rgba(255, 0, 255, 0.5);
   background: linear-gradient(30deg, rgba(255, 0, 255, 0.5) 0%, rgba(0, 200, 0, 1) 100%);
 }`,
@@ -979,7 +979,7 @@ describe('transform', () => {
           buffer: [],
           stack: [],
         }),
-        `.animation-name-splin-duration-2s-delay-02s-iteration-infinite-direction-alternate-timing-linear-fill-both {
+        `.an-name-splin-duration-2s-delay-02s-iteration-infinite-direction-alternate-timing-linear-fill-both {
   animation-name: splin;
   animation-duration: 2s;
   animation-delay: 0.2s;
@@ -1006,7 +1006,7 @@ describe('transform', () => {
       ],
       [
         resolveCSS(UnunuraIdentifier.Rounded, { contents: ['2rem'], buffer: [], stack: ['light'] }),
-        `.light .rounded-2rem-light {
+        `.light .r-2rem-light {
   border-radius: 2rem;
 }`,
       ],
@@ -1027,7 +1027,7 @@ describe('transform', () => {
       ],
       [
         resolveCSS(UnunuraIdentifier.Rounded, { contents: ['2rem'], buffer: [], stack: ['valid'] }),
-        `.rounded-2rem:valid {
+        `.r-2rem:valid {
   border-radius: 2rem;
 }`,
       ],
@@ -1042,25 +1042,25 @@ describe('transform', () => {
     const targets = [
       [
         resolveCSS(UnunuraIdentifier.Style, { contents: ['cursor-none'], buffer: [], stack: ['cue'] }),
-        `.style-cursor-none::cue {
+        `.st-cursor-none::cue {
   cursor: none;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Style, { contents: ['cursor-none'], buffer: [], stack: ['selection'] }),
-        `.style-cursor-none::selection {
+        `.st-cursor-none::selection {
   cursor: none;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Style, { contents: ['cursor-none'], buffer: [], stack: ['first-line'] }),
-        `.style-cursor-none::first-line {
+        `.st-cursor-none::first-line {
   cursor: none;
 }`,
       ],
       [
         resolveCSS(UnunuraIdentifier.Rounded, { contents: ['2rem'], buffer: [], stack: ['selection', 'valid'] }),
-        `.rounded-2rem::selection {
+        `.r-2rem::selection {
   border-radius: 2rem;
 }`,
       ],
@@ -1177,8 +1177,8 @@ describe.concurrent('css', () => {
         resolveTitleCssClass(UnunuraIdentifier.Margin, { contents: ['15', '0', '10', '0'], buffer: [], stack: [] }),
         '.m-15-0-10-0',
       ],
-      [resolveTitleCssClass(UnunuraIdentifier.Flexbox, { contents: ['flex-1'], buffer: [], stack: [] }), '.flex-flex-1'],
-      [resolveTitleCssClass(UnunuraIdentifier.Flexbox, { contents: ['flex-1'], buffer: [], stack: ['hover'] }), '.flex-flex-1'],
+      [resolveTitleCssClass(UnunuraIdentifier.Flexbox, { contents: ['flex-1'], buffer: [], stack: [] }), '.f-flex-1'],
+      [resolveTitleCssClass(UnunuraIdentifier.Flexbox, { contents: ['flex-1'], buffer: [], stack: ['hover'] }), '.f-flex-1'],
       [
         resolveTitleCssClass(UnunuraIdentifier.Background, { contents: ['rgba-255-255-255-0.3)'], buffer: [], stack: [] }),
         '.bg-rgba-255-255-255-03',

@@ -94,6 +94,7 @@ export const getResourcePaddingOrMargin = (identifier: UnunuraIdentifier, ctx: U
     setter += setterRow('' as any, spread, ctx.contents)
   }
 
+
   return resolveCssClass(identifier, setter, ctx)
 }
 
@@ -123,9 +124,9 @@ export const getResourceWidthOrHeight = (identifier: UnunuraIdentifier, ctx: Unu
   let setter = setterHead(ctx)
   ranged
     ? (setter +=
-        !isNullable(ranged) && !isNullable(size)
-          ? setterRow('' as any, `${ranged}-${inCss}: ${size}`, ctx.contents)
-          : !isNullable(size)
+      !isNullable(ranged) && !isNullable(size)
+        ? setterRow('' as any, `${ranged}-${inCss}: ${size}`, ctx.contents)
+        : !isNullable(size)
           ? setterRow('' as any, `${inCss}: ${size}`, ctx.contents)
           : '')
     : ''
@@ -325,9 +326,8 @@ export const getResourceShadow = (
     const blurResolved = isNullable(blur) ? '5px' : blur + 'px'
     const radiusResolved = isNullable(radius) ? '0px' : radius + 'px'
 
-    const value = `${
-      !isNullable(inset) ? `${inset} ` : ''
-    }${horizontalResolved} ${verticalResolved} ${blurResolved} ${radiusResolved} ${colorResolved};\n`
+    const value = `${!isNullable(inset) ? `${inset} ` : ''
+      }${horizontalResolved} ${verticalResolved} ${blurResolved} ${radiusResolved} ${colorResolved};\n`
 
     setter += `  box-shadow: ${!isNullable(none) ? 'none;\n' : value}`
   }
