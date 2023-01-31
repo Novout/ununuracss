@@ -2,7 +2,7 @@
 
 The options are inserted by the Vite Ununura plugin.
 
-### Defines
+### defines (default: [])
 
 Shorten classes using a single key, for example:
 
@@ -16,7 +16,7 @@ ununura({
 // class="btn m[bottom 2rem]..."
 ```
 
-### Extend
+### extend (default: {})
 
 Extend default settings for special customizations.
 
@@ -41,3 +41,63 @@ ununura({
 ```
 
 > **ATTENTION!** Make sure you are entering a name that does not conflict with the default settings.
+
+### jsx (BETA) (default: false)
+
+For use JSX specification (in React or other similar setup), enable this option.
+
+```ts
+ununura({
+  jsx: true
+})
+```
+
+### jsxIgnoreEntryFile (default: true)
+
+If using JSX, this option ignores the `main.(tsx|jsx)` file.
+
+### astAdapters (default: [...defaultAdapters()])
+
+Specify other HTML attributes to be considered as valid classes. This option is used to transform titles and generate custom component classes.
+
+```ts
+ununura({
+  astAdapters: ['activeColor']
+})
+
+// <CustomElement activeColor="text[! white]" />
+```
+
+### scopedInTemplate (default: true)
+
+If you are using a framework that has the scoped option by default, such as vue and svelte, the generated css will be attached to the `<style>` of each component. Otherwise, it will be appended to 'ununura.css'. In general, do not change this option.
+
+### specialEnvironment (default: 'vite')
+
+This option identifies custom HMRs such as astro or nitro. Do not interfere with this option.
+
+### applyAutoprefixer (default: true)
+
+Apply the PostCSS autoprefixer package.
+
+### overrideBrowserslist (default: false)
+
+If using `applyAutoprefixer: true`, choose a custom browserslist.
+
+```ts
+ununura({
+  overrideBrowserslist: ['last 2 versions']
+})
+```
+
+### simplifyTitles (default: false)
+
+This option disables features in the title of each generated class. **ATTENTION!** With this option active, Ununura does not guarantee that all classes will be unique!
+
+### forceIgnoreClassLineInTitles (default: false)
+
+Ignore the current class line in the title of each generated class. **ATTENTION!** With this option active, Ununura does not guarantee that all classes will be unique!
+
+### forceHydratedTemplate (default: false)
+
+Change the Rollup transformation from 'pre' to 'post'. Only change this option if you know exactly what you are doing.

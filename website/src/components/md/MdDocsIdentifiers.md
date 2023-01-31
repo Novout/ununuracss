@@ -1,6 +1,6 @@
 # Identifiers
 
-Identifiers is keys with one `(:)` or multiple resources `([])` for transform this in classes with unique and correct CSS titles. Each resource has supporters with the function of search valid CSS concents in range and apply this in specific class.
+Identifiers is keys with one `:` or multiple resources `[]` for transform this in classes with unique and correct CSS titles. Each resource has supporters with the function of search valid CSS concents in range and apply this in specific class.
 
 **Ununura** implements two valid syntaxes:
 
@@ -40,7 +40,7 @@ Some identifiers don't create classes, but apply CSS in virtual CSS module (impo
 
 `<div class="reset:meyer" />` -> [Meyer Reset CSS](https://meyerweb.com/eric/tools/css/reset/)
 
-`<div class="reset:novout" />` -> [Ununura Creator Special Reset CSS](../../../../packages/shared/src/defines.ts)
+`<div class="reset:novout" />` -> [Ununura Creator Special Reset CSS](https://github.com/Novout/ununuracss/tree/main/packages/shared/src/defines.ts)
 
 ## Identifiers List
 

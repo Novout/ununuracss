@@ -1,5 +1,5 @@
 <template>
-  <div class="flex[col gap-1rem] w:100% h[max 300px] scroll[y auto] text:#CCCCCC m[t 2rem]">
+  <div class="flex[col gap-1rem] w:100% h[max 600px] scroll[y auto] text:#CCCCCC m[t 2rem]">
     <div
       class="flex[col gap-2rem wrap] w:100% rounded:0.5rem p:1rem gradient[45deg rgba-255-255-255-0.025 0% rgba-255-255-255-0.1 100%] md(w:75%)"
       v-for="(item, lindex) in list" :key="lindex">
@@ -469,42 +469,42 @@ const list = ref([
       {
         inCss: 'accent-color',
         supporter: 'in-start',
-        example: 's[aaccent-#FF00FF]',
+        example: 'st[aaccent-#FF00FF]',
       },
       {
         inCss: 'appearance',
         supporter: 'unique',
-        example: 's[appearance]',
+        example: 'st[appearance]',
       },
       {
         inCss: 'cursor',
         supporter: 'in-start',
-        example: 's[cursor-pointer]',
+        example: 'st[cursor-pointer]',
       },
       {
         inCss: 'touch-action',
         supporter: 'in-start',
-        example: 's[touch-auto]',
+        example: 'st[touch-auto]',
       },
       {
         inCss: 'pointer-events',
         supporter: 'in-start',
-        example: 's[events-none]',
+        example: 'st[events-none]',
       },
       {
         inCss: 'resize',
         supporter: 'in-start',
-        example: 's[resize-none]',
+        example: 'st[resize-none]',
       },
       {
         inCss: 'scroll-behavior',
         supporter: 'in-start',
-        example: 's[scroll-smooth]',
+        example: 'st[scroll-smooth]',
       },
       {
         inCss: 'user-select',
         supporter: 'in-start',
-        example: 's[select-text]',
+        example: 'st[select-text]',
       },
     ],
   },

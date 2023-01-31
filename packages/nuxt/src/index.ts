@@ -9,10 +9,9 @@ export default defineNuxtModule({
     configKey: 'ununura',
   },
   defaults: {
-    // because vue&scoped files recursive in nitro reload
+    // TODO: because vue&scoped files recursive in nitro reload will disabled scoped sfc.
     scopedInTemplate: false,
-    specialEnvironment: 'nitro',
-    applyAutoprefixer: false,
+    specialEnvironment: 'nitro'
   } as UnunuraResolvableOptions,
   async setup(options, nuxt) {
     const exportTemplate = isNuxt2() ? 'export default () => {}' : 'export default defineNuxtPlugin(() => {})'

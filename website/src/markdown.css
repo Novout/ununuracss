@@ -9,7 +9,7 @@
 
 .markdown-body>h2 {
   font-family: 'Rubik', sans-serif;
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   color: gray;
   margin-top: 3rem;
   margin-bottom: 1.5rem;
@@ -21,7 +21,7 @@
 
 .markdown-body>h3 {
   font-family: 'Rubik', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   color: gray;
   margin-top: 3rem;
   margin-bottom: 0.5rem;
@@ -45,6 +45,15 @@
 .markdown-body>p>strong {
   font-weight: 700 !important;
 }
+
+.markdown-body>p>code {
+  font-weight: 700 !important;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 0.2rem;
+  border-radius: 0.5rem;
+  font-family: 'Rubik', sans-serif;
+}
+
 
 .markdown-body>ul {
   padding: 1rem 0;
