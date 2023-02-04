@@ -426,7 +426,6 @@ export const getResourceTypography = (identifier: UnunuraIdentifier, ctx: Ununur
   const space = findResourceInStart(ctx.contents, ['space-'], { onlyValue: true })
   const _break = findResourceInStart(ctx.contents, ['break-'], { onlyValue: true })
   const align = findResource(ctx.contents, ['left', 'right', 'center', 'justify', 'initial', 'inherit'])
-  const truncate = findResource(ctx.contents, ['truncate'])
 
   const inCss = resolveIdentifierInCSS(identifier)
 
@@ -441,7 +440,6 @@ export const getResourceTypography = (identifier: UnunuraIdentifier, ctx: Ununur
   setter += setterRow(space, `white-space: ${space}`, ctx.contents)
   setter += setterRow(_break, `word-break: ${_break}`, ctx.contents)
   setter += setterRow(align, `text-align: ${align}`, ctx.contents)
-  setter += setterRow(truncate, `overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap`, ctx.contents)
 
   return resolveCssClass(identifier, setter, ctx)
 }
@@ -590,5 +588,16 @@ export const getResourceAnimation = (identifier: UnunuraIdentifier, ctx: Ununura
   setter += setterRow(timing, `${inCss}-timing-function: ${timing}`, ctx.contents)
   setter += setterRow(fill, `${inCss}-fill-mode: ${fill}`, ctx.contents)
 
+  return resolveCssClass(identifier, setter, ctx)
+}
+
+export const getResourceCollection = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {
+  const truncate = findResource(ctx.contents, ['truncate'])
+  const screen = findResource(ctx.contents, ['screen'])
+
+  let setter = setterHead(ctx)
+  setter += setterRow(truncate, `overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap`, ctx.contents)
+  setter += setterRow(screen, `min-height: 100vh;\n  width: 100%;\n  overflow-y: auto`, ctx.contents)
+  
   return resolveCssClass(identifier, setter, ctx)
 }

@@ -9,23 +9,23 @@
             key
           }}</span>
       </h2>
-      <div v-if="item.open" class="flex[col gap-1rem wrap] w:100%">
-        <div class="text[quick 1.1rem 700] flex[row v-center h-between gap-2rem] w:100%"
+      <div v-if="item.open" class="flex[col gap-1rem wrap] w:90% md(w:100%)">
+        <div class="text[quick 1.1rem 700] flex[row wrap v-center h-between gap-2rem] w:100% p:0.5rem"
           v-for="(resource, rindex) in item.resources" :key="rindex">
           <p
-            class="flex[? flex-1] p[l 1rem] typo:start text[! quick 1.1rem 700] gradient[45deg rgba-255-255-255-0.025 0% rgba-255-255-255-0.1 100%] rounded:0.25rem">
+            class="flex[? flex-1] p[0.5rem 1rem] typo:center text[! quick 1.1rem 700] gradient[45deg rgba-255-255-255-0.025 0% rgba-255-255-255-0.1 100%] rounded:0.25rem">
             {{ resource.inCss }}:
           </p>
           <p class="flex[? flex-1] typo[start]">
             Supporter:
-            <span class="text[! quick 1.1rem 700] bg:rgba-255-255-255-0.05 rounded:0.25rem">{{
+            <span class="text[! quick 1.1rem 700] p:0.25rem bg:rgba-255-255-255-0.05 rounded:0.25rem">{{
               Array.isArray(resource.supporter)
                 ? resource.supporter.reduce((acc, sup) => (acc += ` ${sup}`), '')
                 : resource.supporter
             }}</span>
           </p>
           <p class="flex[? flex-1] typo:start">
-            Example: <span class="text[! quick 1.1rem 700] bg:rgba-255-255-255-0.05 rounded:0.25rem">{{
+            Example: <span class="text[! quick 1.1rem 700] p:0.25rem bg:rgba-255-255-255-0.05 rounded:0.25rem">{{
               resource.example
             }}</span>
           </p>
@@ -557,6 +557,22 @@ const list = ref([
         inCss: 'animation-timing-fill-mode',
         supporter: 'in-start',
         example: 'an[fill-both]',
+      },
+    ],
+  },
+  {
+    open: false,
+    keys: ['cl', 'collection'],
+    resources: [
+      {
+        inCss: 'overflow: hidden|text-overflow: ellipsis|white-space: nowrap',
+        supporter: 'collection',
+        example: 'cl[truncate]',
+      },
+      {
+        inCss: 'min-height: 100vh|width: 100%|overflow-y: auto',
+        supporter: 'collection',
+        example: 'cl[screen]',
       },
     ],
   },

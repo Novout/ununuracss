@@ -816,14 +816,6 @@ describe('transform', () => {
 }`,
       ],
       [
-        resolveCSS(UnunuraIdentifier.Typography, { contents: ['truncate'], buffer: [], stack: [] }),
-        `.typo-truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}`,
-      ],
-      [
         resolveCSS(UnunuraIdentifier.Transform, { contents: ['rotateX-90deg'], buffer: [], stack: [] }),
         `.tf-rotatex-90deg {
   transform: rotateX(90deg);
@@ -987,6 +979,22 @@ describe('transform', () => {
   animation-direction: alternate;
   animation-timing-function: linear;
   animation-fill-mode: both;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Collection, { contents: ['truncate'], buffer: [], stack: [] }),
+        `.cl-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Collection, { contents: ['screen'], buffer: [], stack: [] }),
+        `.cl-screen {
+  min-height: 100vh;
+  width: 100%;
+  overflow-y: auto;
 }`,
       ],
     ]

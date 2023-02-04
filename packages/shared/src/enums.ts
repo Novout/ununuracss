@@ -47,6 +47,8 @@ export enum UnunuraIdentifier {
   GradientExtended = 'gradient',
   Animation = 'an',
   AnimationExtended = 'animation',
+  Collection = 'cl',
+  CollectionExtended = 'collection',
   Reset = 'reset'
 }
 

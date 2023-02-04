@@ -34,6 +34,7 @@ import {
   getResourceStyle,
   getResourceGradient,
   getResourceAnimation,
+  getResourceCollection,
 } from './resources'
 import { TemplateClassResponsive, TemplateDefaultClass } from './template'
 
@@ -142,6 +143,9 @@ export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string =>
     case UnunuraIdentifier.Animation:
     case UnunuraIdentifier.AnimationExtended:
       return 'animation'
+    case UnunuraIdentifier.Collection:
+    case UnunuraIdentifier.CollectionExtended:
+        return 'collection'
     case UnunuraIdentifier.Reset:
       return 'reset'
   }
@@ -219,6 +223,9 @@ export const resolveCSS = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateCo
     case UnunuraIdentifier.Animation:
     case UnunuraIdentifier.AnimationExtended:
       return getResourceAnimation(identifier, ctx)
+    case UnunuraIdentifier.Collection:
+    case UnunuraIdentifier.CollectionExtended:
+        return getResourceCollection(identifier, ctx)
     case UnunuraIdentifier.Reset: //global
       return NULLABLE
     default:
