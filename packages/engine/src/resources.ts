@@ -15,13 +15,12 @@ import {
   Maybe,
 } from 'ununura-shared'
 import {
+  getSupportedAlignItems,
   getSupportedColor,
   getSupportedCursor,
   getSupportedDirection,
   getSupportedFlexDirection,
   getSupportedFlexGrow,
-  getSupportedFlexHorizontal,
-  getSupportedFlexVertical,
   getSupportedFlexWrap,
   getSupportedFont,
   getSupportedFontSize,
@@ -32,6 +31,7 @@ import {
   getSupportedImageRepeat,
   getSupportedImageSize,
   getSupportedInteger,
+  getSupportedJustifyContent,
   getSupportedMinOrMax,
   getSupportedNumber,
   getSupportedResize,
@@ -364,8 +364,11 @@ export const getResourceFlex = (
   const wrap = getSupportedFlexWrap(ctx.contents)
   const flex = findResourceInStart(ctx.contents, ['flex-'], { onlyValue: true })
   const gap = findResourceInStart(ctx.contents, ['gap-'], { onlyValue: true, supporter: getSupportedNumber })
-  const horizontal = getSupportedFlexHorizontal(ctx.contents).replace(/h-/, '')
-  const vertical = getSupportedFlexVertical(ctx.contents).replace(/v-/, '')
+  const justifyContent = findResourceInStart(ctx.contents, ['h-', 'jc-'], {
+    onlyValue: true,
+    supporter: getSupportedJustifyContent,
+  })
+  const alignItems = findResourceInStart(ctx.contents, ['v-', 'ai-'], { onlyValue: true, supporter: getSupportedAlignItems })
   const shrink = findResourceInStart(ctx.contents, ['shrink-'], { onlyValue: true })
 
   const inCss = resolveIdentifierInCSS(identifier)
@@ -376,8 +379,8 @@ export const getResourceFlex = (
   setter += setterRow(wrap, `${inCss}-wrap: ${wrap}`, ctx.contents)
   setter += setterRow(flex, `${inCss}: ${flex} ${flex} 0%`, ctx.contents)
   setter += setterRow(gap, `gap: ${gap}`, ctx.contents)
-  setter += setterRow(horizontal, `justify-content: ${horizontal}`, ctx.contents)
-  setter += setterRow(vertical, `align-items: ${vertical}`, ctx.contents)
+  setter += setterRow(justifyContent, `justify-content: ${justifyContent}`, ctx.contents)
+  setter += setterRow(alignItems, `align-items: ${alignItems}`, ctx.contents)
   setter += setterRow(shrink, `${inCss}-shrink: ${shrink}`, ctx.contents)
 
   return resolveCssClass(identifier, setter, ctx)
@@ -395,8 +398,11 @@ export const getResourceGrid = (
   const flow = findResourceInStart(ctx.contents, ['flow-'], { onlyValue: true })
   const autoFlow = findResourceInStart(ctx.contents, ['Aflow-'], { onlyValue: true })
   const gap = findResourceInStart(ctx.contents, ['gap-'], { onlyValue: true, supporter: getSupportedNumber })
-  const horizontal = getSupportedFlexHorizontal(ctx.contents).replace(/h-/, '')
-  const vertical = getSupportedFlexVertical(ctx.contents).replace(/v-/, '')
+  const justifyContent = findResourceInStart(ctx.contents, ['h-', 'jc-'], {
+    onlyValue: true,
+    supporter: getSupportedJustifyContent,
+  })
+  const alignItems = findResourceInStart(ctx.contents, ['v-', 'ai-'], { onlyValue: true, supporter: getSupportedAlignItems })
 
   const inCss = resolveIdentifierInCSS(identifier)
 
@@ -409,8 +415,8 @@ export const getResourceGrid = (
   setter += setterRow(flow, `${inCss}-auto-flow: ${flow}`, ctx.contents)
   setter += setterRow(autoFlow, `${inCss}-auto-columns: ${autoFlow}`, ctx.contents)
   setter += setterRow(gap, `gap: ${gap}`, ctx.contents)
-  setter += setterRow(horizontal, `justify-content: ${horizontal}`, ctx.contents)
-  setter += setterRow(vertical, `align-items: ${vertical}`, ctx.contents)
+  setter += setterRow(justifyContent, `justify-content: ${justifyContent}`, ctx.contents)
+  setter += setterRow(alignItems, `align-items: ${alignItems}`, ctx.contents)
 
   return resolveCssClass(identifier, setter, ctx)
 }

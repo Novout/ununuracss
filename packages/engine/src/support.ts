@@ -157,9 +157,9 @@ export const getSupportedFlexWrap = (contents: string[]): Nullable<string> => {
   return Wrap ?? WrapReverse ?? WrapNone ?? NULLABLE
 }
 
-export const getSupportedFlexVertical = (contents: string[]): Nullable<string> => {
-  const asFlex = contents.find((c) => isFlexVertical(c)) ?? NULLABLE
-  const asFlexResolved = !isNullable(asFlex) ? asFlex.replace('v-', '') : NULLABLE
+export const getSupportedAlignItems = (ctx: UnunuraGenerateContext): Nullable<string> => {
+  const asFlex = ctx.contents.find((c) => isFlexVertical(c)) ?? NULLABLE
+  const asFlexResolved = !isNullable(asFlex) ? asFlex : NULLABLE
 
   const normalized =
     {
@@ -170,9 +170,9 @@ export const getSupportedFlexVertical = (contents: string[]): Nullable<string> =
   return normalized
 }
 
-export const getSupportedFlexHorizontal = (contents: string[]): Nullable<string> => {
-  const asFlex = contents.find((c) => isFlexHorizontal(c)) ?? NULLABLE
-  const asFlexResolved = !isNullable(asFlex) ? asFlex.replace('h-', '') : NULLABLE
+export const getSupportedJustifyContent = (ctx: UnunuraGenerateContext): Nullable<string> => {
+  const asFlex = ctx.contents.find((c) => isFlexHorizontal(c)) ?? NULLABLE
+  const asFlexResolved = !isNullable(asFlex) ? asFlex : NULLABLE
 
   const normalized =
     {
