@@ -1,4 +1,4 @@
-import { isIdentifier, isKey, Option, UnunuraKeys, UnunuraOptions } from 'ununura-shared'
+import { isIdentifier, isKey, Maybe, UnunuraKeys, UnunuraOptions } from 'ununura-shared'
 import { enforceDefinesInLexer } from './externals'
 
 export const lex = (raw: string, ununura: UnunuraOptions): string[] => {
@@ -6,7 +6,7 @@ export const lex = (raw: string, ununura: UnunuraOptions): string[] => {
   const characters = [...enforceDefinesInLexer(raw, ununura)]
 
   let identifier: string = ''
-  let actually_key: Option<UnunuraKeys> = undefined
+  let actually_key: Maybe<UnunuraKeys> = undefined
   let ignorable: boolean = true
   let is_unique_key = false
 

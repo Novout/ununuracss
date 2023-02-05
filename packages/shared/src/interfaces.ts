@@ -16,6 +16,7 @@ export interface UnunuraASTNode {
     start: { line: number; column: number; offset: number }
     end: { line: number; column: number; offset: number }
   }
+  flag?: string
 }
 
 export interface UnunuraScannerFile {

@@ -2,7 +2,7 @@ import { NULLABLE } from './constants'
 import { browserFonts, pseudoClass, pseudoElement } from './defines'
 import { UnunuraGlobals, UnunuraIdentifier, UnunuraKeys } from './enums'
 import {
-  Option,
+  Maybe,
   UnunuraContextualizePseudoClasses,
   UnunuraContextualizePseudoElement,
   UnunuraContextualizeResponsive,
@@ -253,7 +253,7 @@ export const isNumberSuffix = (i: string): boolean =>
     'dvh',
   ].some((c) => i.toLowerCase().endsWith(c.toLowerCase()))
 
-export const isNullable = (i?: string): boolean => i === NULLABLE || i === undefined || i === null
+export const isNullable = (i?: Maybe<string>): boolean => i === NULLABLE || i === undefined || i === null
 export const isUniqueKey = (key: string) => key === UnunuraKeys.UniqueContext
 export const isOpenMultipleKey = (key: string) => key === UnunuraKeys.MultipleContextOpen
 export const isCloseMultipleKey = (key: string) => key === UnunuraKeys.MultipleContextClose
@@ -262,18 +262,19 @@ export const isContextCloseKey = (key: string) => key === UnunuraKeys.SpecificCo
 export const isContextKey = (key: string) => isUniqueKey(key) || isOpenMultipleKey(key) || isCloseMultipleKey(key)
 
 export const isKey = (char: string): boolean => Object.values(UnunuraKeys).some((key) => key === char)
-export const isGlobal = (str: string): Option<string> => Object.values(UnunuraGlobals).find((key) => str.startsWith(key))
+export const isGlobal = (str: string): Maybe<string> => Object.values(UnunuraGlobals).find((key) => str.startsWith(key))
 
 export const isThemeContextIdentifier = (str: string) => ['dark', 'light', 'sepia'].find((key) => key === str)
-export const isResponsiveContextIdentifier = (str: string): Option<UnunuraContextualizeResponsive> =>
-  ['xs', 'sm', 'md', 'lg', 'xl']?.find((key) => key === str) as Option<UnunuraContextualizeResponsive>
-export const isPseudoClassContextIdentifier = (str: string): Option<UnunuraContextualizePseudoClasses> =>
-  pseudoClass?.find((key) => key === str) as Option<UnunuraContextualizePseudoClasses>
-export const isPseudoElementContextIdentifier = (str: string): Option<UnunuraContextualizePseudoElement> =>
-  pseudoElement?.find((key) => key === str) as Option<UnunuraContextualizePseudoElement>
+export const isResponsiveContextIdentifier = (str: string): Maybe<UnunuraContextualizeResponsive> =>
+  ['xs', 'sm', 'md', 'lg', 'xl']?.find((key) => key === str) as Maybe<UnunuraContextualizeResponsive>
+export const isPseudoClassContextIdentifier = (str: string): Maybe<UnunuraContextualizePseudoClasses> =>
+  pseudoClass?.find((key) => key === str) as Maybe<UnunuraContextualizePseudoClasses>
+export const isPseudoElementContextIdentifier = (str: string): Maybe<UnunuraContextualizePseudoElement> =>
+  pseudoElement?.find((key) => key === str) as Maybe<UnunuraContextualizePseudoElement>
 export const isContextIdentifier = (str: string) =>
   isThemeContextIdentifier(str) || isResponsiveContextIdentifier(str) || isPseudoClassContextIdentifier(str)
 export const isCommonIdentifier = (str: string) => Object.values(UnunuraIdentifier).some((key) => key === str)
+export const asCommonIdentifier = (str: string) => Object.values(UnunuraIdentifier).some((key) => str.startsWith(key))
 export const isIdentifier = (str: string) => isCommonIdentifier(str) || isContextIdentifier(str)
 
 export const isTransitionProperty = (i: string): boolean =>
@@ -283,3 +284,5 @@ export const isTransitionTimingFunction = (i: string): boolean =>
   ['ease', 'ease-in', 'ease-out', 'ease-in-out', 'linear', 'step-start', 'step-end'].some((c) => i === c)
 export const isTypographyOverflow = (i: string): boolean => ['clip', 'ellipsis'].some((c) => i === c)
 export const isTypographyTransform = (i: string): boolean => ['uppercase', 'lowercase', 'capitalize'].some((c) => i === c)
+
+export const isVueSFC = (str?: string): boolean => str === 'vue'

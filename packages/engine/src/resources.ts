@@ -3,7 +3,6 @@ import {
   NULLABLE,
   isBorderStyle,
   isNullable,
-  Option,
   findResource,
   findResourceInStart,
   isSlashImage,
@@ -13,6 +12,7 @@ import {
   isTypographyOverflow,
   isTypographyTransform,
   isOutlineStyle,
+  Maybe,
 } from 'ununura-shared'
 import {
   getSupportedColor,
@@ -65,7 +65,7 @@ export const setterHead = (ctx: UnunuraGenerateContext, start?: string) => {
   return _
 }
 
-export const setterRow = (item: Option<string> = undefined, valid: string, contents: string[]) => {
+export const setterRow = (item: Maybe<string> = undefined, valid: string, contents: string[]) => {
   const asImportant = getSupportedGlobalImportant(contents)
 
   return !isNullable(item) ? `  ${valid}${!isNullable(asImportant) ? ' !important' : ''};\n` : ''
@@ -93,7 +93,6 @@ export const getResourcePaddingOrMargin = (identifier: UnunuraIdentifier, ctx: U
 
     setter += setterRow('' as any, spread, ctx.contents)
   }
-
 
   return resolveCssClass(identifier, setter, ctx)
 }
@@ -124,9 +123,9 @@ export const getResourceWidthOrHeight = (identifier: UnunuraIdentifier, ctx: Unu
   let setter = setterHead(ctx)
   ranged
     ? (setter +=
-      !isNullable(ranged) && !isNullable(size)
-        ? setterRow('' as any, `${ranged}-${inCss}: ${size}`, ctx.contents)
-        : !isNullable(size)
+        !isNullable(ranged) && !isNullable(size)
+          ? setterRow('' as any, `${ranged}-${inCss}: ${size}`, ctx.contents)
+          : !isNullable(size)
           ? setterRow('' as any, `${inCss}: ${size}`, ctx.contents)
           : '')
     : ''
@@ -326,8 +325,9 @@ export const getResourceShadow = (
     const blurResolved = isNullable(blur) ? '5px' : blur + 'px'
     const radiusResolved = isNullable(radius) ? '0px' : radius + 'px'
 
-    const value = `${!isNullable(inset) ? `${inset} ` : ''
-      }${horizontalResolved} ${verticalResolved} ${blurResolved} ${radiusResolved} ${colorResolved};\n`
+    const value = `${
+      !isNullable(inset) ? `${inset} ` : ''
+    }${horizontalResolved} ${verticalResolved} ${blurResolved} ${radiusResolved} ${colorResolved};\n`
 
     setter += `  box-shadow: ${!isNullable(none) ? 'none;\n' : value}`
   }
@@ -598,6 +598,6 @@ export const getResourceCollection = (identifier: UnunuraIdentifier, ctx: Ununur
   let setter = setterHead(ctx)
   setter += setterRow(truncate, `overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap`, ctx.contents)
   setter += setterRow(screen, `min-height: 100vh;\n  width: 100%;\n  overflow-y: auto`, ctx.contents)
-  
+
   return resolveCssClass(identifier, setter, ctx)
 }

@@ -1,5 +1,6 @@
 // Generics
-export type Option<T> = T | undefined
+export type Maybe<T> = T | undefined | null
+export type Awaitable<T> = T | Promise<T>
 export type Nullable<T> = T | '__NULLABLE__'
 export type CSSInject<T extends string | Promise<string> = string> = T
 export type ArrTuple<T extends string | number> = [T, T][]

@@ -1,4 +1,4 @@
-import { Content } from 'hast'
+import { Content, Properties } from 'hast'
 import { fromHtml } from 'hast-util-from-html'
 import { Root } from 'hast-util-from-html/lib'
 import { Node, parse as jsxParse } from 'babel-jsx-to-ast-fragmented'
@@ -6,7 +6,6 @@ import {
   isUniqueKey,
   isCloseMultipleKey,
   isOpenMultipleKey,
-  Option,
   isCommonIdentifier as isCommonIdentifierKey,
   UnunuraContextualize,
   isContextOpenKey,
@@ -14,40 +13,60 @@ import {
   isContextIdentifier as isContextIdentifierKey,
   UnunuraContextualizeStack,
   UnunuraASTNode,
-  SFC,
   UnunuraOptions,
+  SFC,
+  Maybe,
 } from 'ununura-shared'
 import { generateMultipleClass, generateUniqueClass } from './resources'
 import { lex } from './lexer'
 import { purgeOnlyCssClassTitle } from './purge'
+import { VueSFC } from './adapters'
 
 export const classesFromRawHtml = (html: string, adapters?: string[]): UnunuraASTNode[] => {
   const tree = fromHtml(html, { fragment: true })
   const classes: UnunuraASTNode[] = []
+  const vueSFC = VueSFC()
+
+  const insert = (node: any, cl: string, flag?: string): UnunuraASTNode => ({
+    tag: node.tagName,
+    class: cl,
+    position: node.position,
+    flag,
+  })
+
+  const vueEnforces = (node: any) => {
+    const arr: UnunuraASTNode[] = []
+
+    const properties = node.properties as Properties
+
+    if (vueSFC.asArrayClassBinding(properties)) {
+      // { ':class': "[foo ? 'text:white' : 'text:black']" }
+      // { :class': "{'text:white': foo }"}
+      const [_, ...classes] = vueSFC.getArrayClassBinding(properties)
+
+      arr.push(...classes.map((cl) => insert(node, cl, 'vbinding')))
+    }
+
+    return arr
+  }
 
   const ast = (children: Content[]): void => {
     children.forEach((node) => {
       if (node.type === 'element') {
         if (node.tagName === 'template') ast((node.content as Root).children) // vue sfc
 
+        classes.push(...vueEnforces(node))
+
         adapters?.forEach((adapter) => {
           if (node.properties && node.properties[adapter]) {
-            classes.push({
-              tag: node.tagName,
-              class: node.properties[adapter] as string,
-              position: node.position as any,
-            })
+            classes.push(insert(node, node.properties[adapter] as string))
           }
         })
 
-        const target: Option<string> = (node.properties?.className as string[])?.join(' ')
+        const target: Maybe<string> = (node.properties?.className as string[])?.join(' ')
 
         if (target) {
-          classes.push({
-            tag: node.tagName,
-            class: target,
-            position: node.position as any,
-          })
+          classes.push(insert(node, target))
         }
 
         if (node.children) ast(node.children)
@@ -65,9 +84,8 @@ export const classesFromRawJSX = (jsx: string, adapters?: string[]): UnunuraASTN
   const classes: UnunuraASTNode[] = []
 
   const ast = (current: Node): void => {
-    const cls = current.attributes.filter(
-      ({ name }) => adapters?.some((a) => a == name) || name === 'className' || name === 'class'
-    )
+    const cls =
+      current.attributes?.filter(({ name }) => adapters?.some((a) => a == name) || name === 'className' || name === 'class') ?? []
 
     if (cls?.length > 0)
       classes.push(
@@ -109,10 +127,10 @@ export const generateCssFromNodes = (nodes: UnunuraASTNode[], sfc: SFC, filename
 }
 
 export const generateCss = (keys: string[], node: UnunuraASTNode, filename: string, ununura: UnunuraOptions): string => {
-  let prev_unique: Option<string> = undefined
-  let prev_multiple: Option<string> = undefined
-  let prev_common_identifier: Option<string> = undefined
-  let prev_context_identifier: Option<UnunuraContextualize> = undefined
+  let prev_unique: Maybe<string> = undefined
+  let prev_multiple: Maybe<string> = undefined
+  let prev_common_identifier: Maybe<string> = undefined
+  let prev_context_identifier: Maybe<UnunuraContextualize> = undefined
 
   const buffer: string[] = []
   const context_stack: UnunuraContextualizeStack = []

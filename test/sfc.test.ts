@@ -1,4 +1,4 @@
-import { UnunuraScopedSFCFile } from 'ununura-engine'
+import { classesFromRawHtml, UnunuraScopedSFCFile } from 'ununura-engine'
 import { describe, expect, it } from 'vitest'
 
 describe.concurrent('vue', () => {
@@ -30,6 +30,66 @@ describe.concurrent('vue', () => {
   font-weight: 700;
 }
 </style>`)
+  })
+
+  it('should transform class  ternarybinding in common ast correctly', async () => {
+    const sfc = `<template>
+  <p :class="[foo ? 'text:white cl[truncate screen]' : 'text:black']" />
+</template>`
+
+    const target = await classesFromRawHtml(sfc, [])
+
+    expect(target.map((t) => t.class)).toStrictEqual(['text:white cl[truncate screen]', 'text:black'])
+  })
+
+  it('should transform class  ternarybinding in same identifiers in ast correctly', async () => {
+    const sfc = `<template>
+  <p :class="[foo ? 'text:white' : 'text:black']" />
+</template>`
+
+    const target = await classesFromRawHtml(sfc, [])
+
+    expect(target.map((t) => t.class)).toStrictEqual(['text:white', 'text:black'])
+  })
+
+  it('should transform class ternary binding in multiple classes in ast correctly', async () => {
+    const sfc = `<template>
+  <p :class="[foo ? 'text:white' : 'text:black']" class="bg:red typo:center" />
+</template>`
+
+    const target = await classesFromRawHtml(sfc, [])
+
+    expect(target.map((t) => t.class)).toStrictEqual(['text:white', 'text:black', 'bg:red typo:center'])
+  })
+
+  it('should transform class ternary binding in adapter classes correctly', async () => {
+    const sfc = `<template>
+  <p :class="[foo ? 'text:white' : 'text:black']" bar="bg:red typo:center" />
+</template>`
+
+    const target = await classesFromRawHtml(sfc, ['bar'])
+
+    expect(target.map((t) => t.class)).toStrictEqual(['text:white', 'text:black', 'bg:red typo:center'])
+  })
+
+  it('should transform class object data in classes correctly', async () => {
+    const sfc = `<template>
+  <p :class="{ 'text:white bg:black': foo }" />
+</template>`
+
+    const target = await classesFromRawHtml(sfc)
+
+    expect(target.map((t) => t.class)).toStrictEqual(['text:white bg:black', 'foo'])
+  })
+
+  it('should transform class object data in multiple classes correctly', async () => {
+    const sfc = `<template>
+  <p :class="{ 'text:white bg:black': foo, 'text:black': bar }" />
+</template>`
+
+    const target = await classesFromRawHtml(sfc)
+
+    expect(target.map((t) => t.class)).toStrictEqual(['text:white bg:black', 'foo', 'text:black', 'bar'])
   })
 })
 

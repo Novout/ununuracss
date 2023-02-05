@@ -60,8 +60,9 @@ export const resolveHashTitle = (prefix: string, ctx: UnunuraGenerateContext) =>
   if (ctx?.node?.position) {
     const { start } = ctx.node.position
 
-    const target = `${prefix}${!ctx.ununura?.forceIgnoreClassLineInTitles ? `-${start.line}` : ''}-${ctx.filename ? resolveTitleToClassName(ctx.filename.replace(/(.vue|.svelte|.jsx|.tsx|.astro|.html)/, '')) : ''
-      }`
+    const target = `${prefix}${!ctx.ununura?.forceIgnoreClassLineInTitles ? `-${start.line}` : ''}-${
+      ctx.filename ? resolveTitleToClassName(ctx.filename.replace(/(.vue|.svelte|.jsx|.tsx|.astro|.html)/, '')) : ''
+    }`
 
     return target
   }
@@ -145,7 +146,7 @@ export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string =>
       return 'animation'
     case UnunuraIdentifier.Collection:
     case UnunuraIdentifier.CollectionExtended:
-        return 'collection'
+      return 'collection'
     case UnunuraIdentifier.Reset:
       return 'reset'
   }
@@ -225,7 +226,7 @@ export const resolveCSS = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateCo
       return getResourceAnimation(identifier, ctx)
     case UnunuraIdentifier.Collection:
     case UnunuraIdentifier.CollectionExtended:
-        return getResourceCollection(identifier, ctx)
+      return getResourceCollection(identifier, ctx)
     case UnunuraIdentifier.Reset: //global
       return NULLABLE
     default:
@@ -241,19 +242,20 @@ export const resolveTitleCssClass = (identifier: UnunuraIdentifier, ctx: Ununura
     asResponsive && asTheme
       ? ctx.buffer?.find((c) => c.startsWith(`.${asTheme} .${identifier}`))
       : asResponsive
-        ? ctx.buffer?.find((c) => purgeOnlyCssClassTitle(c).startsWith(identifier))
-        : undefined
+      ? ctx.buffer?.find((c) => purgeOnlyCssClassTitle(c).startsWith(identifier))
+      : undefined
 
   if (asResponsive && asTheme && !buffered) return NULLABLE
   if (asResponsive && !buffered) return NULLABLE
 
   let setter = !asResponsive
     ? ctx.contents.reduce(
-      (sum, acc) => (sum += ctx.ununura?.simplifyTitles ? `` : `-${resolveTitleToClassName(acc)}`),
-      (asTheme ? `.${asTheme} ` : '') + resolveHashTitle(`.${identifier}`, ctx)
-    )
+        (sum, acc) => (sum += ctx.ununura?.simplifyTitles ? `` : `-${resolveTitleToClassName(acc)}`),
+        (asTheme ? `.${asTheme} ` : '') + resolveHashTitle(`.${identifier}`, ctx)
+      )
     : (asTheme && !asResponsive ? `.${asTheme} ` : '') + `.${purgeOnlyCssClassTitle(buffered as string)}`
   setter += asTheme && !asResponsive ? `-${asTheme}` : ''
+  setter += ctx.node?.flag ? `-${ctx.node?.flag}` : ''
 
   return setter
 }

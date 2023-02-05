@@ -1196,6 +1196,15 @@ describe.concurrent('css', () => {
         resolveTitleCssClass(UnunuraIdentifier.Background, { contents: ['/local_image.png'], buffer: [], stack: [] }),
         '.bg-local-imagepng',
       ],
+      [
+        resolveTitleCssClass(UnunuraIdentifier.Background, {
+          contents: ['/local_image.png'],
+          buffer: [],
+          stack: [],
+          node: { flag: 'foo' } as any,
+        }),
+        '.bg-local-imagepng-foo',
+      ],
     ]
 
     for (const [raw, result] of targets) {
