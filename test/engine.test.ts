@@ -12,6 +12,7 @@ import {
   UnunuraGlobalGenerate,
   resolveIdentifierInCSS,
   UnunuraGlobalGenerateReduced,
+  setterRow,
 } from 'ununura-engine'
 import { isKey, MEYER_RESET_CSS, NOVOUT_RESET_CSS, NULLABLE, UnunuraIdentifier } from 'ununura-shared'
 import { beforeEach, describe, expect, it } from 'vitest'
@@ -581,6 +582,59 @@ describe('transform', () => {
 }`,
       ],
       [
+        resolveCSS(UnunuraIdentifier.Grid, { contents: ['cols-2'], buffer: [], stack: [] }),
+        `.g-cols-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Grid, { contents: ['rows-2'], buffer: [], stack: [] }),
+        `.g-rows-2 {
+  display: grid;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Grid, { contents: ['Cspan-2'], buffer: [], stack: [] }),
+        `.g-cspan-2 {
+  display: grid;
+  grid-column: span 2 / span 2;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Grid, { contents: ['Wspan-2'], buffer: [], stack: [] }),
+        `.g-wspan-2 {
+  display: grid;
+  grid-row: span 2 / span 2;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Grid, { contents: ['flow-foo'], buffer: [], stack: [] }),
+        `.g-flow-foo {
+  display: grid;
+  grid-auto-flow: foo;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Grid, { contents: ['Aflow-foo'], buffer: [], stack: [] }),
+        `.g-aflow-foo {
+  display: grid;
+  grid-auto-columns: foo;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Grid, { contents: ['gap-1rem'], buffer: [], stack: [] }),
+        `.g-gap-1rem {
+  display: grid;
+  gap: 1rem;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Grid, { contents: ['?'], buffer: [], stack: [] }),
+        NULLABLE,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Width, { contents: ['100%'], buffer: [], stack: [] }),
         `.w-100 {
   width: 100%;
@@ -1092,6 +1146,23 @@ describe('transform', () => {
         `.m-0-10-0-0 {
   margin: 0px 10px 0px 0px;
 }`,
+      ],
+    ]
+
+    for (const [css, result] of targets) {
+      expect(css).toStrictEqual(result)
+    }
+  })
+
+  it('should set row class', () => {
+    const targets = [
+      [
+        setterRow('foo', `foo: as`, ['foo']),
+        `  foo: as;\n`,
+      ],
+      [
+        setterRow('foo', `foo: as`, ['!', 'foo']),
+        `  foo: as !important;\n`,
       ],
     ]
 
