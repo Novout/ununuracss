@@ -11,7 +11,7 @@ export default defineNuxtModule({
   defaults: {
     // TODO: because vue&scoped files recursive in nitro reload will disabled scoped sfc.
     scopedInTemplate: false,
-    specialEnvironment: 'nitro'
+    specialEnvironment: 'nitro',
   } as UnunuraResolvableOptions,
   async setup(options, nuxt) {
     const exportTemplate = isNuxt2() ? 'export default () => {}' : 'export default defineNuxtPlugin(() => {})'
@@ -31,7 +31,8 @@ export default defineNuxtModule({
 
     nuxt.hook('vite:extend', ({ config }) => {
       config.plugins = config.plugins || []
-      config.plugins.unshift(...ununura(options))
+      // TODO: Plugin_2 rework
+      config.plugins.unshift(...(ununura(options) as any))
     })
   },
 })

@@ -7,33 +7,37 @@ export const defaultAdapters = () => {
   ]
 }
 
-export const VueSFC = () => {
+export const defaultSFCAdapters = () => {
+  return [':class', ':className']
+}
+
+export const VueSFC = (adapters?: string[]) => {
+  const targets = adapters ? [...defaultSFCAdapters(), ...adapters.map((v) => `:${v}`)] : defaultSFCAdapters()
+
   const asArrayClassBinding = (properties?: Properties) =>
-    Object.keys(properties as Record<any, any>)?.some((property) => property === ':class')
+    Object.keys(properties as Record<any, any>)?.some((property) => targets.find((v) => property === v))
 
-  const getArrayClassBinding = (properties?: Properties) => {
-    const isValid = asArrayClassBinding(properties)
+  const getArrayClassBinding = (properties?: Properties): string[] =>
+    targets?.reduce((acc, target) => {
+      const isValid = asArrayClassBinding(properties)
 
-    if (!isValid || !properties) return []
+      if (!isValid || !properties || !properties[target]) return acc
 
-    const isObject = (properties[':class'] as string).startsWith('{')
+      const isObject = (properties[target] as string)?.startsWith('{')
 
-    const classesFromObject = (properties[':class'] as string)
-      .split(/(':|":)|[{}]|(, )/)
-      .filter(Boolean)
-      .map((v) => v.replace(/(':|":)|['",]/, ''))
-      .filter(Boolean)
-      .map((v) => v.trim())
-      .filter(Boolean)
-    classesFromObject.unshift('')
+      const classesFromObject: string[] = (properties[target] as string)
+        .split(/(':|":)|[{}]|(, )/)
+        .filter(Boolean)
+        .map((v) => v.replace(/(':|":)|['",]/, '').trim())
+      classesFromObject.unshift('')
 
-    const classesFromTernary = (properties[':class'] as string)
-      .split(/[?'"{}]/)
-      .map((v) => v.trim())
-      .filter((v) => v.length > 1)
+      const classesFromTernary: string[] = (properties[target] as string)
+        .split(/[?'"{}]/)
+        .map((v) => v.trim())
+        .filter((v) => v.length > 1)
 
-    return isObject ? classesFromObject : classesFromTernary
-  }
+      return isObject ? [...acc, ...classesFromObject] : [...acc, ...classesFromTernary]
+    }, [] as string[]) ?? []
 
   return { asArrayClassBinding, getArrayClassBinding }
 }

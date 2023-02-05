@@ -91,6 +91,16 @@ describe.concurrent('vue', () => {
 
     expect(target.map((t) => t.class)).toStrictEqual(['text:white bg:black', 'foo', 'text:black', 'bar'])
   })
+
+  it('should transform class object data in multiple classes and adapters correctly', async () => {
+    const sfc = `<template>
+  <p :class="{ 'text:white bg:black': foo, 'text:black': bar }" :baz="{ 'scroll:auto': baz }" />
+</template>`
+
+    const target = await classesFromRawHtml(sfc, ['baz'])
+
+    expect(target.map((t) => t.class)).toStrictEqual(['text:white bg:black', 'foo', 'text:black', 'bar', 'scroll:auto', 'baz'])
+  })
 })
 
 describe.concurrent('svelte', () => {

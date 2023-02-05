@@ -25,7 +25,7 @@ import { VueSFC } from './adapters'
 export const classesFromRawHtml = (html: string, adapters?: string[]): UnunuraASTNode[] => {
   const tree = fromHtml(html, { fragment: true })
   const classes: UnunuraASTNode[] = []
-  const vueSFC = VueSFC()
+  const vueSFC = VueSFC(adapters)
 
   const insert = (node: any, cl: string, flag?: string): UnunuraASTNode => ({
     tag: node.tagName,
@@ -41,10 +41,10 @@ export const classesFromRawHtml = (html: string, adapters?: string[]): UnunuraAS
 
     if (vueSFC.asArrayClassBinding(properties)) {
       // { ':class': "[foo ? 'text:white' : 'text:black']" }
-      // { :class': "{'text:white': foo }"}
+      // { ':class': "{'text:white': foo }"}
       const [_, ...classes] = vueSFC.getArrayClassBinding(properties)
 
-      arr.push(...classes.map((cl) => insert(node, cl, 'vbinding')))
+      arr.push(...classes.filter(Boolean).map((cl) => insert(node, cl, 'vbinding')))
     }
 
     return arr
