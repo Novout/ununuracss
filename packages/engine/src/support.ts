@@ -10,6 +10,8 @@ import {
   isImage,
   isImageRepeat,
   isImageSize,
+  isJustifyAlign,
+  isJustifySelf,
   isNullable,
   isNumber,
   isNumberSuffix,
@@ -157,6 +159,35 @@ export const getSupportedFlexWrap = (contents: string[]): Nullable<string> => {
   return Wrap ?? WrapReverse ?? WrapNone ?? NULLABLE
 }
 
+export const getSupportedAlignContent = (ctx: UnunuraGenerateContext): Nullable<string> => {
+  const asFlex = ctx.contents.find((c) => isFlexHorizontal(c)) ?? NULLABLE
+  const asFlexResolved = !isNullable(asFlex) ? asFlex : NULLABLE
+
+  const normalized =
+    {
+      start: 'flex-start',
+      end: 'flex-end',
+      between: 'space-between',
+      around: 'space-around',
+      evenly: 'space-evenly',
+    }[asFlexResolved] || asFlexResolved
+
+  return normalized
+}
+
+export const getSupportedAlignSelf = (ctx: UnunuraGenerateContext): Nullable<string> => {
+  const asFlex = ctx.contents.find((c) => isFlexVertical(c)) ?? NULLABLE
+  const asFlexResolved = !isNullable(asFlex) ? asFlex : NULLABLE
+
+  const normalized =
+    {
+      start: 'flex-start',
+      end: 'flex-end',
+    }[asFlexResolved] || asFlexResolved
+
+  return normalized
+}
+
 export const getSupportedAlignItems = (ctx: UnunuraGenerateContext): Nullable<string> => {
   const asFlex = ctx.contents.find((c) => isFlexVertical(c)) ?? NULLABLE
   const asFlexResolved = !isNullable(asFlex) ? asFlex : NULLABLE
@@ -184,6 +215,14 @@ export const getSupportedJustifyContent = (ctx: UnunuraGenerateContext): Nullabl
     }[asFlexResolved] || asFlexResolved
 
   return normalized
+}
+
+export const getSupportedJustifyItems = (ctx: UnunuraGenerateContext): Nullable<string> => {
+  return ctx.contents.find((c) => isJustifyAlign(c)) ?? NULLABLE
+}
+
+export const getSupportedJustifySelf = (ctx: UnunuraGenerateContext): Nullable<string> => {
+  return ctx.contents.find((c) => isJustifySelf(c)) ?? NULLABLE
 }
 
 export const getSupportedScrollDirection = (contents: string[]): Nullable<string> => {

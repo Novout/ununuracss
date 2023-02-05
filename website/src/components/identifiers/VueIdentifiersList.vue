@@ -2,18 +2,26 @@
   <div class="flex[col gap-1rem] w:100% h[max 600px] scroll[y auto] text:#CCCCCC m[t 2rem]">
     <div
       class="flex[col gap-2rem wrap] w:100% rounded:0.5rem gradient[45deg rgba-255-255-255-0.025 0% rgba-255-255-255-0.1 100%] md(w:75%)"
-      v-for="(item, lindex) in list" :key="lindex">
+      v-for="(item, lindex) in list"
+      :key="lindex"
+    >
       <h2 @click="item.open = !item.open" class="text[700 rubik white 1.15rem] p:1rem w:100% style[cursor-pointer]">
-        <span v-for="(key, tindex) in item.keys" :key="tindex"
-          class="text[700 rubik white 1rem] style[events-none select-none] m[l 1rem] bg:rgba-255-255-255-0.02 text:#CCCCCC p[0.5rem 1rem] rounded:0.5rem">{{
-            key
-          }}</span>
+        <span
+          v-for="(key, tindex) in item.keys"
+          :key="tindex"
+          class="text[700 rubik white 1rem] style[events-none select-none] m[l 1rem] bg:rgba-255-255-255-0.02 text:#CCCCCC p[0.5rem 1rem] rounded:0.5rem"
+          >{{ key }}</span
+        >
       </h2>
       <div v-if="item.open" class="flex[col gap-1rem wrap] w:90% md(w:100%)">
-        <div class="text[quick 1.1rem 700] flex[row wrap v-center h-between gap-2rem] w:100% p:0.5rem"
-          v-for="(resource, rindex) in item.resources" :key="rindex">
+        <div
+          class="text[quick 1.1rem 700] flex[row wrap v-center h-between gap-2rem] w:100% p:0.5rem"
+          v-for="(resource, rindex) in item.resources"
+          :key="rindex"
+        >
           <p
-            class="flex[? flex-1] p[0.5rem 1rem] typo:center text[! quick 1.1rem 700] gradient[45deg rgba-255-255-255-0.025 0% rgba-255-255-255-0.1 100%] rounded:0.25rem">
+            class="flex[? flex-1] p[0.5rem 1rem] typo:center text[! quick 1.1rem 700] gradient[45deg rgba-255-255-255-0.025 0% rgba-255-255-255-0.1 100%] rounded:0.25rem"
+          >
             {{ resource.inCss }}:
           </p>
           <p class="flex[? flex-1] typo[start]">
@@ -25,7 +33,8 @@
             }}</span>
           </p>
           <p class="flex[? flex-1] typo:start">
-            Example: <span class="text[! quick 1.1rem 700] p:0.25rem bg:rgba-255-255-255-0.05 rounded:0.25rem">{{
+            Example:
+            <span class="text[! quick 1.1rem 700] p:0.25rem bg:rgba-255-255-255-0.05 rounded:0.25rem">{{
               resource.example
             }}</span>
           </p>
@@ -99,12 +108,32 @@ const list = ref([
       {
         inCss: 'justify-content',
         supporter: ['start', 'end', 'center', 'between', 'around', 'evenly'],
-        example: 'flex[h-center]',
+        example: 'flex[jc-center]',
+      },
+      {
+        inCss: 'justify-align',
+        supporter: ['stretch', 'start', 'end', 'center'],
+        example: 'flex[ja-center]',
+      },
+      {
+        inCss: 'justify-self',
+        supporter: ['auto', 'stretch', 'start', 'end', 'center'],
+        example: 'flex[js-center]',
       },
       {
         inCss: 'align-items',
         supporter: ['start', 'end', 'center', 'stretch'],
-        example: 'flex[v-end]',
+        example: 'flex[ai-end]',
+      },
+      {
+        inCss: 'align-content',
+        supporter: ['start', 'end', 'center', 'between', 'around', 'evenly'],
+        example: 'flex[ac-end]',
+      },
+      {
+        inCss: 'align-self',
+        supporter: ['auto', 'stretch', 'start', 'end', 'center'],
+        example: 'flex[as-end]',
       },
       {
         inCss: 'flex-shrink',
@@ -156,12 +185,32 @@ const list = ref([
       {
         inCss: 'justify-content',
         supporter: ['start', 'end', 'center', 'between', 'around', 'evenly'],
-        example: 'flex[h-center]',
+        example: 'grid[jc-center]',
+      },
+      {
+        inCss: 'justify-align',
+        supporter: ['stretch', 'start', 'end', 'center'],
+        example: 'grid[ja-center]',
+      },
+      {
+        inCss: 'justify-self',
+        supporter: ['auto', 'stretch', 'start', 'end', 'center'],
+        example: 'grid[js-center]',
       },
       {
         inCss: 'align-items',
         supporter: ['start', 'end', 'center', 'stretch'],
-        example: 'flex[v-end]',
+        example: 'grid[ai-end]',
+      },
+      {
+        inCss: 'align-content',
+        supporter: ['start', 'end', 'center', 'between', 'around', 'evenly'],
+        example: 'grid[ac-end]',
+      },
+      {
+        inCss: 'align-self',
+        supporter: ['auto', 'stretch', 'start', 'end', 'center'],
+        example: 'grid[as-end]',
       },
     ],
   },

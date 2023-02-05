@@ -15,7 +15,9 @@ import {
   Maybe,
 } from 'ununura-shared'
 import {
+  getSupportedAlignContent,
   getSupportedAlignItems,
+  getSupportedAlignSelf,
   getSupportedColor,
   getSupportedCursor,
   getSupportedDirection,
@@ -32,6 +34,8 @@ import {
   getSupportedImageSize,
   getSupportedInteger,
   getSupportedJustifyContent,
+  getSupportedJustifyItems,
+  getSupportedJustifySelf,
   getSupportedMinOrMax,
   getSupportedNumber,
   getSupportedResize,
@@ -368,7 +372,17 @@ export const getResourceFlex = (
     onlyValue: true,
     supporter: getSupportedJustifyContent,
   })
+  const justifyItems = findResourceInStart(ctx.contents, ['ji-'], {
+    onlyValue: true,
+    supporter: getSupportedJustifyItems,
+  })
+  const justifySelf = findResourceInStart(ctx.contents, ['js-'], {
+    onlyValue: true,
+    supporter: getSupportedJustifySelf,
+  })
+  const alignContent = findResourceInStart(ctx.contents, ['ac-'], { onlyValue: true, supporter: getSupportedAlignContent })
   const alignItems = findResourceInStart(ctx.contents, ['v-', 'ai-'], { onlyValue: true, supporter: getSupportedAlignItems })
+  const alignSelf = findResourceInStart(ctx.contents, ['as-'], { onlyValue: true, supporter: getSupportedAlignSelf })
   const shrink = findResourceInStart(ctx.contents, ['shrink-'], { onlyValue: true })
 
   const inCss = resolveIdentifierInCSS(identifier)
@@ -380,7 +394,11 @@ export const getResourceFlex = (
   setter += setterRow(flex, `${inCss}: ${flex} ${flex} 0%`, ctx.contents)
   setter += setterRow(gap, `gap: ${gap}`, ctx.contents)
   setter += setterRow(justifyContent, `justify-content: ${justifyContent}`, ctx.contents)
+  setter += setterRow(justifyItems, `justify-items: ${justifyItems}`, ctx.contents)
+  setter += setterRow(justifySelf, `justify-self: ${justifySelf}`, ctx.contents)
+  setter += setterRow(alignContent, `align-content: ${alignContent}`, ctx.contents)
   setter += setterRow(alignItems, `align-items: ${alignItems}`, ctx.contents)
+  setter += setterRow(alignSelf, `align-self: ${alignSelf}`, ctx.contents)
   setter += setterRow(shrink, `${inCss}-shrink: ${shrink}`, ctx.contents)
 
   return resolveCssClass(identifier, setter, ctx)
@@ -402,7 +420,17 @@ export const getResourceGrid = (
     onlyValue: true,
     supporter: getSupportedJustifyContent,
   })
+  const justifyItems = findResourceInStart(ctx.contents, ['ji-'], {
+    onlyValue: true,
+    supporter: getSupportedJustifyItems,
+  })
+  const justifySelf = findResourceInStart(ctx.contents, ['js-'], {
+    onlyValue: true,
+    supporter: getSupportedJustifySelf,
+  })
+  const alignContent = findResourceInStart(ctx.contents, ['ac-'], { onlyValue: true, supporter: getSupportedAlignContent })
   const alignItems = findResourceInStart(ctx.contents, ['v-', 'ai-'], { onlyValue: true, supporter: getSupportedAlignItems })
+  const alignSelf = findResourceInStart(ctx.contents, ['as-'], { onlyValue: true, supporter: getSupportedAlignSelf })
 
   const inCss = resolveIdentifierInCSS(identifier)
 
@@ -416,7 +444,11 @@ export const getResourceGrid = (
   setter += setterRow(autoFlow, `${inCss}-auto-columns: ${autoFlow}`, ctx.contents)
   setter += setterRow(gap, `gap: ${gap}`, ctx.contents)
   setter += setterRow(justifyContent, `justify-content: ${justifyContent}`, ctx.contents)
+  setter += setterRow(justifyItems, `justify-items: ${justifyItems}`, ctx.contents)
+  setter += setterRow(justifySelf, `justify-self: ${justifySelf}`, ctx.contents)
+  setter += setterRow(alignContent, `align-content: ${alignContent}`, ctx.contents)
   setter += setterRow(alignItems, `align-items: ${alignItems}`, ctx.contents)
+  setter += setterRow(alignSelf, `align-self: ${alignSelf}`, ctx.contents)
 
   return resolveCssClass(identifier, setter, ctx)
 }

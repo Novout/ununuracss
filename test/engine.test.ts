@@ -563,6 +563,30 @@ describe('transform', () => {
 }`,
       ],
       [
+        resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['ji-center', 'ai-center'], buffer: [], stack: [] }),
+        `.f-ji-center-ai-center {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['jc-center', 'ac-center'], buffer: [], stack: [] }),
+        `.f-jc-center-ac-center {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['js-center', 'as-center'], buffer: [], stack: [] }),
+        `.f-js-center-as-center {
+  display: flex;
+  justify-self: center;
+  align-self: center;
+}`,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['?', 'flex-1'], buffer: [], stack: [] }),
         `.f-_none_-flex-1 {
   flex: 1 1 0%;
@@ -631,9 +655,30 @@ describe('transform', () => {
 }`,
       ],
       [
-        resolveCSS(UnunuraIdentifier.Grid, { contents: ['?'], buffer: [], stack: [] }),
-        NULLABLE,
+        resolveCSS(UnunuraIdentifier.Grid, { contents: ['ji-center', 'ai-center'], buffer: [], stack: [] }),
+        `.g-ji-center-ai-center {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}`,
       ],
+      [
+        resolveCSS(UnunuraIdentifier.Grid, { contents: ['jc-center', 'ac-center'], buffer: [], stack: [] }),
+        `.g-jc-center-ac-center {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Grid, { contents: ['js-center', 'as-center'], buffer: [], stack: [] }),
+        `.g-js-center-as-center {
+  display: grid;
+  justify-self: center;
+  align-self: center;
+}`,
+      ],
+      [resolveCSS(UnunuraIdentifier.Grid, { contents: ['?'], buffer: [], stack: [] }), NULLABLE],
       [
         resolveCSS(UnunuraIdentifier.Width, { contents: ['100%'], buffer: [], stack: [] }),
         `.w-100 {
@@ -1156,14 +1201,8 @@ describe('transform', () => {
 
   it('should set row class', () => {
     const targets = [
-      [
-        setterRow('foo', `foo: as`, ['foo']),
-        `  foo: as;\n`,
-      ],
-      [
-        setterRow('foo', `foo: as`, ['!', 'foo']),
-        `  foo: as !important;\n`,
-      ],
+      [setterRow('foo', `foo: as`, ['foo']), `  foo: as;\n`],
+      [setterRow('foo', `foo: as`, ['!', 'foo']), `  foo: as !important;\n`],
     ]
 
     for (const [css, result] of targets) {

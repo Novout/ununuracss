@@ -174,6 +174,8 @@ export const isFlexHorizontal = (i: string) =>
   ['start', 'end', 'center', 'between', 'around', 'evenly', 'initial', 'inherit'].some((d) => i === d)
 export const isFlexVertical = (i: string) =>
   ['stretch', 'center', 'start', 'end', 'baseline', 'initial', 'inherit'].some((d) => i === d)
+export const isJustifyAlign = (i: string) => ['stretch', 'center', 'start', 'end'].some((d) => i === d)
+export const isJustifySelf = (i: string) => ['auto', 'stretch', 'center', 'start', 'end'].some((d) => i === d)
 export const isImageRepeat = (i: string) =>
   ['repeat', 'no-repeat', 'repeat-x', 'repeat-y', 'repeat-round', 'repeat-space'].some((d) => i.toLowerCase() === d.toLowerCase())
 export const isSlashImage = (i: string): boolean => i.startsWith('//')
