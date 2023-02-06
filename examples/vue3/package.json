@@ -1,7 +1,6 @@
 {
   "name": "vite-vue-demo",
   "private": true,
-  "type": "module",
   "scripts": {
     "demo:vue": "vite --port 3000",
     "preview:vue": "vite build && vite preview --port 4000"
