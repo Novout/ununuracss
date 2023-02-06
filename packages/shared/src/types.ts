@@ -3,7 +3,21 @@ export type Maybe<T> = T | undefined | null
 export type Awaitable<T> = T | Promise<T>
 export type Nullable<T> = T | '__NULLABLE__'
 export type CSSInject<T extends string | Promise<string> = string> = T
-export type ArrTuple<T extends string | number> = [T, T][]
+
+// Ununura Options
+export type Symbol = string | number
+
+export type Tuple<T extends Symbol> = [T, T]
+export type TupleWithOptions<T extends Symbol, K = Record<any, any>> = [T, T, K]
+export type ArrTuple<T extends Symbol> = Tuple<T>[]
+export type ArrTupleWithOptions<T extends Symbol, K = {}> = TupleWithOptions<T, K>[]
+export type TupleOption<K extends Symbol = Symbol> = (Tuple<K> | TupleWithOptions<K, Record<any, any>>)[]
+
+export type Object = Record<Symbol, Symbol>
+export type ObjectWithOptions<T> = Record<Symbol, { value: Symbol; options?: T }>
+
+export type Option<O extends Symbol = Symbol, T = Record<O, any>> = TupleOption<O> | Object | ObjectWithOptions<T>
+export type ValueOption<T extends Symbol = Symbol> = ArrTuple<T> | Object
 
 // SFC's
 // TODO: <template>${string}</template><script scoped>${string}</script>

@@ -9,10 +9,10 @@ export default defineConfig({
     ununura({
       extend: {
         supporters: {
-          fonts: [
-            ['roboto', 'Roboto'],
-            ['lato', 'Lato']
-          ]
+          fonts: {
+            roboto: 'Roboto',
+            lato: 'Lato'
+          }
         }
       }
     }),

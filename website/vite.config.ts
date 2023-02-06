@@ -23,7 +23,6 @@ export default defineConfig({
             ['rubik', 'Rubik'],
             ['quick', 'Quicksand'],
           ],
-          units: [['auto', 'none']],
         },
       },
     }),
@@ -57,14 +56,14 @@ export default defineConfig({
             src: 'android-chrome-192x192.png',
             sizes: '192x192',
             type: 'image/png',
-            purpose: "any maskable"
+            purpose: 'any maskable',
           },
           {
             src: 'android-chrome-512x512.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: "any maskable"
-          }
+            purpose: 'any maskable',
+          },
         ],
       },
       workbox: {
@@ -79,12 +78,12 @@ export default defineConfig({
               cacheName: 'google-fonts-cache',
               expiration: {
                 maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365
+                maxAgeSeconds: 60 * 60 * 24 * 365,
               },
               cacheableResponse: {
-                statuses: [0, 200]
-              }
-            }
+                statuses: [0, 200],
+              },
+            },
           },
           {
             urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
@@ -93,15 +92,15 @@ export default defineConfig({
               cacheName: 'gstatic-fonts-cache',
               expiration: {
                 maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365
+                maxAgeSeconds: 60 * 60 * 24 * 365,
               },
               cacheableResponse: {
-                statuses: [0, 200]
+                statuses: [0, 200],
               },
-            }
-          }
-        ]
-      }
-    })
+            },
+          },
+        ],
+      },
+    }),
   ],
 })

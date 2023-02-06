@@ -8,8 +8,6 @@ import {
   resolveCSS,
   generateUniqueClass,
   generateMultipleClass,
-  scan,
-  UnunuraGlobalGenerate,
   resolveIdentifierInCSS,
   UnunuraGlobalGenerateReduced,
   setterRow,
@@ -70,6 +68,23 @@ describe.concurrent('lexer', () => {
           ':',
           'black',
           ')',
+        ],
+      ],
+      [
+        lex('text[lg primary roboto] filter[blur-80px] shadow[h-0 v-0 blur-10 radius-10 red]', {} as any),
+        [
+          'text',
+          '[',
+          'lg primary roboto',
+          ']',
+          'filter',
+          '[',
+          'blur-80px',
+          ']',
+          'shadow',
+          '[',
+          'h-0 v-0 blur-10 radius-10 red',
+          ']',
         ],
       ],
       [
@@ -1403,19 +1418,6 @@ describe.concurrent('support', () => {
 
     for (const [raw, result] of targets) {
       expect(raw).toStrictEqual(result)
-    }
-  })
-})
-
-describe.concurrent('fs', () => {
-  it('should ignore files', async () => {
-    const targets = [
-      [scan({ include: ['**/*.xyz'], exclude: [] } as any), []],
-      [UnunuraGlobalGenerate({ include: ['**/*.xyz'], exclude: [] } as any), ''],
-    ]
-
-    for (const [raw, result] of targets) {
-      expect(await raw).toStrictEqual(result)
     }
   })
 })

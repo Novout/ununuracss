@@ -38,8 +38,5 @@
     "fontaine": "^0.2.3",
     "ununura-engine": "workspace:*",
     "ununura-shared": "workspace:*"
-  },
-  "devDependencies": {
-    "vite": "^4.0.3"
   }
 }

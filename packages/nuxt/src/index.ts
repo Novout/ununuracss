@@ -31,8 +31,7 @@ export default defineNuxtModule({
 
     nuxt.hook('vite:extend', ({ config }) => {
       config.plugins = config.plugins || []
-      // TODO: Plugin_2 rework
-      config.plugins.unshift(...(ununura(options) as any))
+      config.plugins.unshift(ununura(options))
     })
   },
 })

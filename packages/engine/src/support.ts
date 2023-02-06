@@ -32,6 +32,8 @@ export const getSupportedMinOrMax = (contents: string[]): Nullable<string> => {
 }
 
 export const getSupportedColor = (ctx: UnunuraGenerateContext): Nullable<string> => {
+  const ExternalColor = getExtendedSupporterColor(ctx)
+
   const HEXColor = ctx.contents.find((c) => isHex(c))
   const CSSColor = ctx.contents.find((c) => isCSSColor(c))
 
@@ -67,9 +69,8 @@ export const getSupportedColor = (ctx: UnunuraGenerateContext): Nullable<string>
   const TransparentColor = ctx.contents.find((c) => c === 'transparent')
   const CurrentColor = ctx.contents.find((c) => c === 'currentColor')
 
-  const ExternalColor = getExtendedSupporterColor(ctx)
-
   return (
+    ExternalColor ??
     HEXColor ??
     CSSColor ??
     RGBColorResolved ??
@@ -79,7 +80,6 @@ export const getSupportedColor = (ctx: UnunuraGenerateContext): Nullable<string>
     CSSVarColorResolved ??
     TransparentColor ??
     CurrentColor ??
-    ExternalColor ??
     NULLABLE
   )
 }
@@ -249,7 +249,7 @@ export const getSupportedNumber = (ctx: UnunuraGenerateContext): Nullable<string
   const def = ctx.contents.find((c) => isNumber(c) && isNumber(c[0]))
   const defSet = def?.endsWith('px') ? def : def ? `${def}px` : undefined
 
-  return extended ?? suffixed ?? defSet ?? NULLABLE
+  return extended ? String(extended) : suffixed ?? defSet ?? NULLABLE
 }
 
 export const getSupportedFontSize = (ctx: UnunuraGenerateContext): Nullable<string> => {

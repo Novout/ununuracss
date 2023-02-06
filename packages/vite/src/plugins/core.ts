@@ -1,4 +1,4 @@
-import type { Plugin } from 'vite'
+import type { Plugin, PluginOption } from 'vite'
 import { UnunuraGlobalGenerate, UnunuraJSXSFCFile, UnunuraScopedSFCFile } from 'ununura-engine'
 import {
   isVueFile,
@@ -14,7 +14,7 @@ import {
 import { reloadServer } from '../hot'
 import { validForUpdate } from '../support'
 
-export default (ununura: UnunuraOptions): Plugin => {
+export default (ununura: UnunuraOptions): PluginOption => {
   return {
     name: 'ununuracss:core',
     enforce: ununura.forceHydratedTemplate ? 'post' : 'pre',
