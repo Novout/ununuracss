@@ -34,7 +34,15 @@ export const getExtendedSupporterColor = (ctx: UnunuraGenerateContext) => {
     ctx.contents.some((v) => v === key)
   )
 
-  return ExternalColor ? ExternalColor[1] : undefined
+  if (!ExternalColor) return undefined
+
+  const [_, value, options] = ExternalColor
+
+  if (options?.type === 'var') {
+    return `var(${value})`
+  }
+
+  return value ?? undefined
 }
 
 export const getExtendedSupporterUnits = (ctx: UnunuraGenerateContext) => {
@@ -42,5 +50,9 @@ export const getExtendedSupporterUnits = (ctx: UnunuraGenerateContext) => {
     ctx.contents.some((v) => v === key)
   )
 
-  return ExternalUnit ? ExternalUnit[1] : undefined
+  if (!ExternalUnit) return undefined
+
+  const [_, value] = ExternalUnit
+
+  return value ?? undefined
 }

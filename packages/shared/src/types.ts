@@ -11,7 +11,7 @@ export type Tuple<T extends Symbol> = [T, T]
 export type TupleWithOptions<T extends Symbol, K = Record<any, any>> = [T, T, K]
 export type ArrTuple<T extends Symbol> = Tuple<T>[]
 export type ArrTupleWithOptions<T extends Symbol, K = {}> = TupleWithOptions<T, K>[]
-export type TupleOption<K extends Symbol = Symbol> = (Tuple<K> | TupleWithOptions<K, Record<any, any>>)[]
+export type TupleOption<K extends Symbol = Symbol, O = Record<any, any>> = (Tuple<K> | TupleWithOptions<K, O>)[]
 
 export type Object = Record<Symbol, Symbol>
 export type ObjectWithOptions<T> = Record<Symbol, { value: Symbol; options?: T }>

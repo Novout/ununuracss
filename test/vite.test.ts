@@ -1,4 +1,4 @@
-import { normalizeUnunuraOption } from 'ununura-engine'
+import { getExtendedSupporterColor, normalizeUnunuraOption } from 'ununura-engine'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 describe('externals', () => {
@@ -28,5 +28,20 @@ describe('externals', () => {
         foo: { value: 'bar', options: { baz: 'baz' } },
       })
     ).toStrictEqual([['foo', 'bar', { baz: 'baz' }]])
+  })
+
+  it('should load correct object with options to tuple options', () => {
+    expect(
+      getExtendedSupporterColor({
+        contents: ['some-css-var'],
+        ununura: {
+          extend: {
+            supporters: {
+              colors: [['some-css-var', '--primary', { type: 'var' }]],
+            },
+          },
+        },
+      } as any)
+    ).toBe('var(--primary)')
   })
 })
