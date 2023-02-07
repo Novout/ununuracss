@@ -20,13 +20,13 @@ export default defineConfig({
 })
 ```
 
-### JSX
+### JSX (BETA)
 
-To use JSX (whether in React or Vue-JSX), enter the following option:
+To use JSX (whether in React or other JSX|TSX setup), enter the following option:
 
 ```ts
 export default defineConfig({
-  plugins: [ununura({ jsx: true })],
+  plugins: [ununura({ jsx: true }), framework_plugin()],
 })
 ```
 

@@ -48,6 +48,7 @@ export interface UnunuraResolvableOptions {
   overrideBrowserslist?: string[] | string | false
   forceIgnoreClassLineInTitles?: boolean
   forceHydratedTemplate?: boolean
+  forceAlwaysRestartHMRServer?: boolean
 }
 
 export interface UnunuraOptions {
@@ -61,8 +62,9 @@ export interface UnunuraOptions {
   applyAutoprefixer: boolean
   overrideBrowserslist: string[] | string | false
   simplifyTitles: boolean
-  forceIgnoreClassLineInTitles?: boolean
+  forceIgnoreClassLineInTitles: boolean
   forceHydratedTemplate: boolean
+  forceAlwaysRestartHMRServer: boolean
 }
 
 export interface UnunuraCoreOptions extends UnunuraOptions {

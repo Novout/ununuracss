@@ -17,5 +17,6 @@ export const resolvedViteOptions = (options: UnunuraResolvableOptions = {}): Unu
     simplifyTitles: options?.simplifyTitles ?? false,
     forceIgnoreClassLineInTitles: options?.forceIgnoreClassLineInTitles ?? false,
     forceHydratedTemplate: options?.forceHydratedTemplate ?? false,
+    forceAlwaysRestartHMRServer: options?.forceAlwaysRestartHMRServer ?? false,
   } as const satisfies UnunuraOptions
 }

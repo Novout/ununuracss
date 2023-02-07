@@ -25,11 +25,18 @@ ununura({
   extend: {  
     supporters: { 
       colors: [
-        ['primary', '#00FF00']
+        ['primary', '#00FF00'],
+        ['secondary', '--secondary-color', { type: 'var' }]
       ], 
-      units: [
-        ['lg', '1.5rem']
-      ],
+      units: {
+        lg: '1.5rem',
+        xl: { 
+          value: '2rem', 
+          options: {
+            //...
+          }
+        }
+      },
       fonts: [
         ['roboto', 'Roboto']
       ]
@@ -101,3 +108,7 @@ Ignore the current class line in the title of each generated class. **ATTENTION!
 ### forceHydratedTemplate (default: false)
 
 Change the Rollup transformation from 'pre' to 'post'. Only change this option if you know exactly what you are doing.
+
+### forceAlwaysRestartHMRServer (default: false)
+
+Restart HRM Server in valid Hot Reload Files.
