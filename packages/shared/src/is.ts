@@ -257,6 +257,7 @@ export const isNumberSuffix = (i: string): boolean =>
 
 export const isNullable = (i?: Maybe<string>): boolean => i === NULLABLE || i === undefined || i === null
 export const isUniqueKey = (key: string) => key === UnunuraKeys.UniqueContext
+export const isOpenKey = (key: string) => isUniqueKey(key) || isOpenMultipleKey(key) || isContextOpenKey(key)
 export const isOpenMultipleKey = (key: string) => key === UnunuraKeys.MultipleContextOpen
 export const isCloseMultipleKey = (key: string) => key === UnunuraKeys.MultipleContextClose
 export const isContextOpenKey = (key: string) => key === UnunuraKeys.SpecificContextOpen

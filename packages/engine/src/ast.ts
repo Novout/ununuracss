@@ -18,7 +18,7 @@ import {
   Maybe,
 } from 'ununura-shared'
 import { generateMultipleClass, generateUniqueClass } from './resources'
-import { lex } from './lexer'
+import { lex, lexToRawTitles } from './lexer'
 import { purgeOnlyCssClassTitle } from './purge'
 import { VueSFC } from './adapters'
 
@@ -115,12 +115,21 @@ export const generateCssFromNodes = (nodes: UnunuraASTNode[], sfc: SFC, filename
   const cssBuffer: string[] = []
 
   nodes.forEach((node) => {
-    const generated = generateCss(lex(node.class, ununura), node, filename, ununura).replace(/__NULLABLE__\n/, '')
+    const titles = lexToRawTitles(node.class)
 
-    const resolvedClassTitle = purgeOnlyCssClassTitle(generated)
-    _code = _code.replaceAll(node.class, resolvedClassTitle)
+    titles.forEach((title) => {
+      const generated = generateCss(lex(title, ununura), node, filename, ununura).replace(/__NULLABLE__\n/, '')
 
-    cssBuffer.push(generated)
+      if (!generated) return
+
+      const resolvedClassTitle = purgeOnlyCssClassTitle(generated)
+
+      if (!title || !resolvedClassTitle) return
+
+      _code = _code.replaceAll(title, resolvedClassTitle)
+
+      cssBuffer.push(generated)
+    })
   })
 
   return { code: cssBuffer.length > 0 ? _code : sfc, css: cssBuffer }

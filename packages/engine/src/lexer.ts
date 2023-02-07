@@ -5,7 +5,7 @@ export const lex = (raw: string, ununura: UnunuraOptions): string[] => {
   const transformers: string[] = []
   const characters = [...enforceDefinesInLexer(raw, ununura)]
 
-  let identifier: string = ''
+  let lexeme: string = ''
   let actually_key: Maybe<UnunuraKeys> = undefined
   let ignorable: boolean = true
   let is_unique_key = false
@@ -14,7 +14,7 @@ export const lex = (raw: string, ununura: UnunuraOptions): string[] => {
     const valid = isKey(char)
 
     if ((valid || (char === ' ' && !actually_key)) && char !== '') {
-      const normalized = identifier.trim()
+      const normalized = lexeme.trim()
 
       if (isIdentifier(normalized)) ignorable = false
 
@@ -27,7 +27,7 @@ export const lex = (raw: string, ununura: UnunuraOptions): string[] => {
         }
       }
 
-      identifier = ''
+      lexeme = ''
       actually_key = undefined
     }
 
@@ -41,7 +41,7 @@ export const lex = (raw: string, ununura: UnunuraOptions): string[] => {
           actually_key = UnunuraKeys.MultipleContextClose
           transformers.push(UnunuraKeys.MultipleContextClose)
           ignorable = true
-          identifier = ''
+          lexeme = ''
           is_unique_key = false
           break
         case UnunuraKeys.SpecificContextOpen:
@@ -57,15 +57,44 @@ export const lex = (raw: string, ununura: UnunuraOptions): string[] => {
           break
       }
     } else {
-      identifier += char
+      lexeme += char
     }
   }
 
-  const normalized = identifier.trim()
+  const normalized = lexeme.trim()
 
   if (isIdentifier(normalized)) ignorable = false
 
   if (normalized && !ignorable) transformers.push(normalized)
 
   return transformers
+}
+
+export const lexToRawTitles = (classTitle: string): string[] => {
+  let aux = ''
+
+  return (
+    classTitle
+      ?.split(/ /gi)
+      ?.reduce((acc, title) => {
+        if (title.includes(']')) {
+          aux += ` ${title}`
+
+          const arr = [...acc, aux]
+          aux = ''
+
+          return arr
+        }
+
+        if (title.includes('[') || aux) {
+          aux += ` ${title}`
+
+          return acc
+        }
+
+        return [...acc, title]
+      }, [] as string[])
+      .map((v) => v.trim())
+      .filter(Boolean) ?? []
+  )
 }

@@ -21,6 +21,7 @@ export const purgeOnlyCssClassTitle = (css: string): string => {
     .filter((v) => !v.startsWith('\n'))
     .map((v) => v.trim())
     .join(' ')
+    .replace(/(dark .|light .|sepia .)/, ' ')
     .replace(/(.dark .|.light .|.sepia .)/, ' ')
 
   pseudoClass.forEach((cl) => {

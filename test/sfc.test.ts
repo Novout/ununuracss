@@ -2,7 +2,7 @@ import { classesFromRawHtml, UnunuraScopedSFCFile } from 'ununura-engine'
 import { describe, expect, it } from 'vitest'
 
 describe.concurrent('vue', () => {
-  it('should transform vue sfc correctly', async () => {
+  it('should transform sfc correctly', async () => {
     const sfc = `<template>
   <div class="flex[col v-center h-center]">
     <p class="text[1.1rem 700 red]">Hello!</p>
@@ -32,7 +32,40 @@ describe.concurrent('vue', () => {
 </style>`)
   })
 
-  it('should transform class  ternarybinding in common ast correctly', async () => {
+  it('should ignore unknown classes in transform sfc', async () => {
+    const sfc = `<template>
+  <p class="bg-red scroll[y auto] text-white w:100%">a some p</p>
+</template>`
+
+    const target = await UnunuraScopedSFCFile(sfc, 'vue', 'app.vue', { scopedInTemplate: true } as any)
+
+    expect(target).toBe(`<template>
+  <p class="bg-red scroll-2-app-y-auto text-white w-2-app-100">a some p</p>
+</template>
+
+<style scoped>
+.scroll-2-app-y-auto {
+  overflow-y: auto;
+}
+.w-2-app-100 {
+  width: 100%;
+}
+</style>`)
+  })
+
+  it('should ignore unknown classes and removed explicit style scoped from sfc', async () => {
+    const sfc = `<template>
+  <p class="bg-red text-white">a some test</p>
+</template>`
+
+    const target = await UnunuraScopedSFCFile(sfc, 'vue', 'app.vue', { scopedInTemplate: true } as any)
+
+    expect(target).toBe(`<template>
+  <p class="bg-red text-white">a some test</p>
+</template>`)
+  })
+
+  it('should transform class ternary binding in common ast correctly', async () => {
     const sfc = `<template>
   <p :class="[foo ? 'text:white cl[truncate screen]' : 'text:black']" />
 </template>`
@@ -42,7 +75,7 @@ describe.concurrent('vue', () => {
     expect(target.map((t) => t.class)).toStrictEqual(['text:white cl[truncate screen]', 'text:black'])
   })
 
-  it('should transform class  ternarybinding in same identifiers in ast correctly', async () => {
+  it('should transform class ternary binding in same identifiers in ast correctly', async () => {
     const sfc = `<template>
   <p :class="[foo ? 'text:white' : 'text:black']" />
 </template>`
