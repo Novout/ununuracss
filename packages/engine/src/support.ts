@@ -22,7 +22,12 @@ import {
   NULLABLE,
   UnunuraGenerateContext,
 } from 'ununura-shared'
-import { getExtendedSupporterColor, getExtendedSupporterFontFamily, getExtendedSupporterUnits } from './externals'
+import {
+  getExistentDefaultUnit,
+  getExtendedSupporterColor,
+  getExtendedSupporterFontFamily,
+  getExtendedSupporterUnits,
+} from './externals'
 
 export const getSupportedMinOrMax = (contents: string[]): Nullable<string> => {
   const min = contents.find((c) => c === 'min')
@@ -242,12 +247,13 @@ export const getSupportedScroll = (contents: string[]): string => {
 }
 
 export const getSupportedNumber = (ctx: UnunuraGenerateContext): Nullable<string> => {
+  const defaultUnit = getExistentDefaultUnit(ctx)
   const extended = getExtendedSupporterUnits(ctx)
 
   const suffixed = ctx.contents.find((c) => isNumberSuffix(c) && isNumber(c[0]))
 
   const def = ctx.contents.find((c) => isNumber(c) && isNumber(c[0]))
-  const defSet = def?.endsWith('px') ? def : def ? `${def}px` : undefined
+  const defSet = def?.endsWith(defaultUnit) ? def : def ? `${def}${defaultUnit}` : undefined
 
   return extended ? String(extended) : suffixed ?? defSet ?? NULLABLE
 }

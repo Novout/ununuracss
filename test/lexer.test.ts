@@ -190,6 +190,29 @@ describe.concurrent('lexer', () => {
     expect(lex('f:col filter[blur-80px]', {} as any)).toStrictEqual(['f', ':', 'col', 'filter', '[', 'blur-80px', ']'])
   })
 
+  it('should lex custom extend', () => {
+    const targets = [
+      [
+        lex('bg:white foo(bg:red)', { extend: { contexts: { responsive: { foo: 'foo' } } } } as any),
+        ['bg', ':', 'white', 'foo', '(', 'bg', ':', 'red', ')'],
+      ],
+      [
+        lex('bg:white foo(text:white bar(baz(bg:red)))', {
+          extend: { contexts: { responsive: { foo: '200px', bar: '300px', baz: '400px' } } },
+        } as any),
+        ['bg', ':', 'white', 'foo', '(', 'text', ':', 'white', 'bar', '(', 'baz', '(', 'bg', ':', 'red', ')', ')', ')'],
+      ],
+      [
+        lex('bg:white foo(bg:red)', { extend: { contexts: { theme: ['foo'] } } } as any),
+        ['bg', ':', 'white', 'foo', '(', 'bg', ':', 'red', ')'],
+      ],
+    ]
+
+    for (const [lex, result] of targets) {
+      expect(lex).toStrictEqual(result)
+    }
+  })
+
   it('should lex defines option in css class', () => {
     const targets = [
       [

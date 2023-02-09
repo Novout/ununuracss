@@ -1,4 +1,4 @@
-import { Option, Symbol, TupleOption, UnunuraGenerateContext, UnunuraOptions } from 'ununura-shared'
+import { DEFAULT_UNIT, Option, Symbol, TupleOption, UnunuraGenerateContext, UnunuraOptions } from 'ununura-shared'
 
 export function normalizeUnunuraOption<T extends Symbol>(item?: Option<T>): TupleOption<T> {
   if (!item) return []
@@ -29,6 +29,20 @@ export const getExtendedSupporterFontFamily = (ctx: UnunuraGenerateContext) => {
   return ExternalFont ? ExternalFont[1] : undefined
 }
 
+export const getExtendedContextResponsive = (ctx: UnunuraGenerateContext) => {
+  const ExternalContext = normalizeUnunuraOption(ctx?.ununura?.extend?.contexts?.responsive)?.find(([key]) =>
+    ctx.stack.some((v) => v === key)
+  )
+
+  return ExternalContext ? ExternalContext[1] : undefined
+}
+
+export const getExtendedContextTheme = (ctx: UnunuraGenerateContext) => {
+  const ExternalContext = ctx?.ununura?.extend?.contexts?.theme?.find((key) => ctx.stack.some((v) => v === key))
+
+  return ExternalContext || undefined
+}
+
 export const getExtendedSupporterColor = (ctx: UnunuraGenerateContext) => {
   const ExternalColor = normalizeUnunuraOption<string>(ctx?.ununura?.extend?.supporters?.colors)?.find(([key]) =>
     ctx.contents.some((v) => v === key)
@@ -55,4 +69,8 @@ export const getExtendedSupporterUnits = (ctx: UnunuraGenerateContext) => {
   const [_, value] = ExternalUnit
 
   return value ?? undefined
+}
+
+export const getExistentDefaultUnit = (ctx: UnunuraGenerateContext) => {
+  return ctx?.ununura?.defaults?.values?.unit ?? DEFAULT_UNIT
 }

@@ -31,12 +31,40 @@ export interface UnunuraExtendSupporters {
   fonts?: Option<string>
 }
 
+export interface UnunuraDefaultsContextsResponsive {
+  xs?: string
+  sm?: string
+  md?: string
+  lg?: string
+  xl?: string
+}
+
+export interface UnunuraDefaultsContexts {
+  responsive?: UnunuraDefaultsContextsResponsive
+}
+
+export interface UnunuraDefaultsValues {
+  unit: string
+}
+
+export interface UnunuraDefaults {
+  values?: UnunuraDefaultsValues
+  contexts?: UnunuraDefaultsContexts
+}
+
+export interface UnunuraExtendContexts {
+  responsive?: Option<string>
+  theme?: string[]
+}
+
 export interface UnunuraExtend {
+  contexts?: UnunuraExtendContexts
   supporters?: UnunuraExtendSupporters
 }
 
 export interface UnunuraResolvableOptions {
   defines?: ValueOption<string>
+  defaults?: UnunuraDefaults
   extend?: UnunuraExtend
   jsx?: boolean
   jsxIgnoreEntryFile?: boolean
@@ -53,6 +81,7 @@ export interface UnunuraResolvableOptions {
 
 export interface UnunuraOptions {
   defines: ValueOption<string>
+  defaults: UnunuraDefaults
   extend: UnunuraExtend
   jsx: boolean
   jsxIgnoreEntryFile: boolean

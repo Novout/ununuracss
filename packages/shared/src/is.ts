@@ -277,7 +277,6 @@ export const isPseudoElementContextIdentifier = (str: string): Maybe<UnunuraCont
 export const isContextIdentifier = (str: string) =>
   isThemeContextIdentifier(str) || isResponsiveContextIdentifier(str) || isPseudoClassContextIdentifier(str)
 export const isCommonIdentifier = (str: string) => Object.values(UnunuraIdentifier).some((key) => key === str)
-export const asCommonIdentifier = (str: string) => Object.values(UnunuraIdentifier).some((key) => str.startsWith(key))
 export const isIdentifier = (str: string) => isCommonIdentifier(str) || isContextIdentifier(str)
 
 export const isTransitionProperty = (i: string): boolean =>

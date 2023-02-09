@@ -3,9 +3,6 @@ import {
   NULLABLE,
   Nullable,
   isNullable,
-  isResponsiveContextIdentifier,
-  isThemeContextIdentifier,
-  UnunuraContextualizeResponsive,
   UnunuraGenerateContext,
   isPseudoClassContextIdentifier,
   isPseudoElementContextIdentifier,
@@ -37,6 +34,7 @@ import {
   getResourceCollection,
 } from './resources'
 import { TemplateClassResponsive, TemplateDefaultClass } from './template'
+import { asResponsiveInContext, asThemeInContext } from './unifier'
 
 export const resolveTitleToClassName = (title: string) => {
   const normalized = title
@@ -235,9 +233,9 @@ export const resolveCSS = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateCo
 }
 
 export const resolveTitleCssClass = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): Nullable<string> => {
-  const asTheme = ctx.stack?.find((c) => isThemeContextIdentifier(c))
+  const asTheme = asThemeInContext(ctx)
+  const asResponsive = asResponsiveInContext(ctx)
 
-  const asResponsive = ctx.stack?.find((c) => isResponsiveContextIdentifier(c))
   const buffered =
     asResponsive && asTheme
       ? ctx.buffer?.find((c) => c.startsWith(`.${asTheme} .${identifier}`))
@@ -269,13 +267,13 @@ export const resolveCssClass = (identifier: UnunuraIdentifier, setter: string, c
 
   const asPseudoClass = ctx.stack?.find((c) => isPseudoClassContextIdentifier(c))
   const asPseudoElement = ctx.stack?.find((c) => isPseudoElementContextIdentifier(c))
+  const asResponsive = asResponsiveInContext(ctx)
 
   const head = `${title}${asPseudoElement ? `::${asPseudoElement}` : asPseudoClass ? `:${asPseudoClass}` : ''}`
   const cl = TemplateDefaultClass(head, setter)
 
-  const asResponsive = ctx.stack?.find((c) => isResponsiveContextIdentifier(c))
-
-  if (asResponsive) return TemplateClassResponsive(asResponsive as UnunuraContextualizeResponsive, cl)
+  // @ts-expect-error
+  if (asResponsive) return TemplateClassResponsive(ctx, asResponsive, cl)
 
   return cl
 }

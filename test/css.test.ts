@@ -9,6 +9,7 @@ import {
   resolveIdentifierInCSS,
   UnunuraGlobalGenerateReduced,
   setterRow,
+  getExtendedSupporterColor,
 } from 'ununura-engine'
 import { MEYER_RESET_CSS, NOVOUT_RESET_CSS, NULLABLE, UnunuraIdentifier } from 'ununura-shared'
 import { describe, expect, it } from 'vitest'
@@ -883,6 +884,17 @@ describe('resources', () => {
   border-radius: 2rem;
 }`,
       ],
+      [
+        resolveCSS(UnunuraIdentifier.Rounded, {
+          contents: ['2rem'],
+          buffer: [],
+          stack: ['foo'],
+          ununura: { extend: { contexts: { theme: ['foo'] } } } as any,
+        }),
+        `.foo .r-2rem-foo {
+  border-radius: 2rem;
+}`,
+      ],
     ]
 
     for (const [css, result] of targets) {
@@ -1044,6 +1056,64 @@ describe('resources', () => {
 
     for (const [css, result] of targets) {
       expect(css).toStrictEqual(result)
+    }
+  })
+
+  it('should load correct object with options to tuple options', () => {
+    expect(
+      getExtendedSupporterColor({
+        contents: ['some-css-var'],
+        ununura: {
+          extend: {
+            supporters: {
+              colors: [['some-css-var', '--primary', { type: 'var' }]],
+            },
+          },
+        },
+      } as any)
+    ).toBe('var(--primary)')
+  })
+
+  it('should get css class in responsive context', () => {
+    const targets = [
+      [
+        resolveCSS(UnunuraIdentifier.Padding, { contents: ['5rem'], buffer: ['.p-2rem'], stack: ['md'] }),
+        `@media (min-width: 768px) {
+.p-2rem {
+  padding: 5rem;
+}
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Padding, {
+          contents: ['5rem'],
+          buffer: ['.p-2rem'],
+          stack: ['md'],
+          ununura: { defaults: { contexts: { responsive: { md: '400px' } } } } as any,
+        }),
+        `@media (min-width: 400px) {
+.p-2rem {
+  padding: 5rem;
+}
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Padding, {
+          contents: ['5rem'],
+          buffer: ['.p-2rem'],
+          stack: ['foo'],
+          ununura: { extend: { contexts: { responsive: { foo: '1rem' } } } } as any,
+        }),
+        `@media (min-width: 1rem) {
+.p-2rem {
+  padding: 5rem;
+}
+}`,
+      ],
+    ]
+
+    for (const [css, result] of targets) {
+      expect(css).toBe(result)
     }
   })
 })

@@ -1,9 +1,50 @@
-import { classesFromRawJSX, UnunuraJSXSFCFile } from 'ununura-engine'
+import { classesFromRawJSX, getGlobals, UnunuraGlobalGenerateReduced, UnunuraJSXSFCFile } from 'ununura-engine'
+import { MEYER_RESET_CSS, NOVOUT_RESET_CSS } from 'ununura-shared'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 describe.concurrent('jsx resolvers', () => {
   beforeEach(() => {
     Math.random = () => -1
+  })
+
+  it('should set css in jsx valid novout reset', async () => {
+    const files = [
+      {
+        raw: `export const Foo = (props) => {
+  return (
+    <p className="reset:novout" />
+  );
+};`,
+        path: 'path/to/foo.tsx',
+        filename: 'foo.tsx',
+      },
+    ]
+
+    const rawGlobals = getGlobals(files, { jsx: true } as any)
+
+    const target = await UnunuraGlobalGenerateReduced(files, rawGlobals, { jsx: true, scopedInTemplate: false } as any)
+
+    expect(target).toBe(NOVOUT_RESET_CSS())
+  })
+
+  it('should set css in jsx valid meyer reset', async () => {
+    const files = [
+      {
+        raw: `export const Foo = (props) => {
+  return (
+    <p className="reset:meyer" />
+  );
+};`,
+        path: 'path/to/foo.tsx',
+        filename: 'foo.tsx',
+      },
+    ]
+
+    const rawGlobals = getGlobals(files, { jsx: true } as any)
+
+    const target = await UnunuraGlobalGenerateReduced(files, rawGlobals, { jsx: true, scopedInTemplate: false } as any)
+
+    expect(target).toBe(MEYER_RESET_CSS())
   })
 
   it('should correct jsx classes', () => {

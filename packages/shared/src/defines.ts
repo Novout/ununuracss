@@ -1,4 +1,5 @@
-import { UnunuraContextualizeResponsive } from './types'
+import { DEFAULT_RESPONSIVE } from './constants'
+import { UnunuraContextualizeResponsive, UnunuraDefOrExtended } from './types'
 
 export const ANTIALIASED_RESET_CSS = () => `-webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -171,12 +172,6 @@ export const browserFonts = [
   'Yu Gothic',
 ]
 
-export const UNUNURA_RESPONSIVE = (target: UnunuraContextualizeResponsive): string => {
-  return {
-    xs: '538px',
-    sm: '640px',
-    md: '768px',
-    lg: '1024px',
-    xl: '1536px',
-  }[target]
+export const UNUNURA_RESPONSIVE = (target: Exclude<UnunuraContextualizeResponsive, UnunuraDefOrExtended>): string => {
+  return DEFAULT_RESPONSIVE[target] ?? target
 }

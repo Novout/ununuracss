@@ -1,5 +1,6 @@
-import { isIdentifier, isKey, Maybe, UnunuraKeys, UnunuraOptions } from 'ununura-shared'
+import { isKey, Maybe, UnunuraKeys, UnunuraOptions } from 'ununura-shared'
 import { enforceDefinesInLexer } from './externals'
+import { isExistentIdentifier } from './unifier'
 
 export const lex = (raw: string, ununura: UnunuraOptions): string[] => {
   const transformers: string[] = []
@@ -16,7 +17,7 @@ export const lex = (raw: string, ununura: UnunuraOptions): string[] => {
     if ((valid || (char === ' ' && !actually_key)) && char !== '') {
       const normalized = lexeme.trim()
 
-      if (isIdentifier(normalized)) ignorable = false
+      if (isExistentIdentifier(normalized, ununura)) ignorable = false
 
       if (normalized && !ignorable) {
         transformers.push(normalized)
@@ -63,7 +64,7 @@ export const lex = (raw: string, ununura: UnunuraOptions): string[] => {
 
   const normalized = lexeme.trim()
 
-  if (isIdentifier(normalized)) ignorable = false
+  if (isExistentIdentifier(normalized, ununura)) ignorable = false
 
   if (normalized && !ignorable) transformers.push(normalized)
 
