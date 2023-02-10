@@ -1470,7 +1470,7 @@
   resolved "https://registry.yarnpkg.com/@vueuse/metadata/-/metadata-9.12.0.tgz#19a0fefcba6a66a2382af10a7a67ebad6eec1f27"
   integrity sha512-9oJ9MM9lFLlmvxXUqsR1wLt1uF7EVbP5iYaHJYqk+G2PbMjY6EXvZeTjbdO89HgoF5cI6z49o2zT/jD9SVoNpQ==
 
-"@vueuse/motion@^2.0.0-beta12":
+"@vueuse/motion@^2.0.0-beta.27":
   version "2.0.0-beta.27"
   resolved "https://registry.yarnpkg.com/@vueuse/motion/-/motion-2.0.0-beta.27.tgz#91e22e13e7d9771bbc124bc28b7322aaacaaf509"
   integrity sha512-XR/+EPMn1Cu4wxIIxuCAMUJcbKuRoRZWTjEAbGGPzhmEig9G8iyX5Ld37kiHNznWO6cx/+MRmCAK1a6WstgIcw==
@@ -3705,28 +3705,28 @@ untyped@^1.2.2:
     "@babel/types" "^7.20.7"
     scule "^1.0.0"
 
-ununura-engine@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/ununura-engine/-/ununura-engine-1.2.0.tgz#6a31bcad6c9c01444df4fff32c1137c197bbe44f"
-  integrity sha512-coIUEqliRf7etXt1b0MDkhpnFqhvzAqJYMYBRco4y90GsYaniFWxOPTvzgxTI2+wHdX4lonZIISkDUsfy04pdg==
+ununura-engine@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ununura-engine/-/ununura-engine-1.0.0.tgz#c0b32521dd33a112bb6d9aeefdb792a9f52497ac"
+  integrity sha512-4W4wAu1wjNLfS8N0/aE6EIT0/j9hfYLSkCR/hoH9wrwLW2OBw0ExesHLk4ZZDbuN2BIaa/rmNhX67jm3BpZ6Uw==
   dependencies:
     autoprefixer "^10.4.13"
     postcss "^8.4.21"
-    ununura-shared "1.2.0"
+    ununura-shared "1.0.0"
 
-ununura-shared@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/ununura-shared/-/ununura-shared-1.2.0.tgz#c570aba3391aaa5e7d9bd535dfae890695966f3b"
-  integrity sha512-ydbGQ+FSQBiEMJ4qnY260ekfKi9BXV+cv6kTK4RRaqZH9iuI44DBWyq67GzI7fxqMbaYYuR6dSpzB/yGz44+vg==
+ununura-shared@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ununura-shared/-/ununura-shared-1.0.0.tgz#83b079a736bd4ef49824cb4bb807b6389646169a"
+  integrity sha512-pyOWmjy0/dWiX285lM6fFfrP4PkwJcZnvUjD4D+f8epQQnwmNpGd6yC06g4Uaa/rIlfR7b2GJ4w453Y1nwSVHw==
 
-ununura@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/ununura/-/ununura-1.2.0.tgz#a91e580c7843dc425ccd3bc156226132b77328d3"
-  integrity sha512-dmovhDwv63udNx5RO6Xvbiqt6+YHGyFSZeu+308KHWIpjc0y77nET1w6eTWXrBm7C4P9sCpf0udl/lXnvUA0dQ==
+ununura@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ununura/-/ununura-1.0.0.tgz#b6fd04a45a4d398c47c8511dd509ab113b2aeafb"
+  integrity sha512-4g51h+7aAeAK3MCHXJn18sC4Ewr9HrwhHrkicDi87fTQ40PNWEDiHNF6pZWpVLwC4OcIcmhuJVwrFpudTI00QA==
   dependencies:
     fontaine "^0.2.3"
-    ununura-engine "1.2.0"
-    ununura-shared "1.2.0"
+    ununura-engine "1.0.0"
+    ununura-shared "1.0.0"
 
 upath@^1.2.0:
   version "1.2.0"

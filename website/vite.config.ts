@@ -20,11 +20,11 @@ export default defineConfig({
       applyAutoprefixer: false,
       extend: {
         supporters: {
-          colors: {
-            primary: '#D4C555',
-            red: '#DB4D45',
-            green: '#7FC756',
-          },
+          colors: [
+            ['yellow', '#D4C555'],
+            ['red', '#DB4D45'],
+            ['green', '#7FC756'],
+          ],
           fonts: [
             ['rubik', 'Rubik'],
             ['quick', 'Quicksand'],
