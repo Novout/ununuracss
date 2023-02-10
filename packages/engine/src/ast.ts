@@ -3,25 +3,10 @@ import { fromHtml } from 'hast-util-from-html'
 import { Root } from 'hast-util-from-html/lib'
 import { Node, parse as jsxParse } from 'babel-jsx-to-ast-fragmented'
 import {
-  isUniqueKey,
-  isCloseMultipleKey,
-  isOpenMultipleKey,
-  isCommonIdentifier as isCommonIdentifierKey,
-  UnunuraContextualize,
-  isContextOpenKey,
-  isContextCloseKey,
-  isContextIdentifier as isContextIdentifierKey,
-  UnunuraContextualizeStack,
   UnunuraASTNode,
-  UnunuraOptions,
-  SFC,
   Maybe,
 } from 'ununura-shared'
-import { generateMultipleClass, generateUniqueClass } from './resources'
-import { lex, lexToRawTitles } from './lexer'
-import { purgeOnlyCssClassTitle } from './purge'
 import { VueSFC } from './adapters'
-import { asResponsiveInContext, asThemeInContext } from './unifier'
 
 export const classesFromRawHtml = (html: string, adapters?: string[]): UnunuraASTNode[] => {
   const tree = fromHtml(html, { fragment: true })
