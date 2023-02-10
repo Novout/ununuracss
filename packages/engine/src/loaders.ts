@@ -11,10 +11,11 @@ import {
   AstroSFC,
   SFCType,
 } from 'ununura-shared'
-import { classesFromRawHtml, classesFromRawJSX, generateCssFromNodes } from './ast'
+import { classesFromRawHtml, classesFromRawJSX } from './ast'
 import { scan } from './scanner'
 import { getGlobals } from './globals'
 import { applyAutoprefixer } from './integrations'
+import { nodesToCSS } from './pipeline'
 
 export const UnunuraGlobalGenerateReduced = (files: UnunuraScannerFile[], initial: string = '', ununura: UnunuraOptions) => {
   const reduced =
@@ -22,7 +23,7 @@ export const UnunuraGlobalGenerateReduced = (files: UnunuraScannerFile[], initia
       // TODO: JSX AST Rework ExportedNamedFunctions in common syntax -> export function ...
       // const nodes = !options.scoped && !options.jsx ?  classesFromRawHtml(file.raw) : classesFromRawJSX(file.raw)
       const nodes = classesFromRawHtml(file.raw)
-      const { css } = generateCssFromNodes(nodes, file.raw, file.filename, ununura)
+      const { css } = nodesToCSS(nodes, file.raw, file.filename, ununura)
 
       return (acc += `${css.reduce((acc, cl) => (acc += cl), '')}`)
     }, initial) ?? []
@@ -53,7 +54,7 @@ export const UnunuraScopedSFCFile = async (
 ): Promise<CSSInject> => {
   const nodes = classesFromRawHtml(sfc, ununura.astAdapters)
 
-  const { code, css } = generateCssFromNodes(nodes, sfc, filename, ununura)
+  const { code, css } = nodesToCSS(nodes, sfc, filename, ununura)
 
   if (css.length === 0) return sfc
 
@@ -69,7 +70,7 @@ export const UnunuraScopedSFCFile = async (
 export const UnunuraJSXSFCFile = (sfc: JSXSFC, filename: string, ununura: UnunuraOptions): CSSInject => {
   const nodes = classesFromRawJSX(sfc, ununura.astAdapters)
 
-  const { code } = generateCssFromNodes(nodes, sfc, filename, ununura)
+  const { code } = nodesToCSS(nodes, sfc, filename, ununura)
 
   return code
 }

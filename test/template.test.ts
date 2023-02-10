@@ -1,4 +1,4 @@
-import { classesFromRawHtml, generateCssFromNodes } from 'ununura-engine'
+import { classesFromRawHtml } from 'ununura-engine'
 import { describe, expect, it } from 'vitest'
 
 describe.concurrent('html', () => {

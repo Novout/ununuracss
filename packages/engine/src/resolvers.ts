@@ -34,7 +34,7 @@ import {
   getResourceCollection,
 } from './resources'
 import { TemplateClassResponsive, TemplateDefaultClass } from './template'
-import { asResponsiveInContext, asThemeInContext } from './unifier'
+import { asResponsiveInContext, asThemeInContext, getUniqueIdentifier } from './unifier'
 
 export const resolveTitleToClassName = (title: string) => {
   const normalized = title
@@ -236,11 +236,13 @@ export const resolveTitleCssClass = (identifier: UnunuraIdentifier, ctx: Ununura
   const asTheme = asThemeInContext(ctx)
   const asResponsive = asResponsiveInContext(ctx)
 
+  const resolvedIdentifier = getUniqueIdentifier(identifier)
+
   const buffered =
     asResponsive && asTheme
-      ? ctx.buffer?.find((c) => c.startsWith(`.${asTheme} .${identifier}`))
+      ? ctx.buffer?.find((c) => c.startsWith(`.${asTheme} .${resolvedIdentifier}`))
       : asResponsive
-      ? ctx.buffer?.find((c) => purgeOnlyCssClassTitle(c).startsWith(identifier))
+      ? ctx.buffer?.find((c) => purgeOnlyCssClassTitle(c).startsWith(resolvedIdentifier))
       : undefined
 
   if (asResponsive && asTheme && !buffered) return NULLABLE
@@ -249,7 +251,7 @@ export const resolveTitleCssClass = (identifier: UnunuraIdentifier, ctx: Ununura
   let setter = !asResponsive
     ? ctx.contents.reduce(
         (sum, acc) => (sum += ctx.ununura?.simplifyTitles ? `` : `-${resolveTitleToClassName(acc)}`),
-        (asTheme ? `.${asTheme} ` : '') + resolveHashTitle(`.${identifier}`, ctx)
+        (asTheme ? `.${asTheme} ` : '') + resolveHashTitle(`.${resolvedIdentifier}`, ctx)
       )
     : (asTheme && !asResponsive ? `.${asTheme} ` : '') + `.${purgeOnlyCssClassTitle(buffered as string)}`
   setter += asTheme && !asResponsive ? `-${asTheme}` : ''

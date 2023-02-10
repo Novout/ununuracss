@@ -21,6 +21,7 @@ import { generateMultipleClass, generateUniqueClass } from './resources'
 import { lex, lexToRawTitles } from './lexer'
 import { purgeOnlyCssClassTitle } from './purge'
 import { VueSFC } from './adapters'
+import { asResponsiveInContext, asThemeInContext } from './unifier'
 
 export const classesFromRawHtml = (html: string, adapters?: string[]): UnunuraASTNode[] => {
   const tree = fromHtml(html, { fragment: true })
@@ -108,95 +109,4 @@ export const classesFromRawJSX = (jsx: string, adapters?: string[]): UnunuraASTN
   })
 
   return classes ?? []
-}
-
-export const generateCssFromNodes = (nodes: UnunuraASTNode[], sfc: SFC, filename: string, ununura: UnunuraOptions) => {
-  let _code = sfc
-  const cssBuffer: string[] = []
-
-  nodes.forEach((node) => {
-    const titles = lexToRawTitles(node.class)
-
-    titles.forEach((title) => {
-      const generated = generateCss(lex(title, ununura), node, filename, ununura).replace(/__NULLABLE__\n/, '')
-
-      if (!generated) return
-
-      const resolvedClassTitle = purgeOnlyCssClassTitle(generated)
-
-      if (!title || !resolvedClassTitle) return
-
-      _code = _code.replaceAll(title, resolvedClassTitle)
-
-      cssBuffer.push(generated)
-    })
-  })
-
-  return { code: cssBuffer.length > 0 ? _code : sfc, css: cssBuffer }
-}
-
-export const generateCss = (keys: string[], node: UnunuraASTNode, filename: string, ununura: UnunuraOptions): string => {
-  let prev_unique: Maybe<string> = undefined
-  let prev_multiple: Maybe<string> = undefined
-  let prev_common_identifier: Maybe<string> = undefined
-  let prev_context_identifier: Maybe<UnunuraContextualize> = undefined
-
-  const buffer: string[] = []
-  const context_stack: UnunuraContextualizeStack = []
-
-  for (const key of keys) {
-    const isUnique = isUniqueKey(key)
-    const isOpen = isOpenMultipleKey(key)
-    const isContextOpen = isContextOpenKey(key)
-    const isContextClose = isContextCloseKey(key)
-    const isEnd = isCloseMultipleKey(key)
-    const isCommonIdentifier = isCommonIdentifierKey(key)
-    const isContextIdentifier = isContextIdentifierKey(key)
-
-    if (isCommonIdentifier) {
-      prev_common_identifier = key
-    } else if (isUnique) {
-      prev_unique = key
-    } else if (isOpen) {
-      prev_multiple = key
-    } else if (isContextIdentifier) {
-      prev_context_identifier = key as UnunuraContextualize
-    } else if (isContextOpen) {
-      if (prev_context_identifier) context_stack.push(prev_context_identifier)
-      prev_context_identifier = undefined
-    } else if (isContextClose) {
-      context_stack.pop()
-    } else {
-      if (!isEnd) {
-        if (prev_unique && prev_common_identifier)
-          buffer.push(
-            generateUniqueClass([prev_common_identifier, key], {
-              stack: context_stack,
-              buffer,
-              contents: [],
-              node,
-              filename,
-              ununura,
-            })
-          )
-        if (prev_multiple && prev_common_identifier)
-          buffer.push(
-            generateMultipleClass([prev_common_identifier, key], {
-              stack: context_stack,
-              buffer,
-              contents: [],
-              node,
-              filename,
-              ununura,
-            })
-          )
-      }
-
-      prev_unique = undefined
-      prev_multiple = undefined
-      prev_common_identifier = undefined
-    }
-  }
-
-  return buffer.reduce((acc, key) => (acc += `${key}\n`), '')
 }

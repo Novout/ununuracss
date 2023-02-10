@@ -91,7 +91,7 @@ export const Bar = (props) => {
         ),
         `export const Foo = (props) => {
   return (
-    <div className="m-top-20">
+    <div className="margin-top-20">
       <h1>{props.test}</h1>
     </div>
   );
@@ -99,8 +99,8 @@ export const Bar = (props) => {
 
 export const Bar = (props) => {
   return (
-    <a className="p-20">
-      <h1 className="typo-indent-5">{props.test}</h1>
+    <a className="padding-20">
+      <h1 className="typography-indent-5">{props.test}</h1>
     </a>
   );
 };`,

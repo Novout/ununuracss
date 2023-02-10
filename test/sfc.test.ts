@@ -32,6 +32,33 @@ describe.concurrent('vue', () => {
 </style>`)
   })
 
+  it('should transform responsive sfc correctly', async () => {
+    const sfc = `<template>
+  <div class="flex[col v-center h-center] md(flex:row)">a some test</div>
+</template>`
+
+    const target = await UnunuraScopedSFCFile(sfc, 'vue', 'app.vue', { scopedInTemplate: true } as any)
+
+    expect(target).toBe(`<template>
+  <div class="flex-2-app-col-v-center-h-center ">a some test</div>
+</template>
+
+<style scoped>
+.flex-2-app-col-v-center-h-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+@media (min-width: 768px) {
+.flex-2-app-col-v-center-h-center {
+  display: flex;
+  flex-direction: row;
+}
+}
+</style>`)
+  })
+
   it('should ignore unknown classes in transform sfc', async () => {
     const sfc = `<template>
   <p class="bg-red scroll[y auto] text-white w:100%">a some p</p>
@@ -40,14 +67,14 @@ describe.concurrent('vue', () => {
     const target = await UnunuraScopedSFCFile(sfc, 'vue', 'app.vue', { scopedInTemplate: true } as any)
 
     expect(target).toBe(`<template>
-  <p class="bg-red scroll-2-app-y-auto text-white w-2-app-100">a some p</p>
+  <p class="bg-red scroll-2-app-y-auto text-white width-2-app-100">a some p</p>
 </template>
 
 <style scoped>
 .scroll-2-app-y-auto {
   overflow-y: auto;
 }
-.w-2-app-100 {
+.width-2-app-100 {
   width: 100%;
 }
 </style>`)
