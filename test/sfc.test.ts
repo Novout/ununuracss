@@ -40,7 +40,7 @@ describe.concurrent('vue', () => {
     const target = await UnunuraScopedSFCFile(sfc, 'vue', 'app.vue', { scopedInTemplate: true } as any)
 
     expect(target).toBe(`<template>
-  <div class="flex-2-app-col-v-center-h-center ">a some test</div>
+  <div class="flex-2-app-col-v-center-h-center">a some test</div>
 </template>
 
 <style scoped>
@@ -54,6 +54,42 @@ describe.concurrent('vue', () => {
 .flex-2-app-col-v-center-h-center {
   display: flex;
   flex-direction: row;
+}
+}
+</style>`)
+  })
+
+  it('should transform multiple responsive sfc correctly', async () => {
+    const sfc = `<template>
+  <div class="text[arial black] md(text:red) lg(text:white) xl(text:orange)">a some test</div>
+</template>`
+
+    const target = await UnunuraScopedSFCFile(sfc, 'vue', 'app.vue', { scopedInTemplate: true } as any)
+
+    expect(target).toBe(`<template>
+  <div class="text-2-app-arial-black">a some test</div>
+</template>
+
+<style scoped>
+.text-2-app-arial-black {
+  color: black;
+  font-family: 'Arial', sans-serif;
+}
+@media (min-width: 768px) {
+.text-2-app-arial-black {
+  color: red;
+}
+}
+
+@media (min-width: 1024px) {
+.text-2-app-arial-black {
+  color: white;
+}
+}
+
+@media (min-width: 1536px) {
+.text-2-app-arial-black {
+  color: orange;
 }
 }
 </style>`)

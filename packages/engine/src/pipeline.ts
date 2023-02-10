@@ -29,10 +29,10 @@ export const nodesToCSS = (nodes: UnunuraASTNode[], sfc: SFC, filename: string, 
   let prev_common_identifier: Maybe<string> = undefined
   let prev_context_identifier: Maybe<UnunuraContextualize> = undefined
 
-  const onPushElement = (title: string, item: string, node: UnunuraASTNode) => {
-    const resolvedClassTitle = purgeOnlyCssClassTitle(item)
+  const onPushElement = (key: string, item: string, node: UnunuraASTNode) => {
+    const resolvedKey = purgeOnlyCssClassTitle(item)
 
-    if (!title || !resolvedClassTitle) return
+    if (!key || !resolvedKey) return
 
     const asResponsive = asResponsiveInContext({
       stack: context_stack,
@@ -43,7 +43,7 @@ export const nodesToCSS = (nodes: UnunuraASTNode[], sfc: SFC, filename: string, 
       ununura,
     })
 
-    asResponsive ? (_code = _code.replace(title, '')) : (_code = _code.replace(title, resolvedClassTitle))
+    asResponsive ? (_code = _code.replace(` ${key}`, '')) : (_code = _code.replace(key, resolvedKey))
 
     buffer.push(`${item}\n`)
   }
