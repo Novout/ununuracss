@@ -95,6 +95,56 @@ describe.concurrent('vue', () => {
 </style>`)
   })
 
+  it('should transform multiple line responsive sfc correctly', async () => {
+    const sfc = `<template>
+  <p class="text[arial black] md(text:red)">A</p>
+  <p class="text[arial white] md(text:black)">B</p>
+  <p class="text[arial green] md(text:red)">C</p>
+</template>`
+
+    const target = await UnunuraScopedSFCFile(sfc, 'vue', 'app.vue', { scopedInTemplate: true } as any)
+
+    expect(target).toBe(`<template>
+  <p class="text-2-app-arial-black">A</p>
+  <p class="text-3-app-arial-white">B</p>
+  <p class="text-4-app-arial-green">C</p>
+</template>
+
+<style scoped>
+.text-2-app-arial-black {
+  color: black;
+  font-family: 'Arial', sans-serif;
+}
+@media (min-width: 768px) {
+.text-2-app-arial-black {
+  color: red;
+}
+}
+
+.text-3-app-arial-white {
+  color: white;
+  font-family: 'Arial', sans-serif;
+}
+
+@media (min-width: 768px) {
+.text-3-app-arial-white {
+  color: black;
+}
+}
+
+.text-4-app-arial-green {
+  color: green;
+  font-family: 'Arial', sans-serif;
+}
+
+@media (min-width: 768px) {
+.text-4-app-arial-green {
+  color: red;
+}
+}
+</style>`)
+  })
+
   it('should transform responsive and theme sfc correctly', async () => {
     const sfc = `<template>
   <div class="text:black dark(text:white md(text:red)) md(text:red)">a some test</div>

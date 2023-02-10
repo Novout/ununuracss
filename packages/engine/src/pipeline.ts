@@ -21,8 +21,9 @@ import { asResponsiveInContext } from './unifier'
 export const nodesToCSS = (nodes: UnunuraASTNode[], sfc: SFC, filename: string, ununura: UnunuraOptions) => {
   let _code = sfc
 
-  const buffer: string[] = []
-  const context_stack: UnunuraContextualizeStack = []
+  let buffer: string[] = []
+  let temp_buffer: string[] = []
+  let context_stack: UnunuraContextualizeStack = []
 
   let prev_unique: Maybe<string> = undefined
   let prev_multiple: Maybe<string> = undefined
@@ -45,7 +46,13 @@ export const nodesToCSS = (nodes: UnunuraASTNode[], sfc: SFC, filename: string, 
 
     asResponsive ? (_code = _code.replace(` ${key}`, '')) : (_code = _code.replace(key, resolvedKey))
 
+    temp_buffer.push(`${item}\n`)
     buffer.push(`${item}\n`)
+  }
+
+  const clearBuffers = () => {
+    temp_buffer.length = 0
+    context_stack.length = 0
   }
 
   nodes.forEach((node) => {
@@ -83,7 +90,7 @@ export const nodesToCSS = (nodes: UnunuraASTNode[], sfc: SFC, filename: string, 
             if (prev_unique && prev_common_identifier) {
               item = generateUniqueClass([prev_common_identifier, key], {
                 stack: context_stack,
-                buffer,
+                buffer: temp_buffer,
                 contents: [],
                 node,
                 filename,
@@ -96,7 +103,7 @@ export const nodesToCSS = (nodes: UnunuraASTNode[], sfc: SFC, filename: string, 
             if (prev_multiple && prev_common_identifier) {
               item = generateMultipleClass([prev_common_identifier, key], {
                 stack: context_stack,
-                buffer,
+                buffer: temp_buffer,
                 contents: [],
                 node,
                 filename,
@@ -113,6 +120,8 @@ export const nodesToCSS = (nodes: UnunuraASTNode[], sfc: SFC, filename: string, 
         }
       }
     })
+
+    clearBuffers()
   })
 
   return { code: buffer.length > 0 ? _code : sfc, css: buffer }
