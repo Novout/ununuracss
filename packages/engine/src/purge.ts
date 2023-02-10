@@ -12,7 +12,7 @@ export const purgeCSS = (buffer: string) => {
   )
 }
 
-export const purgeOnlyCssClassTitle = (css: string): string => {
+export const purgeOnlyCssClassTitle = (css: string, noRemoveTheme: boolean = false): string => {
   let def = `\n${css}`
     .split('\n.')
     .filter(Boolean)
@@ -21,8 +21,8 @@ export const purgeOnlyCssClassTitle = (css: string): string => {
     .filter((v) => !v.startsWith('\n'))
     .map((v) => v.trim())
     .join(' ')
-    .replace(/(dark .|light .|sepia .)/, ' ')
-    .replace(/(.dark .|.light .|.sepia .)/, ' ')
+
+  def = !noRemoveTheme ? def.replace(/(dark .|light .|sepia .)/, ' ').replace(/(.dark .|.light .|.sepia .)/, ' ') : def
 
   pseudoClass.forEach((cl) => {
     def = def.replaceAll(`:${cl}`, '')

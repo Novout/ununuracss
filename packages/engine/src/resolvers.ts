@@ -253,7 +253,8 @@ export const resolveTitleCssClass = (identifier: UnunuraIdentifier, ctx: Ununura
         (sum, acc) => (sum += ctx.ununura?.simplifyTitles ? `` : `-${resolveTitleToClassName(acc)}`),
         (asTheme ? `.${asTheme} ` : '') + resolveHashTitle(`.${resolvedIdentifier}`, ctx)
       )
-    : (asTheme && !asResponsive ? `.${asTheme} ` : '') + `.${purgeOnlyCssClassTitle(buffered as string)}`
+    : (asTheme && !asResponsive ? `.${asTheme} ` : '') +
+      `.${purgeOnlyCssClassTitle(buffered as string, !!asTheme && !!asResponsive)}`
   setter += asTheme && !asResponsive ? `-${asTheme}` : ''
   setter += ctx.node?.flag ? `-${ctx.node?.flag}` : ''
 

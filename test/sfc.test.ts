@@ -95,6 +95,39 @@ describe.concurrent('vue', () => {
 </style>`)
   })
 
+  it('should transform responsive and theme sfc correctly', async () => {
+    const sfc = `<template>
+  <div class="text:black dark(text:white md(text:red)) md(text:red)">a some test</div>
+</template>`
+
+    const target = await UnunuraScopedSFCFile(sfc, 'vue', 'app.vue', { scopedInTemplate: true } as any)
+
+    expect(target).toBe(`<template>
+  <div class="text-2-app-black  text-2-app-white-dark">a some test</div>
+</template>
+
+<style scoped>
+.text-2-app-black {
+  color: black;
+}
+.dark .text-2-app-white-dark {
+  color: white;
+}
+
+@media (min-width: 768px) {
+.dark .text-2-app-white-dark {
+  color: red;
+}
+}
+
+@media (min-width: 768px) {
+.text-2-app-black {
+  color: red;
+}
+}
+</style>`)
+  })
+
   it('should ignore unknown classes in transform sfc', async () => {
     const sfc = `<template>
   <p class="bg-red scroll[y auto] text-white w:100%">a some p</p>
