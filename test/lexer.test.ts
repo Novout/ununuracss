@@ -230,6 +230,15 @@ describe.concurrent('lexer', () => {
         } as any),
         ['style', '[', 'cursor-pointer', ']', 'p', '[', '1rem 2.5rem', ']', 'border', ':', '10', 'text', ':', '10'],
       ],
+      [
+        lex('subbtn btn', {
+          defines: [
+            ['btn', 'style[cursor-pointer] p[1rem 2.5rem]'],
+            ['subbtn', 'border:10 text:10'],
+          ],
+        } as any),
+        ['border', ':', '10', 'text', ':', '10', 'style', '[', 'cursor-pointer', ']', 'p', '[', '1rem 2.5rem', ']'],
+      ],
     ]
 
     for (const [lex, result] of targets) {

@@ -1,4 +1,5 @@
 import { DEFAULT_UNIT, Option, Symbol, TupleOption, UnunuraGenerateContext, UnunuraOptions } from 'ununura-shared'
+import { lexToRawTitles } from './lexer'
 
 export function normalizeUnunuraOption<T extends Symbol>(item?: Option<T>): TupleOption<T> {
   if (!item) return []
@@ -15,11 +16,21 @@ export function normalizeUnunuraOption<T extends Symbol>(item?: Option<T>): Tupl
   }, [] as TupleOption<T>)
 }
 
-export const enforceDefinesInLexer = (raw: string, ununura?: UnunuraOptions): string =>
-  normalizeUnunuraOption<string>(ununura?.defines)?.reduce(
-    (acc, [key, resources]) => acc.replaceAll(key as string, resources as string),
-    raw
-  ) ?? raw
+export const enforceDefinesInLexer = (raw: string, ununura?: UnunuraOptions): string => {
+  const defines = normalizeUnunuraOption<string>(ununura?.defines)
+
+  if (defines.length === 0) return raw
+
+  const keys = lexToRawTitles(raw)
+
+  return keys
+    .map((key) => {
+      const asDefine = defines.find(([it]) => it === key)
+
+      return asDefine ? asDefine[1] : key
+    })
+    .join(' ')
+}
 
 export const getExtendedSupporterFontFamily = (ctx: UnunuraGenerateContext) => {
   const ExternalFont = normalizeUnunuraOption(ctx?.ununura?.extend?.supporters?.fonts)?.find(([key]) =>
