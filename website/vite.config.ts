@@ -21,9 +21,11 @@ export default defineConfig({
       extend: {
         supporters: {
           colors: [
-            ['yellow', '#D4C555'],
-            ['red', '#DB4D45'],
-            ['green', '#7FC756'],
+            ['primary', '#CCCCCC'],
+            ['secondary', '#888888'],
+            ['uyellow', '#D4C555'],
+            ['ured', '#DB4D45'],
+            ['ugreen', '#7FC756'],
           ],
           fonts: [
             ['rubik', 'Rubik'],

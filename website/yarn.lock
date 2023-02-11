@@ -3698,28 +3698,28 @@ untyped@^1.2.2:
     "@babel/types" "^7.20.7"
     scule "^1.0.0"
 
-ununura-engine@1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/ununura-engine/-/ununura-engine-1.2.2.tgz#90f031e37a7e34b712d075e097bce637ef8e82d2"
-  integrity sha512-63pkZotwh0VxtFakrrYQfmDXT6b1k02Pp1BvGBFEaGkTsq1BTFaQ+SoQtmXFUeV9tRpuM5m9hPv29djDvaW21A==
+ununura-engine@1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/ununura-engine/-/ununura-engine-1.2.3.tgz#6a9b21dbec741a86ff126464132781ac7e1a6a02"
+  integrity sha512-YB0XXXjfTwG5R1ME0rDNgWYRy5HFDKInFMqGw1S0qcYwXYd8/1X0ZVKmhIgNVb0Zn4VX82ZrXXxndVHJEZeCrQ==
   dependencies:
     autoprefixer "^10.4.13"
     postcss "^8.4.21"
-    ununura-shared "1.2.2"
+    ununura-shared "1.2.3"
 
-ununura-shared@1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/ununura-shared/-/ununura-shared-1.2.2.tgz#16a9c5355459423742b5eb07e82e48a161c1d7af"
-  integrity sha512-F/iPilLhatoh81Y2oa14HASMdNIJjMqeSMvhxTQ6v9L3nXAZ4640GKfgtKKtIUHbedR9Hw/rngIDWkW51eBpuw==
+ununura-shared@1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/ununura-shared/-/ununura-shared-1.2.3.tgz#9cbfba74ad9870c9a71d3fb84746b6e8e3995e95"
+  integrity sha512-OVBsMwCQ2wy30YuhwvL/VACWXzgWM72X62/HB3exkYy2ddmVzMRPaXUT5f4WTr7wnST4HDH4f9sYRvACF3cI2Q==
 
-ununura@1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/ununura/-/ununura-1.2.2.tgz#1b7fe0dad2e089db8b5a13ee46a9ff08c38d140c"
-  integrity sha512-tmtfNqOgwZIOh9Sm1O6A+fZcDzeZUzBM1bzuLbpfNybtJsirItb/KniKfnv6TCAx5euH4tRQdC+VKPPJcR59qg==
+ununura@1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/ununura/-/ununura-1.2.3.tgz#58963fd52f38e1b58699070f13b407cb2bd97c9d"
+  integrity sha512-Dj7i6jOfWLum0/OpdAtEfV36/Jr2QNTp+6IIyL0tzVG2uLRsaJSDY/jfcKtfGAw+FzxcjS/T2n0I49g7cU9V9g==
   dependencies:
     fontaine "^0.2.3"
-    ununura-engine "1.2.2"
-    ununura-shared "1.2.2"
+    ununura-engine "1.2.3"
+    ununura-shared "1.2.3"
 
 upath@^1.2.0:
   version "1.2.0"
