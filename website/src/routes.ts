@@ -7,7 +7,6 @@ const routes = [
     component: () => import('@/pages/Docs.vue'),
     children: [
       { path: 'why', component: () => import('@/pages/docs/vue/DocsWhy.vue') },
-      { path: 'concepts', component: () => import('@/pages/docs/vue/DocsConcepts.vue') },
       { path: 'options', component: () => import('@/pages/docs/vue/DocsOptions.vue') },
       { path: 'install', component: () => import('@/pages/docs/vue/DocsInstall.vue') },
       { path: 'identifiers', component: () => import('@/pages/docs/vue/DocsIdentifiers.vue') },
@@ -16,7 +15,7 @@ const routes = [
       { path: 'contexts', component: () => import('@/pages/docs/vue/DocsContexts.vue') },
     ],
   },
-  { path: '/:pathMatch(.*)*', component: () => import('@/pages/404.vue') }
+  { path: '/:pathMatch(.*)*', component: () => import('@/pages/404.vue') },
 ]
 
 export const router = createRouter({
