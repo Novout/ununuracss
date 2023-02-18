@@ -949,6 +949,14 @@ describe('resources', () => {
   border-radius: 2rem;
 }`,
       ],
+      [
+        resolveCSS(UnunuraIdentifier.Flexbox, { contents: ['row', 'content-a_some_test'], buffer: [], stack: ['after'] }),
+        `.flex-row-content-a-some-test::after {
+  display: flex;
+  content: "a some test";
+  flex-direction: row;
+}`,
+      ],
     ]
 
     for (const [css, result] of targets) {

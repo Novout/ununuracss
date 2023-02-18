@@ -64,9 +64,13 @@ export const generateUniqueClass = ([identifier, content]: [string, string], ctx
 export const setterHead = (ctx: UnunuraGenerateContext, start?: string) => {
   const asDef = getSupportedGlobalNone(ctx.contents)
 
-  let _ = '\n' + (start && isNullable(asDef) ? `  ${start}\n` : '')
+  const asContent = findResourceInStart(ctx.contents, ['content-'], { onlyValue: true })
 
-  return _
+  let preSetter = '\n' + (start && isNullable(asDef) ? `  ${start}\n` : '')
+
+  preSetter += setterRow(asContent, `content: "${asContent.replace(/_/gi, ' ')}"`, ctx.contents)
+
+  return preSetter
 }
 
 export const setterRow = (item: Maybe<string> = undefined, valid: string, contents: string[]) => {
