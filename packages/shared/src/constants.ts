@@ -5,7 +5,7 @@ export const STANDARD_INCLUDE_SCAN = ['**/*.{vue,svelte,jsx,tsx,astro}']
 export const STANDARD_EXCLUDE_SCAN = ['**/.{nuxt,output}']
 export const NULLABLE = '__NULLABLE__'
 
-export const DEFAULT_UNIT = 'px'
+export const DEFAULT_UNIT: [string, number] = ['px', 1]
 export const DEFAULT_RESPONSIVE = {
   xs: '538px',
   sm: '640px',

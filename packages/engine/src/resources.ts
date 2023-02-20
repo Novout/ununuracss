@@ -95,7 +95,7 @@ export const getResourcePaddingOrMargin = (identifier: UnunuraIdentifier, ctx: U
     if (values.length === 0) return NULLABLE
 
     const spread = `${inCss}:${values.reduce(
-      (sum, acc) => (sum += ` ${getSupportedNumber({ contents: [acc], stack: [], buffer: [] })}`),
+      (sum, acc) => (sum += ` ${getSupportedNumber({ contents: [acc], stack: [], buffer: [], ununura: ctx.ununura })}`),
       ''
     )}`
 
@@ -113,7 +113,7 @@ export const getResourceRounded = (identifier: UnunuraIdentifier, ctx: UnunuraGe
   let setter = setterHead(ctx)
 
   const spread = `${resolveIdentifierInCSS(identifier)}:${values.reduce(
-    (sum, acc) => (sum += ` ${getSupportedNumber({ contents: [acc], stack: [], buffer: [] })}`),
+    (sum, acc) => (sum += ` ${getSupportedNumber({ contents: [acc], stack: [], buffer: [], ununura: ctx.ununura })}`),
     ''
   )}`
 

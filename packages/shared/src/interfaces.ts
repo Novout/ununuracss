@@ -44,7 +44,7 @@ export interface UnunuraDefaultsContexts {
 }
 
 export interface UnunuraDefaultsValues {
-  unit: string
+  unit?: Option<string | number>
 }
 
 export interface UnunuraDefaults {

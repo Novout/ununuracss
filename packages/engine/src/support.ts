@@ -247,13 +247,13 @@ export const getSupportedScroll = (contents: string[]): string => {
 }
 
 export const getSupportedNumber = (ctx: UnunuraGenerateContext): Nullable<string> => {
-  const defaultUnit = getExistentDefaultUnit(ctx)
+  const [defUnit, defMultiplier] = getExistentDefaultUnit(ctx)
   const extended = getExtendedSupporterUnits(ctx)
 
   const suffixed = ctx.contents.find((c) => isNumberSuffix(c) && isNumber(c[0]))
 
   const def = ctx.contents.find((c) => isNumber(c) && isNumber(c[0]))
-  const defSet = def?.endsWith(defaultUnit) ? def : def ? `${def}${defaultUnit}` : undefined
+  const defSet = def?.endsWith('px') ? def : def ? `${Number(def) * defMultiplier}${defUnit}` : undefined
 
   return extended ? String(extended) : suffixed ?? defSet ?? NULLABLE
 }

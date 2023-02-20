@@ -1060,6 +1060,28 @@ describe('resources', () => {
   font-family: 'Roboto', sans-serif;
 }`,
       ],
+      [
+        resolveCSS(UnunuraIdentifier.Text, {
+          contents: ['4'],
+          buffer: [],
+          stack: [],
+          ununura: { defaults: { values: { unit: ['rem', 0.25] } } } as any,
+        }),
+        `.text-4 {
+  font-size: 1rem;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Padding, {
+          contents: ['10'],
+          buffer: [],
+          stack: [],
+          ununura: { defaults: { values: { unit: ['rem', 0.25] } } } as any,
+        }),
+        `.padding-10 {
+  padding: 2.5rem;
+}`,
+      ],
     ]
 
     for (const [css, result] of targets) {
