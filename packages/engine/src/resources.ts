@@ -148,19 +148,19 @@ export const getResourcePosition = (
 ): string => {
   const base = findResource(ctx.contents, ['static', 'relative', 'fixed', 'absolute', 'sticky'])
 
-  const left = findResourceInStart(ctx.contents, ['left-', 'l-'])
-  const right = findResourceInStart(ctx.contents, ['right-', 'r-'])
-  const top = findResourceInStart(ctx.contents, ['top-', 't-'])
-  const bottom = findResourceInStart(ctx.contents, ['bottom-', 'b-'])
+  const left = findResourceInStart(ctx.contents, ['left-', 'l-'], { onlyValue: true, supporter: getSupportedNumber })
+  const right = findResourceInStart(ctx.contents, ['right-', 'r-'], { onlyValue: true, supporter: getSupportedNumber })
+  const top = findResourceInStart(ctx.contents, ['top-', 't-'], { onlyValue: true, supporter: getSupportedNumber })
+  const bottom = findResourceInStart(ctx.contents, ['bottom-', 'b-'], { onlyValue: true, supporter: getSupportedNumber })
 
   if (!base) return NULLABLE
 
   let setter = setterHead(ctx)
   setter += setterRow(base, `position: ${base}`, ctx.contents)
-  setter += setterRow(left, `left: ${left.split('-')[1]}`, ctx.contents)
-  setter += setterRow(right, `right: ${right.split('-')[1]}`, ctx.contents)
-  setter += setterRow(top, `top: ${top.split('-')[1]}`, ctx.contents)
-  setter += setterRow(bottom, `bottom: ${bottom.split('-')[1]}`, ctx.contents)
+  setter += setterRow(left, `left: ${left}`, ctx.contents)
+  setter += setterRow(right, `right: ${right}`, ctx.contents)
+  setter += setterRow(top, `top: ${top}`, ctx.contents)
+  setter += setterRow(bottom, `bottom: ${bottom}`, ctx.contents)
 
   return resolveCssClass(identifier, setter, ctx)
 }
@@ -193,7 +193,7 @@ export const getResourceOutline = (
   const size = getSupportedNumber(ctx)
   const style = ctx.contents.find((c) => isOutlineStyle(c)) ?? NULLABLE
   const color = getSupportedColor(ctx)
-  const offset = findResourceInStart(ctx.contents, ['offset-'], { onlyValue: true })
+  const offset = findResourceInStart(ctx.contents, ['offset-'], { onlyValue: true, supporter: getSupportedNumber })
 
   const inCss = resolveIdentifierInCSS(identifier)
 

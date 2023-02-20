@@ -505,7 +505,7 @@ describe('resources', () => {
         resolveCSS(UnunuraIdentifier.Position, { contents: ['relative', 'right-0'], buffer: [], stack: [] }),
         `.position-relative-right-0 {
   position: relative;
-  right: 0;
+  right: 0px;
 }`,
       ],
       [
