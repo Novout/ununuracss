@@ -14,7 +14,8 @@
       "ununura-engine": ["./packages/engine/src/index.ts"],
       "ununura": ["./packages/vite/src/index.ts"],
       "ununura-nuxt": ["./packages/nuxt/src/index.ts"],
-      "ununura-shared": ["./packages/shared/src/index.ts"]
+      "ununura-shared": ["./packages/shared/src/index.ts"],
+      "ununura-style-tailwindcss": ["./packages/style-tailwindcss/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "docs", "**/examples/**", "**/dist/**"]

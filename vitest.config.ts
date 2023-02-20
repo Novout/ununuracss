@@ -17,6 +17,7 @@ export default defineConfig({
       'ununura-vite': resolve(__dirname, './packages/vite/src/'),
       'ununura-nuxt': resolve(__dirname, './packages/nuxt/src/'),
       'ununura-shared': resolve(__dirname, './packages/shared/src/'),
+      'ununura-style-tailwindcss': resolve(__dirname, './packages/style-tailwindcss/src/'),
     },
   },
 })

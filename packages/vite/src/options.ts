@@ -4,6 +4,7 @@ import { UnunuraOptions, UnunuraResolvableOptions } from 'ununura-shared'
 export const resolvedViteOptions = (options: UnunuraResolvableOptions = {}): UnunuraOptions => {
   return {
     defines: options?.defines ?? [],
+    defaults: options?.defaults ?? {},
     jsx: options?.jsx ?? false,
     jsxIgnoreEntryFile: options?.jsxIgnoreEntryFile ?? true,
     astAdapters: options?.astAdapters

@@ -83,9 +83,7 @@ export const getExtendedSupporterUnits = (ctx: UnunuraGenerateContext) => {
 }
 
 export const getExistentDefaultUnit = (ctx: UnunuraGenerateContext): [string, number] => {
-  const ExternalDef = normalizeUnunuraOption<string | number>(ctx?.ununura?.defaults?.values?.unit)
+  const ExternalDef = ctx?.ununura?.defaults?.values?.unit
 
-  if (!ExternalDef || ExternalDef.length === 0) return DEFAULT_UNIT
-
-  return [ExternalDef[0], ExternalDef[1]] as any
+  return ExternalDef ?? DEFAULT_UNIT
 }
