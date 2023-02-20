@@ -3,8 +3,8 @@ import { UnunuraIdentifier } from 'ununura-shared'
 import { describe, expect, it } from 'vitest'
 import tailwindStyle from 'ununura-style-tailwindcss'
 
-describe.concurrent('resources', () => {
-  it('should get css class', () => {
+describe.concurrent('styles', () => {
+  it('should get css class using tailwind style', () => {
     const targets = [
       [
         resolveCSS(UnunuraIdentifier.Padding, { contents: ['2'], buffer: [], stack: [], ununura: { ...tailwindStyle } as any }),
