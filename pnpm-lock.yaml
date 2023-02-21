@@ -149,7 +149,7 @@ importers:
     devDependencies:
       '@nuxt/schema': 3.1.0
 
-  packages/runtime-cdn:
+  packages/runtime:
     specifiers:
       ununura: workspace:*
       ununura-engine: workspace:*
