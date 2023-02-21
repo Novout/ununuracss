@@ -234,6 +234,9 @@ export default {
         'rose-900': '#881337',
       },
       units: {
+        auto: 'auto',
+        screen: '100vh',
+        full: '100%',
         xs: '0.75rem',
         sm: '0.875rem',
         base: '1rem',
