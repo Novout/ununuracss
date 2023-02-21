@@ -149,7 +149,20 @@ importers:
     devDependencies:
       '@nuxt/schema': 3.1.0
 
+  packages/runtime-cdn:
+    specifiers:
+      ununura: workspace:*
+      ununura-engine: workspace:*
+      ununura-shared: workspace:*
+    dependencies:
+      ununura: link:../vite
+      ununura-engine: link:../engine
+      ununura-shared: link:../shared
+
   packages/shared:
+    specifiers: {}
+
+  packages/style-tailwindcss:
     specifiers: {}
 
   packages/vite:

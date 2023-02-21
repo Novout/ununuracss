@@ -1,0 +1,39 @@
+{
+  "name": "ununura-runtime",
+  "version": "1.2.5",
+  "description": "A runtime for UnunuraCSS.",
+  "author": "Novout",
+  "license": "MIT",
+  "homepage": "https://ununura.com",
+  "keywords": [
+    "ununura",
+    "atomic-css",
+    "css-in-js"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "unpkg": "dist/index.global.js",
+  "jsdelivr": "dist/index.global.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "build:minify": "tsup --minify"
+  },
+  "dependencies": {
+    "ununura": "workspace:*",
+    "ununura-engine": "workspace:*",
+    "ununura-shared": "workspace:*"
+  }
+}

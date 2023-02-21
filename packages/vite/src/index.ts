@@ -9,3 +9,5 @@ export const ununura = (options: UnunuraResolvableOptions = {}): PluginOption =>
 
   return [CORE(_options), EXTERNAL_FONTAINE]
 }
+
+export * from './options'

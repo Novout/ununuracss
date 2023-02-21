@@ -1,4 +1,4 @@
-import { UnunuraContextualizeStack, ArrTuple, Option, ValueOption } from './types'
+import { UnunuraContextualizeStack, Option, ValueOption } from './types'
 
 export interface UnunuraGenerateContext {
   stack: UnunuraContextualizeStack
@@ -70,7 +70,7 @@ export interface UnunuraResolvableOptions {
   jsxIgnoreEntryFile?: boolean
   astAdapters?: string[]
   scopedInTemplate?: boolean
-  specialEnvironment?: 'vite' | 'nitro' | 'astro'
+  specialEnvironment?: 'vite' | 'nitro' | 'astro' | 'runtime'
   applyAutoprefixer?: boolean
   simplifyTitles?: boolean
   overrideBrowserslist?: string[] | string | false
@@ -87,7 +87,7 @@ export interface UnunuraOptions {
   jsxIgnoreEntryFile: boolean
   astAdapters: string[]
   scopedInTemplate: boolean
-  specialEnvironment: 'vite' | 'nitro' | 'astro'
+  specialEnvironment: 'vite' | 'nitro' | 'astro' | 'runtime'
   applyAutoprefixer: boolean
   overrideBrowserslist: string[] | string | false
   simplifyTitles: boolean
