@@ -1,8 +1,8 @@
 import { pseudoClass, pseudoElement } from 'ununura-shared'
 
-export const purgeCSS = (buffer: string) => {
+export const purgeCSS = (buffer: string, ignoreEntryClass: boolean = false) => {
   return (
-    '.' +
+    (!ignoreEntryClass ? '.' : '') +
     `\n${buffer}`
       .split('\n.')
       .filter(Boolean)

@@ -3,10 +3,23 @@
   <head>
     <title>Document title</title>
     <script src="../../packages/runtime/dist/index.global.js"></script>
+    <script>
+      setTimeout(() => {
+        var p = document.getElementById('p')
+        var btn = document.getElementById('btn')
+        let toggle = false
+      
+        btn.addEventListener('click', () => {
+          p.className = toggle ? 'font[arial 2rem red 700]' : 'font[arial 2rem green 700]'
+          toggle = !toggle
+        })
+      }, 0)
+    </script>
   </head>
   <body>
-    <div class="reset:meyer cl:screen bg:black flex[ai-center jc-center]">
-      <p id="p" class="font[arial 2rem white 700]">Hello Runtime!</p>
+    <div class="reset:novout cl:screen bg:black flex[col ai-center jc-center gap-1rem]">
+      <p id="p" class="font[arial 2rem blue 700]">Hello Runtime!</p>
+      <button id="btn" class="p:1rem bg:red text[arial 700 1.2rem] style:cursor-pointer rounded:0.5rem border:0">Change p color!</button>
     </div>
   </body>
 </html>

@@ -1,5 +1,5 @@
 import { resolvedViteOptions } from 'ununura'
-import { getGlobalReset, nodesToCSS } from 'ununura-engine'
+import { getGlobalReset, nodesToCSS, purgeCSS } from 'ununura-engine'
 import { UnunuraResolvableOptions, UNUNURA_FLAG } from 'ununura-shared'
 
 declare global {
@@ -34,13 +34,17 @@ declare global {
     return injectStyle
   }
 
-  const setStyle = (css: string, raw: string) => {
-    defDocument.documentElement.innerHTML = raw
+  const setStyle = (newCss: string, code: string) => {
+    const rawCss = getStyle().innerHTML
+
+    defDocument.body.innerHTML = code
 
     setTimeout(() => {
       const _style = getStyle()
 
-      _style.innerHTML = css
+      const normalizedCss = purgeCSS(rawCss + newCss, true)
+
+      _style.innerHTML = normalizedCss
     }, 0)
   }
 
@@ -82,15 +86,25 @@ declare global {
 
           targets.push(_node)
         })
+      } else if (item.type === 'attributes') {
+        if (!item.target) return
+
+        const _node = item.target as Element
+
+        if (!_node?.className) return
+
+        targets.push(_node)
       }
     })
 
     generate(targets)
   })
 
-  MO.observe(defDocument.documentElement || window.document.body, {
-    childList: true,
-    subtree: true,
-    attributes: true,
-  })
+  setTimeout(() => {
+    MO.observe(defDocument.documentElement || window.document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+    })
+  }, 0)
 })()

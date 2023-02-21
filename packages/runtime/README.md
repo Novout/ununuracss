@@ -22,7 +22,7 @@
 ### Ununura Options
 
 ```ts
-window.__UNUNURA__ {
+window.__UNUNURA__ = {
   // Options Here
 }
 ```
