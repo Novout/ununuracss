@@ -1,4 +1,4 @@
-import { UnunuraContextualizeStack, Option, ValueOption } from './types'
+import { UnunuraContextualizeStack, Option, ValueOption, Symbol } from './types'
 
 export interface UnunuraGenerateContext {
   stack: UnunuraContextualizeStack
@@ -25,8 +25,12 @@ export interface UnunuraScannerFile {
   filename: string
 }
 
+export interface UnunuraExtendSupportersColorOptions {
+  type?: 'var'
+}
+
 export interface UnunuraExtendSupporters {
-  colors?: Option<string>
+  colors?: Option<string, Record<Symbol, UnunuraExtendSupportersColorOptions>>
   units?: Option<string | number>
   fonts?: Option<string>
 }
