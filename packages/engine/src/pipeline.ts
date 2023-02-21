@@ -21,6 +21,7 @@ import { asResponsiveInContext } from './unifier'
 export const nodesToCSS = (nodes: UnunuraASTNode[], sfc: SFC, filename: string, ununura: UnunuraOptions) => {
   let _code = sfc
 
+  let titles: [string, string][] = []
   let buffer: string[] = []
   let temp_buffer: string[] = []
   let context_stack: UnunuraContextualizeStack = []
@@ -45,6 +46,8 @@ export const nodesToCSS = (nodes: UnunuraASTNode[], sfc: SFC, filename: string, 
     })
 
     asResponsive ? (_code = _code.replace(` ${key}`, '')) : (_code = _code.replace(key, resolvedKey))
+
+    if (!asResponsive) titles.push([key, resolvedKey])
 
     temp_buffer.push(`${item}\n`)
     buffer.push(`${item}\n`)
@@ -124,5 +127,5 @@ export const nodesToCSS = (nodes: UnunuraASTNode[], sfc: SFC, filename: string, 
     clearBuffers()
   })
 
-  return { code: buffer.length > 0 ? _code : sfc, css: buffer }
+  return { code: buffer.length > 0 ? _code : sfc, css: buffer, titles }
 }

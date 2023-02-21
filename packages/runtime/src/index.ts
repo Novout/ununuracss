@@ -1,5 +1,5 @@
 import { resolvedViteOptions } from 'ununura'
-import { getGlobalReset, nodesToCSS, purgeCSS } from 'ununura-engine'
+import { getGlobalReset, lexToRawTitles, nodesToCSS, purgeCSS } from 'ununura-engine'
 import { UnunuraResolvableOptions, UNUNURA_FLAG } from 'ununura-shared'
 
 declare global {
@@ -34,10 +34,8 @@ declare global {
     return injectStyle
   }
 
-  const setStyle = (newCss: string, code: string) => {
+  const setStyle = (newCss: string) => {
     const rawCss = getStyle().innerHTML
-
-    defDocument.body.innerHTML = code
 
     setTimeout(() => {
       const _style = getStyle()
@@ -63,13 +61,25 @@ declare global {
       },
     }))
 
-    const { code, css } = nodesToCSS(nodes, template, UNUNURA_FLAG, ununura)
+    let { css, titles } = nodesToCSS(nodes, template, UNUNURA_FLAG, ununura)
 
     if (css.length === 0) return
 
+    targets.forEach((target) => {
+      const classes = lexToRawTitles(target.className)
+
+      classes?.forEach((cl) => {
+        titles.forEach(([prev, set]) => {
+          if (cl === prev) {
+            target.className = target.className.replace(prev, set)
+          }
+        })
+      })
+    })
+
     const globalResetRaw = getGlobalReset(targets?.map((t) => t.className).join(' ') ?? '')
     const bufferRaw = css.reduce((acc, css) => (acc += `${css}\n`))
-    setStyle(`${globalResetRaw ? `\n${globalResetRaw}` : ''}${bufferRaw}`, code)
+    setStyle(`${globalResetRaw ? `\n${globalResetRaw}` : ''}${bufferRaw}`)
   }
 
   const MO = new MutationObserver((list, _observer) => {
