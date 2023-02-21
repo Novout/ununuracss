@@ -57,3 +57,17 @@ export default defineConfig({
   integrations: [ununura()],
 });
 ```
+
+### CDN (Runtime)
+
+```html
+<script src="https://unpkg.com/ununura-runtime/dist/index.global.js"></script>
+```
+
+```ts
+window.__UNUNURA__ = {
+  // Options Here
+}
+```
+
+> IMPORTANT! Runtime doesn't supports integrations (PostCSS, Fontaine...)

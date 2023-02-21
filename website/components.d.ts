@@ -19,6 +19,7 @@ declare module '@vue/runtime-core' {
     MdDocsIdentifiers: typeof import('./src/components/md/MdDocsIdentifiers.md')['default']
     MdDocsInstall: typeof import('./src/components/md/MdDocsInstall.md')['default']
     MdDocsOptions: typeof import('./src/components/md/MdDocsOptions.md')['default']
+    MdDocsStyles: typeof import('./src/components/md/MdDocsStyles.md')['default']
     MdDocsSupporters: typeof import('./src/components/md/MdDocsSupporters.md')['default']
     MdDocsWhy: typeof import('./src/components/md/MdDocsWhy.md')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

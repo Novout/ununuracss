@@ -13,6 +13,7 @@ const routes = [
       { path: 'supporters', component: () => import('@/pages/docs/vue/DocsSupporters.vue') },
       { path: 'globals', component: () => import('@/pages/docs/vue/DocsGlobals.vue') },
       { path: 'contexts', component: () => import('@/pages/docs/vue/DocsContexts.vue') },
+      { path: 'styles', component: () => import('@/pages/docs/vue/DocsStyles.vue') },
     ],
   },
   { path: '/:pathMatch(.*)*', component: () => import('@/pages/404.vue') },

@@ -27,6 +27,8 @@ export default defineConfig({
     })
   ],
 })
+
+// class="p:5 text[red-600 lg]"
 ```
 
 > IMPORTANT! This import is basically defaults and extend settings.

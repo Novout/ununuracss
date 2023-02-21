@@ -1,13 +1,14 @@
-.markdown-body {}
+.markdown-body {
+}
 
-.markdown-body>h1 {
+.markdown-body > h1 {
   font-family: 'Rubik', sans-serif;
   font-size: 3rem;
   color: gray;
   padding-bottom: 3rem;
 }
 
-.markdown-body>h2 {
+.markdown-body > h2 {
   font-family: 'Rubik', sans-serif;
   font-size: 1.8rem;
   color: gray;
@@ -19,7 +20,7 @@
   border-left-style: solid;
 }
 
-.markdown-body>h3 {
+.markdown-body > h3 {
   font-family: 'Rubik', sans-serif;
   font-size: 1.35rem;
   color: gray;
@@ -31,7 +32,7 @@
   border-left-style: solid;
 }
 
-.markdown-body>p {
+.markdown-body > p {
   font-family: 'Quicksand', sans-serif;
   color: #dddddd;
   font-weight: 500;
@@ -42,11 +43,11 @@
   margin-top: 0.5rem;
 }
 
-.markdown-body>p>strong {
+.markdown-body > p > strong {
   font-weight: 700 !important;
 }
 
-.markdown-body>p>code {
+.markdown-body > p > code {
   font-weight: 700 !important;
   background-color: rgba(255, 255, 255, 0.05);
   padding: 0.2rem;
@@ -54,12 +55,11 @@
   font-family: 'Rubik', sans-serif;
 }
 
-
-.markdown-body>ul {
+.markdown-body > ul {
   padding: 1rem 0;
 }
 
-.markdown-body>ul>li {
+.markdown-body > ul > li {
   font-family: 'Quicksand', sans-serif;
   color: #dddddd;
   font-weight: 500;
@@ -70,7 +70,7 @@
   font-size: 1.15rem;
 }
 
-.markdown-body>p>a {
+.markdown-body > p > a {
   font-family: 'Quicksand', sans-serif;
   color: #dddddd;
   font-weight: 500;
@@ -79,7 +79,7 @@
   line-height: 1.5em;
 }
 
-.markdown-body>ul>li>a {
+.markdown-body > ul > li > a {
   font-family: 'Quicksand', sans-serif;
   color: #dddddd;
   font-weight: 700;
@@ -88,11 +88,11 @@
   line-height: 1.5em;
 }
 
-.markdown-body>ul>li>strong {
+.markdown-body > ul > li > strong {
   font-weight: 700 !important;
 }
 
-.markdown-body>p>a {
+.markdown-body > p > a {
   font-family: 'Quicksand', sans-serif;
   color: #dddddd;
   font-weight: 500;
@@ -101,7 +101,7 @@
   line-height: 1.5em;
 }
 
-.markdown-body>blockquote {
+.markdown-body > blockquote {
   background-color: #222;
   color: #bbb;
   padding: 1rem;
@@ -125,6 +125,10 @@ pre {
   word-spacing: 0.1em;
 }
 
+pre > code {
+  line-height: 1.3rem;
+}
+
 pre::after {
   content: '' !important;
 }
@@ -134,7 +138,7 @@ pre.code {
   border: 1px solid #d9d9d9;
   border-radius: 2px;
   position: relative;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, .08);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
 }
 
 pre.code label {

@@ -18,6 +18,7 @@
         { to: '/docs/supporters', name: 'Supporters' },
         { to: '/docs/globals', name: 'Globals' },
         { to: '/docs/contexts', name: 'Contexts' },
+        { to: '/docs/styles', name: 'Styles' },
       ]"
     />
   </aside>
