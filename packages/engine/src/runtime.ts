@@ -50,6 +50,7 @@ export const initRuntime = (ununura: UnunuraOptions) => {
       return {
         class: target.className,
         tag: target.tagName,
+        flag: 'runtime',
         position: {
           // alternative for scoped items using runtime counter
           start: { line: __MUTATE_COUNTER__, column: __MUTATE_COUNTER__, offset: __MUTATE_COUNTER__ },
