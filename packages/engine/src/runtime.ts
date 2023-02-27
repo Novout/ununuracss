@@ -1,18 +1,15 @@
-import { resolvedViteOptions } from 'ununura'
 import { UnunuraOptions, UNUNURA_FLAG } from 'ununura-shared'
 import { getGlobalReset } from './globals'
 import { lexToRawTitles } from './lexer'
 import { nodesToCSS } from './pipeline'
 import { purgeCSS } from './purge'
 
-export const initRuntime = (options: UnunuraOptions) => {
+export const initRuntime = (ununura: UnunuraOptions) => {
   if (typeof window == 'undefined') return
 
   const defDocument = document
 
   let injectStyle = defDocument.createElement('style')
-
-  const ununura = resolvedViteOptions(options)
 
   const getTemplate = () => {
     return defDocument.body && defDocument.body.outerHTML

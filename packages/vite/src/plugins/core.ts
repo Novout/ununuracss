@@ -1,4 +1,4 @@
-import type { Plugin, PluginOption } from 'vite'
+import type { PluginOption } from 'vite'
 import { UnunuraGlobalGenerate, UnunuraJSXSFCFile, UnunuraScopedSFCFile } from 'ununura-engine'
 import {
   isVueFile,
