@@ -24,6 +24,7 @@ importers:
       hast-util-from-html: ^1.0.1
       husky: ^8.0.3
       lerna: ^6.4.1
+      nanoid: 3.0.0
       nodemon: ^2.0.20
       postcss: ^8.4.21
       preact: ^10.12.1
@@ -60,6 +61,7 @@ importers:
       hast-util-from-html: 1.0.1
       husky: 8.0.3
       lerna: 6.4.1
+      nanoid: 3.0.0
       nodemon: 2.0.20
       postcss: 8.4.21
       preact: 10.12.1
@@ -127,10 +129,12 @@ importers:
   packages/engine:
     specifiers:
       autoprefixer: ^10.4.13
+      nanoid: 3.0.0
       postcss: ^8.4.21
       ununura-shared: workspace:*
     dependencies:
       autoprefixer: 10.4.13_postcss@8.4.21
+      nanoid: 3.0.0
       postcss: 8.4.21
       ununura-shared: link:../shared
 
@@ -2341,7 +2345,7 @@ packages:
       is-docker: 3.0.0
       jiti: 1.16.2
       mri: 1.2.0
-      nanoid: 4.0.0
+      nanoid: 4.0.1
       node-fetch: 3.3.0
       ofetch: 1.0.0
       parse-git-config: 3.0.0
@@ -7674,13 +7678,16 @@ packages:
       thenify-all: 1.6.0
     dev: true
 
+  /nanoid/3.0.0:
+    resolution: {integrity: sha512-5lU+F2QpTW1JLwlXxnu2/jkpTipIuYZL3Za6TQzM16HYDzZQqlthbXYSW0H2KzZu1UQPGHDPbCl1TS3xOKfqEQ==}
+
   /nanoid/3.3.4:
     resolution: {integrity: sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  /nanoid/4.0.0:
-    resolution: {integrity: sha512-IgBP8piMxe/gf73RTQx7hmnhwz0aaEXYakvqZyE302IXW3HyVNhdNGC+O2MwMAVhLEnvXlvKtGbtJf6wvHihCg==}
+  /nanoid/4.0.1:
+    resolution: {integrity: sha512-udKGtCCUafD3nQtJg9wBhRP3KMbPglUsgV5JVsXhvyBs/oefqb4sqMEhKBBgqZncYowu58p1prsZQBYvAj/Gww==}
     engines: {node: ^14 || ^16 || >=18}
     hasBin: true
     dev: true

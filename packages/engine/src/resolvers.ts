@@ -7,6 +7,7 @@ import {
   isPseudoClassContextIdentifier,
   isPseudoElementContextIdentifier,
 } from 'ununura-shared'
+import { hashTitleResources } from './hash'
 import { purgeOnlyCssClassTitle } from './purge'
 import {
   getResourceText,
@@ -258,7 +259,7 @@ export const resolveTitleCssClass = (identifier: UnunuraIdentifier, ctx: Ununura
   setter += asTheme && !asResponsive ? `-${asTheme}` : ''
   setter += ctx.node?.flag ? `-${ctx.node?.flag}` : ''
 
-  return setter
+  return ctx.ununura?.hashTitles ? hashTitleResources(setter) : setter
 }
 
 export const resolveCssClass = (identifier: UnunuraIdentifier, setter: string, ctx: UnunuraGenerateContext): Nullable<string> => {

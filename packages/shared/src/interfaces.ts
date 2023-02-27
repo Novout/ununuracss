@@ -77,6 +77,7 @@ export interface UnunuraResolvableOptions {
   specialEnvironment?: 'vite' | 'nitro' | 'astro' | 'runtime'
   applyAutoprefixer?: boolean
   simplifyTitles?: boolean
+  hashTitles?: boolean
   overrideBrowserslist?: string[] | string | false
   forceIgnoreClassLineInTitles?: boolean
   forceHydratedTemplate?: boolean
@@ -95,6 +96,7 @@ export interface UnunuraOptions {
   applyAutoprefixer: boolean
   overrideBrowserslist: string[] | string | false
   simplifyTitles: boolean
+  hashTitles: boolean
   forceIgnoreClassLineInTitles: boolean
   forceHydratedTemplate: boolean
   forceAlwaysRestartHMRServer: boolean
