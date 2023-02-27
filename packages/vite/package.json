@@ -36,6 +36,7 @@
   "dependencies": {
     "fontaine": "^0.2.3",
     "ununura-engine": "workspace:*",
-    "ununura-shared": "workspace:*"
+    "ununura-shared": "workspace:*",
+    "vite": "^4.1.4"
   }
 }

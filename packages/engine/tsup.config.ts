@@ -5,5 +5,5 @@ export default defineConfig({
   format: ['esm', 'cjs', 'iife'],
   clean: true,
   dts: true,
-  external: ['autoprefixer', 'postcss'],
+  external: ['autoprefixer', 'postcss', 'nanoid'],
 })
