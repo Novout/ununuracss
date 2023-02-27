@@ -7,6 +7,8 @@ import { purgeCSS } from './purge'
 export const initRuntime = (ununura: UnunuraOptions) => {
   if (typeof window == 'undefined') return
 
+  let __MUTATE_COUNTER__ = 0
+
   const defDocument = document
 
   let injectStyle = defDocument.createElement('style')
@@ -42,15 +44,19 @@ export const initRuntime = (ununura: UnunuraOptions) => {
 
     if (!template || targets.length === 0) return
 
-    const nodes = targets.map((target, index) => ({
-      class: target.className,
-      tag: target.tagName,
-      position: {
-        // one-file alternative for scoped items using index key
-        start: { line: index, column: index, offset: index },
-        end: { line: index, column: index, offset: index },
-      },
-    }))
+    const nodes = targets.map((target) => {
+      ++__MUTATE_COUNTER__
+
+      return {
+        class: target.className,
+        tag: target.tagName,
+        position: {
+          // alternative for scoped items using runtime counter
+          start: { line: __MUTATE_COUNTER__, column: __MUTATE_COUNTER__, offset: __MUTATE_COUNTER__ },
+          end: { line: __MUTATE_COUNTER__, column: __MUTATE_COUNTER__, offset: __MUTATE_COUNTER__ },
+        },
+      }
+    })
 
     let { css, titles } = nodesToCSS(nodes, template, UNUNURA_FLAG, ununura)
 
