@@ -18,9 +18,14 @@
         { to: '/docs/supporters', name: 'Supporters' },
         { to: '/docs/globals', name: 'Globals' },
         { to: '/docs/contexts', name: 'Contexts' },
+      ]"
+    />
+    <AsideCategory
+      title="Extra"
+      :routes="[
+        { to: '/docs/runtime', name: 'Runtime' },
         { to: '/docs/styles', name: 'Styles' },
       ]"
     />
-    <AsideCategory title="Extra" :routes="[{ to: '/docs/runtime', name: 'Runtime' }]" />
   </aside>
 </template>

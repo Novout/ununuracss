@@ -23,7 +23,7 @@ to:
 
 Therefore, we are able to offer better code maintenance practices and interface constructions, **not having the need to learn the framework**.
 
-### Dynamic Titles
+### Virtual Titles
 
 Identifiers accepts any character type and transforms whatever is necessary to be compatible with the css specification. For example, you can pass url or path to `background-url` natively:
 
@@ -38,7 +38,7 @@ Some frameworks generate unique CSS for each SFC (Single File Component) file, t
 `.<identifier>-<line-start>-<filename>(-...<resources>)`
 
 ```html
-<div class="flex:col" /> -> <div class="flex-1-app-col" />
+<div class="flex:col" /> -> <div class="flex-1-app-col" /> -> <div class="flex-a1clppap" />
 ```
 
 This model was adopted to avoid selector conflicts (mainly @media), being scoped by default (and using native scoped tools depending on the SFC, as in (.vue|.svelte) files).
