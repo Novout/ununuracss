@@ -1,4 +1,5 @@
 import type { PluginOption } from 'vite'
+import { createFilter } from '@rollup/pluginutils'
 import { UnunuraGlobalGenerate, UnunuraJSXSFCFile, UnunuraScopedSFCFile } from 'ununura-engine'
 import {
   isVueFile,
@@ -10,15 +11,20 @@ import {
   UnunuraOptions,
   isJSXEntryFile,
   isAstroFile,
+  STANDARD_EXCLUDE_FILTER_SCAN,
+  STANDARD_INCLUDE_FILTER_SCAN,
 } from 'ununura-shared'
 import { reloadServer } from '../hot'
-import { validForUpdate } from '../support'
 
 export default (ununura: UnunuraOptions): PluginOption => {
+  const filter = createFilter(STANDARD_INCLUDE_FILTER_SCAN, STANDARD_EXCLUDE_FILTER_SCAN)
+
   return {
     name: 'ununuracss:core',
     enforce: ununura.forceHydratedTemplate ? 'post' : 'pre',
     async transform(code, id) {
+      if (!filter(id)) return
+
       const filename = getFilename(id)
 
       if (isVueFile(id)) {
@@ -50,7 +56,7 @@ export default (ununura: UnunuraOptions): PluginOption => {
       }
     },
     async handleHotUpdate({ server, file }) {
-      if (validForUpdate(file)) {
+      if (filter(file)) {
         await reloadServer(server, ununura)
       }
     },

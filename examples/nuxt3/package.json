@@ -6,7 +6,7 @@
     "preview:nuxt": "nuxt build && nuxt prepare && nuxt preview --port 4000"
   },
   "devDependencies": {
-    "nuxt": "3.1.0",
+    "nuxt": "3.2.3",
     "nuxt-ununura": "workspace:*"
   }
 }

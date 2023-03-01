@@ -33,12 +33,12 @@
     "build:minify": "tsup --minify"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.2.2",
+    "@nuxt/kit": "^3.2.3",
     "ununura": "workspace:*",
     "ununura-engine": "workspace:*",
     "ununura-shared": "workspace:*"
   },
   "devDependencies": {
-    "@nuxt/schema": "^3.2.2"
+    "@nuxt/schema": "^3.2.3"
   }
 }

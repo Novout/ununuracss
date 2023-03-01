@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.5.0",
+    "@rollup/pluginutils": "^5.0.2",
     "@sveltejs/vite-plugin-svelte": "^2.0.3",
     "@tsconfig/svelte": "^3.0.0",
     "@types/react": "^18.0.28",

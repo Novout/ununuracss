@@ -11,6 +11,7 @@ export default defineNuxtModule({
   defaults: {
     // TODO: because vue&scoped files recursive in nitro reload will disabled scoped sfc.
     scopedInTemplate: false,
+    hashTitles: false,
     specialEnvironment: 'nitro',
   } as UnunuraResolvableOptions,
   async setup(options, nuxt) {

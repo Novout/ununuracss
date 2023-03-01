@@ -4,6 +4,8 @@ export const RESOLVED_VIRTUAL_CSS_INJECT_FILENAME = '\0' + VIRTUAL_CSS_INJECT_FI
 
 export const STANDARD_INCLUDE_SCAN = ['**/*.{vue,svelte,jsx,tsx,astro}']
 export const STANDARD_EXCLUDE_SCAN = ['**/.{nuxt,output}']
+export const STANDARD_INCLUDE_FILTER_SCAN = [/\.(vue|svelte|[jt]sx|astro)($|\?)/]
+export const STANDARD_EXCLUDE_FILTER_SCAN = [/\.(css|sass|scss|less|stylus|styl)($|\?)/]
 export const NULLABLE = '__NULLABLE__'
 
 export const DEFAULT_UNIT: [string, number] = ['px', 1]

@@ -10,6 +10,7 @@ export default function ununuraIntegration(def?: UnunuraResolvableOptions): Astr
   // TODO: scoped false and ignore ast loc because astro:build enforce-pre hook problem. It's temporary.
   options.scopedInTemplate = false
   options.forceIgnoreClassLineInTitles = true
+  options.hashTitles = false
 
   return {
     name: 'astro-ununura',
