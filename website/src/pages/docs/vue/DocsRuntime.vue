@@ -1,0 +1,3 @@
+<template>
+  <MdDocsRuntime />
+</template>

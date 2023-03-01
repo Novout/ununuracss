@@ -21,5 +21,6 @@
         { to: '/docs/styles', name: 'Styles' },
       ]"
     />
+    <AsideCategory title="Extra" :routes="[{ to: '/docs/runtime', name: 'Runtime' }]" />
   </aside>
 </template>

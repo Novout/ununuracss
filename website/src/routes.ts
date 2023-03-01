@@ -14,6 +14,7 @@ const routes = [
       { path: 'globals', component: () => import('@/pages/docs/vue/DocsGlobals.vue') },
       { path: 'contexts', component: () => import('@/pages/docs/vue/DocsContexts.vue') },
       { path: 'styles', component: () => import('@/pages/docs/vue/DocsStyles.vue') },
+      { path: 'runtime', component: () => import('@/pages/docs/vue/DocsRuntime.vue') },
     ],
   },
   { path: '/:pathMatch(.*)*', component: () => import('@/pages/404.vue') },
