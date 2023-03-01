@@ -16,6 +16,10 @@ ununura({
 // class="btn m[bottom 2rem]..."
 ```
 
+### defaults (default: {})
+
+Modify some internal values.
+
 ### extend (default: {})
 
 Extend default settings for special customizations.
@@ -100,6 +104,10 @@ ununura({
 ### simplifyTitles (default: false)
 
 This option disables features in the title of each generated class. **ATTENTION!** With this option active, Ununura does not guarantee that all classes will be unique!
+
+### hashTitles (default: true)
+
+Use `nanoid` for hash resources in title.
 
 ### forceIgnoreClassLineInTitles (default: false)
 
