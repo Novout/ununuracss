@@ -195,6 +195,19 @@ describe('resources', () => {
 }`,
       ],
       [
+        resolveCSS(UnunuraIdentifier.Text, {
+          contents: ['white', 'fill-black', 'strokewidth-1px', 'strokecolor-red'],
+          buffer: [],
+          stack: [],
+        }),
+        `.text-white-fill-black-strokewidth-1px-strokecolor-red {
+  color: white;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: red;
+  -webkit-text-fill-color: black;
+}`,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Background, { contents: ['#000000'], buffer: [], stack: [] }),
         `.background-000000 {
   background-color: #000000;

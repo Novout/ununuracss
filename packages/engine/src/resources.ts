@@ -352,12 +352,18 @@ export const getResourceText = (
   const fontSize = getSupportedFontSize(ctx)
   const fontFamily = getSupportedFont(ctx)
   const fontWeight = getSupportedFontWeight(ctx.contents)
+  const fillColor = findResourceInStart(ctx.contents, ['fill-'], { onlyValue: true, supporter: getSupportedColor })
+  const strokeColor = findResourceInStart(ctx.contents, ['strokecolor-'], { onlyValue: true, supporter: getSupportedColor })
+  const strokeWidth = findResourceInStart(ctx.contents, ['strokewidth-'], { onlyValue: true, supporter: getSupportedNumber })
 
   let setter = setterHead(ctx)
   setter += setterRow(color, `color: ${color}`, ctx.contents)
   if (fontSize !== fontWeight) setter += setterRow(fontSize, `font-size: ${fontSize}`, ctx.contents)
   setter += setterRow(fontWeight, `font-weight: ${fontWeight}`, ctx.contents)
   setter += setterRow(fontFamily, `font-family: '${fontFamily}', sans-serif`, ctx.contents)
+  setter += setterRow(strokeWidth, `-webkit-text-stroke-width: ${strokeWidth}`, ctx.contents)
+  setter += setterRow(strokeColor, `-webkit-text-stroke-color: ${strokeColor}`, ctx.contents)
+  setter += setterRow(fillColor, `-webkit-text-fill-color: ${fillColor}`, ctx.contents)
 
   return resolveCssClass(identifier, setter, ctx)
 }

@@ -56,6 +56,9 @@ const list = ref([
       { inCss: 'font-family', supporter: 'fontFamily', example: 'text:arial' },
       { inCss: 'font-size', supporter: 'fontSize', example: 'text:2rem' },
       { inCss: 'font-weight', supporter: 'fontWeight', example: 'text:600' },
+      { inCss: '-webkit-text-fill-color', supporter: 'color', example: 'text:fill-black' },
+      { inCss: '-webkit-text-stroke-color', supporter: 'color', example: 'text:strokecolor-red' },
+      { inCss: '-webkit-text-stroke-width', supporter: 'unit', example: 'text:strokewidth-2px' },
     ],
   },
   {
@@ -63,8 +66,8 @@ const list = ref([
     keys: ['w', 'h', 'width', 'height'],
     resources: [
       { inCss: 'width|height', supporter: 'unit', example: 'w:100%' },
-      { inCss: 'min-height|width', supporter: false, example: 'h[min 100vh]' },
-      { inCss: 'max-height|width', supporter: false, example: 'w[max 500px]' },
+      { inCss: 'min-height|width', supporter: 'unique', example: 'h[min 100vh]' },
+      { inCss: 'max-height|width', supporter: 'unique', example: 'w[max 500px]' },
     ],
   },
   {
