@@ -1,11 +1,12 @@
 <template>
   <div class="flex[col gap-1rem] w:100% h[max 600px] scroll[y auto] text:#CCCCCC m[t 2rem]">
     <div
-      class="flex[col gap-2rem wrap] w:100% rounded:0.5rem gradient[45deg rgba-255-255-255-0.025 0% rgba-255-255-255-0.1 100%] md(w:75%)"
+      @click="item.open = !item.open"
+      class="flex[col gap-2rem wrap] style[cursor-pointer] w:100% rounded:0.5rem gradient[45deg rgba-255-255-255-0.025 0% rgba-255-255-255-0.1 100%] md(w:75%)"
       v-for="(item, lindex) in list"
       :key="lindex"
     >
-      <h2 @click="item.open = !item.open" class="text[700 rubik white 1.15rem] p:1rem w:100% style[cursor-pointer]">
+      <h2 class="text[700 rubik white 1.15rem] p:1rem w:100%">
         <span
           v-for="(key, tindex) in item.keys"
           :key="tindex"
