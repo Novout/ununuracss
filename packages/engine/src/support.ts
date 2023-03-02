@@ -1,6 +1,4 @@
 import {
-  findResource,
-  findResourceInStart,
   isCSSColor,
   isCursor,
   isDefaultFont,
@@ -28,6 +26,7 @@ import {
   getExtendedSupporterFontFamily,
   getExtendedSupporterUnits,
 } from './externals'
+import { findResource, findResourceInStart } from './finder'
 
 export const getSupportedMinOrMax = (contents: string[]): Nullable<string> => {
   const min = contents.find((c) => c === 'min')

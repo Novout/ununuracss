@@ -3,8 +3,6 @@ import {
   NULLABLE,
   isBorderStyle,
   isNullable,
-  findResource,
-  findResourceInStart,
   isSlashImage,
   UnunuraGenerateContext,
   isTransitionProperty,
@@ -46,6 +44,7 @@ import {
 import { resolveCSS, resolveCssClass, resolveIdentifierInCSS } from './resolvers'
 import { validatePercentage, validateRGBA, validateSpreadAllResource } from './validate'
 import { RawRGBAToCssRGB } from './transformers'
+import { findResource, findResourceInStart } from './finder'
 
 export const generateMultipleClass = ([identifier, content]: [string, string], ctx: UnunuraGenerateContext) => {
   const contents = content.split(' ')
