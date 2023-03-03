@@ -105,9 +105,9 @@ ununura({
 
 This option disables features in the title of each generated class. **ATTENTION!** With this option active, Ununura does not guarantee that all classes will be unique!
 
-### hashTitles (default: true)
+### hashTitles (default: false)
 
-Use `nanoid` for hash resources in title.
+Use `nanoid` for hash resources in title. **ATTENTION!** Do not use this option in development mode to avoid reload issues.
 
 ### forceIgnoreClassLineInTitles (default: false)
 
