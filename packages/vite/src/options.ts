@@ -16,7 +16,7 @@ export const resolvedViteOptions = (options: UnunuraResolvableOptions = {}): Unu
     applyAutoprefixer: options?.applyAutoprefixer ?? true,
     overrideBrowserslist: options?.overrideBrowserslist ?? false,
     simplifyTitles: options?.simplifyTitles ?? false,
-    hashTitles: options?.hashTitles ?? true,
+    hashTitles: options?.hashTitles ?? false,
     forceIgnoreClassLineInTitles: options?.forceIgnoreClassLineInTitles ?? false,
     forceHydratedTemplate: options?.forceHydratedTemplate ?? false,
     forceAlwaysRestartHMRServer: options?.forceAlwaysRestartHMRServer ?? false,
