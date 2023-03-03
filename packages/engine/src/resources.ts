@@ -44,7 +44,7 @@ import {
 import { resolveCSS, resolveCssClass, resolveIdentifierInCSS } from './resolvers'
 import { validatePercentage, validateRGBA, validateSpreadAllResource } from './validate'
 import { RawRGBAToCssRGB } from './transformers'
-import { findResource, findResourceInStart } from './finder'
+import { findResource, findResourceInStart } from './finders'
 
 export const generateMultipleClass = ([identifier, content]: [string, string], ctx: UnunuraGenerateContext) => {
   const contents = content.split(' ')
@@ -352,8 +352,8 @@ export const getResourceText = (
   const fontFamily = getSupportedFont(ctx)
   const fontWeight = getSupportedFontWeight(ctx.contents)
   const fillColor = findResourceInStart(ctx.contents, ['fill-'], { onlyValue: true, supporter: getSupportedColor })
-  const strokeColor = findResourceInStart(ctx.contents, ['strokecolor-'], { onlyValue: true, supporter: getSupportedColor })
-  const strokeWidth = findResourceInStart(ctx.contents, ['strokewidth-'], { onlyValue: true, supporter: getSupportedNumber })
+  const strokeColor = findResourceInStart(ctx.contents, ['stroke-color-'], { onlyValue: true, supporter: getSupportedColor })
+  const strokeWidth = findResourceInStart(ctx.contents, ['stroke-width-'], { onlyValue: true, supporter: getSupportedNumber })
 
   let setter = setterHead(ctx)
   setter += setterRow(color, `color: ${color}`, ctx.contents)
@@ -420,10 +420,10 @@ export const getResourceGrid = (
 ): string => {
   const cols = findResourceInStart(ctx.contents, ['cols-'], { onlyValue: true })
   const rows = findResourceInStart(ctx.contents, ['rows-'], { onlyValue: true })
-  const colSpan = findResourceInStart(ctx.contents, ['Cspan-'], { onlyValue: true })
-  const rowSpan = findResourceInStart(ctx.contents, ['Wspan-'], { onlyValue: true })
+  const colSpan = findResourceInStart(ctx.contents, ['c-span-', 'col-span-'], { onlyValue: true })
+  const rowSpan = findResourceInStart(ctx.contents, ['r-span-', 'row-span-'], { onlyValue: true })
   const flow = findResourceInStart(ctx.contents, ['flow-'], { onlyValue: true })
-  const autoFlow = findResourceInStart(ctx.contents, ['Aflow-'], { onlyValue: true })
+  const autoFlow = findResourceInStart(ctx.contents, ['auto-flow-', 'a-flow-'], { onlyValue: true })
   const gap = findResourceInStart(ctx.contents, ['gap-'], { onlyValue: true, supporter: getSupportedNumber })
   const justifyContent = findResourceInStart(ctx.contents, ['h-', 'jc-'], {
     onlyValue: true,
@@ -510,17 +510,17 @@ export const getResourceTransition = (identifier: UnunuraIdentifier, ctx: Ununur
 
 export const getResourceTransform = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {
   const rotate = findResourceInStart(ctx.contents, ['rotate-'], { onlyValue: true })
-  const rotateX = findResourceInStart(ctx.contents, ['rotateX-'], { onlyValue: true })
-  const rotateY = findResourceInStart(ctx.contents, ['rotateY-'], { onlyValue: true })
-  const rotateZ = findResourceInStart(ctx.contents, ['rotateZ-'], { onlyValue: true })
-  const translateX = findResourceInStart(ctx.contents, ['translateX-'], { onlyValue: true })
-  const translateY = findResourceInStart(ctx.contents, ['translateY-'], { onlyValue: true })
-  const translateZ = findResourceInStart(ctx.contents, ['translateZ-'], { onlyValue: true })
-  const scaleX = findResourceInStart(ctx.contents, ['scaleX-'], { onlyValue: true })
-  const scaleY = findResourceInStart(ctx.contents, ['scaleY-'], { onlyValue: true })
-  const scaleZ = findResourceInStart(ctx.contents, ['scaleZ-'], { onlyValue: true })
-  const skewX = findResourceInStart(ctx.contents, ['skewX-'], { onlyValue: true })
-  const skewY = findResourceInStart(ctx.contents, ['skewY-'], { onlyValue: true })
+  const rotateX = findResourceInStart(ctx.contents, ['rotateX-', 'rotate-x-'], { onlyValue: true })
+  const rotateY = findResourceInStart(ctx.contents, ['rotateY-', 'rotate-y-'], { onlyValue: true })
+  const rotateZ = findResourceInStart(ctx.contents, ['rotateZ-', 'rotate-z-'], { onlyValue: true })
+  const translateX = findResourceInStart(ctx.contents, ['translateX-', 'translate-x-'], { onlyValue: true })
+  const translateY = findResourceInStart(ctx.contents, ['translateY-', 'translate-y-'], { onlyValue: true })
+  const translateZ = findResourceInStart(ctx.contents, ['translateZ-', 'translate-z-'], { onlyValue: true })
+  const scaleX = findResourceInStart(ctx.contents, ['scaleX-', 'scale-x-'], { onlyValue: true })
+  const scaleY = findResourceInStart(ctx.contents, ['scaleY-', 'scale-y-'], { onlyValue: true })
+  const scaleZ = findResourceInStart(ctx.contents, ['scaleZ-', 'scale-z-'], { onlyValue: true })
+  const skewX = findResourceInStart(ctx.contents, ['skewX-', 'skew-x-'], { onlyValue: true })
+  const skewY = findResourceInStart(ctx.contents, ['skewY-', 'skew-y-'], { onlyValue: true })
   const perspective = findResourceInStart(ctx.contents, ['perspective-'], { onlyValue: true })
 
   const inCss = resolveIdentifierInCSS(identifier)

@@ -196,11 +196,11 @@ describe('resources', () => {
       ],
       [
         resolveCSS(UnunuraIdentifier.Text, {
-          contents: ['white', 'fill-black', 'strokewidth-1px', 'strokecolor-red'],
+          contents: ['white', 'fill-black', 'stroke-width-1px', 'stroke-color-red'],
           buffer: [],
           stack: [],
         }),
-        `.text-white-fill-black-strokewidth-1px-strokecolor-red {
+        `.text-white-fill-black-stroke-width-1px-stroke-color-red {
   color: white;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: red;
@@ -400,15 +400,15 @@ describe('resources', () => {
 }`,
       ],
       [
-        resolveCSS(UnunuraIdentifier.Grid, { contents: ['Cspan-2'], buffer: [], stack: [] }),
-        `.grid-cspan-2 {
+        resolveCSS(UnunuraIdentifier.Grid, { contents: ['c-span-2'], buffer: [], stack: [] }),
+        `.grid-c-span-2 {
   display: grid;
   grid-column: span 2 / span 2;
 }`,
       ],
       [
-        resolveCSS(UnunuraIdentifier.Grid, { contents: ['Wspan-2'], buffer: [], stack: [] }),
-        `.grid-wspan-2 {
+        resolveCSS(UnunuraIdentifier.Grid, { contents: ['r-span-2'], buffer: [], stack: [] }),
+        `.grid-r-span-2 {
   display: grid;
   grid-row: span 2 / span 2;
 }`,
@@ -421,8 +421,8 @@ describe('resources', () => {
 }`,
       ],
       [
-        resolveCSS(UnunuraIdentifier.Grid, { contents: ['Aflow-foo'], buffer: [], stack: [] }),
-        `.grid-aflow-foo {
+        resolveCSS(UnunuraIdentifier.Grid, { contents: ['a-flow-foo'], buffer: [], stack: [] }),
+        `.grid-a-flow-foo {
   display: grid;
   grid-auto-columns: foo;
 }`,

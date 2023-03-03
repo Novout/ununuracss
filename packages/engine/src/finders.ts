@@ -14,16 +14,17 @@ export const findResourceInStart = (
     supporter?: (contents: UnunuraGenerateContext) => Nullable<string>
   }
 ): string => {
-  const resource = contents.find((t) => target.some((v) => t.startsWith(v)))
+  const resourceContent = contents.find((t) => target.some((v) => t.startsWith(v)))
+  const resourceTarget = target.find((t) => contents.some((v) => v.startsWith(t)))
 
-  if (!resource) return NULLABLE
-  const splitted = resource.substring(resource.indexOf('-') + 1)
+  if (!resourceContent || !resourceTarget) return NULLABLE
+  const splitted = resourceContent.replace(resourceTarget, '')
 
   if (options?.supporter) return options?.supporter({ contents: [splitted], stack: [], buffer: [] })
 
   if (options?.onlyValue) return splitted
   if (options?.onlySpreadValue) {
-    const items = resource.split('-')
+    const items = resourceContent.split('-')
     items.shift()
 
     if (options?.validate === 'timer') {
@@ -34,5 +35,6 @@ export const findResourceInStart = (
 
     return items.join('-')
   }
-  return resource
+
+  return resourceContent
 }

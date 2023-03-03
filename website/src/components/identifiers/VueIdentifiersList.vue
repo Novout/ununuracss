@@ -58,8 +58,8 @@ const list = ref([
       { inCss: 'font-size', supporter: 'fontSize', example: 'text:2rem' },
       { inCss: 'font-weight', supporter: 'fontWeight', example: 'text:600' },
       { inCss: '-webkit-text-fill-color', supporter: 'color', example: 'text:fill-black' },
-      { inCss: '-webkit-text-stroke-color', supporter: 'color', example: 'text:strokecolor-red' },
-      { inCss: '-webkit-text-stroke-width', supporter: 'unit', example: 'text:strokewidth-2px' },
+      { inCss: '-webkit-text-stroke-color', supporter: 'color', example: 'text:stroke-color-red' },
+      { inCss: '-webkit-text-stroke-width', supporter: 'unit', example: 'text:stroke-width-2px' },
     ],
   },
   {
@@ -164,12 +164,12 @@ const list = ref([
       {
         inCss: 'grid-column',
         supporter: 'in-start',
-        example: 'grid[Cspan-3]',
+        example: 'grid[c-span-3]',
       },
       {
         inCss: 'grid-row',
         supporter: 'in-start',
-        example: 'grid[Wspan-3]',
+        example: 'grid[r-span-3]',
       },
       {
         inCss: 'grid-auto-flow',
@@ -179,7 +179,7 @@ const list = ref([
       {
         inCss: 'grid-auto-column',
         supporter: 'in-start',
-        example: 'grid[Aflow-1]',
+        example: 'grid[auto-flow-1]',
       },
       {
         inCss: 'gap',
@@ -429,7 +429,7 @@ const list = ref([
       {
         inCss: 'transition-property',
         supporter: ['all', 'none', 'background', 'color', 'transform'],
-        example: 'tr[all',
+        example: 'tr:all',
       },
       {
         inCss: 'transition-timing-function',
