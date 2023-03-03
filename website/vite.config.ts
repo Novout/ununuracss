@@ -7,17 +7,16 @@ import { VitePWA as vitePWA } from 'vite-plugin-pwa'
 import { resolve } from 'pathe'
 import fg from 'fast-glob'
 import { ununura } from 'ununura'
-import path from 'path'
 
 export default defineConfig({
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': resolve(__dirname, './src'),
     },
   },
   plugins: [
     ununura({
-      applyAutoprefixer: false,
+      hashTitles: false,
       extend: {
         supporters: {
           colors: [
@@ -56,7 +55,7 @@ export default defineConfig({
       manifest: {
         name: 'UnunuraCSS',
         short_name: 'Ununura',
-        description: 'A Simplified Atomic CSS Engine.',
+        description: 'A Real CSS Engine. Only Scoped.',
         theme_color: '#888888',
         categories: ['atomic css', 'css', 'engine'],
         icons: [
