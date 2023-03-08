@@ -1,8 +1,8 @@
 # Installation
 
-### Default Vite Setup
+### Vite Plugin
 
-`pnpm add -D ununura`
+`pnpm add -D vite-plugin-ununura`
 
 ```ts
 // in your framework entrypoint
@@ -13,14 +13,14 @@ import 'ununura.css'
 ```ts
 // Insert ununura plugin in first position
 
-import { ununura } from 'ununura'
+import { ununura } from 'vite-plugin-ununura'
 
 export default defineConfig({
   plugins: [ununura(), framework_plugin()],
 })
 ```
 
-### JSX (BETA)
+#### JSX Support (BETA)
 
 To use JSX (whether in React or other JSX|TSX setup), enter the following option:
 
