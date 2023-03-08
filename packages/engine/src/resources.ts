@@ -11,6 +11,7 @@ import {
   isTypographyTransform,
   isOutlineStyle,
   Maybe,
+  UnunuraSetterCSSOptions,
 } from 'ununura-shared'
 import {
   getSupportedAlignContent,
@@ -72,10 +73,23 @@ export const setterHead = (ctx: UnunuraGenerateContext, start?: string) => {
   return preSetter
 }
 
-export const setterRow = (item: Maybe<string> = undefined, valid: string, contents: string[]) => {
+export const setterRow = (
+  item: Maybe<string> = undefined,
+  raw: string | string[],
+  contents: string[],
+  options?: UnunuraSetterCSSOptions
+): string => {
   const asImportant = getSupportedGlobalImportant(contents)
 
-  return !isNullable(item) ? `  ${valid}${!isNullable(asImportant) ? ' !important' : ''};\n` : ''
+  if (Array.isArray(raw)) {
+    return raw.reduce((acc, current) => (acc += setterRow(item, current, contents)), '')
+  }
+
+  return !isNullable(item)
+    ? `${options?.removeWhitespaceInStart ? raw : `  ${raw}`}${
+        !isNullable(asImportant) && !options?.removeImportantCase ? ' !important' : ''
+      }${options?.removeSemicolonAndBreakLineInEnd ? '' : ';\n'}`
+    : ''
 }
 
 export const getResourcePaddingOrMargin = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {
@@ -509,6 +523,8 @@ export const getResourceTransition = (identifier: UnunuraIdentifier, ctx: Ununur
 }
 
 export const getResourceTransform = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {
+  const asImportant = getSupportedGlobalImportant(ctx.contents)
+
   const rotate = findResourceInStart(ctx.contents, ['rotate-'], { onlyValue: true })
   const rotateX = findResourceInStart(ctx.contents, ['rotateX-', 'rotate-x-'], { onlyValue: true })
   const rotateY = findResourceInStart(ctx.contents, ['rotateY-', 'rotate-y-'], { onlyValue: true })
@@ -527,25 +543,79 @@ export const getResourceTransform = (identifier: UnunuraIdentifier, ctx: Ununura
 
   let setter = setterHead(ctx)
   setter += `  ${inCss}: `
-  setter += !isNullable(rotate) ? `rotate(${rotate}) ` : ''
-  setter += !isNullable(rotateX) ? `rotateX(${rotateX}) ` : ''
-  setter += !isNullable(rotateY) ? `rotateY(${rotateY}) ` : ''
-  setter += !isNullable(rotateZ) ? `rotateZ(${rotateZ}) ` : ''
-  setter += !isNullable(translateX) ? `translateX(${translateX}) ` : ''
-  setter += !isNullable(translateY) ? `translateY(${translateY}) ` : ''
-  setter += !isNullable(translateZ) ? `translateZ(${translateZ}) ` : ''
-  setter += !isNullable(scaleX) ? `scaleX(${scaleX}) ` : ''
-  setter += !isNullable(scaleY) ? `scaleY(${scaleY}) ` : ''
-  setter += !isNullable(scaleZ) ? `scaleZ(${scaleZ}) ` : ''
-  setter += !isNullable(skewX) ? `skewX(${skewX}) ` : ''
-  setter += !isNullable(skewY) ? `skewY(${skewY}) ` : ''
-  setter += !isNullable(perspective) ? `perspective(${perspective}) ` : ''
-  setter = setter.trimEnd() + ';\n'
+  setter += setterRow(rotate, `rotate(${rotate}) `, ctx.contents, {
+    removeSemicolonAndBreakLineInEnd: true,
+    removeImportantCase: true,
+    removeWhitespaceInStart: true,
+  })
+  setter += setterRow(rotateX, `rotateX(${rotateX}) `, ctx.contents, {
+    removeSemicolonAndBreakLineInEnd: true,
+    removeImportantCase: true,
+    removeWhitespaceInStart: true,
+  })
+  setter += setterRow(rotateY, `rotateY(${rotateY}) `, ctx.contents, {
+    removeSemicolonAndBreakLineInEnd: true,
+    removeImportantCase: true,
+    removeWhitespaceInStart: true,
+  })
+  setter += setterRow(rotateZ, `rotateZ(${rotateZ}) `, ctx.contents, {
+    removeSemicolonAndBreakLineInEnd: true,
+    removeImportantCase: true,
+    removeWhitespaceInStart: true,
+  })
+  setter += setterRow(translateX, `translateX(${translateX}) `, ctx.contents, {
+    removeSemicolonAndBreakLineInEnd: true,
+    removeImportantCase: true,
+    removeWhitespaceInStart: true,
+  })
+  setter += setterRow(translateY, `translateY(${translateY}) `, ctx.contents, {
+    removeSemicolonAndBreakLineInEnd: true,
+    removeImportantCase: true,
+    removeWhitespaceInStart: true,
+  })
+  setter += setterRow(translateZ, `translateZ(${translateZ}) `, ctx.contents, {
+    removeSemicolonAndBreakLineInEnd: true,
+    removeImportantCase: true,
+    removeWhitespaceInStart: true,
+  })
+  setter += setterRow(scaleX, `scaleX(${scaleX}) `, ctx.contents, {
+    removeSemicolonAndBreakLineInEnd: true,
+    removeImportantCase: true,
+    removeWhitespaceInStart: true,
+  })
+  setter += setterRow(scaleY, `scaleY(${scaleY}) `, ctx.contents, {
+    removeSemicolonAndBreakLineInEnd: true,
+    removeImportantCase: true,
+    removeWhitespaceInStart: true,
+  })
+  setter += setterRow(scaleZ, `scaleZ(${scaleZ}) `, ctx.contents, {
+    removeSemicolonAndBreakLineInEnd: true,
+    removeImportantCase: true,
+    removeWhitespaceInStart: true,
+  })
+  setter += setterRow(skewX, `skewX(${skewX}) `, ctx.contents, {
+    removeSemicolonAndBreakLineInEnd: true,
+    removeImportantCase: true,
+    removeWhitespaceInStart: true,
+  })
+  setter += setterRow(skewY, `skewY(${skewY}) `, ctx.contents, {
+    removeSemicolonAndBreakLineInEnd: true,
+    removeImportantCase: true,
+    removeWhitespaceInStart: true,
+  })
+  setter += setterRow(perspective, `perspective(${perspective}) `, ctx.contents, {
+    removeSemicolonAndBreakLineInEnd: true,
+    removeImportantCase: true,
+    removeWhitespaceInStart: true,
+  })
+  setter = setter.trimEnd() + (!isNullable(asImportant) ? ' !important;\n' : ';\n')
 
   return resolveCssClass(identifier, setter, ctx)
 }
 
 export const getResourceFilter = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {
+  const asImportant = getSupportedGlobalImportant(ctx.contents)
+
   const backdrop = findResource(ctx.contents, ['backdrop'])
   const blur = findResourceInStart(ctx.contents, ['blur-'], { onlyValue: true })
   const contrast = findResourceInStart(ctx.contents, ['contrast-'], { onlyValue: true })
@@ -559,14 +629,42 @@ export const getResourceFilter = (identifier: UnunuraIdentifier, ctx: UnunuraGen
 
   let setter = setterHead(ctx)
   setter += !isNullable(backdrop) ? `  backdrop-${inCss}: ` : `  ${inCss}: `
-  setter += !isNullable(blur) ? `blur(${blur}) ` : ''
-  setter += !isNullable(contrast) ? `contrast(${contrast}) ` : ''
-  setter += !isNullable(grayscale) ? `grayscale(${grayscale}) ` : ''
-  setter += !isNullable(hue) ? `hue-rotate(${hue}) ` : ''
-  setter += !isNullable(invert) ? `invert(${invert}) ` : ''
-  setter += !isNullable(saturate) ? `saturate(${saturate}) ` : ''
-  setter += !isNullable(sepia) ? `sepia(${sepia}) ` : ''
-  setter = setter.trimEnd() + ';\n'
+  setter += setterRow(blur, `blur(${blur}) `, ctx.contents, {
+    removeImportantCase: true,
+    removeSemicolonAndBreakLineInEnd: true,
+    removeWhitespaceInStart: true,
+  })
+  setter += setterRow(contrast, `contrast(${contrast}) `, ctx.contents, {
+    removeImportantCase: true,
+    removeSemicolonAndBreakLineInEnd: true,
+    removeWhitespaceInStart: true,
+  })
+  setter += setterRow(grayscale, `grayscale(${grayscale}) `, ctx.contents, {
+    removeImportantCase: true,
+    removeSemicolonAndBreakLineInEnd: true,
+    removeWhitespaceInStart: true,
+  })
+  setter += setterRow(hue, `hue-rotate(${hue}) `, ctx.contents, {
+    removeImportantCase: true,
+    removeSemicolonAndBreakLineInEnd: true,
+    removeWhitespaceInStart: true,
+  })
+  setter += setterRow(invert, `invert(${invert}) `, ctx.contents, {
+    removeImportantCase: true,
+    removeSemicolonAndBreakLineInEnd: true,
+    removeWhitespaceInStart: true,
+  })
+  setter += setterRow(saturate, `saturate(${saturate}) `, ctx.contents, {
+    removeImportantCase: true,
+    removeSemicolonAndBreakLineInEnd: true,
+    removeWhitespaceInStart: true,
+  })
+  setter += setterRow(sepia, `sepia(${sepia}) `, ctx.contents, {
+    removeImportantCase: true,
+    removeSemicolonAndBreakLineInEnd: true,
+    removeWhitespaceInStart: true,
+  })
+  setter = setter.trimEnd() + (!isNullable(asImportant) ? ' !important;\n' : ';\n')
 
   return resolveCssClass(identifier, setter, ctx)
 }
@@ -643,8 +741,8 @@ export const getResourceCollection = (identifier: UnunuraIdentifier, ctx: Ununur
   const screen = findResource(ctx.contents, ['screen'])
 
   let setter = setterHead(ctx)
-  setter += setterRow(truncate, `overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap`, ctx.contents)
-  setter += setterRow(screen, `min-height: 100vh;\n  width: 100%;\n  overflow-y: auto`, ctx.contents)
+  setter += setterRow(truncate, ['overflow: hidden', 'text-overflow: ellipsis', 'white-space: nowrap'], ctx.contents)
+  setter += setterRow(screen, ['min-height: 100vh', 'width: 100%', 'overflow-y: auto'], ctx.contents)
 
   return resolveCssClass(identifier, setter, ctx)
 }

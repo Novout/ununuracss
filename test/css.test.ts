@@ -743,6 +743,12 @@ describe('resources', () => {
 }`,
       ],
       [
+        resolveCSS(UnunuraIdentifier.Filter, { contents: ['!', 'backdrop', 'blur-4px', 'hue-30deg'], buffer: [], stack: [] }),
+        `.filter-_important_-backdrop-blur-4px-hue-30deg {
+  backdrop-filter: blur(4px) hue-rotate(30deg) !important;
+}`,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Filter, {
           contents: ['blur-4px', 'contrast-1', 'hue-30deg', 'grayscale-50%', 'invert-50%', 'saturate-1', 'sepia-50%'],
           buffer: [],

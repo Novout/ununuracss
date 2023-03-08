@@ -1,5 +1,11 @@
 import { UnunuraContextualizeStack, Option, ValueOption, Symbol } from './types'
 
+export interface UnunuraSetterCSSOptions {
+  removeWhitespaceInStart?: boolean
+  removeImportantCase?: boolean
+  removeSemicolonAndBreakLineInEnd?: boolean
+}
+
 export interface UnunuraGenerateContext {
   stack: UnunuraContextualizeStack
   buffer: string[]
