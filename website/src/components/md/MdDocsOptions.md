@@ -20,7 +20,15 @@ ununura({
 
 Modify some internal values.
 
-### extend (default: {})
+```ts
+defaults: {
+  values: {
+    unit: ['rem', 0.25]
+  }
+}
+
+// m:1 -> margin: 0.25rem;
+```
 
 Extend default settings for special customizations.
 

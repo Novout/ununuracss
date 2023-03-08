@@ -88,7 +88,15 @@ export interface UnunuraResolvableOptions {
    */
   defines?: ValueOption<string>
   /**
-   * Modify some internal values.
+   * Override some internal values.
+   *
+   *```ts
+   *defaults: {
+   *   values: {
+   *      unit: ['rem', 0.25]
+   *   }
+   * }
+   *```
    *
    * @default {}
    */
@@ -229,7 +237,15 @@ export interface UnunuraOptions {
    */
   defines: ValueOption<string>
   /**
-   * Modify some internal values.
+   * Override some internal values.
+   *
+   *```ts
+   *defaults: {
+   *   values: {
+   *      unit: ['rem', 0.25]
+   *   }
+   * }
+   *```
    *
    * @default {}
    */
