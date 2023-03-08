@@ -259,7 +259,8 @@ export const resolveTitleCssClass = (identifier: UnunuraIdentifier, ctx: Ununura
   setter += asTheme && !asResponsive ? `-${asTheme}` : ''
   setter += ctx.node?.flag ? `-${ctx.node?.flag}` : ''
 
-  return ctx.ununura?.hashTitles ? hashTitleResources(setter) : setter
+  // TODO: unique generation in transform for remove only scopedInTemplate option.
+  return ctx.ununura?.hashTitles && ctx.ununura.scopedInTemplate ? hashTitleResources(setter) : setter
 }
 
 export const resolveCssClass = (identifier: UnunuraIdentifier, setter: string, ctx: UnunuraGenerateContext): Nullable<string> => {
