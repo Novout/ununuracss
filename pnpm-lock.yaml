@@ -134,11 +134,13 @@ importers:
       nanoid: 3.0.0
       postcss: ^8.4.21
       ununura-shared: workspace:*
+      ununura-vue-sfc: workspace:*
     dependencies:
       autoprefixer: 10.4.13_postcss@8.4.21
       nanoid: 3.0.0
       postcss: 8.4.21
       ununura-shared: link:../shared
+      ununura-vue-sfc: link:../vue-sfc
 
   packages/nuxt:
     specifiers:
@@ -182,6 +184,9 @@ importers:
       ununura-engine: link:../engine
       ununura-shared: link:../shared
       vite: 4.1.4
+
+  packages/vue-sfc:
+    specifiers: {}
 
 packages:
 

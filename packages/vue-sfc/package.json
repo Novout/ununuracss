@@ -1,5 +1,6 @@
 {
-  "name": "ununura-engine",
+  "name": "ununura-vue-sfc",
+  "private": true,
   "version": "1.6.0",
   "description": "Atomic CSS Engine.",
   "author": "Novout",
@@ -7,12 +8,8 @@
   "homepage": "https://ununura.com",
   "keywords": [
     "ununura",
-    "ununura-css",
     "atomic-css",
-    "css",
-    "vue",
-    "vite",
-    "nuxt"
+    "css"
   ],
   "sideEffects": false,
   "exports": {
@@ -32,12 +29,5 @@
     "dev": "tsup --watch",
     "build": "tsup",
     "build:minify": "tsup --minify"
-  },
-  "dependencies": {
-    "autoprefixer": "^10.4.13",
-    "nanoid": "3.0.0",
-    "postcss": "^8.4.21",
-    "ununura-shared": "workspace:*",
-    "ununura-vue-sfc": "workspace:*"
   }
 }

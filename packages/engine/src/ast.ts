@@ -2,11 +2,8 @@ import { Content, Properties } from 'hast'
 import { fromHtml } from 'hast-util-from-html'
 import { Root } from 'hast-util-from-html/lib'
 import { Node, parse as jsxParse } from 'babel-jsx-to-ast-fragmented'
-import {
-  UnunuraASTNode,
-  Maybe,
-} from 'ununura-shared'
-import { VueSFC } from './adapters'
+import { VueSFC } from 'ununura-vue-sfc'
+import { UnunuraASTNode, Maybe } from 'ununura-shared'
 
 export const classesFromRawHtml = (html: string, adapters?: string[]): UnunuraASTNode[] => {
   const tree = fromHtml(html, { fragment: true })
