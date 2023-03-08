@@ -4,9 +4,9 @@ import viteComponents from 'unplugin-vue-components/vite'
 import vue from '@vitejs/plugin-vue'
 import markdown from 'vite-plugin-vue-markdown'
 import { VitePWA as vitePWA } from 'vite-plugin-pwa'
+import { ununura } from 'vite-plugin-ununura'
 import { resolve } from 'pathe'
 import fg from 'fast-glob'
-import { ununura } from 'ununura'
 
 export default defineConfig({
   resolve: {
@@ -16,7 +16,6 @@ export default defineConfig({
   },
   plugins: [
     ununura({
-      hashTitles: false,
       extend: {
         supporters: {
           colors: [

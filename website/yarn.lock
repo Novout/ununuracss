@@ -3273,16 +3273,6 @@ unplugin@^1.0.0, unplugin@^1.0.1:
   resolved "https://registry.yarnpkg.com/ununura-shared/-/ununura-shared-1.5.0.tgz#cf9df370bd2b6e2efc1f32555c0c9c3ecaecfe81"
   integrity sha512-VwvF2sVKWvn1i0qeHubMZMirP/ycSaOxCwdOSTLP+ix4dcnBAe6mC0vsJTZWLERIzCuNXUW/Y6zTr4nBBhki3A==
 
-ununura@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/ununura/-/ununura-1.5.0.tgz#7e9af5adeaf7c0e36102aaa67c0776fc587235a9"
-  integrity sha512-yYeuSgda5yJO4Ox0wzoeSem+DhDQlYC4wSiHBjZCscXmnE4fjUIa5+5kyYE/38xTdkJd0OVpndO61e51aMrziQ==
-  dependencies:
-    fontaine "^0.2.3"
-    ununura-engine "workspace:*"
-    ununura-shared "workspace:*"
-    vite "^4.1.4"
-
 upath@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/upath/-/upath-1.2.0.tgz#8f66dbcd55a883acdae4408af8b035a5044c1894"
@@ -3322,6 +3312,16 @@ vite-plugin-pwa@0.14.4:
     rollup "^3.7.2"
     workbox-build "^6.5.4"
     workbox-window "^6.5.4"
+
+vite-plugin-ununura@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/vite-plugin-ununura/-/vite-plugin-ununura-1.6.1.tgz#7a0a9732031c320143c5c5339f69591f869a6a79"
+  integrity sha512-cr3+gvLSw6FxYytiQmcNvyEuKjHUGYKeQR+k2dWEchEXiRqNbvrLdaBYdbXW8/bw1fOoTZPa6SNW1nsrYU9Wvw==
+  dependencies:
+    fontaine "^0.2.3"
+    ununura-engine "workspace:*"
+    ununura-shared "workspace:*"
+    vite "^4.1.4"
 
 vite-plugin-vue-markdown@^0.22.2:
   version "0.22.4"
