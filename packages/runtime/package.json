@@ -1,6 +1,6 @@
 {
   "name": "ununura-runtime",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "A runtime for UnunuraCSS.",
   "author": "Novout",
   "license": "MIT",
@@ -32,8 +32,8 @@
     "build:minify": "tsup --minify"
   },
   "dependencies": {
-    "ununura": "workspace:*",
     "ununura-engine": "workspace:*",
-    "ununura-shared": "workspace:*"
+    "ununura-shared": "workspace:*",
+    "vite-plugin-ununura": "workspace:*"
   }
 }

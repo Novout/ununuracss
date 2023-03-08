@@ -96,37 +96,37 @@ importers:
 
   examples/preact:
     specifiers:
-      ununura: workspace:*
+      vite-plugin-ununura: workspace:*
     dependencies:
-      ununura: link:../../packages/vite
+      vite-plugin-ununura: link:../../packages/vite
 
   examples/react:
     specifiers:
-      ununura: workspace:*
+      vite-plugin-ununura: workspace:*
     dependencies:
-      ununura: link:../../packages/vite
+      vite-plugin-ununura: link:../../packages/vite
 
   examples/svelte:
     specifiers:
-      ununura: workspace:*
+      vite-plugin-ununura: workspace:*
     dependencies:
-      ununura: link:../../packages/vite
+      vite-plugin-ununura: link:../../packages/vite
 
   examples/vue3:
     specifiers:
-      ununura: workspace:*
+      vite-plugin-ununura: workspace:*
     dependencies:
-      ununura: link:../../packages/vite
+      vite-plugin-ununura: link:../../packages/vite
 
   packages/astro:
     specifiers:
-      ununura: workspace:*
       ununura-engine: workspace:*
       ununura-shared: workspace:*
+      vite-plugin-ununura: workspace:*
     dependencies:
-      ununura: link:../vite
       ununura-engine: link:../engine
       ununura-shared: link:../shared
+      vite-plugin-ununura: link:../vite
 
   packages/engine:
     specifiers:
@@ -146,26 +146,26 @@ importers:
     specifiers:
       '@nuxt/kit': ^3.2.3
       '@nuxt/schema': ^3.2.3
-      ununura: workspace:*
       ununura-engine: workspace:*
       ununura-shared: workspace:*
+      vite-plugin-ununura: workspace:*
     dependencies:
       '@nuxt/kit': 3.2.3
-      ununura: link:../vite
       ununura-engine: link:../engine
       ununura-shared: link:../shared
+      vite-plugin-ununura: link:../vite
     devDependencies:
       '@nuxt/schema': 3.2.3
 
   packages/runtime:
     specifiers:
-      ununura: workspace:*
       ununura-engine: workspace:*
       ununura-shared: workspace:*
+      vite-plugin-ununura: workspace:*
     dependencies:
-      ununura: link:../vite
       ununura-engine: link:../engine
       ununura-shared: link:../shared
+      vite-plugin-ununura: link:../vite
 
   packages/shared:
     specifiers: {}

@@ -8,7 +8,7 @@
     "preview:react": "vite build && vite preview --port 5000"
   },
   "dependencies": {
-    "ununura": "workspace:*"
+    "vite-plugin-ununura": "workspace:*"
   },
   "devDependencies": {}
 }

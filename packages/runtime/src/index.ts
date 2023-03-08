@@ -1,4 +1,4 @@
-import { resolvedViteOptions } from 'ununura'
+import { resolvedViteOptions } from 'vite-plugin-ununura'
 import { initRuntime } from 'ununura-engine'
 import { UnunuraResolvableOptions } from 'ununura-shared'
 

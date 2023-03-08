@@ -1,5 +1,5 @@
 import type { AstroIntegration } from 'astro'
-import { ununura } from 'ununura'
+import { ununura } from 'vite-plugin-ununura'
 import { resolvedViteOptions } from 'packages/vite/src/options'
 import { UnunuraResolvableOptions } from 'ununura-shared'
 

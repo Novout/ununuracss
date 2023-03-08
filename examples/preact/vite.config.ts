@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import { ununura } from 'ununura'
+import { ununura } from 'vite-plugin-ununura'
 import preact from '@preact/preset-vite'
 import inspect from 'vite-plugin-inspect'
 
