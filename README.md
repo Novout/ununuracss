@@ -30,12 +30,10 @@
 
 ```html
 <main class="reset:meyer">
-  <div class="flex[col h-center v-center] border[2 white solid] bg:black w:100% h[min 100vh] scroll[y auto]">
+  <div class="flex[col jc-center ai-center] bg:black w:100% h[min 100vh] scroll[y auto]">
     <p class="text[arial white 2rem 700]">Hello UnunuraCSS!</p>
   </div>
 </main>
 ```
-
-## Documentation
 
 ### Access [ununura.com](https://ununura.com) for more explanations.
