@@ -20,7 +20,7 @@ export default defineConfig({
 })
 ```
 
-#### JSX Support (BETA)
+### JSX Support (BETA)
 
 To use JSX (whether in React or other JSX|TSX setup), enter the following option:
 
