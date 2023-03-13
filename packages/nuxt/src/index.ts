@@ -11,7 +11,6 @@ export default defineNuxtModule({
   defaults: {
     // TODO: because vue&scoped files recursive in nitro reload will disabled scoped sfc.
     scopedInTemplate: false,
-    hashTitles: false,
     specialEnvironment: 'nitro',
   } as UnunuraResolvableOptions,
   async setup(options, nuxt) {
@@ -19,7 +18,7 @@ export default defineNuxtModule({
 
     addPluginTemplate({
       filename: 'ununura.mjs',
-      getContents: () => "import 'ununura.css'\n" + exportTemplate,
+      getContents: () => ('import \'ununura.css\'\n') + exportTemplate,
     })
 
     if (isNuxt2()) {
