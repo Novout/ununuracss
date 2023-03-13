@@ -17,7 +17,7 @@ import { getGlobals } from './globals'
 import { applyAutoprefixer } from './integrations'
 import { nodesToCSS } from './pipeline'
 
-export const UnunuraGlobalGenerateReduced = (files: UnunuraScannerFile[], initial: string = '', ununura: UnunuraOptions) => {
+export const UnunuraGlobalGenerateReduced = (files: UnunuraScannerFile[], initial: string = '', ununura: UnunuraOptions): string => {
   const reduced =
     files?.reduce((acc, file) => {
       // TODO: JSX AST Rework ExportedNamedFunctions in common syntax -> export function ...
@@ -26,7 +26,7 @@ export const UnunuraGlobalGenerateReduced = (files: UnunuraScannerFile[], initia
       const { css } = nodesToCSS(nodes, file.raw, file.filename, ununura)
 
       return (acc += `${css.reduce((acc, cl) => (acc += cl), '')}`)
-    }, initial) ?? []
+    }, initial) ?? ''
 
   return reduced
 }
