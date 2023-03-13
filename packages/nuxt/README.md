@@ -29,4 +29,27 @@ export default defineNuxtConfig({
 })
 ```
 
-### Access [ununura.com](https://ununura.com) for more explanations.
+# Example
+
+```html
+// app.vue
+<template>
+  <div class="reset:meyer">
+    <NuxtLayout>
+      <NuxtPage/>
+    </NuxtLayout>
+  </div>
+</template>
+//...
+
+// index.vue
+<template>
+  <main>
+    <div class="flex[col jc-center ai-center] bg:black w:100% h[min 100vh] text[arial green 2rem 700]">
+      Hello Nuxt!
+    </div>
+  </main>
+</template>
+```
+
+## Access [ununura.com](https://ununura.com) for more explanations.
