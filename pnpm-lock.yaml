@@ -171,7 +171,10 @@ importers:
     specifiers: {}
 
   packages/style-tailwindcss:
-    specifiers: {}
+    specifiers:
+      ununura-shared: workspace:*
+    dependencies:
+      ununura-shared: link:../shared
 
   packages/vite:
     specifiers:

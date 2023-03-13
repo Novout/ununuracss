@@ -29,5 +29,8 @@
     "dev": "tsup --watch",
     "build": "tsup",
     "build:minify": "tsup --minify"
+  },
+  "dependencies": {
+    "ununura-shared": "workspace:*"
   }
 }

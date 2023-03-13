@@ -1,7 +1,6 @@
 import type { AstroIntegration } from 'astro'
-import { ununura } from 'vite-plugin-ununura'
-import { resolvedViteOptions } from 'packages/vite/src/options'
 import { UnunuraResolvableOptions } from 'ununura-shared'
+import { ununura, resolvedViteOptions } from 'vite-plugin-ununura'
 
 export default function ununuraIntegration(def?: UnunuraResolvableOptions): AstroIntegration {
   const options = resolvedViteOptions(def)
@@ -15,7 +14,7 @@ export default function ununuraIntegration(def?: UnunuraResolvableOptions): Astr
   return {
     name: 'astro-ununura',
     hooks: {
-      'astro:config:setup': async ({ updateConfig, injectScript }) => {
+      'astro:config:setup': ({ updateConfig, injectScript }) => {
         updateConfig({
           vite: {
             plugins: [ununura(options)],
