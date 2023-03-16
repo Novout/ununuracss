@@ -1,13 +1,15 @@
 {
-  "name": "astro-ununura",
+  "name": "vite-plugin-ununura",
   "version": "1.6.4",
-  "description": "A Atomic CSS Engine Integration for Astro.",
+  "description": "Atomic CSS Engine.",
   "author": "Novout",
   "license": "MIT",
   "homepage": "https://ununura.com",
   "repository": "https://github.com/Novout/ununuracss",
   "keywords": [
-    "astro-integration"
+    "ununura",
+    "atomic-css",
+    "css"
   ],
   "sideEffects": false,
   "exports": {
@@ -15,11 +17,10 @@
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
       "import": "./dist/index.mjs"
-    },
-    "./package.json": "./package.json"
+    }
   },
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
@@ -29,10 +30,14 @@
     "build": "tsup",
     "build:minify": "tsup --minify"
   },
+  "peerDependencies": {
+    "vite": "^3.0.0-0 || ^4.0.0"
+  },
   "dependencies": {
+    "fontaine": "^0.2.3",
     "ununura-engine": "workspace:*",
     "ununura-shared": "workspace:*",
     "ununura-config": "workspace:*",
-    "vite-plugin-ununura": "workspace:*"
+    "vite": "^4.1.4"
   }
 }

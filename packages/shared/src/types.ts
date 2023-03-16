@@ -8,10 +8,10 @@ export type CSSInject<T extends string | Promise<string> = string> = T
 export type Symbol = string | number
 
 export type Tuple<T extends Symbol> = [T, T]
-export type TupleWithOptions<T extends Symbol, K = Record<T, unknown>> = [T, T, K]
+export type TupleWithOptions<T extends Symbol, K = Record<T, any>> = [T, T, K]
 export type ArrTuple<T extends Symbol> = Tuple<T>[]
 export type ArrTupleWithOptions<T extends Symbol, K = {}> = TupleWithOptions<T, K>[]
-export type TupleOption<K extends Symbol = Symbol, O = Record<K, unknown>> = (Tuple<K> | TupleWithOptions<K, O>)[]
+export type TupleOption<K extends Symbol = Symbol, O = Record<K, any>> = (Tuple<K> | TupleWithOptions<K, O>)[]
 
 export type Object = Record<Symbol, Symbol>
 export type ObjectWithOptions<T> = Record<Symbol, { value: Symbol; options?: T }>

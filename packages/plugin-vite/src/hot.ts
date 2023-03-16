@@ -6,6 +6,6 @@ export const reloadServer = async (server: ViteDevServer, options: UnunuraCoreOp
 
   if (virtualModule) {
     if (options.forceAlwaysRestartHMRServer) await server.restart()
-    await server.reloadModule(virtualModule)
+    else await server.reloadModule(virtualModule)
   }
 }

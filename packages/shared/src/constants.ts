@@ -16,3 +16,15 @@ export const DEFAULT_RESPONSIVE = {
   lg: '1024px',
   xl: '1536px',
 }
+export const DEFAULT_ADAPTERS = () => {
+  return [
+    // nuxt-link
+    'exactClassName',
+    'exact-class-name',
+    ':exactClassName',
+    ':exact-class-name',
+  ]
+}
+export const DEFAULT_CL = () => {
+  return [':class', ':className']
+}

@@ -18,7 +18,7 @@ export default defineNuxtModule({
 
     addPluginTemplate({
       filename: 'ununura.mjs',
-      getContents: () => ('import \'ununura.css\'\n') + exportTemplate,
+      getContents: () => "import 'ununura.css'\n" + exportTemplate,
     })
 
     if (isNuxt2()) {
@@ -29,9 +29,9 @@ export default defineNuxtModule({
       })
     }
 
-    nuxt.hook('vite:extend', ({ config }) => {
+    nuxt.hook('vite:extend', async ({ config }) => {
       config.plugins = config.plugins || []
-      config.plugins.unshift(ununura(options))
+      config.plugins.unshift(await ununura(options))
     })
   },
 })

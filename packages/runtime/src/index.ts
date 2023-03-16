@@ -1,4 +1,4 @@
-import { resolvedViteOptions } from 'vite-plugin-ununura'
+import { resolvedOptions } from 'ununura-config'
 import { initRuntime } from 'ununura-engine'
 import { UnunuraResolvableOptions } from 'ununura-shared'
 
@@ -9,7 +9,7 @@ declare global {
 }
 
 ;(() => {
-  const ununura = resolvedViteOptions(window.__UNUNURA__ ?? {})
+  const ununura = resolvedOptions(window.__UNUNURA__ ?? {})
   ununura.applyAutoprefixer = false
   ununura.scopedInTemplate = false
   ununura.specialEnvironment = 'runtime'
