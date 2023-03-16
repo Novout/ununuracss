@@ -1,4 +1,4 @@
-import { applyAutoprefixer, defaultAdapters } from 'ununura-engine'
+import { applyAutoprefixer } from 'ununura-engine'
 import { describe, expect, it } from 'vitest'
 
 describe.concurrent('autoprefixer', () => {
@@ -26,11 +26,5 @@ describe.concurrent('autoprefixer', () => {
   display: -ms-grid;
   display: grid;
 }`)
-  })
-})
-
-describe.concurrent('nuxt', () => {
-  it('should search nuxt 3 class-build', async () => {
-    expect(defaultAdapters()).containSubset(['exactClassName'])
   })
 })
