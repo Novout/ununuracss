@@ -100,25 +100,25 @@ importers:
     specifiers:
       vite-plugin-ununura: workspace:*
     dependencies:
-      vite-plugin-ununura: link:../../packages/plugin-vite
+      vite-plugin-ununura: link:../../packages/vite
 
   examples/react:
     specifiers:
       vite-plugin-ununura: workspace:*
     dependencies:
-      vite-plugin-ununura: link:../../packages/plugin-vite
+      vite-plugin-ununura: link:../../packages/vite
 
   examples/svelte:
     specifiers:
       vite-plugin-ununura: workspace:*
     dependencies:
-      vite-plugin-ununura: link:../../packages/plugin-vite
+      vite-plugin-ununura: link:../../packages/vite
 
   examples/vue3:
     specifiers:
       vite-plugin-ununura: workspace:*
     dependencies:
-      vite-plugin-ununura: link:../../packages/plugin-vite
+      vite-plugin-ununura: link:../../packages/vite
 
   packages/astro:
     specifiers:
@@ -130,7 +130,7 @@ importers:
       ununura-config: link:../config
       ununura-engine: link:../engine
       ununura-shared: link:../shared
-      vite-plugin-ununura: link:../plugin-vite
+      vite-plugin-ununura: link:../vite
 
   packages/config:
     specifiers:
@@ -165,23 +165,9 @@ importers:
       '@nuxt/kit': 3.2.3
       ununura-engine: link:../engine
       ununura-shared: link:../shared
-      vite-plugin-ununura: link:../plugin-vite
+      vite-plugin-ununura: link:../vite
     devDependencies:
       '@nuxt/schema': 3.2.3
-
-  packages/plugin-vite:
-    specifiers:
-      fontaine: ^0.2.3
-      ununura-config: workspace:*
-      ununura-engine: workspace:*
-      ununura-shared: workspace:*
-      vite: ^4.1.4
-    dependencies:
-      fontaine: 0.2.3
-      ununura-config: link:../config
-      ununura-engine: link:../engine
-      ununura-shared: link:../shared
-      vite: 4.1.4
 
   packages/runtime:
     specifiers:
@@ -201,6 +187,20 @@ importers:
       ununura-shared: workspace:*
     dependencies:
       ununura-shared: link:../shared
+
+  packages/vite:
+    specifiers:
+      fontaine: ^0.2.3
+      ununura-config: workspace:*
+      ununura-engine: workspace:*
+      ununura-shared: workspace:*
+      vite: ^4.1.4
+    dependencies:
+      fontaine: 0.2.3
+      ununura-config: link:../config
+      ununura-engine: link:../engine
+      ununura-shared: link:../shared
+      vite: 4.1.4
 
   packages/vue-sfc:
     specifiers: {}

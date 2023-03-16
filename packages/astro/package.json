@@ -1,6 +1,6 @@
 {
   "name": "astro-ununura",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "description": "A Atomic CSS Engine Integration for Astro.",
   "author": "Novout",
   "license": "MIT",
@@ -30,9 +30,9 @@
     "build:minify": "tsup --minify"
   },
   "dependencies": {
+    "ununura-config": "workspace:*",
     "ununura-engine": "workspace:*",
     "ununura-shared": "workspace:*",
-    "ununura-config": "workspace:*",
     "vite-plugin-ununura": "workspace:*"
   }
 }
