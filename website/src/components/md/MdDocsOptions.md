@@ -1,6 +1,21 @@
 # Options
 
-The options are inserted by the Vite Ununura plugin.
+There are two types of syntax options: Insert directly from the plugin, or from an `ununura.config.(js|ts)` file in your project root. Example:
+
+```ts
+// vite.config.ts
+ununura({
+  // options here...
+})
+```
+
+```ts
+// ununura.config.ts
+export default {
+  // options here...
+}
+```
+> Passing through `window.__UNUNURA__` is only valid for the runtime.
 
 ### defines (default: [])
 
@@ -28,6 +43,8 @@ defaults: {
 }
 
 // m:1 -> margin: 0.25rem;
+// m:2 -> margin: 0.5rem;
+// m:5 -> margin: 1.25rem;
 ```
 
 Extend default settings for special customizations.
