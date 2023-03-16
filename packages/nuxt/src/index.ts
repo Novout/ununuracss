@@ -1,6 +1,6 @@
 import { addPluginTemplate, defineNuxtModule, isNuxt2 } from '@nuxt/kit'
 import type { NuxtPlugin } from '@nuxt/schema'
-import { ununura } from 'vite-plugin-ununura'
+import { ununura } from 'packages/vite/dist'
 import { UnunuraResolvableOptions } from 'ununura-shared'
 
 export default defineNuxtModule({
