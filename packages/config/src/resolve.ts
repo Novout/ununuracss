@@ -2,18 +2,17 @@ import { loadConfig } from 'c12'
 import { UnunuraOptions, UnunuraResolvableOptions, DEFAULT_ADAPTERS } from 'ununura-shared'
 
 export const resolveOptions = async (options?: UnunuraResolvableOptions): Promise<UnunuraOptions> => {
-  if (options) return resolvedOptions(options)
-
   try {
     const { config } = await loadConfig({
       name: 'ununura',
       rcFile: false,
       envName: false,
+      defaultConfig: options,
     })
 
     return resolvedOptions((config ?? {}) as UnunuraResolvableOptions)
   } catch (e) {
-    return resolvedOptions({} as UnunuraResolvableOptions)
+    return resolvedOptions(options ?? ({} as UnunuraResolvableOptions))
   }
 }
 
