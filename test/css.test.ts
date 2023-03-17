@@ -801,6 +801,13 @@ describe('resources', () => {
 }`,
       ],
       [
+        resolveCSS(UnunuraIdentifier.Style, { contents: ['list-type-disc', 'list-position-inside'], buffer: [], stack: [] }),
+        `.style-list-type-disc-list-position-inside {
+  list-style-type: disc;
+  list-style-position: inside;
+}`,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Shadow, { contents: ['black'], buffer: [], stack: [] }),
         `.shadow-black {
   box-shadow: 5px 5px 5px 0px black;

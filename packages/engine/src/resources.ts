@@ -41,6 +41,8 @@ import {
   getSupportedScroll,
   getSupportedScrollDirection,
   getSupportedTouch,
+  getSupportedListType,
+  getSupportedListPosition,
 } from './support'
 import { resolveCSS, resolveCssClass, resolveIdentifierInCSS } from './resolvers'
 import { validatePercentage, validateRGBA, validateSpreadAllResource } from './validate'
@@ -678,6 +680,11 @@ export const getResourceStyle = (identifier: UnunuraIdentifier, ctx: UnunuraGene
   const touch = findResourceInStart(ctx.contents, ['touch-'], { onlyValue: true, supporter: getSupportedTouch })
   const scroll = findResourceInStart(ctx.contents, ['scroll-'], { onlyValue: true })
   const select = findResourceInStart(ctx.contents, ['select-'], { onlyValue: true })
+  const listType = findResourceInStart(ctx.contents, ['list-type-'], { onlyValue: true, supporter: getSupportedListType })
+  const listPosition = findResourceInStart(ctx.contents, ['list-position-'], {
+    onlyValue: true,
+    supporter: getSupportedListPosition,
+  })
 
   let setter = setterHead(ctx)
   setter += setterRow(accent, `accent-color: ${accent}`, ctx.contents)
@@ -688,6 +695,8 @@ export const getResourceStyle = (identifier: UnunuraIdentifier, ctx: UnunuraGene
   setter += setterRow(resize, `resize: ${resize}`, ctx.contents)
   setter += setterRow(scroll, `scroll-behavior: ${scroll}`, ctx.contents)
   setter += setterRow(select, `user-select: ${select}`, ctx.contents)
+  setter += setterRow(listType, `list-style-type: ${listType}`, ctx.contents)
+  setter += setterRow(listPosition, `list-style-position: ${listPosition}`, ctx.contents)
 
   return resolveCssClass(identifier, setter, ctx)
 }

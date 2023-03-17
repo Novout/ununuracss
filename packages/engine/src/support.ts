@@ -10,6 +10,8 @@ import {
   isImageSize,
   isJustifyAlign,
   isJustifySelf,
+  isListType,
+  isListPosition,
   isNullable,
   isNumber,
   isNumberSuffix,
@@ -243,6 +245,14 @@ export const getSupportedScrollDirection = (contents: string[]): Nullable<string
 
 export const getSupportedScroll = (contents: string[]): string => {
   return contents.find((c) => isScroll(c)) ?? 'scroll'
+}
+
+export const getSupportedListType = ({ contents }: UnunuraGenerateContext): string => {
+  return contents.find((c) => isListType(c)) ?? NULLABLE
+}
+
+export const getSupportedListPosition = ({ contents }: UnunuraGenerateContext): string => {
+  return contents.find((c) => isListPosition(c)) ?? NULLABLE
 }
 
 export const getSupportedNumber = (ctx: UnunuraGenerateContext): Nullable<string> => {

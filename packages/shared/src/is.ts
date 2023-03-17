@@ -185,6 +185,8 @@ export const isBorderStyle = (i: string): boolean => ['solid', 'dotted', 'dashed
 export const isOutlineStyle = (i: string): boolean => ['solid', 'dotted', 'dashed', 'double'].some((c) => c === i)
 export const isSizer = (i: string): boolean => ['xs', 'sm', 'base', 'lg', 'xl'].some((c) => c === i)
 export const isScroll = (i: string): boolean => ['scroll', 'hidden', 'auto', 'clip', 'visible'].some((c) => c === i)
+export const isListType = (i: string): boolean => ['none', 'disc', 'decimal'].some((c) => c === i)
+export const isListPosition = (i: string): boolean => ['inside', 'outside'].some((c) => c === i)
 export const isCursor = (i: string): boolean =>
   [
     'auto',
