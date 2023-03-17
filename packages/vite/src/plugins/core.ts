@@ -28,21 +28,21 @@ export default (ununura: UnunuraOptions): PluginOption => {
       const filename = getFilename(id)
 
       if (isVueFile(id)) {
-        return await UnunuraScopedSFCFile(code, 'vue', filename, ununura)
+        return { code: await UnunuraScopedSFCFile(code, 'vue', filename, ununura), map: null }
       }
 
       if (isSvelteFile(id)) {
-        return await UnunuraScopedSFCFile(code, 'svelte', filename, ununura)
+        return { code: await UnunuraScopedSFCFile(code, 'svelte', filename, ununura), map: null }
       }
 
       if (isAstroFile(id)) {
-        return await UnunuraScopedSFCFile(code, 'astro', filename, ununura)
+        return { code: await UnunuraScopedSFCFile(code, 'astro', filename, ununura), map: null }
       }
 
       if (isJSXFile(id) && ununura.jsx) {
         if (ununura.jsxIgnoreEntryFile && isJSXEntryFile(id)) return null
 
-        return UnunuraJSXSFCFile(code, filename, ununura)
+        return { code: UnunuraJSXSFCFile(code, filename, ununura), map: null }
       }
     },
     resolveId(id) {
