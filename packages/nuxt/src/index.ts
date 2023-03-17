@@ -1,7 +1,6 @@
 import { addPluginTemplate, defineNuxtModule, isNuxt2 } from '@nuxt/kit'
 import type { NuxtPlugin } from '@nuxt/schema'
-import { resolveOptions } from 'packages/config/dist'
-import { ununura } from 'packages/vite/dist'
+import { ununura } from 'vite-plugin-ununura'
 import { UnunuraResolvableOptions } from 'ununura-shared'
 
 export default defineNuxtModule({
@@ -15,7 +14,9 @@ export default defineNuxtModule({
     specialEnvironment: 'nitro',
   } as UnunuraResolvableOptions,
   async setup(options, nuxt) {
-    const exportTemplate = isNuxt2() ? 'export default () => {}' : 'export default defineNuxtPlugin(() => {})'
+    const exportTemplate = isNuxt2()
+      ? 'export default () => {}'
+      : "import { defineNuxtPlugin } from '#imports'; export default defineNuxtPlugin(() => {})"
 
     addPluginTemplate({
       filename: 'ununura.mjs',
