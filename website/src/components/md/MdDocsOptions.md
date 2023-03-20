@@ -48,6 +48,8 @@ defaults: {
 }
 ```
 
+### extend (default: {})
+
 Extend default settings for special customizations.
 
 ```ts
