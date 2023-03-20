@@ -178,6 +178,12 @@ export interface UnunuraResolvableOptions {
    */
   specialEnvironment?: 'vite' | 'nitro' | 'astro' | 'runtime'
   /**
+   * Use https://github.com/danielroe/fontaine
+   *
+   * @default true
+   */
+  fontainePlugin?: boolean
+  /**
    * Apply the PostCSS autoprefixer package.
    *
    * @default true
@@ -326,6 +332,12 @@ export interface UnunuraOptions {
    * @default 'vite'
    */
   specialEnvironment: 'vite' | 'nitro' | 'astro' | 'runtime'
+  /**
+   * Use https://github.com/danielroe/fontaine
+   *
+   * @default true
+   */
+  fontainePlugin?: boolean
   /**
    * Apply the PostCSS autoprefixer package.
    *

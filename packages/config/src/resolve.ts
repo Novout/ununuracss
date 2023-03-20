@@ -25,6 +25,7 @@ export const resolvedOptions = (options: UnunuraResolvableOptions = {}): Ununura
     astAdapters: options?.astAdapters
       ? [...options.astAdapters, ...DEFAULT_ADAPTERS()].map((v) => v.toLowerCase())
       : DEFAULT_ADAPTERS().map((v) => v.toLowerCase()),
+    fontainePlugin: options?.fontainePlugin ?? true,
     scopedInTemplate: options?.scopedInTemplate ?? true,
     extend: options?.extend ?? {},
     specialEnvironment: options?.specialEnvironment ?? 'vite',

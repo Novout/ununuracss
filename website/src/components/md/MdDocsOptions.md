@@ -109,6 +109,10 @@ ununura({
 
 If you are using a framework that has the scoped option by default, such as vue and svelte, the generated css will be attached to the `<style>` of each component. Otherwise, it will be appended to 'ununura.css'. In general, do not change this option.
 
+### fontainePlugin (default: true)
+
+Use [Fontaine Plugin](https://github.com/danielroe/fontaine).
+
 ### specialEnvironment (default: 'vite')
 
 This option identifies custom HMRs such as astro or nitro. Do not interfere with this option.
