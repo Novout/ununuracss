@@ -182,7 +182,7 @@ describe('resources', () => {
       [
         resolveCSS(UnunuraIdentifier.Text, { contents: ['arial'], buffer: [], stack: [] }),
         `.text-arial {
-  font-family: 'Arial', sans-serif;
+  font-family: 'Arial', system-ui, sans-serif;
 }`,
       ],
       [
@@ -191,7 +191,7 @@ describe('resources', () => {
   color: #CC0000;
   font-size: 700px;
   font-weight: 700;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Arial', system-ui, sans-serif;
 }`,
       ],
       [
@@ -1054,7 +1054,7 @@ describe('resources', () => {
           ununura: { extend: { supporters: { fonts: [['roboto', 'Roboto']] } } } as any,
         }),
         `.text-roboto {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', system-ui, sans-serif;
 }`,
       ],
       [
@@ -1066,7 +1066,7 @@ describe('resources', () => {
         }),
         `.text-primary-roboto {
   color: #00FF00;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', system-ui, sans-serif;
 }`,
       ],
       [
@@ -1083,7 +1083,7 @@ describe('resources', () => {
         `.text-primary-roboto-md {
   color: #00FF00;
   font-size: 1.5rem;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', system-ui, sans-serif;
 }`,
       ],
       [
@@ -1095,6 +1095,17 @@ describe('resources', () => {
         }),
         `.text-4 {
   font-size: 1rem;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Text, {
+          contents: ['arial'],
+          buffer: [],
+          stack: [],
+          ununura: { defaults: { values: { fontStack: 'handwritten' } } } as any,
+        }),
+        `.text-arial {
+  font-family: 'Arial', 'Segoe Print', 'Bradley Hand', Chilanka, TSCu_Comic, casual, cursive;
 }`,
       ],
       [

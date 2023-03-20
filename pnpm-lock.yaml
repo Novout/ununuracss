@@ -145,14 +145,19 @@ importers:
       autoprefixer: ^10.4.13
       nanoid: 3.0.0
       postcss: ^8.4.21
+      ununura-font-stacks: workspace:*
       ununura-shared: workspace:*
       ununura-vue-sfc: workspace:*
     dependencies:
       autoprefixer: 10.4.13_postcss@8.4.21
       nanoid: 3.0.0
       postcss: 8.4.21
+      ununura-font-stacks: link:../font-stacks
       ununura-shared: link:../shared
       ununura-vue-sfc: link:../vue-sfc
+
+  packages/font-stacks:
+    specifiers: {}
 
   packages/nuxt:
     specifiers:

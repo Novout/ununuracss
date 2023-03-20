@@ -73,7 +73,7 @@ describe.concurrent('vue', () => {
 <style scoped>
 .text-2-app-arial-black {
   color: black;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Arial', system-ui, sans-serif;
 }
 @media (min-width: 768px) {
 .text-2-app-arial-black {
@@ -113,7 +113,7 @@ describe.concurrent('vue', () => {
 <style scoped>
 .text-2-app-arial-black {
   color: black;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Arial', system-ui, sans-serif;
 }
 @media (min-width: 768px) {
 .text-2-app-arial-black {
@@ -123,7 +123,7 @@ describe.concurrent('vue', () => {
 
 .text-3-app-arial-white {
   color: white;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Arial', system-ui, sans-serif;
 }
 
 @media (min-width: 768px) {
@@ -134,7 +134,7 @@ describe.concurrent('vue', () => {
 
 .text-4-app-arial-green {
   color: green;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Arial', system-ui, sans-serif;
 }
 
 @media (min-width: 768px) {

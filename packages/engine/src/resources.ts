@@ -13,6 +13,7 @@ import {
   Maybe,
   UnunuraSetterCSSOptions,
 } from 'ununura-shared'
+import { getFontFamilyCallback } from 'ununura-font-stacks'
 import {
   getSupportedAlignContent,
   getSupportedAlignItems,
@@ -375,7 +376,11 @@ export const getResourceText = (
   setter += setterRow(color, `color: ${color}`, ctx.contents)
   if (fontSize !== fontWeight) setter += setterRow(fontSize, `font-size: ${fontSize}`, ctx.contents)
   setter += setterRow(fontWeight, `font-weight: ${fontWeight}`, ctx.contents)
-  setter += setterRow(fontFamily, `font-family: '${fontFamily}', sans-serif`, ctx.contents)
+  setter += setterRow(
+    fontFamily,
+    `font-family: ${getFontFamilyCallback(`\'${fontFamily}\'`, ctx?.ununura?.defaults?.values?.fontStack || 'system-ui')}`,
+    ctx.contents
+  )
   setter += setterRow(strokeWidth, `-webkit-text-stroke-width: ${strokeWidth}`, ctx.contents)
   setter += setterRow(strokeColor, `-webkit-text-stroke-color: ${strokeColor}`, ctx.contents)
   setter += setterRow(fillColor, `-webkit-text-fill-color: ${fillColor}`, ctx.contents)

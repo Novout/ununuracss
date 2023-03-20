@@ -29,6 +29,24 @@ export type AstroSFC = string
 export type SFC = VueSFC | SvelteSFC | JSXSFC | AstroSFC
 export type SFCType = 'vue' | 'svelte' | 'astro'
 
+// https://github.com/system-fonts/modern-font-stacks
+export type FontStack =
+  | 'system-ui'
+  | 'transitional'
+  | 'old-style'
+  | 'humanist'
+  | 'geometric-humanist'
+  | 'classical-humanist'
+  | 'neo-grotesque'
+  | 'monospace-slab-serif'
+  | 'monospace-code'
+  | 'industrial'
+  | 'rounded-sans'
+  | 'slab-serif'
+  | 'antique'
+  | 'didone'
+  | 'handwritten'
+
 // Ununura Defaults
 export type UnunuraDefOrExtended = string
 

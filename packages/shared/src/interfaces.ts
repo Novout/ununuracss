@@ -1,4 +1,4 @@
-import { UnunuraContextualizeStack, Option, ValueOption, Symbol } from './types'
+import { UnunuraContextualizeStack, Option, ValueOption, Symbol, FontStack } from './types'
 
 export interface UnunuraSetterCSSOptions {
   removeWhitespaceInStart?: boolean
@@ -54,6 +54,7 @@ export interface UnunuraDefaultsContexts {
 }
 
 export interface UnunuraDefaultsValues {
+  fontStack?: FontStack
   unit?: [string, number]
 }
 

@@ -1,18 +1,15 @@
 {
-  "name": "ununura-engine",
+  "name": "ununura-font-stacks",
+  "private": true,
   "version": "1.6.6",
-  "description": "Atomic CSS Engine.",
+  "description": "Font-Stack collection based in .",
   "author": "Novout",
   "license": "MIT",
   "homepage": "https://ununura.com",
   "keywords": [
     "ununura",
-    "ununura-css",
     "atomic-css",
-    "css",
-    "vue",
-    "vite",
-    "nuxt"
+    "css"
   ],
   "sideEffects": false,
   "exports": {
@@ -32,13 +29,5 @@
     "dev": "tsup --watch",
     "build": "tsup",
     "build:minify": "tsup --minify"
-  },
-  "dependencies": {
-    "autoprefixer": "^10.4.13",
-    "nanoid": "3.0.0",
-    "postcss": "^8.4.21",
-    "ununura-font-stacks": "workspace:*",
-    "ununura-shared": "workspace:*",
-    "ununura-vue-sfc": "workspace:*"
   }
 }
