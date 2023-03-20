@@ -12,6 +12,7 @@ export const NULLABLE = '__NULLABLE__'
 
 export const DEFAULT_UNIT: [string, number] = ['px', 1]
 export const DEFAULT_FONT_STACK: FontStack = 'system-ui'
+export const DEFAULT_BROWSERSLIST: string[] = ['last 4 versions']
 export const DEFAULT_RESPONSIVE = {
   xs: '538px',
   sm: '640px',
