@@ -38,13 +38,14 @@ Modify some internal values.
 ```ts
 defaults: {
   values: {
-    unit: ['rem', 0.25]
+    // m:1 -> margin: 0.25rem;
+    // m:2 -> margin: 0.5rem;
+    // m:5 -> margin: 1.25rem;
+    unit: ['rem', 0.25],
+    // https://github.com/system-fonts/modern-font-stacks
+    fontStack: 'industrial'
   }
 }
-
-// m:1 -> margin: 0.25rem;
-// m:2 -> margin: 0.5rem;
-// m:5 -> margin: 1.25rem;
 ```
 
 Extend default settings for special customizations.
