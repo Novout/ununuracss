@@ -14,7 +14,7 @@ export const getFontFamilyCallback = (
       inline += 'system-ui, sans-serif'
       break
     case 'transitional':
-      inline += "'Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif'"
+      inline += "Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif"
       break
     case 'old-style':
       inline += "'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif"
