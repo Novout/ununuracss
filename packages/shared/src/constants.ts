@@ -1,3 +1,5 @@
+import { FontStack } from './types'
+
 export const UNUNURA_FLAG = '__UNUNURACSS__'
 export const VIRTUAL_CSS_INJECT_FILENAME = 'ununura.css'
 export const RESOLVED_VIRTUAL_CSS_INJECT_FILENAME = '\0' + VIRTUAL_CSS_INJECT_FILENAME
@@ -9,6 +11,7 @@ export const STANDARD_EXCLUDE_FILTER_SCAN = [/\.(css|sass|scss|less|stylus|styl)
 export const NULLABLE = '__NULLABLE__'
 
 export const DEFAULT_UNIT: [string, number] = ['px', 1]
+export const DEFAULT_FONT_STACK: FontStack = 'system-ui'
 export const DEFAULT_RESPONSIVE = {
   xs: '538px',
   sm: '640px',

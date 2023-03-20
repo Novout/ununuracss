@@ -12,6 +12,7 @@ import {
   isOutlineStyle,
   Maybe,
   UnunuraSetterCSSOptions,
+  DEFAULT_FONT_STACK,
 } from 'ununura-shared'
 import { getFontFamilyCallback } from 'ununura-font-stacks'
 import {
@@ -378,7 +379,7 @@ export const getResourceText = (
   setter += setterRow(fontWeight, `font-weight: ${fontWeight}`, ctx.contents)
   setter += setterRow(
     fontFamily,
-    `font-family: ${getFontFamilyCallback(`\'${fontFamily}\'`, ctx?.ununura?.defaults?.values?.fontStack || 'system-ui')}`,
+    `font-family: ${getFontFamilyCallback(`\'${fontFamily}\'`, ctx?.ununura?.defaults?.values?.fontStack || DEFAULT_FONT_STACK)}`,
     ctx.contents
   )
   setter += setterRow(strokeWidth, `-webkit-text-stroke-width: ${strokeWidth}`, ctx.contents)
