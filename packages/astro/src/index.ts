@@ -1,7 +1,7 @@
 import type { AstroIntegration } from 'astro'
 import { UnunuraResolvableOptions } from 'ununura-shared'
 import { resolveOptions } from 'ununura-config'
-import { ununura } from 'packages/vite/dist'
+import { ununura } from 'vite-plugin-ununura'
 
 export default function ununuraIntegration(def?: UnunuraResolvableOptions): AstroIntegration {
   return {

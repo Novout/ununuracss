@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "ununura-config": "workspace:*",
-    "ununura-engine": "workspace:*",
     "ununura-shared": "workspace:*",
     "vite-plugin-ununura": "workspace:*"
   }

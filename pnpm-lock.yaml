@@ -123,12 +123,10 @@ importers:
   packages/astro:
     specifiers:
       ununura-config: workspace:*
-      ununura-engine: workspace:*
       ununura-shared: workspace:*
       vite-plugin-ununura: workspace:*
     dependencies:
       ununura-config: link:../config
-      ununura-engine: link:../engine
       ununura-shared: link:../shared
       vite-plugin-ununura: link:../vite
 
