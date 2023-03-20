@@ -161,12 +161,10 @@ importers:
     specifiers:
       '@nuxt/kit': ^3.3.1
       '@nuxt/schema': ^3.3.1
-      ununura-engine: workspace:*
       ununura-shared: workspace:*
       vite-plugin-ununura: workspace:*
     dependencies:
       '@nuxt/kit': 3.3.1
-      ununura-engine: link:../engine
       ununura-shared: link:../shared
       vite-plugin-ununura: link:../vite
     devDependencies:
