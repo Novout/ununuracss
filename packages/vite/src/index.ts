@@ -7,5 +7,9 @@ import EXTERNAL_FONTAINE from './plugins/fontaine'
 export const ununura = async (options?: UnunuraResolvableOptions): Promise<PluginOption[]> => {
   const _options = await resolveOptions(options)
 
-  return [CORE(_options), EXTERNAL_FONTAINE]
+  const plugins: PluginOption[] = [CORE(_options)]
+
+  if (_options.fontainePlugin) plugins.push(EXTERNAL_FONTAINE)
+
+  return plugins
 }

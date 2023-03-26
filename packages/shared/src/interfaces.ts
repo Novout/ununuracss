@@ -337,7 +337,7 @@ export interface UnunuraOptions {
    *
    * @default true
    */
-  fontainePlugin?: boolean
+  fontainePlugin: boolean
   /**
    * Apply the PostCSS autoprefixer package.
    *
