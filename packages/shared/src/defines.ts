@@ -18,6 +18,13 @@ export const NOVOUT_RESET_CSS = () => `* {
   -moz-user-select: text;
   -webkit-tap-highlight-color: transparent;
 }  
+
+*, ::before, ::after {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: #FFFFFF;
+}
 `
 
 export const MEYER_RESET_CSS = () => `/* http://meyerweb.com/eric/tools/css/reset/ 
