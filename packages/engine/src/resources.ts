@@ -495,6 +495,11 @@ export const getResourceTypography = (identifier: UnunuraIdentifier, ctx: Ununur
   const space = findResourceInStart(ctx.contents, ['space-'], { onlyValue: true })
   const _break = findResourceInStart(ctx.contents, ['break-'], { onlyValue: true })
   const align = findResource(ctx.contents, ['left', 'right', 'center', 'justify', 'initial', 'inherit'])
+  const webkitClamp = findResourceInStart(ctx.contents, ['line-clamp-'], {
+    onlyValue: true,
+    ignoreSuffixValue: true,
+    supporter: getSupportedNumber,
+  })
 
   const inCss = resolveIdentifierInCSS(identifier)
 
@@ -509,6 +514,7 @@ export const getResourceTypography = (identifier: UnunuraIdentifier, ctx: Ununur
   setter += setterRow(space, `white-space: ${space}`, ctx.contents)
   setter += setterRow(_break, `word-break: ${_break}`, ctx.contents)
   setter += setterRow(align, `text-align: ${align}`, ctx.contents)
+  setter += setterRow(webkitClamp, `-webkit-line-clamp: ${webkitClamp}`, ctx.contents)
 
   return resolveCssClass(identifier, setter, ctx)
 }

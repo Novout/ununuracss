@@ -410,6 +410,11 @@ const list = ref([
         supporter: ['left', 'right', 'center', 'justify', 'initial', 'inherit'],
         example: 'typo[justify]',
       },
+      {
+        inCss: '-webkit-line-clamp',
+        supporter: 'in-start',
+        example: 'typo[line-clamp-2]',
+      },
     ],
   },
   {

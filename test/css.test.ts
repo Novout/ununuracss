@@ -695,6 +695,12 @@ describe('resources', () => {
 }`,
       ],
       [
+        resolveCSS(UnunuraIdentifier.Typography, { contents: ['line-clamp-2'], buffer: [], stack: [] }),
+        `.typography-line-clamp-2 {
+  -webkit-line-clamp: 2;
+}`,
+      ],
+      [
         resolveCSS(UnunuraIdentifier.Transform, { contents: ['rotateX-90deg'], buffer: [], stack: [] }),
         `.transform-rotatex-90deg {
   transform: rotateX(90deg);

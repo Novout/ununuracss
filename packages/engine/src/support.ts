@@ -255,14 +255,19 @@ export const getSupportedListPosition = ({ contents }: UnunuraGenerateContext): 
   return contents.find((c) => isListPosition(c)) ?? NULLABLE
 }
 
-export const getSupportedNumber = (ctx: UnunuraGenerateContext): Nullable<string> => {
+export const getSupportedNumber = (ctx: UnunuraGenerateContext, ignoreSuffixSetter?: boolean): Nullable<string> => {
   const [defUnit, defMultiplier] = getExistentDefaultUnit(ctx)
   const extended = getExtendedSupporterUnits(ctx)
 
   const suffixed = ctx.contents.find((c) => isNumberSuffix(c) && isNumber(c[0]))
 
   const def = ctx.contents.find((c) => isNumber(c) && isNumber(c[0]))
-  const defSet = def?.endsWith('px') ? def : def ? `${Number(def) * defMultiplier}${defUnit}` : undefined
+  const defSet =
+    def?.endsWith('px') && !ignoreSuffixSetter
+      ? def
+      : def
+      ? `${Number(def) * defMultiplier}${!ignoreSuffixSetter ? defUnit : ''}`
+      : undefined
 
   return extended ? String(extended) : suffixed ?? defSet ?? NULLABLE
 }

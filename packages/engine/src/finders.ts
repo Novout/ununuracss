@@ -10,6 +10,7 @@ export const findResourceInStart = (
   options?: {
     onlyValue?: boolean
     onlySpreadValue?: boolean
+    ignoreSuffixValue?: boolean
     validate?: 'timer'
     supporter?: (contents: UnunuraGenerateContext) => Nullable<string>
   }
@@ -20,6 +21,10 @@ export const findResourceInStart = (
   if (!resourceContent || !resourceTarget) return NULLABLE
   const splitted = resourceContent.replace(resourceTarget, '')
 
+  // TODO: external API for this
+  if (options?.supporter && options?.ignoreSuffixValue)
+    // @ts-expect-error
+    return options?.supporter({ contents: [splitted], stack: [], buffer: [] }, true)
   if (options?.supporter) return options?.supporter({ contents: [splitted], stack: [], buffer: [] })
 
   if (options?.onlyValue) return splitted
