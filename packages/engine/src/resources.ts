@@ -258,6 +258,15 @@ export const getResourceScroll = (
   return resolveCssClass(identifier, setter, ctx)
 }
 
+export const getResourceOpacity = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateContext): string => {
+  const quantity = getSupportedNumber(ctx, true)
+
+  let setter = setterHead(ctx)
+  setter += setterRow(quantity, `opacity: ${quantity}`, ctx.contents)
+
+  return resolveCssClass(identifier, setter, ctx)
+}
+
 export const getResourceDisplay = (
   identifier: UnunuraIdentifier,
 

@@ -895,6 +895,24 @@ describe('resources', () => {
   overflow-y: auto;
 }`,
       ],
+      [
+        resolveCSS(UnunuraIdentifier.Opacity, { contents: ['0.5'], buffer: [], stack: [] }),
+        `.opacity-05 {
+  opacity: 0.5;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Opacity, { contents: ['0'], buffer: [], stack: [] }),
+        `.opacity-0 {
+  opacity: 0;
+}`,
+      ],
+      [
+        resolveCSS(UnunuraIdentifier.Opacity, { contents: ['1'], buffer: [], stack: [] }),
+        `.opacity-1 {
+  opacity: 1;
+}`,
+      ],
     ]
 
     for (const [css, result] of targets) {

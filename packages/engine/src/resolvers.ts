@@ -33,6 +33,7 @@ import {
   getResourceGradient,
   getResourceAnimation,
   getResourceCollection,
+  getResourceOpacity,
 } from './resources'
 import { TemplateClassResponsive, TemplateDefaultClass } from './template'
 import { asResponsiveInContext, asThemeInContext, getUniqueIdentifier } from './unifier'
@@ -146,6 +147,9 @@ export const resolveIdentifierInCSS = (identifier: UnunuraIdentifier): string =>
     case UnunuraIdentifier.Collection:
     case UnunuraIdentifier.CollectionExtended:
       return 'collection'
+    case UnunuraIdentifier.Collection:
+    case UnunuraIdentifier.CollectionExtended:
+      return 'opacity'
     case UnunuraIdentifier.Reset:
       return 'reset'
   }
@@ -226,6 +230,9 @@ export const resolveCSS = (identifier: UnunuraIdentifier, ctx: UnunuraGenerateCo
     case UnunuraIdentifier.Collection:
     case UnunuraIdentifier.CollectionExtended:
       return getResourceCollection(identifier, ctx)
+    case UnunuraIdentifier.Opacity:
+    case UnunuraIdentifier.OpacityExtended:
+      return getResourceOpacity(identifier, ctx)
     case UnunuraIdentifier.Reset: //global
       return NULLABLE
     default:

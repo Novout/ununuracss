@@ -23,6 +23,8 @@ export enum UnunuraIdentifier {
   PositionExtended = 'position',
   Scroll = 'sc',
   ScrollExtended = 'scroll',
+  Opacity = 'op',
+  OpacityExtended = 'opacity',
   Shadow = 'sh',
   ShadowExtended = 'shadow',
   Rounded = 'r',
@@ -49,7 +51,7 @@ export enum UnunuraIdentifier {
   AnimationExtended = 'animation',
   Collection = 'cl',
   CollectionExtended = 'collection',
-  Reset = 'reset'
+  Reset = 'reset',
 }
 
 export enum UnunuraGlobals {

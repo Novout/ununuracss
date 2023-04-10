@@ -95,6 +95,9 @@ export const getUniqueIdentifier = (identifier: UnunuraIdentifier): Nullable<str
     case UnunuraIdentifier.Collection:
     case UnunuraIdentifier.CollectionExtended:
       return 'collection'
+    case UnunuraIdentifier.Opacity:
+    case UnunuraIdentifier.OpacityExtended:
+      return 'opacity'
     case UnunuraIdentifier.Reset: //global
       return 'reset'
     default:

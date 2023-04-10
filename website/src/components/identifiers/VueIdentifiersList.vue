@@ -300,6 +300,17 @@ const list = ref([
   },
   {
     open: false,
+    keys: ['op', 'opacity'],
+    resources: [
+      {
+        inCss: 'opacity',
+        supporter: 'number',
+        example: 'op:0.5',
+      },
+    ],
+  },
+  {
+    open: false,
     keys: ['z', 'zindex'],
     resources: [
       {
