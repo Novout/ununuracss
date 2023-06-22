@@ -44,7 +44,7 @@
     "concurrently": "^7.6.0",
     "execa": "^6.1.0",
     "fast-glob": "^3.2.12",
-    "fontaine": "^0.3.1",
+    "fontaine": "^0.4.0",
     "generi": "^1.2.1",
     "hast": "^1.0.0",
     "hast-util-from-html": "^1.0.1",

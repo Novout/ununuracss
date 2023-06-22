@@ -33,11 +33,11 @@
     "build:minify": "tsup --minify"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.4.3",
+    "@nuxt/kit": "^3.5.3",
     "ununura-shared": "workspace:*",
     "vite-plugin-ununura": "workspace:*"
   },
   "devDependencies": {
-    "@nuxt/schema": "^3.4.3"
+    "@nuxt/schema": "^3.5.3"
   }
 }
