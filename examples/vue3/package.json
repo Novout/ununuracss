@@ -7,5 +7,6 @@
   },
   "dependencies": {
     "vite-plugin-ununura": "workspace:*"
-  }
+  },
+  "version": "1.6.19"
 }
