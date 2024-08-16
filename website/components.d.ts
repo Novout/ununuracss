@@ -5,7 +5,7 @@ import '@vue/runtime-core'
 
 export {}
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   export interface GlobalComponents {
     Aside: typeof import('./src/components/Aside.vue')['default']
     AsideCategory: typeof import('./src/components/AsideCategory.vue')['default']
