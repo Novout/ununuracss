@@ -61,8 +61,8 @@
     "svelte": "^3.55.1",
     "svelte-check": "^2.10.3",
     "tslib": "^2.5.0",
-    "tsup": "^6.7.0",
-    "typescript": "^4.9.5",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2",
     "vite": "^4.1.4",
     "vite-plugin-inspect": "^0.7.15",
     "vitest": "^0.29.2"
